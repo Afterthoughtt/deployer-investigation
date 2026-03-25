@@ -1,0 +1,161 @@
+{
+  "metadata": {
+    "description": "Complete launch history and behavioral profile for serial pump.fun deployer",
+    "updated": "2026-03-19"
+  },
+  "behavioral_profile": {
+    "launch_cadence": "Approximately once per month",
+    "program": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+    "instruction": "create_and_buy",
+    "supply_purchased_pct": "30-35%",
+    "sol_spent_range": { "min": 11.64, "max": 14.81 },
+    "fresh_wallet_per_launch": true,
+    "funding_source": "Fiat on-ramp (Coinbase L1-L9, MoonPay L10)",
+    "post_deploy_sequence": [
+      "Distribute SPL tokens to 6 bundle wallets within seconds",
+      "Bundle wallets sell via BloomBot coordinated selling",
+      "Profits route through OG deployer (37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2)",
+      "Then to collection wallet (Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34)",
+      "Then to exchanges (Coinbase, Binance, Rollbit)"
+    ],
+    "launch_time_window_utc": { "earliest": "18:00", "latest": "23:43" },
+    "funding_to_launch_gap_hours": { "average_min": 12, "average_max": 17, "max_observed": 26 }
+  },
+  "launches": {
+    "L1": {
+      "token_name": "ArkXRP",
+      "ticker": "ArkXRP",
+      "ca": "2rQcoMECcsU3UBNfpsUxegnHc9js7usb2XagwUK3pump",
+      "date": "2025-06-15",
+      "created_utc": "2025-06-15T15:57:57Z",
+      "funding_source": "Coinbase",
+      "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "sol_spent": null,
+      "notes": "Used OG deployer directly (pre-fresh-wallet era)"
+    },
+    "L2": {
+      "token_name": "DogwifXRP",
+      "ticker": "DogwifXRP",
+      "ca": "8mETm8mxyn7gP1igZLv4DryquuYLjcekkrQBVpZpFHvC",
+      "date": "2025-07-20",
+      "created_utc": "2025-07-20T18:09:58Z",
+      "funding_source": "Coinbase",
+      "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "sol_spent": null,
+      "notes": "Used OG deployer directly"
+    },
+    "L3": {
+      "token_name": "WallfishXRP",
+      "ticker": "WFXRP",
+      "ca": "FnzYzrkRL1JLHmxS8QctidKDGJgJRa6BN4QH3hkVpump",
+      "date": "2025-08-24",
+      "created_utc": "2025-08-24T18:36:21Z",
+      "funding_source": "Coinbase",
+      "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "sol_spent": null,
+      "notes": "Used OG deployer directly"
+    },
+    "L4": {
+      "token_name": "XRPepe",
+      "ticker": "XRPEP3",
+      "ca": "5K7ufVK7cGwU8vd66bFAzHgijVK8RoWZBxtMmvW1pump",
+      "date": "2025-09-28",
+      "created_utc": "2025-09-28T17:51:54Z",
+      "funding_source": "Coinbase",
+      "deployer": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "funded_by": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "funded_utc": "2025-09-28T05:57:25Z",
+      "sol_spent": null,
+      "notes": "First launch with fresh wallet. Funded by hub wallet."
+    },
+    "L5": {
+      "token_name": "TrollXRP",
+      "ticker": "TrollXRP",
+      "ca": "CDjuuYYY9dGA85iojEhpRwjYhGRv6VAPyoKan5ytpump",
+      "date": "2025-11-02",
+      "created_utc": "2025-11-02T19:28:36Z",
+      "funding_source": "Coinbase",
+      "deployer": "DBmxMiP8xeiZ4T45AviCjZCmmmTFETFU8VtsC8vdJZWy",
+      "funded_by": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "funded_utc": "2025-11-02T16:55:07Z",
+      "sol_spent": null,
+      "notes": "Funded by hub wallet."
+    },
+    "L6": {
+      "token_name": "RainXRP",
+      "ticker": "RXRP",
+      "ca": "3VQU1DgaLE6E49HhqvH73Azsin8gAZRc14cvyV4hpump",
+      "date": "2025-11-30",
+      "created_utc": "2025-11-30T23:43:26Z",
+      "funding_source": "Coinbase",
+      "deployer": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y",
+      "funded_by": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "funded_utc": "2025-11-30T19:02:41Z",
+      "sol_spent": 14.02,
+      "notes": "Funded via OG deployer sending 8.85 SOL. Also used for JAKEY test token (2025-12-22)."
+    },
+    "L7": {
+      "token_name": "QuantumX",
+      "ticker": "QTX",
+      "ca": "AvMdYR4dVLatpMa3YecWhDrerXp5Wx7sNLNTyiA3pump",
+      "date": "2026-01-18",
+      "created_utc": "2026-01-18T22:21:05Z",
+      "funding_source": "Coinbase",
+      "deployer": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+      "funded_by": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "funded_utc": "2026-01-17T19:56:25Z",
+      "sol_spent": 13.83,
+      "notes": "Deployer wallet also used as bundle gas funder"
+    },
+    "L8": {
+      "token_name": "GreenlandSilverBank",
+      "ticker": "GSBANK",
+      "ca": "5f2KbZjnJEnPpW5JqY53mv2cDH7MLixUUgxCFnLBpump",
+      "date": "2026-01-31",
+      "created_utc": "2026-01-31T20:54:31Z",
+      "funding_source": "Coinbase",
+      "deployer": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+      "funded_by": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+      "funded_utc": "2026-01-31T10:46:59Z",
+      "sol_spent": 14.81,
+      "notes": "Funded by L7 deployer"
+    },
+    "L9": {
+      "token_name": "Brad Cupidhouse",
+      "ticker": "CUPID",
+      "ca": "GytQthjDhj3pE9seoZ6ir35VBBH86U22ntkGJndQpump",
+      "date": "2026-02-13",
+      "created_utc": "2026-02-13T21:46:20Z",
+      "funding_source": "Coinbase",
+      "deployer": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot",
+      "funded_by": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
+      "funded_utc": "2026-02-13T06:41:42Z",
+      "sol_spent": 11.85,
+      "notes": "First launch where CoinSpot insider (DmA9Jab) appeared — $11,070 volume"
+    },
+    "L10": {
+      "token_name": "XAIC",
+      "date": "2026-03-15",
+      "funding_source": "MoonPay",
+      "deployer": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+      "sol_spent": 13.31,
+      "timeline_utc": {
+        "funded": "2026-03-15T04:51:00Z",
+        "funded_amount_sol": 13.443,
+        "funding_wallet": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
+        "deployed": "2026-03-15T21:40:44Z",
+        "funding_to_launch_hours": 16.8,
+        "bundle_distribution": "2026-03-15T21:40:47Z",
+        "bundle_sell_start": "2026-03-15T22:09:45Z",
+        "insider_buy": "2026-03-15T21:40:45Z"
+      },
+      "notes": "MISSED. First non-Coinbase funding (MoonPay via Phantom Buy button). CoinSpot insider bought 1 second after deploy ($11,815 volume). Miss reason: Coinbase-only sieve."
+    }
+  },
+  "profit_benchmark": {
+    "token": "RXRP",
+    "to_deployer_network_usd": 57000,
+    "to_external_influencers_usd": 21700,
+    "to_external_traders_whales_usd": 39000
+  }
+}
