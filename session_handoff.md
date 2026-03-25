@@ -5,7 +5,7 @@ Track a serial pump.fun deployer on Solana to identify their next fresh wallet (
 
 ## Current Status
 - **Phase**: investigating (side projects + insiders complete, moving to remaining unknowns + MoonPay + L10 buyers + live sieve)
-- **Progress**: Deployers verified, infrastructure verified, bundle wallets verified, audit & cleanup complete, profit routing wallets PROFILED, side projects & insiders PROFILED. CJVEFd and 9J9VHo RESOLVED as BloFin insider associated. MoonPay cluster NOT yet mapped. L10 early buyers NOT yet pulled. Live sieve NOT yet built.
+- **Progress**: Deployers verified, infrastructure verified, bundle wallets verified, audit & cleanup complete, profit routing wallets PROFILED, side projects & insiders PROFILED, CJVEFd/9J9VHo CONFIRMED as zougz's wallets, CoinSpot insider classified as likely deployer insider/family. 4 wallets NOT YET PROFILED (7RLD6F9S, yNanvu8H, E2NnJHhc, chrisV). MoonPay cluster NOT yet mapped. L10 early buyers NOT yet pulled. Live sieve NOT yet built.
 - **Blocked**: No — all three APIs (Helius, Nansen, Arkham) are working. Project backed up to GitHub.
 
 ## What Was Done This Session
@@ -78,13 +78,13 @@ Track a serial pump.fun deployer on Solana to identify their next fresh wallet (
 
 ## Key Decisions
 
-- **CJVEFd and 9J9VHo reclassified as BloFin insider associated**: Both are counterparties of BloFin insider hub ($11.8K and $17.4K respectively). Both labeled "BloomBot Trading Bot User" by Nansen. They trade on deployer's launches but are NOT deployer-controlled wallets. Removed from L11 watchlist.
+- **CJVEFd and 9J9VHo CONFIRMED as zougz's own wallets**: Deep dive proved both are DIRECTLY funded by BDVgXauN (zougz hub). Funding chain: wallet → zougz hub → Crypto.com Hot Wallet 1. All SOL flows exclusively to/from zougz hub. Not associates — his own sub-wallets. Removed from L11 watchlist.
+
+- **CoinSpot insider is likely deployer's insider/family** (user assessment): SUSYE deployer funded by Coinbase CB7 (deployer's exchange). Not coincidence. Deep dive: 98KvdqZJ is SUSYE's own trading wallet, F7oLGB1U is pure cashout passthrough to CoinSpot. No direct deployer-network wallet connections, but the CB7 seeding is the key link. Keep this network monitored.
 
 - **Eggsheeran added to L11 intermediary watchlist**: 35 network connections, sends $6.7K to l9_funder (who funded L9). Could serve as intermediary funder for L11.
 
 - **jetnut_network added to L11 intermediary watchlist**: 7.9 SOL balance, funded by Hub intermediary, active Mar 23. Has SOL to potentially fund a fresh deployer.
-
-- **SUSYE deployer funded by Coinbase CB7**: Notable overlap — CoinSpot insider's deployer wallet was initially funded by the same Coinbase infrastructure the main deployer uses. Could indicate a loose association or coincidence.
 
 ## Next Steps (ordered)
 
@@ -114,7 +114,7 @@ Track a serial pump.fun deployer on Solana to identify their next fresh wallet (
 - **Active network wallets to watch**: cold_usdc_2 (EAcUbdoi, last Mar 20, 1.97 SOL), routes_binance (DcEYX34v, last Mar 22, 0 SOL), jetnut_network (FSbvLdrK, last Mar 23, 7.9 SOL), eggsheeran (DuCzGNzS, last Mar 21, 0.05 SOL).
 - **Coinbase deposit naming**: Helius calls CB1 "Coinbase Hot Wallet 9" — project numbering (CB1-CB10) is internal.
 - **Fireblocks wallets in network**: Collection (Bra1HUNK), 9exPdTUV, 9cDDJ5g2, 2q8nSJgC, 7RLD6F9S, Token Millionaire, LFS.
-- **NOT YET PROFILED**: 7RLD6F9S (Fireblocks, receives $6.6K from network — outflows unknown), yNanvu8H ($2.2K USDC from cold_usdc_2 — completely unknown), E2NnJHhc ($2K/70 txs with OG — unprofilied), chrisV (L8-L9 position #3 — unprofiled).
+- **NOT YET PROFILED**: 7RLD6F9S (Fireblocks, receives $6.6K from network — outflows unknown), yNanvu8H ($2.2K USDC from cold_usdc_2 — completely unknown), E2NnJHhc ($2K/70 txs with OG — unprofiled), chrisV (L8-L9 position #3 — unprofiled).
 - **Ed4UGBWK Rollbit deposits UNVERIFIED**: RB5KKB7h and RB2Yz3VS have no raw data.
 - **tsx -e doesn't support top-level await**: Always write .ts files.
 - **jetnut_deployer (52eC8Uy5CDSJhR) is CLOSED**: Zero from all APIs. Do not re-query.
