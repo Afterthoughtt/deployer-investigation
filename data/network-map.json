@@ -93,30 +93,48 @@
     }
   },
   "side_projects": {
-    "jetnut_deployer": "52eC8Uy5CDSJhRao7RgFfBASsmePEJP7dGbUQa9gNJeW",
-    "jetnut_network": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE",
-    "eggsheeran": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8"
+    "jetnut_deployer": {
+      "address": "52eC8Uy5CDSJhRao7RgFfBASsmePEJP7dGbUQa9gNJeW",
+      "notes": "CLOSED ACCOUNT — profiled 2026-03-25. Zero from all 3 APIs (balance, sigs, funded-by 404). Different from l9_funder (52eC8Uy5eFkw)."
+    },
+    "jetnut_network": {
+      "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE",
+      "notes": "Profiled 2026-03-25. STILL ACTIVE (Mar 23). 7.9 SOL. Funded by DfwNaPDh (Hub intermediary). 13 network connections. Sends $2.7K to Coinbase Deposit 2, $1.5K to 7RLD6F9S Fireblocks, $480 to Bundle 2. Receives $814 from routes_binance, $812 from LFS. Trades XAIC, DOGWIFXRP, QTX. Active deployer-network trader. L11 intermediary watchlist."
+    },
+    "eggsheeran": {
+      "address": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8",
+      "notes": "Profiled 2026-03-25. CRITICAL NODE — 35 network connections. Arkham: 'andrewpapd' on Pump.fun. Funded by MoonPay MP1. Sends $6.7K to l9_funder, $6.3K to L7, $4.8K to cold_usdc_2, $1.8K to coinbase_deposit, $1.2K to collection. Receives $5.5K from OG, $3.1K from Hub, bundles. Deployed 8+ tokens. Sends $378 to Solcasino.io (gambling). MUST be in L11 intermediary watchlist — could fund L11."
+    }
   },
   "insiders": {
     "coinspot_insider": {
-      "notes": "Active since L9, bought L10 token 1 second after deploy. Uses BloomBot. Receives bundled tokens directly from deployer's bundles.",
+      "notes": "Profiled 2026-03-25. Likely deployer insider/family (user assessment). Active since L9, bought L10 1 second after deploy. Uses BloomBot. Funded by CoinSpot exchange (sigmurzkferog.sol, funded by Binance 6, 12657 SOL balance). SUSYE deployer funded by Coinbase CB7 (deployer's exchange). 98KvdqZJ is SUSYE's trading wallet. F7oLGB1U is cashout passthrough (4916Nkdu → F7oLGB1U → CoinSpot). All profits cycle through CoinSpot ($17.6K+).",
       "trading_wallet": "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
       "token_trading_wallet": {
         "address": "4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh",
         "notes": "Funded by CoinSpot exchange wallet. Receives bundled tokens from Bundle 1 only (2x 12.5M tokens, L9+L10 launches). Trades XAIC on Pump.fun ($4.6K). Sends SOL to F7oLGB1U ($5.2K). CORRECTED 2026-03-24 — was 'Bundle 1 + Bundle 3', Helius confirms Bundle 1 only."
       },
-      "collection": "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+      "collection": {
+        "address": "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+        "notes": "Profiled 2026-03-25. Funded by SUSYE Deployer. Pure collection: receives $9.1K from trading + $6.8K from SUSYE deployer. ALL outflows to CoinSpot ($17.6K). Last active Mar 22."
+      },
       "exchange": "CoinSpot (CSEncqtqbmNRjve42sNnbs5c)",
-      "connected_susye_deployer": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "connected_susye_deployer": {
+        "address": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+        "notes": "Profiled 2026-03-25. Funded by Coinbase CB7 (deployer's exchange!). 0 SOL, active through Mar 20. Nansen: deployed 'Kanye's Cousin' token. Uses CoinSpot (primary), MEXC ($955/$848), Bybit ($755/$419). Intermediary 98KvdqZJ for profit cycling. CB7 funding is notable overlap with deployer network."
+      },
       "volume": {
         "L9": 11070,
         "L10": 11815
       }
     },
     "blofin_insider": {
-      "notes": "Separate network, positions #5-10 historically",
+      "notes": "Profiled 2026-03-25. COMPLETELY SEPARATE NETWORK. Funded by Crypto.com (deployer uses Coinbase/MoonPay). Arkham: 'zougz' on Pump.fun. Massive trader ($192K Photon, $44K OKX DEX). Deploys tokens (Potcat, Thicc Froq, etc). Sends profits to BloFin via passthrough. CRITICAL: counterparty with both 9J9VHoLW ($17.4K) and CJVEFdRS ($11.8K) — resolves these as BloFin-associated, not deployer-controlled.",
       "hub": "BDVgXauNbs7AQEqgPich2hUANu6oLf9VQEuXqL2q3Q5a",
-      "blofin_passthrough": "33KoLeWrpGXNGXCcnMbexfhyk9hJRMk5dU78dMyWTc9A"
+      "blofin_passthrough": {
+        "address": "33KoLeWrpGXNGXCcnMbexfhyk9hJRMk5dU78dMyWTc9A",
+        "notes": "Profiled 2026-03-25. Arkham: 'BloFin Deposit'. Pure passthrough: hub → passthrough → BloFin exchange (3V11R3pE). $3.1K total. Last active Feb 15."
+      }
     }
   },
   "onramp_hot_wallets": {

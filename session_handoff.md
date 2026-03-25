@@ -1,47 +1,62 @@
-# Session Handoff - 2026-03-25T03:00:00Z
+# Session Handoff - 2026-03-25T06:00:00Z
 
 ## Goal
 Track a serial pump.fun deployer on Solana to identify their next fresh wallet (L11) before `create_and_buy` fires, enabling a block-0 snipe via Bloom bot whitelist.
 
 ## Current Status
-- **Phase**: investigating (profit routing complete, moving to side projects + insiders)
-- **Progress**: Deployers verified, infrastructure verified, bundle wallets verified, audit & cleanup complete, profit routing wallets PROFILED. Side projects and insiders NOT yet reviewed. Unresolved recurring wallets NOT yet investigated. MoonPay cluster NOT yet mapped. L10 early buyers NOT yet pulled. Live sieve NOT yet built.
+- **Phase**: investigating (side projects + insiders complete, moving to remaining unknowns + MoonPay + L10 buyers + live sieve)
+- **Progress**: Deployers verified, infrastructure verified, bundle wallets verified, audit & cleanup complete, profit routing wallets PROFILED, side projects & insiders PROFILED. CJVEFd and 9J9VHo RESOLVED as BloFin insider associated. MoonPay cluster NOT yet mapped. L10 early buyers NOT yet pulled. Live sieve NOT yet built.
 - **Blocked**: No — all three APIs (Helius, Nansen, Arkham) are working. Project backed up to GitHub.
 
 ## What Was Done This Session
 
-### Profiled 8 Profit Routing Wallets
-- Created `src/profile-profit-routing.ts` — 3-API deep investigation script (Helius balance/identity/funded-by/sigs/transfers + Nansen related/counterparties + Arkham intel/transfers + Layer 2 funder tracing)
-- Ran against: profit_pass_1, profit_pass_2, cold_usdc_1, cold_usdc_2, coinbase_deposit, binance_deposit, rollbit_deposit, routes_binance
-- Raw results saved to `data/results/raw/profit-routing-profiles.json`
+### Profiled 8 Side Project & Insider Wallets
+- Created `src/profile-side-projects-insiders.ts` — 3-API investigation script
+- Raw results saved to `data/results/raw/side-projects-insiders-profiles.json`
 - Credit cost: ~2488 Helius + 48 Nansen + Arkham free
 
-### Comprehensive Audit of Results
-- Verified ALL funded-by addresses against raw JSON (8 L1 + 4 L2 funders)
-- Verified ALL Arkham labels (Coinbase Deposit, Binance Deposit, Rollbit Deposit confirmed)
-- Verified Nansen counterparty volumes against raw JSON ($247K Ed4UGBWK, $235K Rollbit Treasury, etc.)
-- Caught and corrected 5 errors before writing to investigation notes:
-  1. cold_usdc_2 "1000 SOL from l9_funder" → actually 1000 pump.fun tokens (mint `KfByHk48...pump`)
-  2. cold_usdc_2 "2200 SOL to yNanvu8H" → actually $2,200 USDC (mint `EPjFWdd5...`)
-  3. routes_binance "5M SOL" and "28M SOL" → pump.fun token transfers, not SOL
-  4. 9cDDJ5g2 listed as "new unknown" → already profiled in investigation-notes.json line 167
-  5. 7RLD6F9S listed as unknown → Arkham labels it "Fireblocks Custody" (missed in initial read)
-
 ### Key Findings
-- **binance_deposit (21wG4F3Z) is NOT deployer-specific** — zero network connections, generic Binance deposit. Moved to `not_network` section. Real deployer Binance deposit is `Fx7gAJpkhWUBWRLa8igKwAkMdLG58mCnoyL9dCKfnZo3` (Nansen: "Binance: Deposit"), receives $1K from routes_binance.
-- **Coinbase-Rollbit gambling cycle confirmed**: CB1-CB10 send $184K+ INTO rollbit_deposit → $233K deposited to Rollbit Treasury. Deployer cashes out via Coinbase, then recycles funds to Rollbit gambling.
-- **coinbase_deposit (J6YUyB4P) is the PRIMARY cashout**: $235K Rollbit winnings + $40K+ network inflows → $265K+ out to all 10 CB hot wallets.
-- **7RLD6F9SiFvtdqW4bYpy4m8D3mum7xVdZUSjzv1TWJaf** — new Fireblocks Custody wallet receiving $6.6K SOL from cold_usdc_2 ($4K) + routes_binance ($2.6K). Needs further profiling.
-- **Hub→DfwNaPDh→routes_binance** chain confirmed (DfwNaPDh funded by Hub Wallet).
-- **cold_usdc_2 (EAcUbdoi) STILL ACTIVE** — last activity Mar 20 2026, 1.97 SOL balance.
-- **routes_binance (DcEYX34v) STILL ACTIVE** — last activity Mar 22 2026.
-- Added Routes E/F/G to profit extraction map, total network extraction $400K+.
 
-### Bug Fix
-- Fixed `sym = t.symbol || "SOL"` in both `src/profile-profit-routing.ts` and `src/investigate-bundle-unknowns.ts` — now checks mint address to distinguish real SOL from pump.fun tokens (`"TOKEN"` for non-SOL).
+1. **jetnut_deployer (52eC8Uy5CDSJhR)** — CLOSED ACCOUNT. Zero from all 3 APIs. Cannot investigate.
 
-### Stale Address Fix
-- Corrected `9Z83ZAtd` address in investigation-notes.json `new_high_priority_wallets` section — was still showing old transcription error, now matches network-map.json.
+2. **jetnut_network (FSbvLdrK)** — VERY ACTIVE (Mar 23). 7.9 SOL. Funded by hub_intermediary_DfwNaPDh. 13 network connections. Sends $2.7K to Coinbase Deposit 2, $1.5K to Fireblocks 7RLD6F9S. Receives from routes_binance, LFS. Trades XAIC, DOGWIFXRP, QTX. Added to L11 intermediary watchlist.
+
+3. **eggsheeran (DuCzGNzS)** — CRITICAL NODE. 35 network connections. Arkham: "andrewpapd" on Pump.fun. Funded by MoonPay MP1. Sends $6.7K to l9_funder, $6.3K to L7, $4.8K to cold_usdc_2, $1.8K to coinbase_deposit, $1.2K to collection. Receives $5.5K from OG, $3.1K from Hub, bundles. Deployed 8+ tokens. Also gambles on Solcasino.io. Added to L11 intermediary watchlist — could fund L11.
+
+4. **CoinSpot insider** — CONFIRMED SEPARATE. Funded by CoinSpot exchange (sigmurzkferog.sol). Trading wallet sends ALL profits ($9.1K) to collection, which forwards ALL to CoinSpot ($17.6K). SUSYE deployer funded by Coinbase CB7 (notable overlap) but primarily uses CoinSpot/MEXC/Bybit.
+
+5. **BloFin insider (BDVgXauN)** — COMPLETELY SEPARATE NETWORK. Funded by Crypto.com Hot Wallet 1. Arkham: "zougz" on Pump.fun. Massive trader ($192K Photon, $44K OKX DEX). Deploys own tokens. Passthrough (33KoLeWr) confirmed as BloFin Deposit by Arkham.
+
+6. **CRITICAL RESOLUTION**: BloFin insider hub is counterparty with BOTH previously-unresolved recurring wallets:
+   - 9J9VHoLW ($17.4K, 49 txs, BloomBot) — appeared in 5 launches
+   - CJVEFdRS ($11.8K, 20 txs, BloomBot) — appeared in 4 launches
+   These are BloFin insider's trading wallets, NOT deployer-controlled. Removes them from L11 watchlist.
+
+### Deep Dive: CJVEFd/9J9VHo Ownership + CoinSpot Insider
+- Created `src/profile-recurring-coinspot.ts` — profiles CJVEFd, 9J9VHo, 98KvdqZJ intermediary, F7oLGB1U cashout
+- Raw results saved to `data/results/raw/recurring-coinspot-deep-dive.json`
+- **CJVEFd and 9J9VHo are CONFIRMED zougz's own wallets** — both directly funded by BDVgXauN (zougz hub), funding chain → Crypto.com. All SOL flows exclusively to/from zougz hub.
+- **98KvdqZJ is SUSYE deployer's own trading wallet** — funded by SUSYE, $12K bidirectional, also receives $2K from CoinSpot exchange
+- **F7oLGB1U is pure CoinSpot cashout passthrough** — 4916Nkdu → F7oLGB1U → CoinSpot exchange ($5.2K)
+- **CoinSpot insider reclassified as likely deployer insider/family** (user assessment, not coincidence). CB7 funding is the key link.
+
+### Audit
+- Ran programmatic audit comparing all session findings against raw JSON
+- 12/12 funded-by addresses verified
+- 3/3 Arkham labels verified
+- 9/9 balances verified
+- 8/8 network-map addresses verified
+- 5/5 counterparty dollar figures verified
+- All 12 narrative claims verified against raw data
+- Caught and corrected 2 address transcription errors mid-session: 98KvdqZJ and F7oLGB1U (wrong suffixes in initial script, fixed before API calls)
+
+### Updated Files
+- `data/results/investigation-notes.json` — Added side_projects_insiders_profiles section (8 wallets), CJVEFd/9J9VHo confirmed as zougz's wallets, 98KvdqZJ/F7oLGB1U profiled, CoinSpot insider updated to "likely insider/family", updated remaining_tasks, added eggsheeran+jetnut_network to L11 intermediary watchlist
+- `data/network-map.json` — Updated side_projects (jetnut_deployer closed, jetnut_network active, eggsheeran critical), updated insiders (coinspot "likely insider/family" + new wallets, blofin profiled with Crypto.com source + zougz label + BloFin Deposit confirmation)
+- `src/profile-side-projects-insiders.ts` — Created. 3-API side project + insider investigation script.
+- `src/profile-recurring-coinspot.ts` — Created. Deep dive on CJVEFd/9J9VHo + CoinSpot intermediaries.
+- `data/results/raw/side-projects-insiders-profiles.json` — Created. Raw API responses for all 8 wallets + 2 L2 funders.
+- `data/results/raw/recurring-coinspot-deep-dive.json` — Created. Raw API responses for 4 wallets + 3 funding chains.
 
 ## What Was Tried and Failed (CRITICAL)
 
@@ -59,55 +74,47 @@ Track a serial pump.fun deployer on Solana to identify their next fresh wallet (
 
 - **Arkham counterparties on Solana**: Returns empty for most wallets. Use Nansen counterparties instead. (Prior session failure, still applies.)
 
-- **Script defaulting null symbol to "SOL"**: `t.symbol || "SOL"` misreports pump.fun token transfers as SOL. Fixed this session — now checks mint address. Any future scripts must use the fixed pattern: `t.symbol || (t.mint === "So11111111111111111111111111111111111111111" ? "SOL" : "TOKEN")`.
+- **Script defaulting null symbol to "SOL"**: `t.symbol || "SOL"` misreports pump.fun token transfers as SOL. Fixed in prior session — now checks mint address. Any future scripts must use the fixed pattern: `t.symbol || (t.mint === "So11111111111111111111111111111111111111111" ? "SOL" : "TOKEN")`.
 
 ## Key Decisions
 
-- **binance_deposit (21wG4F3Z) reclassified as NOT network**: Zero network connections, massive random throughput, Nansen first funder is "LONGHORSE Token Deployer" (unrelated). Moved to `not_network` section in network-map.json. Real deployer Binance deposit identified as Fx7gAJpk.
+- **CJVEFd and 9J9VHo reclassified as BloFin insider associated**: Both are counterparties of BloFin insider hub ($11.8K and $17.4K respectively). Both labeled "BloomBot Trading Bot User" by Nansen. They trade on deployer's launches but are NOT deployer-controlled wallets. Removed from L11 watchlist.
 
-- **7RLD6F9S added to network map as Fireblocks Custody**: Receives $6.6K SOL from two active network wallets. Arkham confirms "Fireblocks Custody". Added to profit_routing section.
+- **Eggsheeran added to L11 intermediary watchlist**: 35 network connections, sends $6.7K to l9_funder (who funded L9). Could serve as intermediary funder for L11.
 
-- **DfwNaPDh added as hub intermediary**: Layer 2 investigation confirmed Hub Wallet funded DfwNaPDh which funded routes_binance. Added to profit_routing section.
+- **jetnut_network added to L11 intermediary watchlist**: 7.9 SOL balance, funded by Hub intermediary, active Mar 23. Has SOL to potentially fund a fresh deployer.
 
-- **User requested next session focus**: Review side projects and insiders wallets, then continue to unresolved recurring wallets.
-
-## Modified Files
-
-- `data/results/investigation-notes.json` — Added profit_routing_profiles section (8 wallets), layer2_funder_investigations, new_findings, Routes E/F/G. Updated remaining_tasks, resolved binance_deposit label conflict, fixed 9Z83ZAtd address.
-- `data/network-map.json` — All profit_routing entries now have detailed notes. binance_deposit moved to not_network. Added binance_deposit_real (Fx7gAJpk), hub_intermediary_DfwNaPDh, fireblocks_7RLD6F9S, yNanvu8H_unknown.
-- `src/profile-profit-routing.ts` — Created. 3-API profit routing investigation script. Symbol bug fixed.
-- `src/investigate-bundle-unknowns.ts` — Symbol bug fixed (2 occurrences).
-- `data/results/raw/profit-routing-profiles.json` — Created. Raw API responses for all 8 wallets + 4 L2 funders.
+- **SUSYE deployer funded by Coinbase CB7**: Notable overlap — CoinSpot insider's deployer wallet was initially funded by the same Coinbase infrastructure the main deployer uses. Could indicate a loose association or coincidence.
 
 ## Next Steps (ordered)
 
-1. **Review side projects and insiders wallets** — User explicitly requested this as next focus. Side projects: jetnut_deployer (52eC8Uy5CDSJhR), jetnut_network (FSbvLdrK), eggsheeran (DuCzGNzS). Insiders: coinspot_insider (DmA9Jab, 4916Nkdu, 9a22FhBe), blofin_insider (BDVgXauN, 33KoLeWr). Profile via all three APIs — check current activity, balances, recent counterparties.
+1. **Profile new unknowns from profit routing** — 7RLD6F9S (Fireblocks Custody, $6.6K from network — where does it send?), yNanvu8H ($2.2K USDC from cold_usdc_2).
 
-2. **Investigate unresolved recurring wallets** — CJVEFd (position #1 at L6, 4 launches), 9J9VHo (5 launches), chrisV (L8-L9 position #3). Profile via all three APIs.
+2. **Investigate E2NnJHhc** — Confirmed in OG deployer counterparties ($2K, 70 txs). Needs full profiling.
 
-3. **Profile new unknowns from profit routing** — 7RLD6F9S (Fireblocks Custody, $6.6K from network — where does it send?), yNanvu8H ($2.2K USDC from cold_usdc_2).
+3. **Profile chrisV** — Last unresolved recurring wallet (L8-L9 position #3). CJVEFd and 9J9VHo are resolved.
 
-4. **Investigate E2NnJHhc** — Confirmed in OG deployer counterparties ($2K, 70 txs). Needs full profiling.
+4. **Map MoonPay hot wallet cluster** — Use Helius batch-identity and Nansen to find related MoonPay wallets beyond the 1 known (MP1). Deployer switched to MoonPay for L10 and may use other MoonPay wallets for L11.
 
-5. **Map MoonPay hot wallet cluster** — Use Helius batch-identity and Nansen to find related MoonPay wallets beyond the 1 known (MP1). Deployer switched to MoonPay for L10 and may use other MoonPay wallets for L11.
+5. **Get L10 early buyers list** — Use Nansen tgm/dex-trades for the XAIC token to pull ALL early buyers (cannot filter by trader_address — must pull all trades and filter client-side). Add to launch-details.json for cross-reference.
 
-6. **Get L10 early buyers list** — Use Nansen tgm/dex-trades for the XAIC token to pull ALL early buyers (cannot filter by trader_address — must pull all trades and filter client-side). Add to launch-details.json for cross-reference.
-
-7. **Build the live monitoring sieve** — Watch all known network wallets + on-ramp hot wallets for 8-25 SOL outflows to fresh addresses. This is the final deliverable for L11 detection.
+6. **Build the live monitoring sieve** — Watch all known network wallets + on-ramp hot wallets for 8-25 SOL outflows to fresh addresses. This is the final deliverable for L11 detection.
 
 ## Context the Next Session Needs
 
-- **GitHub repo**: https://github.com/Afterthoughtt/deployer-investigation — `gh` CLI installed. Remote uses old case URL but redirects work.
+- **GitHub repo**: https://github.com/Afterthoughtt/deployer-investigation — `gh` CLI installed.
 - **API env var names**: `NANSEN_API_KEY`, `ARKAN_API_KEY` (note: ARKAN not ARKHAM), `HELIUS_API_KEY` — all in `.env`
 - **Helius working**: RPC at `https://mainnet.helius-rpc.com/?api-key=KEY`, Wallet API at `https://api.helius.xyz/v1/wallet/...?api-key=KEY`. Developer plan, 10M credits/month.
-- **Credit usage this session**: ~2488 Helius credits (8x balance/identity/funded-by/sigs/transfers + 4x L2 investigations), ~48 Nansen credits (8x related + 7x counterparties, 1 returned 422), Arkham free.
-- **Nansen rate limits**: 1.5-2s delays between calls. Max 3-4 day date ranges on `/profiler/address/transactions`. Labels = 500 credits — use sparingly.
-- **Nansen 422 on binance_deposit**: "excessively high trade activity" — some addresses are too active for counterparties endpoint. Will happen on other high-volume addresses too.
-- **Arkham Solana gaps**: Counterparties endpoint returns empty for most Solana wallets. Intelligence/labels/transfers work.
-- **Symbol bug FIXED**: Scripts now use `t.symbol || (t.mint === "So11111111111111111111111111111111111111111" ? "SOL" : "TOKEN")` instead of `t.symbol || "SOL"`. Copy this pattern to any new scripts.
-- **Scripts in `src/`**: `profile-profit-routing.ts` is the latest clean template. `investigate-bundle-unknowns.ts` also updated with symbol fix.
-- **Active network wallets**: cold_usdc_2 (EAcUbdoi, last Mar 20, 1.97 SOL), routes_binance (DcEYX34v, last Mar 22, 0 SOL). These could show new activity.
-- **Coinbase deposit naming**: Helius calls CB1 "Coinbase Hot Wallet 9" — project numbering (CB1-CB10) is internal, not aligned with Helius.
-- **Fireblocks wallets in network**: Collection (Bra1HUNK), 9exPdTUV, 9cDDJ5g2, 2q8nSJgC, 7RLD6F9S, Token Millionaire, LFS. Arkham labels many wallets "Fireblocks Custody" — it's a broad label.
-- **Ed4UGBWK Rollbit deposits UNVERIFIED**: RB5KKB7h and RB2Yz3VS have no raw data backing. Don't treat as confirmed.
+- **Credit usage this session**: ~2488 Helius + ~48 Nansen + Arkham free (8 wallets + 2 L2 funders).
+- **Nansen rate limits**: 1.5-2s delays between calls. Max 3-4 day date ranges on `/profiler/address/transactions`. Labels = 500 credits.
+- **Nansen counterparties pagination**: jetnut_network, eggsheeran, blofin_hub all had `is_last_page: false` on page 1. May have more counterparties not yet fetched.
+- **Arkham Solana gaps**: Counterparties endpoint returns empty. Intelligence/labels/transfers work.
+- **Symbol bug FIXED**: Scripts use `t.symbol || (t.mint === "So11111111111111111111111111111111111111111" ? "SOL" : "TOKEN")`.
+- **Scripts in `src/`**: `profile-side-projects-insiders.ts` is the latest script. `profile-profit-routing.ts` is the prior template.
+- **Active network wallets to watch**: cold_usdc_2 (EAcUbdoi, last Mar 20, 1.97 SOL), routes_binance (DcEYX34v, last Mar 22, 0 SOL), jetnut_network (FSbvLdrK, last Mar 23, 7.9 SOL), eggsheeran (DuCzGNzS, last Mar 21, 0.05 SOL).
+- **Coinbase deposit naming**: Helius calls CB1 "Coinbase Hot Wallet 9" — project numbering (CB1-CB10) is internal.
+- **Fireblocks wallets in network**: Collection (Bra1HUNK), 9exPdTUV, 9cDDJ5g2, 2q8nSJgC, 7RLD6F9S, Token Millionaire, LFS.
+- **NOT YET PROFILED**: 7RLD6F9S (Fireblocks, receives $6.6K from network — outflows unknown), yNanvu8H ($2.2K USDC from cold_usdc_2 — completely unknown), E2NnJHhc ($2K/70 txs with OG — unprofilied), chrisV (L8-L9 position #3 — unprofiled).
+- **Ed4UGBWK Rollbit deposits UNVERIFIED**: RB5KKB7h and RB2Yz3VS have no raw data.
 - **tsx -e doesn't support top-level await**: Always write .ts files.
+- **jetnut_deployer (52eC8Uy5CDSJhR) is CLOSED**: Zero from all APIs. Do not re-query.
