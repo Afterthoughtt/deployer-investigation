@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Known wallet addresses in the deployer network",
-    "updated": "2026-03-24"
+    "updated": "2026-03-25"
   },
   "deployers": {
     "L4": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
@@ -43,18 +43,50 @@
     "bundle_6": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm"
   },
   "profit_routing": {
-    "profit_pass_1": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs",
-    "profit_pass_2": "HDTncsSnBmJWNRXd641Xuh8tYjKXx1xcJq8ACuCZQz52",
-    "cold_usdc_1": "8CvuX95RTCCBfUY8cUET8FQZusoY49yUkQxTEL2skYyq",
-    "cold_usdc_2": "EAcUbdoiY8aCwJKdSo17fhU4uqMopW27K4oLqpstqfHe",
-    "coinbase_deposit": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT",
+    "profit_pass_1": {
+      "address": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs",
+      "notes": "Profiled 2026-03-25. Funded by L6. Pure relay: deployers/bundles → profit_pass_1 → Ed4UGBWK ($247K out, 711 txs). Active Jan 21-22 2026."
+    },
+    "profit_pass_2": {
+      "address": "HDTncsSnBmJWNRXd641Xuh8tYjKXx1xcJq8ACuCZQz52",
+      "notes": "Profiled 2026-03-25. Funded by L6. Ed4UGBWK ($67K in) → profit_pass_2 → profit_pass_1 ($88K out). Also sends $5.9K to Rollbit deposit, $638 to Collection. Active Dec 16-17 2025."
+    },
+    "cold_usdc_1": {
+      "address": "8CvuX95RTCCBfUY8cUET8FQZusoY49yUkQxTEL2skYyq",
+      "notes": "Profiled 2026-03-25. Funded by OG. Single-use SOL→USDC converter: 34.5 SOL in, swapped via SolFi/Raydium, remainder to cold_usdc_2. Active Feb 1-5 2026 only."
+    },
+    "cold_usdc_2": {
+      "address": "EAcUbdoiY8aCwJKdSo17fhU4uqMopW27K4oLqpstqfHe",
+      "notes": "Profiled 2026-03-25. Funded by routes_binance. STILL ACTIVE (Mar 20 2026). Major aggregator: Eggsheeran ($4.8K), OG ($2.2K), LFS ($920), l9_funder ($367 SOL), Bundle 4, L8. Sends $4K SOL to 7RLD6F9S (Fireblocks), $2.2K USDC to yNanvu8H. Trades XAIC. 1.97 SOL balance."
+    },
+    "coinbase_deposit": {
+      "address": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT",
+      "notes": "Profiled 2026-03-25. Arkham: Coinbase Deposit. PRIMARY cashout: Rollbit Treasury ($235K winnings) + Hub ($13.8K) + OG ($11.3K) + deployers/bundles → $265K+ out to all 10 CB hot wallets. Funded by Coinbase Gas Supplier (via CB2). Nansen first funder: Kraken. Active Oct 2025."
+    },
     "coinbase_deposit_2": {
       "address": "BR1HiYtcYv5L9oB9aydMS9G9nYSjVZcMB51AxBFUkQ8T",
       "notes": "Confirmed network. Funded by Eggsheeran. Arkham: Coinbase Deposit. Receives from Hub ($5.2K), l9_funder ($3.1K), jetnut_network ($2.7K), Bundle 5 ($2.5K), OG ($1.1K), Bundles 2/3. Sends $15.7K to 6 Coinbase hot wallets. Active Jun-Oct 2025."
     },
-    "binance_deposit": "21wG4F3ZR8gwGC47CkpD6ySBUgH9AABtYMBWFiYdTTgv",
-    "rollbit_deposit": "RB3dQF6TsinAUsQsvXtAyxMztMHXJ2GaZ3gdMuuHiw7",
-    "routes_binance": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg",
+    "rollbit_deposit": {
+      "address": "RB3dQF6TsinAUsQsvXtAyxMztMHXJ2GaZ3gdMuuHiw7",
+      "notes": "Profiled 2026-03-25. Arkham: Rollbit Deposit. Funded by Rollbit Treasury. Gambling cycle: CB1-CB10 ($184K in) + deployers/bundles → $233K out to Rollbit Treasury. Active Dec 2025 - Feb 2026."
+    },
+    "routes_binance": {
+      "address": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg",
+      "notes": "Profiled 2026-03-25. Funded by DfwNaPDh (which is funded by Hub Wallet). STILL ACTIVE (Mar 22 2026). OG ($2.6K) + L7 ($2.3K) → routes to 7RLD6F9S ($2.6K SOL), jetnut_network ($814), Binance Deposit Fx7gAJpk ($1K), cold_usdc_2 ($273). Trades QTX token."
+    },
+    "binance_deposit_real": {
+      "address": "Fx7gAJpkhWUBWRLa8igKwAkMdLG58mCnoyL9dCKfnZo3",
+      "notes": "Discovered 2026-03-25. Nansen: 'Binance: Deposit'. Receives $1K SOL from routes_binance. The ACTUAL deployer Binance deposit (replacing 21wG4F3Z which was generic)."
+    },
+    "hub_intermediary_DfwNaPDh": {
+      "address": "DfwNaPDhziicpVTHij8RHPqpdgNCWt7p72u7bbk2AGdU",
+      "notes": "Discovered 2026-03-25. Funded by Hub Wallet. Funds routes_binance. 0 SOL balance. Hub → DfwNaPDh → routes_binance chain."
+    },
+    "fireblocks_7RLD6F9S": {
+      "address": "7RLD6F9SiFvtdqW4bYpy4m8D3mum7xVdZUSjzv1TWJaf",
+      "notes": "Discovered 2026-03-25. Arkham: Fireblocks Custody. Receives $6.6K SOL from cold_usdc_2 ($4K) + routes_binance ($2.6K). Needs further profiling — destination of SOL unknown."
+    },
     "fireblocks_passthrough": {
       "address": "9exPdTUVTCz9EKvZjXkKJSTJ5fZzJuwJHnFptrUFHFNH",
       "notes": "Fireblocks Custody (Arkham). Funded by Coinbase CB9. Passthrough: receives from L7 ($31.6K), Bundles 1/3/5/6, Hub, LFS → forwards $49K to 9cDDJ5g2 (secondary aggregator) + $273 to E7VEsTzG (unknown). Active Jan 21-22 2026 only. Route C."
@@ -160,6 +192,12 @@
       "notes": "16 network connections but funded via Kraken (deployer uses Coinbase/MoonPay). Receives from Hub ($4.8K), Bundles 1/2/5. Sends $2.8K to secondary aggregator, $680 to 6UrYwo9F, $594 to Eggsheeran, $5.8K to Coinbase, $512 to Bitget. Also trades independently (SOLWHIFF, GigmM8pZ). Could be associate/collaborator, not deployer. Monitor but not confirmed network."
     }
   },
+  "not_network": {
+    "binance_deposit_generic": {
+      "address": "21wG4F3ZR8gwGC47CkpD6ySBUgH9AABtYMBWFiYdTTgv",
+      "notes": "RECLASSIFIED 2026-03-25. Previously in profit_routing. Helius: 'Dexscreener Listing Fees 1'. Arkham: 'Binance Deposit'. Zero network connections. Massive throughput from random wallets. Nansen first funder: LONGHORSE Token Deployer (unrelated). Generic Binance deposit, NOT deployer-specific. Real deployer Binance deposit is Fx7gAJpk."
+    }
+  },
   "extras": {
     "phantom_fee_wallet": {
       "address": "9yj3zvLS3fDMqi1F8zhkaWfq8TZpZWHe6cz1Sgt7djXf",
@@ -168,6 +206,10 @@
     "l9_funder": {
       "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
       "notes": "Funded L9 deployer. Different from JETNUT deployer (52eC8Uy5CDSJhR...). Similar prefix — verify these are distinct wallets."
+    },
+    "yNanvu8H_unknown": {
+      "address": "yNanvu8HynWMfirERTkx8SAPg2By6f2pmv4Sv4VBHK3",
+      "notes": "Discovered 2026-03-25. Receives $2,201 USDC from cold_usdc_2. Unknown — needs profiling."
     }
   }
 }

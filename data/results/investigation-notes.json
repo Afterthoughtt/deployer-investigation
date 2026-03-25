@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Master investigation notes — everything relevant to identifying L11 deployer wallet",
-    "last_updated": "2026-03-24T00:00:00Z",
+    "last_updated": "2026-03-25T00:00:00Z",
     "goal": "Identify the deployer's next fresh wallet after it gets funded but before create_and_buy",
     "raw_data_location": "data/results/raw/ — full API responses for all investigations"
   },
@@ -372,6 +372,280 @@
     }
   },
 
+  "profit_routing_profiles": {
+    "profiled_date": "2026-03-25",
+    "raw_data": "data/results/raw/profit-routing-profiles.json",
+    "credit_cost": "~2488 Helius + 48 Nansen + Arkham free",
+
+    "profit_pass_1_4yWaU1Qr": {
+      "address": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs",
+      "helius_identity": null,
+      "arkham_label": null,
+      "first_funder": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y (L6 Deployer)",
+      "balance": "0.0009 SOL",
+      "activity_window": "Jan 21-22 2026 (100 sigs in ~3 hours)",
+      "role": "Pure profit relay. Receives SOL from deployers/bundles/LFS, immediately forwards ALL to Ed4UGBWK.",
+      "nansen_counterparties": {
+        "Ed4UGBWK": "$246,761 out (711 txs)",
+        "profit_pass_2": "$88,286 in (175 txs)",
+        "L6_deployer": "$46,992 in (125 txs)",
+        "bundle_1": "$46,988 in (102 txs)",
+        "L7_deployer": "$36,348 in (80 txs)",
+        "large_funding_source": "$21,217 in (102 txs)",
+        "hub_wallet": "$2,271 in (11 txs)",
+        "bundle_3": "$1,052 in (4 txs)",
+        "bundle_2": "$975 in (6 txs)",
+        "bundle_4": "$940 in (5 txs)",
+        "bundle_5": "$877 in (3 txs)",
+        "og_deployer": "$440 in (3 txs)",
+        "L4_deployer": "$278 in (3 txs)",
+        "bundle_6": "$96 in (1 tx)"
+      },
+      "verdict": "CONFIRMED NETWORK — primary profit relay. Every known network category funnels through here to Ed4UGBWK."
+    },
+
+    "profit_pass_2_HDTncsSn": {
+      "address": "HDTncsSnBmJWNRXd641Xuh8tYjKXx1xcJq8ACuCZQz52",
+      "helius_identity": null,
+      "arkham_label": null,
+      "first_funder": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y (L6 Deployer)",
+      "balance": "0.11 SOL",
+      "activity_window": "Dec 16-17 2025 (100 sigs)",
+      "role": "Intermediate relay + gambling deposit. Receives from Ed4UGBWK, forwards to profit_pass_1. Also sends to Rollbit and Collection.",
+      "nansen_counterparties": {
+        "profit_pass_1": "$88,286 out (175 txs)",
+        "Ed4UGBWK": "$66,676 in (53 txs)",
+        "L6_deployer": "$21,505 in (4 txs)",
+        "bundle_1": "$6,011 mixed (3 txs)",
+        "rollbit_deposit": "$5,884 out (8 txs)",
+        "Rollbit_Treasury": "$4,140 in (1 tx — winnings returned)",
+        "collection_wallet": "$638 out (1 tx)"
+      },
+      "verdict": "CONFIRMED NETWORK — secondary relay. Part of Ed4UGBWK loop: Ed4UGBWK -> profit_pass_2 -> profit_pass_1 -> Ed4UGBWK."
+    },
+
+    "cold_usdc_1_8CvuX95R": {
+      "address": "8CvuX95RTCCBfUY8cUET8FQZusoY49yUkQxTEL2skYyq",
+      "helius_identity": null,
+      "arkham_label": null,
+      "first_funder": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2 (OG Deployer)",
+      "balance": "0 SOL",
+      "activity_window": "Feb 1-5 2026 (31 sigs — short-lived)",
+      "role": "SOL-to-USDC converter. Received 34.5 SOL from OG, swapped via SolFi/Raydium to ~$3.2K USDC, forwarded remainder to cold_usdc_2.",
+      "nansen_counterparties": {
+        "SOL_USDC_pool": "$6,432 (swap activity)",
+        "og_deployer": "$3,607 in (2 txs)",
+        "cold_usdc_2": "$0.28 out (1 tx — residual)"
+      },
+      "verdict": "CONFIRMED NETWORK — single-use USDC conversion wallet."
+    },
+
+    "cold_usdc_2_EAcUbdoi": {
+      "address": "EAcUbdoiY8aCwJKdSo17fhU4uqMopW27K4oLqpstqfHe",
+      "helius_identity": null,
+      "arkham_label": null,
+      "first_funder": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg (routes_binance)",
+      "balance": "1.97 SOL",
+      "activity_window": "Jan 31 - Mar 20 2026 (STILL ACTIVE)",
+      "role": "Major aggregator + USDC converter + XAIC trader. Receives from 8+ network wallets.",
+      "nansen_counterparties": {
+        "SOL_USDC_pool": "$5,437 (swap activity)",
+        "eggsheeran": "$4,806 in (2 txs — 50.3+1 SOL)",
+        "7RLD6F9S_fireblocks": "$4,026 out (3 txs — 15+27+1 SOL)",
+        "og_deployer": "$2,185 in (2 txs — 21+0.22 SOL)",
+        "yNanvu8H": "$2,201 out (2 txs — $2200 USDC + $1 USDC, NOT SOL)",
+        "large_funding_source": "$920 in (1 tx — 10 SOL)",
+        "EQdtK31j": "$789 out (unknown)",
+        "Dgq7Ba5N": "$769 out (unknown)",
+        "l9_funder": "$367 in (SOL only — 1000 token transfer has negligible $ value)",
+        "bundle_4": "$324 in (3 txs)",
+        "routes_binance": "$273 in (2 txs)",
+        "L8_deployer": "$206 in (1 tx — 2 SOL)",
+        "cold_usdc_1": "$0.28 in (1 tx)"
+      },
+      "trades_xaic": true,
+      "note": "Received 1000 pump.fun tokens from l9_funder (NOT 1000 SOL — script displayed wrong symbol). Also received 10 SOL from LFS on Mar 18.",
+      "verdict": "CONFIRMED NETWORK — active multi-purpose wallet. USDC conversion, token trading, aggregation. Still active Mar 20 2026."
+    },
+
+    "coinbase_deposit_J6YUyB4P": {
+      "address": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT",
+      "helius_identity": null,
+      "arkham_label": "Coinbase Deposit",
+      "helius_funded_by": "59L2oxymiQQ9Hvhh92nt8Y7nDYjsauFkdb3SybdnsG6h (Coinbase Gas Supplier, funded by CB2)",
+      "nansen_first_funder": "FWznbcNXWQuHTawe9RxvQ2LdCENssh12dsznf4RiouN5 (Kraken — 50 seconds before Coinbase Gas Supplier)",
+      "balance": "0.001 SOL",
+      "activity_window": "Oct 11-26 2025",
+      "role": "PRIMARY Coinbase cashout point. Receives from Rollbit Treasury + entire network, distributes to all 10 CB hot wallets.",
+      "nansen_counterparties": {
+        "Rollbit_Treasury": "$235,198 in (153 txs — gambling winnings)",
+        "CB9": "$65,749 out (29 txs)",
+        "CB10": "$61,492 out (30 txs)",
+        "CB1": "$39,754 out (20 txs)",
+        "CB3": "$19,457 out (15 txs)",
+        "SOL_Distributor_8JUEoHNM": "$16,746 out (10 txs — Coinbase infra)",
+        "CB6": "$14,621 out (10 txs)",
+        "Coinbase_Hot_GCRJD52p": "$14,398 out (15 txs — unlisted Coinbase hot wallet)",
+        "hub_wallet": "$13,803 in (12 txs)",
+        "CB7": "$12,692 mixed (12 txs)",
+        "CB4": "$12,620 out (15 txs)",
+        "og_deployer": "$11,336 in (28 txs)",
+        "CB8": "$9,253 mixed (15 txs)",
+        "CB5": "$6,429 out (14 txs)",
+        "L4_deployer": "$4,931 in (10 txs)",
+        "CB2": "$4,020 out (11 txs)",
+        "bundle_2": "$2,284 in (5 txs)",
+        "bundle_6": "$2,240 in (5 txs)",
+        "eggsheeran": "$1,808 in (9 txs)",
+        "bundle_5": "$1,108 in (7 txs)",
+        "9cDDJ5g2": "$510 in (3 txs — Route C aggregator sending here too)",
+        "bundle_4": "$149 in (1 tx)",
+        "bundle_1": "$141 in (1 tx)",
+        "bundle_3": "$128 in (2 txs)",
+        "l9_funder": "$105 in (2 txs)"
+      },
+      "total_coinbase_outflow": "$265K+ to 10 Coinbase hot wallets + 2 Coinbase infra addresses",
+      "verdict": "CRITICAL NETWORK NODE — main Coinbase cashout. $235K Rollbit winnings + $40K+ from network wallets, all forwarded to Coinbase."
+    },
+
+    "binance_deposit_21wG4F3Z": {
+      "address": "21wG4F3ZR8gwGC47CkpD6ySBUgH9AABtYMBWFiYdTTgv",
+      "helius_identity": "Dexscreener Listing Fees 1 (Fees)",
+      "arkham_label": "Binance Deposit",
+      "first_funder": "DobVMXpAaqurti3t3qTZ8ipjLU1kH8hTewpLHK5PoT5U (unknown, L2 funder also unknown)",
+      "nansen_first_funder": "5xQGQBX5CMcAwqTSgc2he866GNMjPJT47gybRuRcbRjX (LONGHORSE Token Deployer — NOT network)",
+      "balance": "0.01 SOL",
+      "activity_window": "massive volume — 100 sigs in 6 hours (Mar 24-25 2026)",
+      "network_connections": 0,
+      "nansen_counterparties": "ERROR 422 — excessively high trade activity",
+      "role": "Generic Binance deposit address. NOT deployer-specific.",
+      "evidence": "Zero network connections. Massive throughput (hundreds/thousands of SOL per transfer to 5tzFkiKscXHK). No network wallet appears in any transfer. Nansen first funder is unrelated. Helius/Arkham labels conflict (both mislabels for a general-purpose deposit).",
+      "verdict": "NOT NETWORK — generic Binance deposit address. Should be removed from network map profit_routing section."
+    },
+
+    "rollbit_deposit_RB3dQF6T": {
+      "address": "RB3dQF6TsinAUsQsvXtAyxMztMHXJ2GaZ3gdMuuHiw7",
+      "helius_identity": null,
+      "arkham_label": "Rollbit Deposit",
+      "first_funder": "RBHdGVfDfMjfU6iUfCb1LczMJcQLx7hGnxbzRsoDNvx (Rollbit Treasury)",
+      "balance": "0.002 SOL",
+      "activity_window": "Dec 5 2025 - Feb 7 2026",
+      "role": "Gambling deposit. Network SOL + Coinbase funds flow in, all forwarded to Rollbit Treasury.",
+      "nansen_counterparties": {
+        "Rollbit_Treasury": "$232,846 out (524 txs — deposits to gamble)",
+        "CB7": "$26,460 in (43 txs)",
+        "CB8": "$25,582 in (49 txs)",
+        "CB5": "$23,744 in (50 txs)",
+        "CB1": "$22,024 in (47 txs)",
+        "CB6": "$21,922 in (36 txs)",
+        "SOL_Distributor_8JUEoHNM": "$21,665 in (33 txs — Coinbase infra)",
+        "CB2": "$17,366 in (41 txs)",
+        "Coinbase_Hot_GCRJD52p": "$15,312 in (41 txs — unlisted Coinbase hot wallet)",
+        "CB10": "$13,544 in (36 txs)",
+        "CB9": "$11,652 in (34 txs)",
+        "CB3": "$11,397 in (39 txs)",
+        "CB4": "$10,543 in (36 txs)",
+        "profit_pass_2": "$5,884 in (8 txs)",
+        "L8_deployer": "$4,266 in (16 txs)",
+        "bundle_1": "$482 in (2 txs)",
+        "L7_deployer": "$341 in (2 txs)",
+        "bundle_5": "$284 in (6 txs)",
+        "L4_deployer": "$147 in (2 txs)",
+        "9cDDJ5g2": "$100 in (1 tx)",
+        "L6_deployer": "$70 in (1 tx)",
+        "hub_wallet": "$60 in (1 tx)"
+      },
+      "coinbase_to_rollbit_cycle": "$184K+ from CB1-CB10 into rollbit_deposit. Deployer cashes out via Coinbase, then cycles funds back to Rollbit for gambling.",
+      "verdict": "CONFIRMED NETWORK — Rollbit gambling deposit. $233K deposited to Rollbit. $184K sourced from Coinbase hot wallets (recycled cashout funds)."
+    },
+
+    "routes_binance_DcEYX34v": {
+      "address": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg",
+      "helius_identity": null,
+      "arkham_label": null,
+      "first_funder": "DfwNaPDhziicpVTHij8RHPqpdgNCWt7p72u7bbk2AGdU (L2: funded by Hub Wallet — confirmed network chain)",
+      "nansen_first_funder": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB (Bundle 3 — token transfer, not SOL)",
+      "balance": "0 SOL",
+      "activity_window": "Jun 25 2025 - Mar 22 2026 (STILL ACTIVE)",
+      "role": "Multi-purpose router. Receives from OG/L7, sends to cold_usdc_2 + jetnut_network + Binance. Trades QTX token.",
+      "nansen_counterparties": {
+        "7RLD6F9S_fireblocks": "$2,637 out (3 txs — 10.09+5+5 SOL)",
+        "og_deployer": "$2,568 in (2 txs — 20+0.02 SOL)",
+        "L7_deployer": "$2,280 in (2 txs — 17+1 SOL)",
+        "Binance_Deposit_Fx7gAJpk": "$1,000 out (1 tx — 8.15 SOL to Binance)",
+        "jetnut_network": "$814 out (3 txs — 6+0.75+0.3 SOL)",
+        "cold_usdc_2": "$273 out (2 txs)",
+        "l9_funder": "$141 mixed (SOL only — large token transfers have negligible $ value)"
+      },
+      "token_transfers_note": "Script misreported pump.fun tokens as SOL: 5M 'SOL' from l9_funder = pump token AUbqZLgz..., 28M 'SOL' between bundles = pump token D3Jw99nJ... These are token distributions, not SOL.",
+      "verdict": "CONFIRMED NETWORK — active router. Hub->DfwNaPDh->routes_binance chain confirmed. Still active Mar 22 2026."
+    },
+
+    "layer2_funder_investigations": {
+      "coinbase_gas_supplier_59L2oxy": {
+        "address": "59L2oxymiQQ9Hvhh92nt8Y7nDYjsauFkdb3SybdnsG6h",
+        "helius_identity": "Coinbase Gas Supplier & Staking Authority (Centralized Exchange)",
+        "arkham_label": "Coinbase (cex)",
+        "funded_by": "2AQdpHJ2JpcEgPiATUXjQxA8QmafFegfQwSLWSprPicm (CB2)",
+        "balance": "107.45 SOL",
+        "note": "Coinbase infrastructure wallet. Funded coinbase_deposit with 0.00124 SOL gas."
+      },
+      "rollbit_treasury_RBHdGVfD": {
+        "address": "RBHdGVfDfMjfU6iUfCb1LczMJcQLx7hGnxbzRsoDNvx",
+        "helius_identity": "Rollbit Treasury",
+        "arkham_label": "Rollbit (gambling)",
+        "funded_by": "2ojv9BAiHUrvsm9gxDe7fJSzbNZSJcxZvf8dqmWGHG8S (Binance 6)",
+        "balance": "172,404 SOL",
+        "note": "Rollbit platform treasury. Funded rollbit_deposit with 0.002 SOL."
+      },
+      "DfwNaPDh_hub_intermediary": {
+        "address": "DfwNaPDhziicpVTHij8RHPqpdgNCWt7p72u7bbk2AGdU",
+        "helius_identity": null,
+        "arkham_label": null,
+        "funded_by": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5 (Hub Wallet)",
+        "balance": "0 SOL",
+        "note": "NEW — Hub Wallet intermediary. Funds routes_binance. Previously noted in session_handoff open audit items (receives from Bundle 2) but never documented. Confirmed network: Hub -> DfwNaPDh -> routes_binance."
+      },
+      "binance_deposit_funder_DobVMXp": {
+        "address": "DobVMXpAaqurti3t3qTZ8ipjLU1kH8hTewpLHK5PoT5U",
+        "helius_identity": null,
+        "arkham_label": null,
+        "funded_by": "GrDriCvgCtFBEmixrBVJ9sPEND97BrpJBpM4FpGQ4cxE (unknown)",
+        "balance": "0.07 SOL",
+        "note": "Funder of binance_deposit. No network connections. Confirms binance_deposit is NOT network-specific."
+      }
+    },
+
+    "new_findings": {
+      "7RLD6F9S_fireblocks_custody": {
+        "address": "7RLD6F9SiFvtdqW4bYpy4m8D3mum7xVdZUSjzv1TWJaf",
+        "arkham_label": "Fireblocks Custody",
+        "receives_from_network": "$6,663 total — cold_usdc_2 ($4,026: 15+27+1 SOL) + routes_binance ($2,637: 10.09+5+5 SOL)",
+        "note": "NEW Fireblocks wallet in deployer infrastructure. Needs further profiling — where does this SOL go next?",
+        "priority": "medium"
+      },
+      "yNanvu8H_usdc_recipient": {
+        "address": "yNanvu8HynWMfirERTkx8SAPg2By6f2pmv4Sv4VBHK3",
+        "receives": "$2,201 USDC from cold_usdc_2 (2 txs: $2200 + $1 USDC on Feb 20 2026)",
+        "note": "Unknown recipient of USDC from network. Needs profiling.",
+        "priority": "medium"
+      },
+      "Fx7gAJpk_binance_deposit": {
+        "address": "Fx7gAJpkhWUBWRLa8igKwAkMdLG58mCnoyL9dCKfnZo3",
+        "nansen_label": "Binance: Deposit",
+        "receives": "$1,000 SOL from routes_binance (8.15 SOL)",
+        "note": "Confirmed Binance deposit address used by routes_binance for cashout. This is the REAL deployer Binance deposit, not 21wG4F3Z.",
+        "priority": "low — informational"
+      },
+      "9cDDJ5g2_new_detail": {
+        "note": "Already profiled wallet 9cDDJ5g2wPqVZUZwpPuwqzxN7ouvc6QFauFwrX2TTTAX now confirmed sending $510 to coinbase_deposit (3 txs) and $100 to rollbit_deposit (1 tx). Route C aggregator also feeds Coinbase and Rollbit cashout."
+      },
+      "coinbase_to_rollbit_cycle": {
+        "note": "CB1-CB10 send $184K+ INTO rollbit_deposit (Nansen counterparties). Deployer cashes out profits via Coinbase, then recycles funds from Coinbase to Rollbit for gambling. This is a confirmed money cycle: Network -> coinbase_deposit -> Coinbase -> rollbit_deposit -> Rollbit."
+      }
+    }
+  },
+
   "bundle_wallet_verification": {
     "verified_date": "2026-03-21",
     "summary": "All 6 bundle wallets profiled via Nansen counterparties + Arkham transfers",
@@ -416,9 +690,30 @@
       "volume": "$15.7K to Coinbase",
       "activity_window": "Jun-Oct 2025"
     },
+    "route_e": {
+      "name": "Primary Coinbase Cashout",
+      "discovered": "2026-03-25",
+      "flow": "Rollbit Treasury ($235K winnings) + Hub ($13.8K) + OG ($11.3K) + L4 ($4.9K) + Bundles 2/5/6 ($5.6K) + Eggsheeran ($1.8K) + 9cDDJ5g2 ($510) → coinbase_deposit (J6YUyB4P) → CB1-CB10 ($265K+)",
+      "volume": "$265K+ to Coinbase via J6YUyB4P",
+      "note": "Largest single cashout route. Rollbit winnings ($235K) dominate inflows."
+    },
+    "route_f": {
+      "name": "Rollbit Gambling Cycle",
+      "discovered": "2026-03-25",
+      "flow": "CB1-CB10 ($184K) + L8 ($4.3K) + profit_pass_2 ($5.9K) + Bundles + deployers → rollbit_deposit (RB3dQF6T) → Rollbit Treasury ($233K)",
+      "volume": "$233K deposited to Rollbit",
+      "note": "Money cycles: network profits -> Coinbase cashout -> Coinbase sends to rollbit_deposit -> Rollbit gambling. $184K from Coinbase hot wallets confirms recycling."
+    },
+    "route_g": {
+      "name": "USDC Conversion + Binance",
+      "discovered": "2026-03-25",
+      "flow": "OG/Eggsheeran/L8/LFS/Bundle 4/l9_funder → cold_usdc_2 (EAcUbdoi) → SOL-USDC swaps + 7RLD6F9S (Fireblocks, $4K) + yNanvu8H ($2.2K USDC). Also: OG/L7 → routes_binance → Binance Deposit Fx7gAJpk ($1K) + 7RLD6F9S ($2.6K)",
+      "volume": "$6.6K to 7RLD6F9S Fireblocks + $2.2K USDC to yNanvu8H + $1K to Binance",
+      "note": "Active wallets — cold_usdc_2 last active Mar 20, routes_binance last active Mar 22."
+    },
     "endpoint": {
       "token_millionaire": "49mvMufixEbUMzZEUVAnbQ8hLLuEWy789XfKUNTz7wCv — Fireblocks Custody. Sends $45.3M to Large Funding Source. Exchange/custody endpoint. NOT deployer-controlled.",
-      "total_extracted": "$143K+ confirmed (Route A $50K + Route B/C $77K + Route D $16K)"
+      "total_extracted": "$400K+ confirmed (Routes A-D: $143K to Fireblocks/Coinbase + Route E: $265K Coinbase + Route F: $233K Rollbit gambling). Note: Routes E and F overlap significantly — Rollbit winnings flow to Coinbase, Coinbase funds flow back to Rollbit."
     },
     "fireblocks_caveat": "Arkham labels many wallets 'Fireblocks Custody' on Solana — it's a broad label covering any wallet that interacts with Fireblocks infrastructure. It does NOT mean these wallets are all the same entity."
   },
@@ -437,7 +732,7 @@
       "note": "5 retired Coinbase wallets are expected (rotated hot wallets). 2 closed accounts expected. DLGHPXKF is a confirmed transcription error."
     },
     "notable_helius_identities": {
-      "binance_deposit_21wG4F3Z": "Helius: 'Dexscreener Listing Fees 1' — CONFLICTS with Arkham 'Binance Deposit'. Needs resolution.",
+      "binance_deposit_21wG4F3Z": "RESOLVED 2026-03-25 — NOT network. Generic Binance deposit. Helius: 'Dexscreener Listing Fees 1', Arkham: 'Binance Deposit'. Zero network connections.",
       "moonpay_MP1": "Confirmed via Helius identity",
       "phantom_fee_wallet": "Helius: 'Phantom Swap Fees 1' — protocol-level fee collector. NOT a network signal."
     },
@@ -466,7 +761,7 @@
       "hub_funder_9Z83ZAtd": "BloomBot Trading Bot User (Nansen) — first funder of Hub Wallet",
       "9exPdTUV": "Fireblocks Custody (Arkham)",
       "BR1HiYtc": "Coinbase Deposit (Arkham)",
-      "binance_deposit_21wG4F3Z": "Dexscreener Listing Fees 1 (Helius) / Binance Deposit (Arkham) — conflicting labels"
+      "binance_deposit_21wG4F3Z": "RESOLVED 2026-03-25: NOT deployer-specific. Generic Binance deposit address. Helius: 'Dexscreener Listing Fees 1', Arkham: 'Binance Deposit'. Zero network connections. Should be removed from network map."
     },
     "not_a_signal": {
       "phantom_fee_9yj3zvLS": "Phantom Swap Fees 1 (Helius) — protocol-level fee collector used by ALL Phantom users. NOT a network fingerprint. Downgraded 2026-03-21."
@@ -587,10 +882,14 @@
     "description": "Ordered investigation tasks remaining",
     "items": [
       {
-        "task": "Verify profit routing wallets",
-        "targets": "Profit Pass 1/2, Cold USDC 1/2, Coinbase Deposit, Binance Deposit, Rollbit Deposit, routes_binance",
-        "also": "Check Ed4UGBWK Rollbit deposits (RB5KKB7h, RB2Yz3VS) connection to deployer's RB3dQF6T",
-        "priority": "high"
+        "task": "DONE — Verify profit routing wallets",
+        "completed": "2026-03-25",
+        "result": "8 wallets profiled. binance_deposit (21wG4F3Z) reclassified as NOT network. New Fireblocks wallet 7RLD6F9S discovered. Coinbase-Rollbit gambling cycle confirmed ($184K+). See profit_routing_profiles section."
+      },
+      {
+        "task": "Profile new unknowns from profit routing",
+        "targets": "7RLD6F9S (Fireblocks Custody, $6.6K from network), yNanvu8H ($2.2K USDC from cold_usdc_2)",
+        "priority": "medium"
       },
       {
         "task": "Investigate unresolved recurring wallets",
