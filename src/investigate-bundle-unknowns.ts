@@ -260,7 +260,7 @@ async function investigate(target: typeof TARGETS[number]) {
         const dir = t.direction === "in" ? "IN " : "OUT";
         const cp = t.counterparty || "?";
         const cpTag = tag(cp);
-        const sym = t.symbol || "SOL";
+        const sym = t.symbol || (t.mint === "So11111111111111111111111111111111111111111" ? "SOL" : "TOKEN");
         const amt = typeof t.amount === "number" ? t.amount.toFixed(4) : t.amount;
         const ts = t.timestamp ? new Date(t.timestamp * 1000).toISOString().slice(0, 19) : "?";
         console.log(`  ${ts} ${dir} ${cp.slice(0, 16)}... ${cpTag} | ${amt} ${sym}`);
@@ -485,7 +485,7 @@ async function investigateFunder(funderAddr: string, parentLabel: string) {
         const dir = t.direction === "in" ? "IN " : "OUT";
         const cp = t.counterparty || "?";
         const cpTag = tag(cp);
-        const sym = t.symbol || "SOL";
+        const sym = t.symbol || (t.mint === "So11111111111111111111111111111111111111111" ? "SOL" : "TOKEN");
         const amt = typeof t.amount === "number" ? t.amount.toFixed(4) : t.amount;
         const ts = t.timestamp ? new Date(t.timestamp * 1000).toISOString().slice(0, 19) : "?";
         console.log(`  ${ts} ${dir} ${cp.slice(0, 16)}... ${cpTag} | ${amt} ${sym}`);
