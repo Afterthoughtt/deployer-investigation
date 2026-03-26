@@ -34,24 +34,24 @@ Cross-reference entity labels between all three APIs. They have different covera
 
 ```
 data/
+  network-map.json       — Canonical wallet registry (addresses, roles, labels, verdicts)
   launch-history.json    — 10-launch behavioral profile + timeline
-  launch-details.json    — Per-launch deployer flows + early buyer lists (L1-L9)
-  network-map.json       — All known wallet addresses, roles, labels
+  launch-details.json    — Per-launch deployer flows + early buyer lists (L1-L10)
   results/
-    investigation-notes.json   — Master findings (curated, single source of truth)
-    cross-reference-report.json — Cross-launch wallet analysis
-    raw/                       — Raw API response dumps (receipts, not for daily reading)
+    investigation-notes.json   — Synthesized findings NOT in the above files (profit routes, funding path analysis, network labels, evidence chains, uninvestigated counterparties)
+    cross-reference-report.json — Cross-launch wallet analysis (stale, may need regeneration)
+    raw/                       — Raw API response dumps (ground truth for addresses)
 src/                     — TypeScript investigation scripts (run with tsx)
 docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
 session_handoff.md       — Cross-session state (read at session start)
 ```
 
-Key files to read first: `session_handoff.md` (if exists), then `data/results/investigation-notes.json` (master findings), then `data/network-map.json` (wallet addresses).
+Key files to read first: `session_handoff.md` (if exists), then `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit routes, funding path analysis, or uninvestigated counterparties.
 
 ## Code Conventions
 
 - Save raw API results to `data/results/raw/[descriptive-name].json`
-- Distill findings into `data/results/investigation-notes.json` (master file) after each investigation
+- Distill findings into `data/network-map.json` (wallet registry) after each investigation. Only add to `investigation-notes.json` if the finding doesn't fit in network-map (e.g., profit route analysis, evidence chains)
 - Helius standard RPC: 50 req/sec, no delays needed
 - Helius Wallet API / Enhanced APIs: 10 req/sec, add 100ms delays for bulk calls
 - Nansen API: 1.5-2s delays between calls. Max 3-4 day date range on `/profiler/address/transactions`. Labels endpoint costs 500 credits — use only when critical.
@@ -61,9 +61,9 @@ Key files to read first: `session_handoff.md` (if exists), then `data/results/in
 
 ## Rules
 
-- **NEVER manually transcribe or reconstruct wallet addresses.** Always copy full addresses directly from API response JSON. Multiple sessions have recorded wrong addresses (correct prefix, wrong suffix) — this caused false conclusions for DLGHPXKF, CB1, hub_first_funder, and 2q8nSJgC's funder. Extract addresses programmatically from raw responses, never retype. If an address returns zero from all APIs, treat it as a SUSPECT TRANSCRIPTION ERROR first, not a "retired wallet." Verify against the original source before dismissing.
+- **NEVER manually transcribe or reconstruct wallet addresses.** Always copy full addresses directly from API response JSON. Multiple sessions have recorded wrong addresses (correct prefix, wrong suffix) — this caused false conclusions for CB1, hub_first_funder, FKjuwJzH, and 2q8nSJgC's funder. Extract addresses programmatically from raw responses, never retype. If an address returns zero from all APIs, verify against the original source — it could be a transcription error, a closed account, or a token account (ATA).
 - Nansen counterparty volumes are aggregated, not individual transactions. Verify at tx level.
-- Nansen counterparties can include program accounts (bonding curves, pools, vaults), not just wallets. Verify unknown high-volume counterparties are actual wallets before investigating.
+- Nansen counterparties can include program accounts (bonding curves, pools, vaults) AND token accounts (ATAs), not just wallets. DLGHPXKF and E2NnJHhc both appeared as OG deployer counterparties but were actually its WSOL ATAs. Before profiling any counterparty: parse a transaction involving it, check who the fee payer/signer is, and verify `isUserAddress` via Arkham. If the address is never a signer, it's not a wallet.
 - Bundle wallets don't need SOL gas. Deployer pays ATA rent. Monitor SPL changes, not SOL.
 - Closed Solana accounts lose RPC history. Zero sigs does not mean wallet never existed.
 - The deployer WILL change on-ramp sources. Source-agnostic detection is mandatory.

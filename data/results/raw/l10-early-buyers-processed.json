@@ -1,0 +1,1179 @@
+{
+  "earlyBuyers": [
+    {
+      "position": 1,
+      "address": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+      "secondsAfterDeploy": 0,
+      "totalUsd": 1175,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:44",
+      "networkMatch": "L10 Deployer",
+      "nansenLabel": "XAIC Token Deployer [2mZzsVKN]"
+    },
+    {
+      "position": 2,
+      "address": "SF9TGdsfTPcA3ZVmPdPtYphgzRg6ZqUY4hnjPgjD1MW",
+      "secondsAfterDeploy": 1,
+      "totalUsd": 89,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:45",
+      "networkMatch": null,
+      "nansenLabel": "[SF9TGdsf]"
+    },
+    {
+      "position": 3,
+      "address": "6rDh1xDMCxLPPBPME5jCELBStkNJjk17CwjXii3XpLtC",
+      "secondsAfterDeploy": 2,
+      "totalUsd": 16,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:46",
+      "networkMatch": null,
+      "nansenLabel": "BullX Trading Bot User [6rDh1xDM]"
+    },
+    {
+      "position": 4,
+      "address": "9XFqGmx3aJc3sTMKkZJdNJrh4rF2r7oEfDqTGmTDUdEi",
+      "secondsAfterDeploy": 2,
+      "totalUsd": 13,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:46",
+      "networkMatch": null,
+      "nansenLabel": "[9XFqGmx3]"
+    },
+    {
+      "position": 5,
+      "address": "Bh6yAWfY5R7fPcwvUHtsTQFAh9QjsNnezNhRDTdwnS6R",
+      "secondsAfterDeploy": 2,
+      "totalUsd": 22,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:46",
+      "networkMatch": null,
+      "nansenLabel": "[Bh6yAWfY]"
+    },
+    {
+      "position": 6,
+      "address": "8ngR8tWWs9dEPSnwkxMaJzNHUK2YVxSD4MgchSNXa6bJ",
+      "secondsAfterDeploy": 2,
+      "totalUsd": 22,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:46",
+      "networkMatch": null,
+      "nansenLabel": "[8ngR8tWW]"
+    },
+    {
+      "position": 7,
+      "address": "4aiEawRQQNCspnmyjtCBE2BS4HXiVgDWCcnesa4E5Yut",
+      "secondsAfterDeploy": 2,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:46",
+      "networkMatch": null,
+      "nansenLabel": "[4aiEawRQ]"
+    },
+    {
+      "position": 8,
+      "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE",
+      "secondsAfterDeploy": 2,
+      "totalUsd": 1048,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:46",
+      "networkMatch": "jetnut_network",
+      "nansenLabel": "[FSbvLdrK]"
+    },
+    {
+      "position": 9,
+      "address": "4BuFqc3BsnSCuJcaVnuwfn8rvZ3xjf9hu9Rnzr7TZE3K",
+      "secondsAfterDeploy": 2,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:46",
+      "networkMatch": null,
+      "nansenLabel": "[4BuFqc3B]"
+    },
+    {
+      "position": 10,
+      "address": "jcuGa4x9CNPJ5K9uNBSgbykPtNDuuHdzDYdsRNEF5ii",
+      "secondsAfterDeploy": 2,
+      "totalUsd": 4,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:46",
+      "networkMatch": null,
+      "nansenLabel": "[jcuGa4x9]"
+    },
+    {
+      "position": 11,
+      "address": "DVVJftX1KSAGxgqYvMiHoPEbeuJZ2beVZBMK2KxfvqHC",
+      "secondsAfterDeploy": 3,
+      "totalUsd": 109,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:47",
+      "networkMatch": null,
+      "nansenLabel": "[DVVJftX1]"
+    },
+    {
+      "position": 12,
+      "address": "8NfXpaGT9P3RoWEYuqcQVttJVQEFmH1qNSzq96hyuoUN",
+      "secondsAfterDeploy": 3,
+      "totalUsd": 125,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:47",
+      "networkMatch": null,
+      "nansenLabel": "[8NfXpaGT]"
+    },
+    {
+      "position": 13,
+      "address": "niggerd597QYedtvjQDVHZTCCGyJrwHNm2i49dkm5zS",
+      "secondsAfterDeploy": 3,
+      "totalUsd": 916,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:47",
+      "networkMatch": null,
+      "nansenLabel": "​​Deployer [niggerd5]"
+    },
+    {
+      "position": 14,
+      "address": "FjM7gfSx6YKhgTrn1CS47TNuja6c3kZy5NpjyXfLeBz2",
+      "secondsAfterDeploy": 5,
+      "totalUsd": 0,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:49",
+      "networkMatch": null,
+      "nansenLabel": "[FjM7gfSx]"
+    },
+    {
+      "position": 15,
+      "address": "AuU7VsdByyb2KxL89o7XuUXs4h2uaJXf6qqGvH6zjKmZ",
+      "secondsAfterDeploy": 5,
+      "totalUsd": 196,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:49",
+      "networkMatch": null,
+      "nansenLabel": "[AuU7VsdB]"
+    },
+    {
+      "position": 16,
+      "address": "B7pD4gJSD58qzhqEt4U9CsPNNpmUvHCVt35S5b1tufGD",
+      "secondsAfterDeploy": 5,
+      "totalUsd": 0,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:49",
+      "networkMatch": null,
+      "nansenLabel": "[B7pD4gJS]"
+    },
+    {
+      "position": 17,
+      "address": "JAwi2x5G2TMsTAcCj4HBWmzF2oXTQ7QLWTLeeoU7oGPd",
+      "secondsAfterDeploy": 5,
+      "totalUsd": 20,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:49",
+      "networkMatch": null,
+      "nansenLabel": "[JAwi2x5G]"
+    },
+    {
+      "position": 18,
+      "address": "EHtMMKpn9wNfaRwugvUgiJEbEXtLQk7QNcNZxHyMh5rV",
+      "secondsAfterDeploy": 5,
+      "totalUsd": 4,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:49",
+      "networkMatch": null,
+      "nansenLabel": "fucking og Token Deployer [EHtMMKpn]"
+    },
+    {
+      "position": 19,
+      "address": "3eBxcd1ts7Tka1Csn13f8RqJ7EtvyfdtXAkBMC1Gi2NB",
+      "secondsAfterDeploy": 5,
+      "totalUsd": 0,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:40:49",
+      "networkMatch": null,
+      "nansenLabel": "GMGN Trading Bot User [3eBxcd1t]"
+    },
+    {
+      "position": 20,
+      "address": "trqaTpcyKYAv1w4zPZTw5LGsyjnmk5TLLmvDiBNmKA6",
+      "secondsAfterDeploy": 5,
+      "totalUsd": 206,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:49",
+      "networkMatch": null,
+      "nansenLabel": "[trqaTpcy]"
+    },
+    {
+      "position": 21,
+      "address": "FSUAZztHqyMEP32cJcybra8gKrKCiNLFN5k6ymtaFHQV",
+      "secondsAfterDeploy": 5,
+      "totalUsd": 209,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:49",
+      "networkMatch": null,
+      "nansenLabel": "[FSUAZztH]"
+    },
+    {
+      "position": 22,
+      "address": "6r7YSmjCKitjTwL1ZwyQW5YSZ7vR26ddQUKVCYUeKfcN",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 13,
+      "tradeCount": 5,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "[6r7YSmjC]"
+    },
+    {
+      "position": 23,
+      "address": "EM1ZyNA3g4rr9MBzSEA36QqWd7t7cp54zDidm3YskyeU",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 92,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "gonk Token Deployer [EM1ZyNA3]"
+    },
+    {
+      "position": 24,
+      "address": "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 689,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "[BqP79Wmk]"
+    },
+    {
+      "position": 25,
+      "address": "CSoVm5crBosuDCsTJfpqEb6wb6MEVa6GpmkvTBPKitbz",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 12,
+      "tradeCount": 4,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "[CSoVm5cr]"
+    },
+    {
+      "position": 26,
+      "address": "6niSrRjH9WcHkFNe3hZTQwMLhKCafogT29wMJupEAqq8",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 15,
+      "tradeCount": 6,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "[6niSrRjH]"
+    },
+    {
+      "position": 27,
+      "address": "HEEf4JUguMz5yvsshQZkMJ8VKm5WRUsYhLwNSCMuoaJ",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 102,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "[HEEf4JUg]"
+    },
+    {
+      "position": 28,
+      "address": "J2L495ZPcJ6Btuyd4YqXz5uw7hpKiQXGcLvALwumabED",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 87,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "BloomBot Trading Bot User [J2L495ZP]"
+    },
+    {
+      "position": 29,
+      "address": "3vfpf15bdjhy5yDyWi8dtkokiVqK6HyaaRbcSkaXf488",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 26,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "[3vfpf15b]"
+    },
+    {
+      "position": 30,
+      "address": "DrnuP46qcf7b7utTY9Esm46SwkTFhYu4TrtRGTyvkE67",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 18,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "​​Trading Bot [DrnuP46q]"
+    },
+    {
+      "position": 31,
+      "address": "PMJA8UQDyWTFw2Smhyp9jGA6aTaP7jKHR7BPudrgyYN",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 82,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "GMGN Trading Bot User [PMJA8UQD]"
+    },
+    {
+      "position": 32,
+      "address": "E2o1bck1PPA1RcF9yVTXV7F6T7bD53QUdnkyvhsXgxAn",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 26,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "GMGN Trading Bot User [E2o1bck1]"
+    },
+    {
+      "position": 33,
+      "address": "Aq9vHGEncv62AXMRHfvDzGCr5zzo4FTf3XQVx3YnTkwA",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "DSTEST Token Deployer [Aq9vHGEn]"
+    },
+    {
+      "position": 34,
+      "address": "E3BPQ9VthrpRFWyp2f7nQiW58iDm4Gtegy7xAH3miGRu",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 88,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "GMGN Trading Bot User [E3BPQ9Vt]"
+    },
+    {
+      "position": 35,
+      "address": "9iQE7gUUqMFS65PL6NLsi5VgKx2SShGvPahBayPE9318",
+      "secondsAfterDeploy": 6,
+      "totalUsd": 87,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:50",
+      "networkMatch": null,
+      "nansenLabel": "[9iQE7gUU]"
+    },
+    {
+      "position": 36,
+      "address": "4Qz1a8D7dB4zLa63ocW889s8Kv3yXr6Dn3f4fxrWkiEj",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 13,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "[4Qz1a8D7]"
+    },
+    {
+      "position": 37,
+      "address": "BnnNJJgy9w2MLQ9XBKJKG9FQa2r9qdW7u5VpzEkwUcc3",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 20,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "[BnnNJJgy]"
+    },
+    {
+      "position": 38,
+      "address": "82kzGwijdKxHYnLtkKjzNjXT6kWYsNpsQgLnaT5jqrA",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 70,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "BloomBot Trading Bot User [82kzGwij]"
+    },
+    {
+      "position": 39,
+      "address": "EqS3FuQ1EQs4V5tfmAKw4JmBDwvVJRyJu3x9vCy1vvtA",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 141,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "[EqS3FuQ1]"
+    },
+    {
+      "position": 40,
+      "address": "GmuooqwXLfH7oUSZ5eG4Lkv6SY4N6zNE5WjiwzbeVSjx",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 27,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "[GmuooqwX]"
+    },
+    {
+      "position": 41,
+      "address": "C1s6pzRd827CTgyTp8iupANsku791nHySPb6DyYurLin",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 35,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "BloomBot Trading Bot User [C1s6pzRd]"
+    },
+    {
+      "position": 42,
+      "address": "D5nZNxsd1xwit7SCw683zQvE6XQ8RFBFFbAe9DbsNSH5",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 86,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "BloomBot Trading Bot User [D5nZNxsd]"
+    },
+    {
+      "position": 43,
+      "address": "CVtB2b7zZAN9bGzb3FQLiJPK1gRXD44msVWPQ9LEmt1R",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 161,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "[CVtB2b7z]"
+    },
+    {
+      "position": 44,
+      "address": "Himsq42XrCnSmzGZvBVzpQaaoPLFTSyh91m2u1yjPkeh",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 44,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "GG Token Deployer [Himsq42X]"
+    },
+    {
+      "position": 45,
+      "address": "6jsdy2gnvf5SCePx3srwxZCFHFvnU2VxPkDwWdvMF1US",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "[6jsdy2gn]"
+    },
+    {
+      "position": 46,
+      "address": "6SA1CtS75H4vAZM8tmg237GjUVfF6FuJnPEQMejBAYGt",
+      "secondsAfterDeploy": 7,
+      "totalUsd": 96,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:51",
+      "networkMatch": null,
+      "nansenLabel": "[6SA1CtS7]"
+    },
+    {
+      "position": 47,
+      "address": "6NCzgQJ3DRfT2AaCNLr9rhFhnJzvNcrashgjr1ZUCgSd",
+      "secondsAfterDeploy": 8,
+      "totalUsd": 19,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:52",
+      "networkMatch": null,
+      "nansenLabel": "[6NCzgQJ3]"
+    },
+    {
+      "position": 48,
+      "address": "dasjXPxbd9wm6NBzuw2S4QVHQJYyjM3XDfWFDxrNJ52",
+      "secondsAfterDeploy": 8,
+      "totalUsd": 5,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:52",
+      "networkMatch": null,
+      "nansenLabel": "[dasjXPxb]"
+    },
+    {
+      "position": 49,
+      "address": "5mZcTt4e6NjeMsVCeWK79EjR4tyi1L6FHFGvFhzCdFhX",
+      "secondsAfterDeploy": 8,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:52",
+      "networkMatch": null,
+      "nansenLabel": "[5mZcTt4e]"
+    },
+    {
+      "position": 50,
+      "address": "osakAfYp9QrJyR3h782jemZwj8ETDnNHXcGRVCsUUeJ",
+      "secondsAfterDeploy": 8,
+      "totalUsd": 18,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:52",
+      "networkMatch": null,
+      "nansenLabel": "[osakAfYp]"
+    },
+    {
+      "position": 51,
+      "address": "GZYwYgepneRzgZBUsE1TycCwqS2AXvV4Fq5G63JEwjJ1",
+      "secondsAfterDeploy": 8,
+      "totalUsd": 95,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:40:52",
+      "networkMatch": null,
+      "nansenLabel": "[GZYwYgep]"
+    },
+    {
+      "position": 52,
+      "address": "9yCDkpYssZi2xjqBnChuSLt4PYGhq4t5rg66ajgBqmfy",
+      "secondsAfterDeploy": 8,
+      "totalUsd": 26,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:52",
+      "networkMatch": null,
+      "nansenLabel": "​​Trading Bot [9yCDkpYs]"
+    },
+    {
+      "position": 53,
+      "address": "6pNndy8sewtG7QVfJohKRnpTwdWSdHMi6YQgVNKithNh",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 175,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "​​Trading Bot [6pNndy8s]"
+    },
+    {
+      "position": 54,
+      "address": "3eQ3PJYknrF2mYPCptCiRDJV1AmZkGhznrSMfmEnKQLU",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 18,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "[3eQ3PJYk]"
+    },
+    {
+      "position": 55,
+      "address": "94NuM2cQ2T2xz2F9K2cJZqQd2rdQmVCvYi3QQY1YJfDc",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 4,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "[94NuM2cQ]"
+    },
+    {
+      "position": 56,
+      "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 132,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": "F7RV6aBW (possible associate)",
+      "nansenLabel": "​​Trading Bot [F7RV6aBW]"
+    },
+    {
+      "position": 57,
+      "address": "9tCMPsdibHAKuxwa5eCeDcgSEJg1avWyKi3pZ3uX2fNt",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "CATERPILAR Token Deployer [9tCMPsdi]"
+    },
+    {
+      "position": 58,
+      "address": "HU8EBir5iFki1FFqof5RcAYCwKd2v3Lu5AYLzB46sm9C",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 18,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "[HU8EBir5]"
+    },
+    {
+      "position": 59,
+      "address": "3954Fmt2t6ZEUmsz1nrPTcnwopugux58aM9y7xUqTb4Q",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 17,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "[3954Fmt2]"
+    },
+    {
+      "position": 60,
+      "address": "BcN6HumyGw32jVeGMw8tYtRaKMzxafNcWSw87694fbxS",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 87,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "BloomBot Trading Bot User [BcN6Humy]"
+    },
+    {
+      "position": 61,
+      "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 367,
+      "tradeCount": 3,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "BloomBot Trading Bot User [Dj9WL4Nh]"
+    },
+    {
+      "position": 62,
+      "address": "9jNxB1U1EXLt1XM9jPWFMVJNXg4V5UEW6FmNtAGUN5fV",
+      "secondsAfterDeploy": 9,
+      "totalUsd": 3,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:53",
+      "networkMatch": null,
+      "nansenLabel": "[9jNxB1U1]"
+    },
+    {
+      "position": 63,
+      "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+      "secondsAfterDeploy": 10,
+      "totalUsd": 1075,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:54",
+      "networkMatch": null,
+      "nansenLabel": "[7QJM8rXX]"
+    },
+    {
+      "position": 64,
+      "address": "AZ12prnDxJ7AaMYPiAq3929C3AJAkiUaJUvjavYkJK4S",
+      "secondsAfterDeploy": 11,
+      "totalUsd": 88,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:55",
+      "networkMatch": null,
+      "nansenLabel": "[AZ12prnD]"
+    },
+    {
+      "position": 65,
+      "address": "FQ4ecLy3VjBm5QkEKs5SC4f7t2KcndftUWTE22SiGGyg",
+      "secondsAfterDeploy": 11,
+      "totalUsd": 2,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:55",
+      "networkMatch": null,
+      "nansenLabel": "[FQ4ecLy3]"
+    },
+    {
+      "position": 66,
+      "address": "Db5bTsXDrWcTqwJRf1NRcDGF4omeT9KiozwMhj8JwWYU",
+      "secondsAfterDeploy": 11,
+      "totalUsd": 42,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:55",
+      "networkMatch": null,
+      "nansenLabel": "[Db5bTsXD]"
+    },
+    {
+      "position": 67,
+      "address": "BnzR3585JFQPvneUgn3nnK2cMsHjYAbEzm5fSAj6N3BS",
+      "secondsAfterDeploy": 13,
+      "totalUsd": 5,
+      "tradeCount": 3,
+      "firstBuyTime": "2026-03-15T21:40:57",
+      "networkMatch": null,
+      "nansenLabel": "TITTYCLUB Token Deployer [BnzR3585]"
+    },
+    {
+      "position": 68,
+      "address": "Ds7EYYHvoLHeUpcS8ZTmDhDbxnE5QvEHuaCF2Bj4L35K",
+      "secondsAfterDeploy": 14,
+      "totalUsd": 1,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:58",
+      "networkMatch": null,
+      "nansenLabel": "Photon Trading Bot User [Ds7EYYHv]"
+    },
+    {
+      "position": 69,
+      "address": "Fek5aagDdcNePXJQ5ya9chGsxARV8MoK84w7VQLqtXwh",
+      "secondsAfterDeploy": 14,
+      "totalUsd": 13,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:58",
+      "networkMatch": null,
+      "nansenLabel": "[Fek5aagD]"
+    },
+    {
+      "position": 70,
+      "address": "ADSiVsctnN2DuBoiN2rVh8D3YmcfUnSp5TRka8ZnBaz4",
+      "secondsAfterDeploy": 15,
+      "totalUsd": 175,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:40:59",
+      "networkMatch": null,
+      "nansenLabel": "..-. .- .- Token Deployer [ADSiVsct]"
+    },
+    {
+      "position": 71,
+      "address": "9Eh7ihnWEubqxPqFvM1ZPLjTMpECktq3ov9px895CxV6",
+      "secondsAfterDeploy": 16,
+      "totalUsd": 9,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:00",
+      "networkMatch": null,
+      "nansenLabel": "CtrlAltDef Token Deployer [9Eh7ihnW]"
+    },
+    {
+      "position": 72,
+      "address": "4MHxAyfbKSye85x97Xs4fzRSTiHS5b4cFnKUkMXc281j",
+      "secondsAfterDeploy": 18,
+      "totalUsd": 319,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:02",
+      "networkMatch": null,
+      "nansenLabel": "Raysix Token Deployer [4MHxAyfb]"
+    },
+    {
+      "position": 73,
+      "address": "tefsDGYz1qc3F52ckPPxaVqxwbCuJkheoEhzyFDumyf",
+      "secondsAfterDeploy": 18,
+      "totalUsd": 248,
+      "tradeCount": 3,
+      "firstBuyTime": "2026-03-15T21:41:02",
+      "networkMatch": null,
+      "nansenLabel": "[tefsDGYz]"
+    },
+    {
+      "position": 74,
+      "address": "BdDUcuizSckXKv7zSj2jDKALeWWjbPjNXgwxiRUekrRc",
+      "secondsAfterDeploy": 18,
+      "totalUsd": 13,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:02",
+      "networkMatch": null,
+      "nansenLabel": "[BdDUcuiz]"
+    },
+    {
+      "position": 75,
+      "address": "685cn2t25739MrgV33xJDfmCuMrSkpWUkQvuVjiq2Wdf",
+      "secondsAfterDeploy": 19,
+      "totalUsd": 17,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:03",
+      "networkMatch": null,
+      "nansenLabel": "[685cn2t2]"
+    },
+    {
+      "position": 76,
+      "address": "EAgQrn325eq1keprrcbNtbAkokCCyVFJ63Jieuqxe5d",
+      "secondsAfterDeploy": 19,
+      "totalUsd": 3,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:03",
+      "networkMatch": null,
+      "nansenLabel": "[EAgQrn32]"
+    },
+    {
+      "position": 77,
+      "address": "GtdtmfVUsRXxZySyR36EmyNhkoWEfqBKqvxDjAcSy74M",
+      "secondsAfterDeploy": 20,
+      "totalUsd": 26,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:04",
+      "networkMatch": null,
+      "nansenLabel": "dasdasdas Token Deployer [GtdtmfVU]"
+    },
+    {
+      "position": 78,
+      "address": "FHxcQz3HYu1WSR8GaEY69agAL8oJXb2oJrNnQdXE3o42",
+      "secondsAfterDeploy": 22,
+      "totalUsd": 17,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:06",
+      "networkMatch": null,
+      "nansenLabel": "[FHxcQz3H]"
+    },
+    {
+      "position": 79,
+      "address": "GBqnUekuA4zzj3vAbXRzMcdnxRDMvU97vRhGEj4mXeBH",
+      "secondsAfterDeploy": 22,
+      "totalUsd": 86,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:06",
+      "networkMatch": null,
+      "nansenLabel": "[GBqnUeku]"
+    },
+    {
+      "position": 80,
+      "address": "ACcmv2Wv4Ub6fB1FgGz6DYpTPhJGredA56VceLSAqBgQ",
+      "secondsAfterDeploy": 23,
+      "totalUsd": 18,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:07",
+      "networkMatch": null,
+      "nansenLabel": "[ACcmv2Wv]"
+    },
+    {
+      "position": 81,
+      "address": "HBaLauiJXuAaBW9EnjJ9iJ3vaxCYco16s1uXcemtCCi7",
+      "secondsAfterDeploy": 23,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:07",
+      "networkMatch": null,
+      "nansenLabel": "[HBaLauiJ]"
+    },
+    {
+      "position": 82,
+      "address": "7Ad4tSRwvqEsZ9MXdHe7TW47cfA1a89m4qsJjsh3rvha",
+      "secondsAfterDeploy": 24,
+      "totalUsd": 4,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:08",
+      "networkMatch": null,
+      "nansenLabel": "GMGN Trading Bot User [7Ad4tSRw]"
+    },
+    {
+      "position": 83,
+      "address": "GFk2zEvdAktNvPzDdApr3id9Qk3xG2YWpnCsP4u7mjPV",
+      "secondsAfterDeploy": 26,
+      "totalUsd": 22,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:10",
+      "networkMatch": null,
+      "nansenLabel": "[GFk2zEvd]"
+    },
+    {
+      "position": 84,
+      "address": "CpoTWPZHHzhiGRHYAfpuaDzrDHZskKJDxLUDNeW5DdiA",
+      "secondsAfterDeploy": 26,
+      "totalUsd": 18,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:10",
+      "networkMatch": null,
+      "nansenLabel": "PARTY Token Deployer [CpoTWPZH]"
+    },
+    {
+      "position": 85,
+      "address": "GnhGKoeGyYM4mDjtjHhhxsMsJcrwbbszJi5DxBFXd3a5",
+      "secondsAfterDeploy": 26,
+      "totalUsd": 22,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:10",
+      "networkMatch": null,
+      "nansenLabel": "[GnhGKoeG]"
+    },
+    {
+      "position": 86,
+      "address": "1xAyDUi8TeA2mKzafA6Y6ifZEZ2pm8W6soHQ8TESrfr",
+      "secondsAfterDeploy": 27,
+      "totalUsd": 46,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:11",
+      "networkMatch": null,
+      "nansenLabel": "[1xAyDUi8]"
+    },
+    {
+      "position": 87,
+      "address": "2zBWFYhhi28vSbhPpSjJpQYaceTKxiCL2j6zLq8ockTn",
+      "secondsAfterDeploy": 27,
+      "totalUsd": 292,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:11",
+      "networkMatch": null,
+      "nansenLabel": "Former Smart Trader [2zBWFYhh]"
+    },
+    {
+      "position": 88,
+      "address": "Aemby6yXpjA8CzFoq7cDbgPah5iuTgdnmLt8rFHBTUi8",
+      "secondsAfterDeploy": 27,
+      "totalUsd": 283,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:11",
+      "networkMatch": null,
+      "nansenLabel": "Former Smart Trader [Aemby6yX]"
+    },
+    {
+      "position": 89,
+      "address": "9V3PN8xn74ygR71uvgkkcMmaW3j2V4Y3hYBe8AAtoNYN",
+      "secondsAfterDeploy": 27,
+      "totalUsd": 2,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:11",
+      "networkMatch": null,
+      "nansenLabel": "[9V3PN8xn]"
+    },
+    {
+      "position": 90,
+      "address": "Cvnk6o8QEBceac3ARf5Wdjj6n9RDuZ1bCDx7gRC4hHWt",
+      "secondsAfterDeploy": 27,
+      "totalUsd": 299,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:11",
+      "networkMatch": null,
+      "nansenLabel": "High Balance [Cvnk6o8Q]"
+    },
+    {
+      "position": 91,
+      "address": "DuERWYatxYkQoiy5UMbQvU6Amnox2CjMcL9rY7sN22Nh",
+      "secondsAfterDeploy": 28,
+      "totalUsd": 17,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:12",
+      "networkMatch": null,
+      "nansenLabel": "[DuERWYat]"
+    },
+    {
+      "position": 92,
+      "address": "4e6mHBm2cwPqjFhQJbDexc31DjBH5JCPrVKxhL1XwYKk",
+      "secondsAfterDeploy": 28,
+      "totalUsd": 218,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:12",
+      "networkMatch": null,
+      "nansenLabel": "COPPERNEKO Token Deployer [4e6mHBm2]"
+    },
+    {
+      "position": 93,
+      "address": "EGG91JKvJj6reUNnqDY6eudGSb8zMoh5JEqdtHZkeB2c",
+      "secondsAfterDeploy": 29,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:13",
+      "networkMatch": null,
+      "nansenLabel": "[EGG91JKv]"
+    },
+    {
+      "position": 94,
+      "address": "Ak93T5X3uxUM6MwVnExX9qgpyVjfGgPBTNB7MpwAXYUm",
+      "secondsAfterDeploy": 30,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:14",
+      "networkMatch": null,
+      "nansenLabel": "axyum.sol [Ak93T5X3]"
+    },
+    {
+      "position": 95,
+      "address": "EywtLmQfj4GKmMB8Z4ymYKxDsy2pDGwpK5bJqLq9rzVP",
+      "secondsAfterDeploy": 30,
+      "totalUsd": 11,
+      "tradeCount": 2,
+      "firstBuyTime": "2026-03-15T21:41:14",
+      "networkMatch": null,
+      "nansenLabel": "[EywtLmQf]"
+    },
+    {
+      "position": 96,
+      "address": "GuMeCUwg8FpxSJsdRYNZ9EWtNj4LuzwpxvDtB1bPoq2H",
+      "secondsAfterDeploy": 31,
+      "totalUsd": 41,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:15",
+      "networkMatch": null,
+      "nansenLabel": "[GuMeCUwg]"
+    },
+    {
+      "position": 97,
+      "address": "93cDuuScLAtwHVd6PAhmWVkZgzHesMPt25NwowrYwoe5",
+      "secondsAfterDeploy": 31,
+      "totalUsd": 17,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:15",
+      "networkMatch": null,
+      "nansenLabel": "[93cDuuSc]"
+    },
+    {
+      "position": 98,
+      "address": "EYSHWZbCAtEEFUFtV8VcQnw18AUrLRMexG1kWSBiJidN",
+      "secondsAfterDeploy": 32,
+      "totalUsd": 0,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:16",
+      "networkMatch": null,
+      "nansenLabel": "[EYSHWZbC]"
+    },
+    {
+      "position": 99,
+      "address": "GAScpDZ8icWuqHEgjKEK4PXLDSBTQdHR4n8jnPWdHwAf",
+      "secondsAfterDeploy": 32,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:16",
+      "networkMatch": null,
+      "nansenLabel": "[GAScpDZ8]"
+    },
+    {
+      "position": 100,
+      "address": "8jnfBFyEEja6roy4H6bA5jpx3n13g2GKjT4EQrj5fF1",
+      "secondsAfterDeploy": 36,
+      "totalUsd": 4,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:20",
+      "networkMatch": null,
+      "nansenLabel": "[8jnfBFyE]"
+    },
+    {
+      "position": 101,
+      "address": "GQ7cfj4eY2H4Aw5kR7bdzTai2vZazwj4a2L4rrKrdpUE",
+      "secondsAfterDeploy": 36,
+      "totalUsd": 3,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:20",
+      "networkMatch": null,
+      "nansenLabel": "[GQ7cfj4e]"
+    },
+    {
+      "position": 102,
+      "address": "Ccc4Rdr64uDmpMj297ahQdXMdy5m4ikVKeAKCQ2XDQJY",
+      "secondsAfterDeploy": 36,
+      "totalUsd": 48,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:20",
+      "networkMatch": null,
+      "nansenLabel": "[Ccc4Rdr6]"
+    },
+    {
+      "position": 103,
+      "address": "2ZMZcMZBq4YiMnJKHKRE24rME7A4oEswzGNyiwzXdX6t",
+      "secondsAfterDeploy": 37,
+      "totalUsd": 86,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:21",
+      "networkMatch": null,
+      "nansenLabel": "GMGN Trading Bot User [2ZMZcMZB]"
+    },
+    {
+      "position": 104,
+      "address": "8yQ5XX6xQNDjt5eSfKDjK322Xb9exxYR7EgrMkkQYpGT",
+      "secondsAfterDeploy": 37,
+      "totalUsd": 2,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:21",
+      "networkMatch": null,
+      "nansenLabel": "[8yQ5XX6x]"
+    },
+    {
+      "position": 105,
+      "address": "M2qooMKeDM6AFs7bsvMvasnL7R3zJ4QFV31fLP5w1iq",
+      "secondsAfterDeploy": 40,
+      "totalUsd": 26,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:24",
+      "networkMatch": null,
+      "nansenLabel": "[M2qooMKe]"
+    },
+    {
+      "position": 106,
+      "address": "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+      "secondsAfterDeploy": 44,
+      "totalUsd": 87,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:28",
+      "networkMatch": null,
+      "nansenLabel": "Photon Trading Bot User [EKVVGr4V]"
+    },
+    {
+      "position": 107,
+      "address": "5aYMWf5T9AS544DqvEjw3sDviPSqfT6YZe9HGQ9j8uZ8",
+      "secondsAfterDeploy": 46,
+      "totalUsd": 26,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:30",
+      "networkMatch": null,
+      "nansenLabel": "GMGN Trading Bot User [5aYMWf5T]"
+    },
+    {
+      "position": 108,
+      "address": "C7uEUaNJjaYgJeYqq8cgJQHQEuYmYas5QoSQeqejs7pP",
+      "secondsAfterDeploy": 48,
+      "totalUsd": 4,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:32",
+      "networkMatch": null,
+      "nansenLabel": "Photon Trading Bot User [C7uEUaNJ]"
+    },
+    {
+      "position": 109,
+      "address": "8raoPCVRjSuegsEnNynG9vgf8qVtRnzfQuyFdSQ7u5SS",
+      "secondsAfterDeploy": 48,
+      "totalUsd": 2,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:32",
+      "networkMatch": null,
+      "nansenLabel": "[8raoPCVR]"
+    },
+    {
+      "position": 110,
+      "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+      "secondsAfterDeploy": 51,
+      "totalUsd": 88,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:35",
+      "networkMatch": null,
+      "nansenLabel": "[BvYi1ZV9]"
+    },
+    {
+      "position": 111,
+      "address": "4PyjNqytxoabtjBD2oCYSQQzLs5CWBJLKThgFkV31GcU",
+      "secondsAfterDeploy": 51,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:35",
+      "networkMatch": null,
+      "nansenLabel": "Ferrari Token Deployer [4PyjNqyt]"
+    },
+    {
+      "position": 112,
+      "address": "EKYwyE7RoYFFSFKGWDy4yChPZ8poP16fJTYV9Ufmsa4d",
+      "secondsAfterDeploy": 58,
+      "totalUsd": 4,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:42",
+      "networkMatch": null,
+      "nansenLabel": "Hybrid Token Deployer [EKYwyE7R]"
+    },
+    {
+      "position": 113,
+      "address": "GfqyKRmG1qDqaLyEUP3vGbGQGVeuBMoLGkLY49MtCWpn",
+      "secondsAfterDeploy": 60,
+      "totalUsd": 5,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:44",
+      "networkMatch": null,
+      "nansenLabel": "[GfqyKRmG]"
+    },
+    {
+      "position": 114,
+      "address": "4tMmABq7ZE1yaKRacMPewimJeUKJYzVrMf73BhPaAtcK",
+      "secondsAfterDeploy": 63,
+      "totalUsd": 612,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:47",
+      "networkMatch": null,
+      "nansenLabel": "[4tMmABq7]"
+    },
+    {
+      "position": 115,
+      "address": "C2bwVb5rdZsYumCH8NQHZpaodGzYxbEWJF6C4B6m43DC",
+      "secondsAfterDeploy": 65,
+      "totalUsd": 23,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:49",
+      "networkMatch": null,
+      "nansenLabel": "[C2bwVb5r]"
+    },
+    {
+      "position": 116,
+      "address": "DQNwuVnA2xpqPogoosSny5kHd7rs8iWc49Tn7GYWHgLK",
+      "secondsAfterDeploy": 68,
+      "totalUsd": 9,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:52",
+      "networkMatch": null,
+      "nansenLabel": "[DQNwuVnA]"
+    },
+    {
+      "position": 117,
+      "address": "3NJ87UPCtDuGtCJ7Cxkrf8uMqsv4odX8CnP5fJ7QKmej",
+      "secondsAfterDeploy": 69,
+      "totalUsd": 1,
+      "tradeCount": 1,
+      "firstBuyTime": "2026-03-15T21:41:53",
+      "networkMatch": null,
+      "nansenLabel": "GMGN Trading Bot User [3NJ87UPC]"
+    }
+  ],
+  "summary": {
+    "total": 117,
+    "network": 3,
+    "unknown": 114
+  }
+}

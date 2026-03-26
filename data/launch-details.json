@@ -10,7 +10,7 @@
     "funded_by_label": "Coinbase Hot Wallet 2 (CB9)",
     "funded_utc": "2025-03-22T17:48:46Z",
     "inflows": [
-      { "address": "DLGHPXKFVepjShuRvp8PDBkaCH7bkxaCK21USQGmSQ3e", "label": null, "transfers": 156, "volume_usd": 25280 },
+      { "address": "DLGHPXKFVepjShuRvp8PDBkaCH7bkxaCK21USQGmSQ3e", "label": "OG Deployer WSOL ATA (not a wallet)", "transfers": 156, "volume_usd": 25280 },
       { "address": "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW", "label": "Bundle 1", "transfers": 5, "volume_usd": 5530 },
       { "address": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot", "label": "L9 Deployer", "transfers": 7, "volume_usd": 4040 },
       { "address": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm", "label": "Bundle 6", "transfers": 7, "volume_usd": 4040 },
@@ -20,11 +20,11 @@
       { "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb", "label": "L4 Deployer", "transfers": 4, "volume_usd": 3090 },
       { "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7", "label": "Bundle 2", "transfers": 4, "volume_usd": 2760 },
       { "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y", "label": "L6 Deployer", "transfers": 3, "volume_usd": 2660 },
-      { "address": "E2NnJHhcMhwrMT2qZDJicnGLFQZw44ceqTAcrqo8BA8F", "label": null, "transfers": 37, "volume_usd": 2100 },
+      { "address": "E2NnJHhcMhwrMT2qZDJicnGLFQZw44ceqTAcrqo8BA8F", "label": "OG Deployer WSOL ATA (not a wallet)", "transfers": 37, "volume_usd": 2100 },
       { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 9, "volume_usd": 1590 }
     ],
     "outflows": [
-      { "address": "DLGHPXKFVepjShuRvp8PDBkaCH7bkxaCK21USQGmSQ3e", "label": null, "transfers": 432, "volume_usd": 26800 },
+      { "address": "DLGHPXKFVepjShuRvp8PDBkaCH7bkxaCK21USQGmSQ3e", "label": "OG Deployer WSOL ATA (not a wallet)", "transfers": 432, "volume_usd": 26800 },
       { "address": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT", "label": "Coinbase Deposit", "transfers": 28, "volume_usd": 11310 },
       { "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y", "label": "L6 Deployer", "transfers": 4, "volume_usd": 6630 },
       { "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE", "label": "L8 Deployer", "transfers": 2, "volume_usd": 5770 },
@@ -625,6 +625,37 @@
         "9JgcamNMxiUcCTHKeDW1BuKZ2GvcGwLAmVFTpWFvE1qz",
         "2zhVMD3fvXD59WVi1AVPgdeXX4WKY5DXiywdaUGjbLFT"
       ]
+    },
+    "L10": {
+      "token_name": "XAIC",
+      "token_address": "KfByHk48ecitUq8gXji2vr9smmRJKtqJwGAh2E9pump",
+      "deployer": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+      "deploy_time_utc": "2026-03-15T21:40:44Z",
+      "funding_source": "MoonPay MP1 (Cc3bpPzU)",
+      "funding_amount_sol": 13.443,
+      "early_buyers_note": "150 BUY trades in first 69 seconds. 117 unique traders. 3 known network. Data from Nansen tgm/dex-trades 2026-03-25.",
+      "early_buyers": [
+        { "position": 1, "address": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB", "seconds": 0, "usd": 1175, "tag": "L10 Deployer (create_and_buy)" },
+        { "position": 2, "address": "SF9TGdsfTPcA3ZVmPdPt4YUxmFXjk6baTyNGjzxKJHJ", "seconds": 1, "usd": 89, "tag": "unknown" },
+        { "position": 8, "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE", "seconds": 2, "usd": 1048, "tag": "NETWORK: jetnut_network" },
+        { "position": 13, "address": "niggerd597QYedtvjQDVHZTCCGyJrwHNm2i49dkm5zS", "seconds": 3, "usd": 916, "tag": "Nansen: Deployer. Suspicious — $916 at +3s" },
+        { "position": 24, "address": "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC", "seconds": 6, "usd": 689, "tag": "unknown. Suspicious — $689 at +6s" },
+        { "position": 56, "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE", "seconds": 9, "usd": 132, "tag": "KNOWN: F7RV6aBW (possible associate, L7-L9 recurring)" },
+        { "position": 61, "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1", "seconds": 9, "usd": 367, "tag": "BloomBot user. $367 at +9s" },
+        { "position": 63, "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj", "seconds": 10, "usd": 1075, "tag": "unknown. Suspicious — $1075 at +10s, largest non-deployer buy!" },
+        { "position": 114, "address": "4tMmABq7ZE1yaKRacMPeT3R3xQCzVHU73z66TLGhJFBf", "seconds": 63, "usd": 612, "tag": "unknown. $612 at +63s" }
+      ],
+      "coinspot_insider_note": "CoinSpot insider (DmA9Jab) NOT in first 150 trades (first 69s). May have bought slightly later — handoff says '1 second after deploy' but that data from different source. Needs verification.",
+      "cross_reference_summary": {
+        "network_matches": 3,
+        "known_wallets": ["L10 Deployer", "jetnut_network (position 8, $1048 at +2s)", "F7RV6aBW (position 56, $132 at +9s)"],
+        "suspicious_profiled": {
+          "BqP79Wmk": "HIGHLY SUSPICIOUS — trades ALL deployer tokens (DOGWIFXRP $129K, WFXRP $49K, etc), MoonPay funded (same as L10), receives from Large Funding Source (Fireblocks). First funded on L1 launch day.",
+          "7QJM8rXX": "POSSIBLE ASSOCIATE — largest non-deployer buy ($1075). Receives $142 from 98KvdqZJ (SUSYE/CoinSpot insider). MEXC funded.",
+          "niggerd5": "NOT NETWORK — heavy independent trader (Nansen 422). Zero connections.",
+          "4tMmABq7": "NOT NETWORK — single-use XAIC sniper. Suspicious timing (funded 58m before deploy) but zero connections."
+        }
+      }
     }
   }
 }
