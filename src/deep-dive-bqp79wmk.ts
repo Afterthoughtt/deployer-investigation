@@ -97,8 +97,8 @@ const TARGETS = [
   },
   {
     id: "cashout_FKjuwJzH",
-    address: "FKjuwJzHJYAhYWNiNxPD99eC1a4yPrKVmhZtDXfUe7Md",
-    context: "BqP79Wmk sends $5.1K here (11 txs). Cashout destination. Where does this money go — Coinbase? MoonPay? Back to network?",
+    address: "FKjuwJzHn4hqSfarMMsKjzsNUzEuWzzDM4ZcqJzuATqu",
+    context: "BqP79Wmk sends $5.1K here (11 txs). Crypto.com Deposit (Arkham). Prior address FKjuwJzHJYAh... was TRANSCRIPTION ERROR.",
   },
 ];
 

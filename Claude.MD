@@ -6,7 +6,7 @@ Investigation toolkit for tracking a serial pump.fun deployer on Solana. Goal: i
 
 ## How It Works
 
-The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spend: 11.64-14.81 SOL, sieve range widened to 8-25 for safety), waits 12-17h (max observed: 26h), then deploys on pump.fun (30-35% supply). Funding path varies every launch — sometimes direct from on-ramp, sometimes via intermediary (hub wallet, OG deployer, prior deployer, side-project wallet). We must monitor ALL known network wallets AND on-ramp hot wallets for outflows in that range to fresh addresses.
+The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spend: 8.09-14.81 SOL in fresh wallet era L4-L10, sieve range widened to 8-25 for safety), waits 12-17h (max observed: 26h), then deploys on pump.fun (30-35% supply). L1-L3 used OG deployer directly with tiny buys (0.39-1.98 SOL) and bundling. Funding path varies every launch — sometimes direct from on-ramp, sometimes via intermediary (hub wallet, OG deployer, prior deployer, side-project wallet). We must monitor ALL known network wallets AND on-ramp hot wallets for outflows in that range to fresh addresses.
 
 ## Tech Stack
 

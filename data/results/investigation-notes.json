@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Synthesized investigation findings — content NOT captured in network-map.json or launch-history.json",
-    "last_updated": "2026-03-25",
+    "last_updated": "2026-03-28",
     "goal": "Identify the deployer's next fresh wallet after it gets funded but before create_and_buy",
     "raw_data_location": "data/results/raw/ — full API responses for all investigations"
   },
@@ -102,7 +102,7 @@
   "bqp79wmk_evidence_chain": {
     "description": "Evidence proving BqP79Wmk is deployer's personal trading wallet",
     "evidence": [
-      "1. Trades ALL 7 deployer tokens across ALL launches (L1-L10): DOGWIFXRP $129K, WFXRP $49K, ARKXRP $8.2K, XAIC $6.1K, QTX $1K, TROLLXRP $627, XRPEP3 $766",
+      "1. Trades ALL 9 deployer tokens (covering all 10 launches): DOGWIFXRP $129K, WFXRP $49K, ARKXRP $8.2K, XAIC $6.1K, GSBANK $1.9K, QTX $1K, XRPEP3 $766, TROLLXRP $627, RXRP $431. Early buyer on L1-L3/L5/L6/L10, later buyer on L4/L7/L8/L9. Verified from Nansen counterparties (raw: l10-suspicious-buyers-profiles.json).",
       "2. Funded via MoonPay MP1 — deployer's own on-ramp for L10",
       "3. Receives $629 from Large Funding Source (Fireblocks) — deployer infrastructure",
       "4. First funded on L1 launch day (2025-06-15)",

@@ -36,14 +36,16 @@ for (const addr of Object.values(networkMap.bundle_wallets)) {
   knownInfra.add(addr as string);
 }
 
-// Profit routing
-for (const addr of Object.values(networkMap.profit_routing)) {
-  knownInfra.add(addr as string);
+// Profit routing (values are objects with .address)
+for (const val of Object.values(networkMap.profit_routing)) {
+  const entry = val as any;
+  if (entry?.address) knownInfra.add(entry.address);
 }
 
-// Side projects
-for (const addr of Object.values(networkMap.side_projects)) {
-  knownInfra.add(addr as string);
+// Side projects (values are objects with .address)
+for (const val of Object.values(networkMap.side_projects)) {
+  const entry = val as any;
+  if (entry?.address) knownInfra.add(entry.address);
 }
 
 // On-ramp hot wallets
@@ -81,6 +83,46 @@ if (networkMap.insiders?.blofin_insider?.blofin_passthrough) {
   knownInsiders.add(networkMap.insiders.blofin_insider.blofin_passthrough);
 }
 
+// Resolved wallets — now identified from investigation
+const knownResolved = new Map<string, string>();
+
+// Monitoring wallets
+for (const [key, val] of Object.entries(networkMap.monitoring || {})) {
+  const addr = (val as any).address;
+  if (addr) knownResolved.set(addr, `monitoring:${key}`);
+}
+
+// Network-connected
+for (const [key, val] of Object.entries(networkMap.network_connected || {})) {
+  const addr = (val as any).address;
+  if (addr) knownResolved.set(addr, `network_connected:${key}`);
+}
+
+// Not-network (resolved as NOT deployer network)
+for (const [key, val] of Object.entries(networkMap.not_network || {})) {
+  const addr = (val as any).address;
+  if (addr) knownResolved.set(addr, `not_network:${key}`);
+}
+
+// Extras (resolved, various verdicts)
+for (const [key, val] of Object.entries(networkMap.extras || {})) {
+  const addr = (val as any).address;
+  if (addr) knownResolved.set(addr, `resolved:${key}`);
+}
+
+// OG deployer token accounts (ATAs, not wallets)
+for (const [key, val] of Object.entries(networkMap.og_deployer_token_accounts || {})) {
+  if (key === "notes") continue;
+  const addr = (val as any).address;
+  if (addr) knownResolved.set(addr, `ata:${key}`);
+}
+
+// Profit cashout
+for (const [key, val] of Object.entries(networkMap.profit_cashout || {})) {
+  const addr = (val as any).address;
+  if (addr) knownInfra.add(addr);
+}
+
 // Known protocol/exchange addresses to exclude from analysis
 const knownProtocols = new Set([
   "1nc1nerator11111111111111111111111111111111",
@@ -113,15 +155,18 @@ interface WalletRecord {
 
 // Build the cross-reference map
 const walletMap = new Map<string, Record<string, Appearance>>();
-const allLaunches = ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9"];
+const allLaunches = ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10"];
 
 for (const launchId of allLaunches) {
   const launch = launchDetails.launches[launchId];
   if (!launch) continue;
 
-  // Process early buyers
-  for (let i = 0; i < launch.early_buyers.length; i++) {
-    const addr = launch.early_buyers[i];
+  // Process early buyers — L10 uses objects {address, position, ...}, L1-L9 use plain strings
+  const earlyBuyers = launch.early_buyers || [];
+  for (let i = 0; i < earlyBuyers.length; i++) {
+    const entry = earlyBuyers[i];
+    const addr = typeof entry === "string" ? entry : entry.address;
+    if (!addr) continue;
     if (!walletMap.has(addr)) walletMap.set(addr, {});
     const record = walletMap.get(addr)!;
     if (!record[launchId]) {
@@ -134,7 +179,7 @@ for (const launchId of allLaunches) {
       record[launchId].sources.push("early_buyer");
     }
     // Use earliest position if already set
-    const pos = i + 1;
+    const pos = typeof entry === "object" && entry.position ? entry.position : i + 1;
     if (record[launchId].position === null || pos < record[launchId].position!) {
       record[launchId].position = pos;
     }
@@ -196,11 +241,13 @@ for (const [address, appearances] of walletMap.entries()) {
     tag = "known_infra";
   } else if (knownInsiders.has(address)) {
     tag = "known_insider";
+  } else if (knownResolved.has(address)) {
+    tag = knownResolved.get(address)!;
   } else {
     tag = "unknown";
   }
 
-  // Require 2+ launches for unknown wallets only — always keep known insiders/infra
+  // Require 2+ launches for unknown wallets only — always keep known/resolved
   if (launches.length < 2 && tag === "unknown") continue;
 
   // Significance filter for unknown wallets — skip noise
@@ -214,7 +261,7 @@ for (const [address, appearances] of walletMap.entries()) {
     const hasDeployerFlow = Object.values(appearances).some((app) =>
       app.sources.some((s) => s === "deployer_inflow" || s === "deployer_outflow")
     );
-    const isRecentlyActive = launches.includes("L8") || launches.includes("L9");
+    const isRecentlyActive = launches.includes("L8") || launches.includes("L9") || launches.includes("L10");
 
     // Keep only if: top-10 position, deployer flow involvement, or recently active
     if (bestPosition > 10 && !hasDeployerFlow && !isRecentlyActive) {
@@ -240,6 +287,8 @@ for (const [address, appearances] of walletMap.entries()) {
   const recentlyAbsent = lastLaunchIdx < allLaunches.length - 2; // absent from 2+ recent launches
 
   const investigateRotation = recentlyAbsent && tag === "unknown";
+
+  // For resolved wallets, skip the investigate_rotation flag
 
   recurringWallets.push({
     address,
@@ -298,6 +347,9 @@ const report = {
         .length,
       known_insider: recurringWallets.filter((w) => w.tag === "known_insider")
         .length,
+      resolved: recurringWallets.filter(
+        (w) => !["unknown", "known_infra", "known_insider"].includes(w.tag)
+      ).length,
     },
     rotation_candidates: recurringWallets.filter((w) => w.investigate_rotation)
       .length,

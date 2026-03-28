@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Known wallet addresses in the deployer network",
-    "updated": "2026-03-26"
+    "updated": "2026-03-28"
   },
   "deployers": {
     "L4": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
@@ -108,7 +108,7 @@
   },
   "insiders": {
     "coinspot_insider": {
-      "notes": "Profiled 2026-03-25. Likely deployer insider/family (user assessment). Active since L9, bought L10 1 second after deploy. Uses BloomBot. Funded by CoinSpot exchange (sigmurzkferog.sol, funded by Binance 6, 12657 SOL balance). SUSYE deployer funded by Coinbase CB7 (deployer's exchange). 98KvdqZJ is SUSYE's trading wallet. F7oLGB1U is cashout passthrough (4916Nkdu → F7oLGB1U → CoinSpot). All profits cycle through CoinSpot ($17.6K+).",
+      "notes": "Profiled 2026-03-25. Likely deployer insider/family (user assessment). Active since L9. L10 activity UNVERIFIED — not found in first 405 XAIC dex-trades (20 min window). May receive tokens via bundle (4916Nkdu from Bundle 1). Uses BloomBot. Funded by CoinSpot exchange (sigmurzkferog.sol, funded by Binance 6, 12657 SOL balance). SUSYE deployer funded by Coinbase CB7 (deployer's exchange). 98KvdqZJ is SUSYE's trading wallet. F7oLGB1U is cashout passthrough (4916Nkdu → F7oLGB1U → CoinSpot). All profits cycle through CoinSpot ($17.6K+).",
       "trading_wallet": "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
       "token_trading_wallet": {
         "address": "4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh",
@@ -125,7 +125,7 @@
       },
       "volume": {
         "L9": 11070,
-        "L10": 11815
+        "L10": "UNVERIFIED — not found in dex-trades. Prior claim of $11,815 has no raw data source."
       }
     },
     "blofin_insider": {
@@ -209,7 +209,7 @@
     "BqP79Wmk_deployer_trading": {
       "address": "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC",
       "status": "deployer_personal_trading",
-      "notes": "DEEP DIVED 2026-03-25. DEPLOYER'S PERSONAL TRADING WALLET. Trades ALL 7 deployer tokens: DOGWIFXRP ($129K), WFXRP ($49K), ARKXRP ($8.2K), XAIC ($6.1K), QTX ($1K), TROLLXRP ($627), XRPEP3 ($766). L10 buyer #24 ($689 at +6s). First funded 2025-06-15 (L1 launch day). Funded by GoonPump (231fshU8) which is funded by MoonPay MP1. Receives $629 from LFS (Fireblocks infrastructure). Cashout FKjuwJzH is CLOSED ACCOUNT (trace cleanup). 0 SOL.",
+      "notes": "DEEP DIVED 2026-03-25. DEPLOYER'S PERSONAL TRADING WALLET. Trades ALL 9 deployer tokens across all 10 launches: DOGWIFXRP ($129K), WFXRP ($49K), ARKXRP ($8.2K), XAIC ($6.1K), GSBANK ($1.9K), QTX ($1K), XRPEP3 ($766), TROLLXRP ($627), RXRP ($431). Early buyer L1-L3/L5/L6/L10, later buyer L4/L7/L8/L9. L10 buyer #24 ($689 at +6s). First funded 2025-06-15 (L1 launch day). Funded by GoonPump (231fshU8) which is funded by MoonPay MP1. Receives $629 from LFS (Fireblocks infrastructure). Cashout FKjuwJzH is Crypto.com Deposit. 0 SOL.",
       "funder": {
         "address": "231fshU82vSSeyytyCZJUEUG8Ti3UAgnDSoNFGTETCuK",
         "label": "GoonPump Token Deployer",

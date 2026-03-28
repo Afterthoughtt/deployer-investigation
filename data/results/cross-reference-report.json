@@ -1,12 +1,13 @@
 {
   "metadata": {
-    "generated": "2026-03-20T22:13:18.626Z",
-    "total_unique_wallets": 288,
-    "recurring_wallets_count": 51,
+    "generated": "2026-03-28T18:18:37.098Z",
+    "total_unique_wallets": 292,
+    "recurring_wallets_count": 55,
     "by_tag": {
-      "unknown": 28,
-      "known_infra": 22,
-      "known_insider": 1
+      "unknown": 22,
+      "known_infra": 25,
+      "known_insider": 1,
+      "resolved": 7
     },
     "rotation_candidates": 17
   },
@@ -59,56 +60,6 @@
       "gap_launches": [
         "L4",
         "L5"
-      ],
-      "investigate_rotation": true
-    },
-    {
-      "address": "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC",
-      "tag": "unknown",
-      "launch_count": 5,
-      "launches": [
-        "L1",
-        "L2",
-        "L3",
-        "L5",
-        "L6"
-      ],
-      "appearances": {
-        "L1": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 13
-        },
-        "L2": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 15
-        },
-        "L3": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 13
-        },
-        "L5": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 21
-        },
-        "L6": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 26
-        }
-      },
-      "first_seen": "L1",
-      "last_seen": "L6",
-      "gap_launches": [
-        "L4"
       ],
       "investigate_rotation": true
     },
@@ -347,74 +298,6 @@
       "investigate_rotation": true
     },
     {
-      "address": "niggerd597QYedtvjQDVHZTCCGyJrwHNm2i49dkm5zS",
-      "tag": "unknown",
-      "launch_count": 3,
-      "launches": [
-        "L6",
-        "L7",
-        "L8"
-      ],
-      "appearances": {
-        "L6": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 33
-        },
-        "L7": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 18
-        },
-        "L8": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 15
-        }
-      },
-      "first_seen": "L6",
-      "last_seen": "L8",
-      "gap_launches": [],
-      "investigate_rotation": false
-    },
-    {
-      "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE",
-      "tag": "unknown",
-      "launch_count": 3,
-      "launches": [
-        "L7",
-        "L8",
-        "L9"
-      ],
-      "appearances": {
-        "L7": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 22
-        },
-        "L8": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 16
-        },
-        "L9": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 17
-        }
-      },
-      "first_seen": "L7",
-      "last_seen": "L9",
-      "gap_launches": [],
-      "investigate_rotation": false
-    },
-    {
       "address": "CAJx1pQAMDamc2idQXbivP5pM4DZFBzPy38YEi2WBfWH",
       "tag": "unknown",
       "launch_count": 2,
@@ -440,33 +323,6 @@
       "last_seen": "L3",
       "gap_launches": [],
       "investigate_rotation": true
-    },
-    {
-      "address": "chrisVmt4xpnsvGsKrkzW4a2Si6xTTixUpzsk99ixWR",
-      "tag": "unknown",
-      "launch_count": 2,
-      "launches": [
-        "L8",
-        "L9"
-      ],
-      "appearances": {
-        "L8": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 3
-        },
-        "L9": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 13
-        }
-      },
-      "first_seen": "L8",
-      "last_seen": "L9",
-      "gap_launches": [],
-      "investigate_rotation": false
     },
     {
       "address": "2QfXwuqfLL1d95NBbb3ai5Gaj19qCvFjrXXd7whaiVa4",
@@ -752,38 +608,7 @@
         "L6",
         "L7"
       ],
-      "investigate_rotation": false
-    },
-    {
-      "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
-      "tag": "unknown",
-      "launch_count": 2,
-      "launches": [
-        "L5",
-        "L9"
-      ],
-      "appearances": {
-        "L5": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 13
-        },
-        "L9": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 25
-        }
-      },
-      "first_seen": "L5",
-      "last_seen": "L9",
-      "gap_launches": [
-        "L6",
-        "L7",
-        "L8"
-      ],
-      "investigate_rotation": false
+      "investigate_rotation": true
     },
     {
       "address": "CiQizNJ6vpx4cZix81YDrecoWALV2AVmNsmgbanb33T9",
@@ -815,7 +640,7 @@
         "L6",
         "L7"
       ],
-      "investigate_rotation": false
+      "investigate_rotation": true
     },
     {
       "address": "DrnuP46qcf7b7utTY9Esm46SwkTFhYu4TrtRGTyvkE67",
@@ -899,33 +724,6 @@
       "last_seen": "L9",
       "gap_launches": [],
       "investigate_rotation": false
-    },
-    {
-      "address": "Ed4UGBWK4UpwBKiGFkM2uQMTPpahPwxgxEWjJTRXuAJv",
-      "tag": "unknown",
-      "launch_count": 2,
-      "launches": [
-        "L6",
-        "L7"
-      ],
-      "appearances": {
-        "L6": {
-          "sources": [
-            "deployer_inflow"
-          ],
-          "position": null
-        },
-        "L7": {
-          "sources": [
-            "deployer_inflow"
-          ],
-          "position": null
-        }
-      },
-      "first_seen": "L6",
-      "last_seen": "L7",
-      "gap_launches": [],
-      "investigate_rotation": true
     },
     {
       "address": "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
@@ -1173,6 +971,53 @@
       "investigate_rotation": false
     },
     {
+      "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE",
+      "tag": "known_infra",
+      "launch_count": 4,
+      "launches": [
+        "L2",
+        "L4",
+        "L5",
+        "L10"
+      ],
+      "appearances": {
+        "L2": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 17
+        },
+        "L4": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 10
+        },
+        "L5": {
+          "sources": [
+            "deployer_inflow"
+          ],
+          "position": null
+        },
+        "L10": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 8
+        }
+      },
+      "first_seen": "L2",
+      "last_seen": "L10",
+      "gap_launches": [
+        "L3",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "investigate_rotation": false
+    },
+    {
       "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
       "tag": "known_infra",
       "launch_count": 4,
@@ -1258,42 +1103,6 @@
       "last_seen": "L9",
       "gap_launches": [
         "L7"
-      ],
-      "investigate_rotation": false
-    },
-    {
-      "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE",
-      "tag": "known_infra",
-      "launch_count": 3,
-      "launches": [
-        "L2",
-        "L4",
-        "L5"
-      ],
-      "appearances": {
-        "L2": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 17
-        },
-        "L4": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 10
-        },
-        "L5": {
-          "sources": [
-            "deployer_inflow"
-          ],
-          "position": null
-        }
-      },
-      "first_seen": "L2",
-      "last_seen": "L5",
-      "gap_launches": [
-        "L3"
       ],
       "investigate_rotation": false
     },
@@ -1615,6 +1424,26 @@
       "investigate_rotation": false
     },
     {
+      "address": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+      "tag": "known_infra",
+      "launch_count": 1,
+      "launches": [
+        "L10"
+      ],
+      "appearances": {
+        "L10": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 1
+        }
+      },
+      "first_seen": "L10",
+      "last_seen": "L10",
+      "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
       "address": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT",
       "tag": "known_infra",
       "launch_count": 1,
@@ -1695,6 +1524,46 @@
       "investigate_rotation": false
     },
     {
+      "address": "7RLD6F9SiFvtdqW4bYpy4m8D3mum7xVdZUSjzv1TWJaf",
+      "tag": "known_infra",
+      "launch_count": 1,
+      "launches": [
+        "L6"
+      ],
+      "appearances": {
+        "L6": {
+          "sources": [
+            "deployer_outflow"
+          ],
+          "position": null
+        }
+      },
+      "first_seen": "L6",
+      "last_seen": "L6",
+      "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
+      "address": "9exPdTUVTCz9EKvZjXkKJSTJ5fZzJuwJHnFptrUFHFNH",
+      "tag": "known_infra",
+      "launch_count": 1,
+      "launches": [
+        "L7"
+      ],
+      "appearances": {
+        "L7": {
+          "sources": [
+            "deployer_outflow"
+          ],
+          "position": null
+        }
+      },
+      "first_seen": "L7",
+      "last_seen": "L7",
+      "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
       "address": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg",
       "tag": "known_infra",
       "launch_count": 1,
@@ -1711,6 +1580,263 @@
       },
       "first_seen": "L7",
       "last_seen": "L7",
+      "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
+      "address": "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC",
+      "tag": "monitoring:BqP79Wmk_deployer_trading",
+      "launch_count": 6,
+      "launches": [
+        "L1",
+        "L2",
+        "L3",
+        "L5",
+        "L6",
+        "L10"
+      ],
+      "appearances": {
+        "L1": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 13
+        },
+        "L2": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 15
+        },
+        "L3": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 13
+        },
+        "L5": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 21
+        },
+        "L6": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 26
+        },
+        "L10": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 24
+        }
+      },
+      "first_seen": "L1",
+      "last_seen": "L10",
+      "gap_launches": [
+        "L4",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "investigate_rotation": false
+    },
+    {
+      "address": "niggerd597QYedtvjQDVHZTCCGyJrwHNm2i49dkm5zS",
+      "tag": "resolved:niggerd5_resolved",
+      "launch_count": 4,
+      "launches": [
+        "L6",
+        "L7",
+        "L8",
+        "L10"
+      ],
+      "appearances": {
+        "L6": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 33
+        },
+        "L7": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 18
+        },
+        "L8": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 15
+        },
+        "L10": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 13
+        }
+      },
+      "first_seen": "L6",
+      "last_seen": "L10",
+      "gap_launches": [
+        "L9"
+      ],
+      "investigate_rotation": false
+    },
+    {
+      "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE",
+      "tag": "monitoring:F7RV6aBW",
+      "launch_count": 4,
+      "launches": [
+        "L7",
+        "L8",
+        "L9",
+        "L10"
+      ],
+      "appearances": {
+        "L7": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 22
+        },
+        "L8": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 16
+        },
+        "L9": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 17
+        },
+        "L10": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 56
+        }
+      },
+      "first_seen": "L7",
+      "last_seen": "L10",
+      "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
+      "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+      "tag": "monitoring:7QJM8rXX",
+      "launch_count": 3,
+      "launches": [
+        "L5",
+        "L9",
+        "L10"
+      ],
+      "appearances": {
+        "L5": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 13
+        },
+        "L9": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 25
+        },
+        "L10": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 63
+        }
+      },
+      "first_seen": "L5",
+      "last_seen": "L10",
+      "gap_launches": [
+        "L6",
+        "L7",
+        "L8"
+      ],
+      "investigate_rotation": false
+    },
+    {
+      "address": "chrisVmt4xpnsvGsKrkzW4a2Si6xTTixUpzsk99ixWR",
+      "tag": "resolved:chrisV_resolved",
+      "launch_count": 2,
+      "launches": [
+        "L8",
+        "L9"
+      ],
+      "appearances": {
+        "L8": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 3
+        },
+        "L9": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 13
+        }
+      },
+      "first_seen": "L8",
+      "last_seen": "L9",
+      "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
+      "address": "Ed4UGBWK4UpwBKiGFkM2uQMTPpahPwxgxEWjJTRXuAJv",
+      "tag": "network_connected:Ed4UGBWK",
+      "launch_count": 2,
+      "launches": [
+        "L6",
+        "L7"
+      ],
+      "appearances": {
+        "L6": {
+          "sources": [
+            "deployer_inflow"
+          ],
+          "position": null
+        },
+        "L7": {
+          "sources": [
+            "deployer_inflow"
+          ],
+          "position": null
+        }
+      },
+      "first_seen": "L6",
+      "last_seen": "L7",
+      "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
+      "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
+      "tag": "resolved:l9_funder",
+      "launch_count": 1,
+      "launches": [
+        "L9"
+      ],
+      "appearances": {
+        "L9": {
+          "sources": [
+            "deployer_inflow",
+            "deployer_outflow"
+          ],
+          "position": null
+        }
+      },
+      "first_seen": "L9",
+      "last_seen": "L9",
       "gap_launches": [],
       "investigate_rotation": false
     }

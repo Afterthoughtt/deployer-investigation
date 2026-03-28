@@ -1,14 +1,14 @@
 {
   "metadata": {
     "description": "Complete launch history and behavioral profile for serial pump.fun deployer",
-    "updated": "2026-03-19"
+    "updated": "2026-03-28"
   },
   "behavioral_profile": {
     "launch_cadence": "Approximately once per month",
     "program": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
     "instruction": "create_and_buy",
     "supply_purchased_pct": "30-35%",
-    "sol_spent_range": { "min": 11.64, "max": 14.81 },
+    "sol_spent_range": { "min_all": 0.39603, "max_all": 14.81, "min_fresh_wallet_era": 8.09876, "note": "L1-L3 (OG deployer era): tiny buys 0.39-1.98 SOL with bundling. L4+ (fresh wallet era): 8.09-14.81 SOL. Sieve targets L4+ pattern." },
     "fresh_wallet_per_launch": true,
     "funding_source": "Fiat on-ramp (Coinbase L1-L9, MoonPay L10)",
     "post_deploy_sequence": [
@@ -18,7 +18,7 @@
       "Then to collection wallet (Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34)",
       "Then to exchanges (Coinbase, Binance, Rollbit)"
     ],
-    "launch_time_window_utc": { "earliest": "18:00", "latest": "23:43" },
+    "launch_time_window_utc": { "earliest": "15:57", "latest": "23:43", "note": "L1 (15:57) and L4 (17:51) are outliers. L5+ consistently 18:00-23:43." },
     "funding_to_launch_gap_hours": { "average_min": 12, "average_max": 17, "max_observed": 26 }
   },
   "launches": {
@@ -30,8 +30,8 @@
       "created_utc": "2025-06-15T15:57:57Z",
       "funding_source": "Coinbase",
       "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
-      "sol_spent": null,
-      "notes": "Used OG deployer directly (pre-fresh-wallet era)"
+      "sol_spent": 0.39603,
+      "notes": "Used OG deployer directly (pre-fresh-wallet era). Small dev buy with bundling."
     },
     "L2": {
       "token_name": "DogwifXRP",
@@ -41,8 +41,8 @@
       "created_utc": "2025-07-20T18:09:58Z",
       "funding_source": "Coinbase",
       "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
-      "sol_spent": null,
-      "notes": "Used OG deployer directly"
+      "sol_spent": 0.99009,
+      "notes": "Used OG deployer directly. Small dev buy with bundling."
     },
     "L3": {
       "token_name": "WallfishXRP",
@@ -52,8 +52,8 @@
       "created_utc": "2025-08-24T18:36:21Z",
       "funding_source": "Coinbase",
       "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
-      "sol_spent": null,
-      "notes": "Used OG deployer directly"
+      "sol_spent": 1.98019,
+      "notes": "Used OG deployer directly. Small dev buy with bundling."
     },
     "L4": {
       "token_name": "XRPepe",
@@ -65,8 +65,8 @@
       "deployer": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
       "funded_by": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
       "funded_utc": "2025-09-28T05:57:25Z",
-      "sol_spent": null,
-      "notes": "First launch with fresh wallet. Funded by hub wallet."
+      "sol_spent": 8.09876,
+      "notes": "First launch with fresh wallet. Funded by hub wallet. First large dev buy."
     },
     "L5": {
       "token_name": "TrollXRP",
@@ -78,7 +78,7 @@
       "deployer": "DBmxMiP8xeiZ4T45AviCjZCmmmTFETFU8VtsC8vdJZWy",
       "funded_by": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
       "funded_utc": "2025-11-02T16:55:07Z",
-      "sol_spent": null,
+      "sol_spent": 9.87654,
       "notes": "Funded by hub wallet."
     },
     "L6": {
@@ -92,7 +92,7 @@
       "funded_by": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
       "funded_utc": "2025-11-30T19:02:41Z",
       "sol_spent": 14.02,
-      "notes": "Funded via OG deployer sending 8.85 SOL. Also used for JAKEY test token (2025-12-22)."
+      "notes": "Initially funded via OG deployer sending 8.85 SOL, but wallet accumulated additional SOL from trading profits (Ed4UGBWK sent $63K+) before deploying with 14.02 SOL. Also used for JAKEY test token (2025-12-22)."
     },
     "L7": {
       "token_name": "QuantumX",
@@ -135,7 +135,10 @@
     },
     "L10": {
       "token_name": "XAIC",
+      "ticker": "XAIC",
+      "ca": "KfByHk48ecitUq8gXji2vr9smmRJKtqJwGAh2E9pump",
       "date": "2026-03-15",
+      "created_utc": "2026-03-15T21:40:44Z",
       "funding_source": "MoonPay",
       "deployer": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
       "sol_spent": 13.31,
@@ -147,9 +150,9 @@
         "funding_to_launch_hours": 16.8,
         "bundle_distribution": "2026-03-15T21:40:47Z",
         "bundle_sell_start": "2026-03-15T22:09:45Z",
-        "insider_buy": "2026-03-15T21:40:45Z"
+        "insider_buy": null
       },
-      "notes": "MISSED. First non-Coinbase funding (MoonPay via Phantom Buy button). CoinSpot insider bought 1 second after deploy ($11,815 volume). Miss reason: Coinbase-only sieve."
+      "notes": "MISSED. First non-Coinbase funding (MoonPay via Phantom Buy button). CoinSpot insider NOT found in first 405 XAIC dex-trades (first 20 min). May have received tokens via bundle (4916Nkdu receives from Bundle 1 per network-map) rather than open market buy. Prior '1 second' claim UNVERIFIED — no raw data source. $11,815 volume also unverified. Miss reason: Coinbase-only sieve."
     }
   },
   "profit_benchmark": {

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Detailed per-launch data: deployer flows and early buyer lists",
-    "updated": "2026-03-19",
+    "updated": "2026-03-28",
     "notes": "L1-L3 used OG deployer 37Xxihfs directly. L4+ used fresh wallets. Early buyer lists include bots — cross-reference needed to isolate insiders."
   },
   "og_deployer_flows": {
@@ -555,7 +555,7 @@
       "deployer": {
         "address": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot",
         "funded_by": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
-        "funded_by_label": null,
+        "funded_by_label": "l9_funder (JETNUT Token Deployer, Nansen)",
         "funded_utc": "2026-02-13T06:41:42Z"
       },
       "inflows": [
@@ -645,7 +645,7 @@
         { "position": 63, "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj", "seconds": 10, "usd": 1075, "tag": "unknown. Suspicious — $1075 at +10s, largest non-deployer buy!" },
         { "position": 114, "address": "4tMmABq7ZE1yaKRacMPeT3R3xQCzVHU73z66TLGhJFBf", "seconds": 63, "usd": 612, "tag": "unknown. $612 at +63s" }
       ],
-      "coinspot_insider_note": "CoinSpot insider (DmA9Jab) NOT in first 150 trades (first 69s). May have bought slightly later — handoff says '1 second after deploy' but that data from different source. Needs verification.",
+      "coinspot_insider_note": "CoinSpot insider (DmA9Jab) NOT found in first 405 XAIC buy trades (20 min window, pages 1-9). Also not in sell trades. None of the insider's wallets (DmA9Jab, 4916Nkdu, 9a22FhBe, 2Zizao3x) or Bundle 1 appear. Prior '1 second after deploy' claim UNVERIFIED — no raw data source. Insider may have received tokens via bundle (4916Nkdu from Bundle 1 per network-map) or traded much later. Verified 2026-03-28.",
       "cross_reference_summary": {
         "network_matches": 3,
         "known_wallets": ["L10 Deployer", "jetnut_network (position 8, $1048 at +2s)", "F7RV6aBW (position 56, $132 at +9s)"],
