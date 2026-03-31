@@ -64,24 +64,22 @@ for (const [key, val] of Object.entries(networkMap.onramp_hot_wallets)) {
 // OG deployer
 knownInfra.add(launchDetails.og_deployer_flows.address);
 
-// Insiders
-if (networkMap.insiders?.coinspot_insider?.trading_wallet) {
-  knownInsiders.add(networkMap.insiders.coinspot_insider.trading_wallet);
+// Insiders — iterate all entries under each insider group
+if (networkMap.insiders?.coinspot_insider) {
+  for (const [k, v] of Object.entries(networkMap.insiders.coinspot_insider)) {
+    if (k === "notes" || k === "volume" || k === "exchange") continue;
+    if (typeof v === "string") knownInsiders.add(v);
+    else if (typeof v === "object" && v !== null && "address" in v)
+      knownInsiders.add((v as { address: string }).address);
+  }
 }
-if (networkMap.insiders?.coinspot_insider?.collection) {
-  const c = networkMap.insiders.coinspot_insider.collection;
-  knownInsiders.add(typeof c === "object" ? c.address : c);
-}
-if (networkMap.insiders?.coinspot_insider?.connected_susye_deployer) {
-  const c = networkMap.insiders.coinspot_insider.connected_susye_deployer;
-  knownInsiders.add(typeof c === "object" ? c.address : c);
-}
-if (networkMap.insiders?.blofin_insider?.hub) {
-  knownInsiders.add(networkMap.insiders.blofin_insider.hub);
-}
-if (networkMap.insiders?.blofin_insider?.blofin_passthrough) {
-  const c = networkMap.insiders.blofin_insider.blofin_passthrough;
-  knownInsiders.add(typeof c === "object" ? c.address : c);
+if (networkMap.insiders?.blofin_insider) {
+  for (const [k, v] of Object.entries(networkMap.insiders.blofin_insider)) {
+    if (k === "notes") continue;
+    if (typeof v === "string") knownInsiders.add(v);
+    else if (typeof v === "object" && v !== null && "address" in v)
+      knownInsiders.add((v as { address: string }).address);
+  }
 }
 
 // Resolved wallets — now identified from investigation

@@ -1,68 +1,17 @@
 {
   "metadata": {
-    "generated": "2026-03-29T23:07:16.097Z",
+    "generated": "2026-03-31T07:08:31.717Z",
     "total_unique_wallets": 292,
     "recurring_wallets_count": 56,
     "by_tag": {
-      "unknown": 22,
+      "unknown": 20,
       "known_infra": 26,
-      "known_insider": 1,
+      "known_insider": 3,
       "resolved": 7
     },
-    "rotation_candidates": 17
+    "rotation_candidates": 15
   },
   "recurring_wallets": [
-    {
-      "address": "9J9VHoLWgTRxuc6DtNYxRMi2jVqAFAPshUSMeWQ7wz3Y",
-      "tag": "unknown",
-      "launch_count": 5,
-      "launches": [
-        "L1",
-        "L2",
-        "L3",
-        "L6",
-        "L7"
-      ],
-      "appearances": {
-        "L1": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 4
-        },
-        "L2": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 5
-        },
-        "L3": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 4
-        },
-        "L6": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 5
-        },
-        "L7": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 10
-        }
-      },
-      "first_seen": "L1",
-      "last_seen": "L7",
-      "gap_launches": [
-        "L4",
-        "L5"
-      ],
-      "investigate_rotation": true
-    },
     {
       "address": "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
       "tag": "unknown",
@@ -109,50 +58,6 @@
       "first_seen": "L3",
       "last_seen": "L7",
       "gap_launches": [],
-      "investigate_rotation": true
-    },
-    {
-      "address": "CJVEFdRSSPp9788dJ2zQZrL6GFWERsYaaYkTKqFxUPf6",
-      "tag": "unknown",
-      "launch_count": 4,
-      "launches": [
-        "L2",
-        "L3",
-        "L6",
-        "L7"
-      ],
-      "appearances": {
-        "L2": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 6
-        },
-        "L3": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 3
-        },
-        "L6": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 1
-        },
-        "L7": {
-          "sources": [
-            "early_buyer"
-          ],
-          "position": 9
-        }
-      },
-      "first_seen": "L2",
-      "last_seen": "L7",
-      "gap_launches": [
-        "L4",
-        "L5"
-      ],
       "investigate_rotation": true
     },
     {
@@ -723,6 +628,101 @@
       "first_seen": "L8",
       "last_seen": "L9",
       "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
+      "address": "9J9VHoLWgTRxuc6DtNYxRMi2jVqAFAPshUSMeWQ7wz3Y",
+      "tag": "known_insider",
+      "launch_count": 5,
+      "launches": [
+        "L1",
+        "L2",
+        "L3",
+        "L6",
+        "L7"
+      ],
+      "appearances": {
+        "L1": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 4
+        },
+        "L2": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 5
+        },
+        "L3": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 4
+        },
+        "L6": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 5
+        },
+        "L7": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 10
+        }
+      },
+      "first_seen": "L1",
+      "last_seen": "L7",
+      "gap_launches": [
+        "L4",
+        "L5"
+      ],
+      "investigate_rotation": false
+    },
+    {
+      "address": "CJVEFdRSSPp9788dJ2zQZrL6GFWERsYaaYkTKqFxUPf6",
+      "tag": "known_insider",
+      "launch_count": 4,
+      "launches": [
+        "L2",
+        "L3",
+        "L6",
+        "L7"
+      ],
+      "appearances": {
+        "L2": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 6
+        },
+        "L3": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 3
+        },
+        "L6": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 1
+        },
+        "L7": {
+          "sources": [
+            "early_buyer"
+          ],
+          "position": 9
+        }
+      },
+      "first_seen": "L2",
+      "last_seen": "L7",
+      "gap_launches": [
+        "L4",
+        "L5"
+      ],
       "investigate_rotation": false
     },
     {
