@@ -133,11 +133,19 @@
       }
     },
     "blofin_insider": {
-      "notes": "Profiled 2026-03-25. COMPLETELY SEPARATE NETWORK. Funded by Crypto.com (deployer uses Coinbase/MoonPay). Arkham: 'zougz' on Pump.fun. Massive trader ($192K Photon, $44K OKX DEX). Deploys tokens (Potcat, Thicc Froq, etc). Sends profits to BloFin via passthrough. CRITICAL: counterparty with both 9J9VHoLW ($17.4K) and CJVEFdRS ($11.8K) — resolves these as BloFin-associated, not deployer-controlled.",
+      "notes": "Profiled 2026-03-25, wallets profiled 2026-03-28. COMPLETELY SEPARATE NETWORK. Funded by Crypto.com (deployer uses Coinbase/MoonPay). Arkham: 'zougz' on Pump.fun. Massive trader ($192K Photon, $44K OKX DEX). Deploys tokens (Potcat, Thicc Froq, etc). Sends profits to BloFin via passthrough. Operates 9J9VHoLW + CJVEFdRS as sniper wallets via BloomBot — both funded by hub, both isUserAddress=false on Arkham.",
       "hub": "BDVgXauNbs7AQEqgPich2hUANu6oLf9VQEuXqL2q3Q5a",
       "blofin_passthrough": {
         "address": "33KoLeWrpGXNGXCcnMbexfhyk9hJRMk5dU78dMyWTc9A",
         "notes": "Profiled 2026-03-25. Arkham: 'BloFin Deposit'. Pure passthrough: hub → passthrough → BloFin exchange (3V11R3pE). $3.1K total. Last active Feb 15."
+      },
+      "sniper_9J9VHoLW": {
+        "address": "9J9VHoLWgTRxuc6DtNYxRMi2jVqAFAPshUSMeWQ7wz3Y",
+        "notes": "PROFILED 2026-03-28. Independent sniper, BloFin insider network. 5 launches (L1-L3, L6-L7), positions 4, 5, 4, 5, 10. Funded by BloFin Insider Hub (BDVgXauN, 0.021 SOL, 2025-06-12). Nansen: BloomBot Trading Bot User. Arkham: isUserAddress=false. Top counterparty: BloFin Hub ($17.4K vol, 49 txs). Trades DogwifXRP, ArkXRP, WFXRP, RXRP, QTX via bonding curves + OKX DEX. Pays BloomBot fees ($110) + Phantom fees ($20). 0 SOL, last active 2026-01-18 (L7 day). NOT deployer-controlled — different funding (BloFin/Crypto.com vs deployer's Coinbase/MoonPay), zero deployer-network counterparties beyond protocol fees."
+      },
+      "sniper_CJVEFdRS": {
+        "address": "CJVEFdRSSPp9788dJ2zQZrL6GFWERsYaaYkTKqFxUPf6",
+        "notes": "PROFILED 2026-03-28. Independent sniper, BloFin insider network. 4 launches (L2-L3, L6-L7), positions 6, 3, 1, 9. Position #1 on L6 (RXRP). Funded by BloFin Insider Hub (BDVgXauN, 0.002 SOL, 2025-06-12). Nansen: BloomBot Trading Bot User. Arkham: isUserAddress=false. Top counterparty: BloFin Hub ($11.8K vol, 20 txs). Trades DogwifXRP, WFXRP, RXRP, QTX via bonding curves. Pays BloomBot fees ($76) + Phantom fees ($61). 0 SOL, last active 2026-01-18 (L7 day). NOT deployer-controlled — same BloFin network as 9J9VHoLW, completely separate from deployer."
       }
     }
   },

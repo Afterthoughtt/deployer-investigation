@@ -1,0 +1,2120 @@
+[
+  {
+    "label": "9J9VHoLW",
+    "address": "9J9VHoLWgTRxuc6DtNYxRMi2jVqAFAPshUSMeWQ7wz3Y",
+    "context": "5 launches (L1-L3, L6-L7), positions 4, 5, 4, 5, 10. Consistently top-5 across both OG and fresh wallet eras. Stopped after L7.",
+    "helius": {
+      "balance_sol": 0,
+      "latest_signature": [
+        {
+          "signature": "5M7ui1d24CmKCiZZKHFWxYbDisSXgRoUfVUKnwppuaEerJK8FBzuKosJnDVKhXeewXYeieNrjFkCFMj2N18pkEtQ",
+          "slot": 394407894,
+          "err": null,
+          "memo": null,
+          "blockTime": 1768775038,
+          "confirmationStatus": "finalized"
+        }
+      ],
+      "funded_by": {
+        "funder": "BDVgXauNbs7AQEqgPich2hUANu6oLf9VQEuXqL2q3Q5a",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.021,
+        "amountRaw": "21000000",
+        "decimals": 9,
+        "signature": "3LSi5CvdNgLH7xLA1XcqW5AvVxSmms1eNWHUBFwuKTj2eixri1jiLSbm1turT1fyTWcbpZnXCzPuFiYxhj7eg9FK",
+        "timestamp": 1749759275,
+        "date": "2025-06-12T20:14:35.000Z",
+        "slot": 346376740,
+        "explorerUrl": "https://orbmarkets.io/tx/3LSi5CvdNgLH7xLA1XcqW5AvVxSmms1eNWHUBFwuKTj2eixri1jiLSbm1turT1fyTWcbpZnXCzPuFiYxhj7eg9FK?tab=summary"
+      },
+      "identity": {
+        "address": "9J9VHoLWgTRxuc6DtNYxRMi2jVqAFAPshUSMeWQ7wz3Y",
+        "type": "unknown"
+      }
+    },
+    "nansen": {
+      "counterparties": {
+        "pagination": {
+          "page": 1,
+          "per_page": 50,
+          "is_last_page": false
+        },
+        "data": [
+          {
+            "counterparty_address": "BDVgXauNbs7AQEqgPich2hUANu6oLf9VQEuXqL2q3Q5a",
+            "counterparty_address_label": [
+              "CHOCO Token Deployer [BDVgXauN]"
+            ],
+            "interaction_count": 49,
+            "total_volume_usd": 17447.071047383666,
+            "volume_in_usd": 4931.611960351845,
+            "volume_out_usd": 12515.45908703182,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "49"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "ETpmgvDnfvGv4rU7C2iYKsQCZNkRUpe4XShKXvF8WBPj",
+            "counterparty_address_label": [
+              "🤖 [ETpmgvDn]"
+            ],
+            "interaction_count": 5,
+            "total_volume_usd": 9026.753570641238,
+            "volume_in_usd": 4333.072261649921,
+            "volume_out_usd": 4693.681308991318,
+            "tokens_info": [
+              {
+                "token_address": "8mETm8mxyn7gP1igZLv4DryquuYLjcekkrQBVpZpFHvC",
+                "token_symbol": "DOGWIFXRP",
+                "token_name": "DogwifXRP",
+                "num_transfer": "4"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "AqoSUAsX3hiMxihMu7BGsQWmtFH71ChEcSzQsFX95yYw",
+            "counterparty_address_label": [
+              "🤖 [AqoSUAsX]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 7627.186910800486,
+            "volume_in_usd": 3666.7578895642614,
+            "volume_out_usd": 3960.4290212362243,
+            "tokens_info": [
+              {
+                "token_address": "2rQcoMECcsU3UBNfpsUxegnHc9js7usb2XagwUK3pump",
+                "token_symbol": "ARKXRP",
+                "token_name": "ArkXRP",
+                "num_transfer": "3"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "131P2vwaukE9wFhgVt9gEqfH5ax5w9sUXRaKkqnYJqQA",
+            "counterparty_address_label": [
+              "🤖 [131P2vwa]"
+            ],
+            "interaction_count": 11,
+            "total_volume_usd": 5119.205830182924,
+            "volume_in_usd": 3435.481308072947,
+            "volume_out_usd": 1683.724522109977,
+            "tokens_info": [
+              {
+                "token_address": "FnzYzrkRL1JLHmxS8QctidKDGJgJRa6BN4QH3hkVpump",
+                "token_symbol": "WFXRP",
+                "token_name": "WallfishXRP",
+                "num_transfer": "10"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K",
+            "counterparty_address_label": [
+              "🏦 OKX DEX: DEX Authority [HV1KXxWF]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 4021.5279129229484,
+            "volume_in_usd": 2234.038831356847,
+            "volume_out_usd": 1787.4890815661015,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "3"
+              },
+              {
+                "token_address": "FnzYzrkRL1JLHmxS8QctidKDGJgJRa6BN4QH3hkVpump",
+                "token_symbol": "WFXRP",
+                "token_name": "WallfishXRP",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "AkqbdkeLGW1jjTSAgv5aJqtaNi3K9itkJPiN7r7Xx5vd",
+            "counterparty_address_label": [
+              "🤖 🏦 Pump.fun: WFXRP-SOL Liquidity Pool [AkqbdkeL]"
+            ],
+            "interaction_count": 46,
+            "total_volume_usd": 3542.356885307447,
+            "volume_in_usd": 2042.6390027910923,
+            "volume_out_usd": 1499.7178825163548,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "23"
+              },
+              {
+                "token_address": "FnzYzrkRL1JLHmxS8QctidKDGJgJRa6BN4QH3hkVpump",
+                "token_symbol": "WFXRP",
+                "token_name": "WallfishXRP",
+                "num_transfer": "23"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn",
+            "counterparty_address_label": [
+              "​​🏦 OKX DEX: Trading Bot [ARu4n5mF]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 1501.7832716467342,
+            "volume_in_usd": 755.5346191682236,
+            "volume_out_usd": 746.2486524785105,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "3"
+              },
+              {
+                "token_address": "AvMdYR4dVLatpMa3YecWhDrerXp5Wx7sNLNTyiA3pump",
+                "token_symbol": "QTX",
+                "token_name": "QuantumX",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+            "counterparty_address_label": [
+              "​​🏦 Raydium: Trading Bot [WLHv2UAZ]"
+            ],
+            "interaction_count": 12,
+            "total_volume_usd": 1086.4682061107783,
+            "volume_in_usd": 518.965390838046,
+            "volume_out_usd": 567.5028152727323,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "6"
+              },
+              {
+                "token_address": "3fhxyJFPD2cwb1k4nZu4WM6C5Zb5bMTLm6hbSK5bbonk",
+                "token_symbol": "DBNK",
+                "token_name": "DeBonks",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "7xGjJ6gbmMJTkdJodimivzjRq36Jo8gnRD9pDnrTbonk",
+                "token_symbol": "GOONGPT",
+                "token_name": "GOONGPT",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "4UUKQbF1kiyUUdVRJBdZmXj5mqRf1eGeqmrEhvDqbonk",
+                "token_symbol": "GROKHUB",
+                "token_name": "GROKHUB",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4VSRZwsrQUmPDiWywzHqNAgBnuJoiz255So1V5R4XaKB",
+            "counterparty_address_label": [
+              "🤖 [4VSRZwsr]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 868.2500587267716,
+            "volume_in_usd": 583.4882110827481,
+            "volume_out_usd": 284.76184764402353,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              },
+              {
+                "token_address": "AvMdYR4dVLatpMa3YecWhDrerXp5Wx7sNLNTyiA3pump",
+                "token_symbol": "QTX",
+                "token_name": "QuantumX",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4aRVNo8nf3ca1q9bv2NzPQWLY3MAJe6XqFndzHkKRzL6",
+            "counterparty_address_label": [
+              "🤖 🏦 Pump.fun: ⚠️ RXRP-SOL Liquidity Pool [4aRVNo8n]"
+            ],
+            "interaction_count": 16,
+            "total_volume_usd": 687.5468056299904,
+            "volume_in_usd": 687.5468056299904,
+            "volume_out_usd": 0,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "16"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "2wrzcbfYSgpKtpsdt78LAW74VHGSiAE3jBGYn8ENrozM",
+            "counterparty_address_label": [
+              "🤖 🏦 Pump.fun: QTX-SOL Liquidity Pool [2wrzcbfY]"
+            ],
+            "interaction_count": 16,
+            "total_volume_usd": 569.8032569319014,
+            "volume_in_usd": 353.0394675164338,
+            "volume_out_usd": 216.76378941546767,
+            "tokens_info": [
+              {
+                "token_address": "AvMdYR4dVLatpMa3YecWhDrerXp5Wx7sNLNTyiA3pump",
+                "token_symbol": "QTX",
+                "token_name": "QuantumX",
+                "num_transfer": "8"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "8"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "9xWqGkpJPbq4kCCaHBXfkvNyeRV836XEEXCzv5L5xJzq",
+            "counterparty_address_label": [
+              "🤖 [9xWqGkpJ]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 273.5618156769042,
+            "volume_in_usd": 0,
+            "volume_out_usd": 273.5618156769042,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "67AYiJWW7YM5tmMued1vxJqpQuhzgk2qm9zUL73vRToa",
+            "counterparty_address_label": [
+              "🤖 🏦 Pump.fun: SUMI-SOL Liquidity Pool [67AYiJWW]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 251.76987105850054,
+            "volume_in_usd": 251.76987105850054,
+            "volume_out_usd": 0,
+            "tokens_info": [
+              {
+                "token_address": "8f4Z4ckxfKFTXFvhPseqbWrLmoqxNFnU3wdoaxYapump",
+                "token_symbol": "SUMI",
+                "token_name": "SUMI",
+                "num_transfer": "1"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "GxHYuFSVFDBLPeNA8zUWEbeHi1TxmVYF17CGYCN8qMbn",
+            "counterparty_address_label": [
+              "Photon Trading Bot User [GxHYuFSV]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 235.06794420554752,
+            "volume_in_usd": 235.06794420554752,
+            "volume_out_usd": 0,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4stnxphHyNcskv5h9G8k5Q1PrYWVPW1nPqKBqQYXEVUm",
+            "counterparty_address_label": [
+              "🤖 [4stnxphH]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 213.70958981559534,
+            "volume_in_usd": 0,
+            "volume_out_usd": 213.70958981559534,
+            "tokens_info": [
+              {
+                "token_address": "3iKpCMMxGNbroEoPU8vP3aEqqdm1M2e7HWHG3Ft8pump",
+                "token_symbol": "RETARDCOIN",
+                "token_name": "Retardcoin",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "Eco3vdjp152jaDxAbAWKxTXLs8kuEzPZtNqCZL9dvh47",
+            "counterparty_address_label": [
+              "🤖 [Eco3vdjp]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 206.8123332235216,
+            "volume_in_usd": 0,
+            "volume_out_usd": 206.8123332235216,
+            "tokens_info": [
+              {
+                "token_address": "BsuFsqXCvekugPyXgxHR18S3q8rZsofR92EYgZG9pump",
+                "token_symbol": "INNOVATION",
+                "token_name": "INNOVATION COIN",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "A7wSiV3XUyvanw9d7pSdkHRQQjoxmZeqkwApEAFyjdW4",
+            "counterparty_address_label": [
+              "🤖 [A7wSiV3X]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 205.5697921703741,
+            "volume_in_usd": 0,
+            "volume_out_usd": 205.5697921703741,
+            "tokens_info": [
+              {
+                "token_address": "DeYB89Dy8bkFPjz7R88NB8QTqzWuNViV5uwG9UeFpump",
+                "token_symbol": "DADCOIN",
+                "token_name": "Dadcoin",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "38hVDhBBF16MWaxzrXwUTm4vEXURvLzV7yw8fd11RFTV",
+            "counterparty_address_label": [
+              "🤖 [38hVDhBB]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 203.7307365891725,
+            "volume_in_usd": 0,
+            "volume_out_usd": 203.7307365891725,
+            "tokens_info": [
+              {
+                "token_address": "873rqkTDbEj8GQ5rUBEoJvwNsb2DM1KrqWucXX3Ppump",
+                "token_symbol": "GESSO",
+                "token_name": "Gesso",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "H34cLo1S9ZFaxrqwwMxfgPfqK8EoVgBpjFuDf7nVdunj",
+            "counterparty_address_label": [
+              "🤖 [H34cLo1S]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 153.01671426840014,
+            "volume_in_usd": 0,
+            "volume_out_usd": 153.01671426840014,
+            "tokens_info": [
+              {
+                "token_address": "GqNEaAGZpYZSMw81237Xoagctf9a6KJ6222o2tvAKpLL",
+                "token_symbol": "666",
+                "token_name": "Satan",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "54A7C9ywW74VghKQSM4ypxAHwY7EGrdKHwKS8R3LmGcP",
+            "counterparty_address_label": [
+              "🤖 [54A7C9yw]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 145.5898183193442,
+            "volume_in_usd": 0,
+            "volume_out_usd": 145.5898183193442,
+            "tokens_info": [
+              {
+                "token_address": "6XeUeL3dmBZsfvCYXvmpPKQ8dVgbGea4iy9axgGxpump",
+                "token_symbol": "FLOG",
+                "token_name": "Flog the frog",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "7ZELw2aMSSh9rFBXATPpXwYsFz3m5VbXX1z7vp2K2tfW",
+            "counterparty_address_label": [
+              "🤖 [7ZELw2aM]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 143.58399131998573,
+            "volume_in_usd": 0,
+            "volume_out_usd": 143.58399131998573,
+            "tokens_info": [
+              {
+                "token_address": "8f4Z4ckxfKFTXFvhPseqbWrLmoqxNFnU3wdoaxYapump",
+                "token_symbol": "SUMI",
+                "token_name": "SUMI",
+                "num_transfer": "1"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "7HeD6sLLqAnKVRuSfc1Ko3BSPMNKWgGTiWLKXJF31vKM",
+            "counterparty_address_label": [
+              "🏦 BloomBot: Fees [7HeD6sLL]"
+            ],
+            "interaction_count": 85,
+            "total_volume_usd": 110.38985013452437,
+            "volume_in_usd": 0,
+            "volume_out_usd": 110.38985013452437,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "85"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "CebN5WGQ4jvEPvsVU4EoHEpgzq1VV7AbicfhtW4xC9iM",
+            "counterparty_address_label": [
+              "🏦 Pump.fun: Fee [CebN5WGQ]"
+            ],
+            "interaction_count": 13,
+            "total_volume_usd": 27.610950328728514,
+            "volume_in_usd": 0,
+            "volume_out_usd": 27.610950328728514,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "13"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "9yj3zvLS3fDMqi1F8zhkaWfq8TZpZWHe6cz1Sgt7djXf",
+            "counterparty_address_label": [
+              "​​Phantom [9yj3zvLS]"
+            ],
+            "interaction_count": 5,
+            "total_volume_usd": 19.63252449424232,
+            "volume_in_usd": 0,
+            "volume_out_usd": 19.63252449424232,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "5"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4LEkLhb2u5qCUXS1Hc3eL2zTxk2kjSzQeFK4ZgWsV3EM",
+            "counterparty_address_label": [
+              "blockrazor21.sol [4LEkLhb2]"
+            ],
+            "interaction_count": 6,
+            "total_volume_usd": 15.933457868436033,
+            "volume_in_usd": 0,
+            "volume_out_usd": 15.933457868436033,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "6"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "nozievPk7HyK1Rqy1MPJwVQ7qQg2QoJGyP71oeDwbsu",
+            "counterparty_address_label": [
+              "Nozomi: Tip [nozievPk]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 9.172105225138935,
+            "volume_in_usd": 0,
+            "volume_out_usd": 9.172105225138935,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "DggsS83MWeUHZdrV2jyMUh8GDfLrU5P9Es36h7Uf3wRp",
+            "counterparty_address_label": [
+              "blockrazor24.sol [DggsS83M]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 8.70800848783003,
+            "volume_in_usd": 0,
+            "volume_out_usd": 8.70800848783003,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "3"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "AK59FXcZjpzeNm3peNmyBn1bqaVY8K1utB9tgncd4wfF",
+            "counterparty_address_label": [
+              "🤖 [AK59FXcZ]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 8.345725465806318,
+            "volume_in_usd": 0,
+            "volume_out_usd": 8.345725465806318,
+            "tokens_info": [
+              {
+                "token_address": "6fAXMEjynoGKQgjY6383EvH7ddcZS2urBAzmhFTapump",
+                "token_symbol": "PROUT",
+                "token_name": "fuck niggers",
+                "num_transfer": "3"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "HvgA9hTyrTQCU5869fhZ7My9WkkHK2yBo4Wu6ojHmMio",
+            "counterparty_address_label": [
+              "blockrazor20.sol [HvgA9hTy]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 7.7265361319476,
+            "volume_in_usd": 0,
+            "volume_out_usd": 7.7265361319476,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "AsEF2SWSEZ1xpGZ5fdzDKaoka1XEtFSjGo39YUXkpvAh",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip98.sol [AsEF2SWS]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 5.394570775431889,
+            "volume_in_usd": 0,
+            "volume_out_usd": 5.394570775431889,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "3Rz8uD83QsU8wKvZbgWAPvCNDU6Fy8TSZTMcPm3RB6zt",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip24.sol [3Rz8uD83]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 5.011979366891562,
+            "volume_in_usd": 0,
+            "volume_out_usd": 5.011979366891562,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "TEMPaMeCRFAS9EKF53Jd6KpHxgL47uWLcpFArU1Fanq",
+            "counterparty_address_label": [
+              "Nozomi: Tip [TEMPaMeC]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 4.645791656365309,
+            "volume_in_usd": 0,
+            "volume_out_usd": 4.645791656365309,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "Fi25YeRjcBjXNgmnNfeQncG1ACnyqJxefEheZuTZHKzt",
+            "counterparty_address_label": [
+              "[Fi25YeRj]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 4.497565691963033,
+            "volume_in_usd": 0,
+            "volume_out_usd": 4.497565691963033,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "4"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "node1PqAa3BWWzUnTHVbw8NJHC874zn9ngAkXjgWEej",
+            "counterparty_address_label": [
+              "node1_dot_me_tip1.sol [node1PqA]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 3.463075561153315,
+            "volume_in_usd": 0,
+            "volume_out_usd": 3.463075561153315,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "4"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "12pHu2j2DDShyCVFU7vtSLXga74et9y83VD38mw6XYhB",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip92.sol [12pHu2j2]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 2.924253841553257,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.924253841553257,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "2WoQNgmc4SEXrR3rKQypmeWmsxGqHHE6rApnVrP6Pt77",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip99.sol [2WoQNgmc]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 2.5961548396028507,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.5961548396028507,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "3"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "nextBLoCkPMgmG8ZgJtABeScP35qLa2AMCNKntAP7Xc",
+            "counterparty_address_label": [
+              "NextBlock: Fees [nextBLoC]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 2.4826213119597593,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.4826213119597593,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "3"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "nEXTBLockYgngeRmRrjDV31mGSekVPqZoMGhQEZtPVG",
+            "counterparty_address_label": [
+              "🤖 NextBlock [nEXTBLoc]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 2.214071681876262,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.214071681876262,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "NEXTbLoCkB51HpLBLojQfpyVAMorm3zzKg7w9NFdqid",
+            "counterparty_address_label": [
+              "NextBlock [NEXTbLoC]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 2.0672664028509957,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.0672664028509957,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "node1PUber6SFmSQgvf2ECmXsHP5o3boRSGhvJyPMX1",
+            "counterparty_address_label": [
+              "node1_dot_me_tip4.sol [node1PUb]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 2.0672664028509957,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.0672664028509957,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4iUgjMT8q2hNZnLuhpqZ1QtiV8deFPy2ajvvjEpKKgsS",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip23.sol [4iUgjMT8]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 2.0672664028509957,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.0672664028509957,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "Cix2bHfqPcKcM233mzxbLk14kSggUUiz2A87fJtGivXr",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip12.sol [Cix2bHfq]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 2.0672664028509957,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.0672664028509957,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "ENxTEjSQ1YabmUpXAdCgevnHQ9MHdLv8tzFiuiYJqa13",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip9.sol [ENxTEjSQ]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 1.7455378205355567,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.7455378205355567,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "TJzUUoKA3ngRDkgf6g42r2tv4uUNnf2S2mngawi61fi",
+            "counterparty_address_label": [
+              "[TJzUUoKA]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 1.7175377406177583,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.7175377406177583,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "73VnqgMJq29j4HMzF6GRdBeVpZgz7ibouyKQvyAKbVZy",
+            "counterparty_address_label": [
+              "blockrazor22.sol [73VnqgMJ]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 1.7175377406177583,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.7175377406177583,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "6fQaVhYZA4w3MBSXjJ81Vf6W1EDYeUPXpgVQ6UQyU1Av",
+            "counterparty_address_label": [
+              "0slot_dot_trade.sol [6fQaVhYZ]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.5671595122244038,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.5671595122244038,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "noznbgwYnBLDHu8wcQVCEw6kDrXkPdKkydGJGNXGvL7",
+            "counterparty_address_label": [
+              "Nozomi: Tip [noznbgwY]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.468355658359815,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.468355658359815,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "mkLS5mWa1GtPyEMmyMLbacHxYtgoakNW8aNHnHUXSMK",
+            "counterparty_address_label": [
+              "[mkLS5mWa]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.4358399131998574,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.4358399131998574,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "nozrwQtWhEdrA6W8dkbt9gnUaMs52PdAv5byipnadq3",
+            "counterparty_address_label": [
+              "Nozomi: Tip [nozrwQtW]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0685479490779768,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0685479490779768,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "DfXygSm4jCyNCybVYYK6DwvWqjKee8pbDmJGcLWNDXjh",
+            "counterparty_address_label": [
+              "🤖 Jito: Tip 5 [DfXygSm4]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.034061666117608,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.034061666117608,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          }
+        ]
+      },
+      "pnl": {
+        "pagination": {
+          "page": 1,
+          "per_page": 100,
+          "is_last_page": true
+        },
+        "data": []
+      }
+    },
+    "arkham": {
+      "intelligence": {
+        "address": "9J9VHoLWgTRxuc6DtNYxRMi2jVqAFAPshUSMeWQ7wz3Y",
+        "chain": "solana",
+        "isUserAddress": false,
+        "program": false
+      }
+    },
+    "analysis": {
+      "network_counterparty_count": 2,
+      "total_counterparty_count": 50,
+      "deployer_token_trades": [],
+      "deployer_token_count": 0,
+      "total_traded_tokens": 0,
+      "funding_source": "BloFin Insider Hub",
+      "funding_is_deployer_exchange": false,
+      "blofin_connection": true,
+      "classification": "independent_sniper_blofin_network"
+    }
+  },
+  {
+    "label": "CJVEFdRS",
+    "address": "CJVEFdRSSPp9788dJ2zQZrL6GFWERsYaaYkTKqFxUPf6",
+    "context": "4 launches (L2-L3, L6-L7), positions 6, 3, 1, 9. Position #1 on L6. Stopped after L7.",
+    "helius": {
+      "balance_sol": 0,
+      "latest_signature": [
+        {
+          "signature": "3kc8AmGUowvVXMgib1KzfFyovASyAaRiNEA7kbbeToyoNyBKeJBhGXSiAD4uFFBq2KrRVjuR9FZzLBdgtcd7DjhH",
+          "slot": 394408043,
+          "err": null,
+          "memo": null,
+          "blockTime": 1768775096,
+          "confirmationStatus": "finalized"
+        }
+      ],
+      "funded_by": {
+        "funder": "BDVgXauNbs7AQEqgPich2hUANu6oLf9VQEuXqL2q3Q5a",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.002,
+        "amountRaw": "2000000",
+        "decimals": 9,
+        "signature": "4U9UBvnqoaS6Lhxw4fciW1NcG9jW1xTetfzrAjtJ7rJB2QZVWXpHB8VLeHLYGNrRvfufVq6Ze4G3grdhhuB4TfUE",
+        "timestamp": 1749760988,
+        "date": "2025-06-12T20:43:08.000Z",
+        "slot": 346381029,
+        "explorerUrl": "https://orbmarkets.io/tx/4U9UBvnqoaS6Lhxw4fciW1NcG9jW1xTetfzrAjtJ7rJB2QZVWXpHB8VLeHLYGNrRvfufVq6Ze4G3grdhhuB4TfUE?tab=summary"
+      },
+      "identity": {
+        "address": "CJVEFdRSSPp9788dJ2zQZrL6GFWERsYaaYkTKqFxUPf6",
+        "type": "unknown"
+      }
+    },
+    "nansen": {
+      "counterparties": {
+        "pagination": {
+          "page": 1,
+          "per_page": 50,
+          "is_last_page": false
+        },
+        "data": [
+          {
+            "counterparty_address": "BDVgXauNbs7AQEqgPich2hUANu6oLf9VQEuXqL2q3Q5a",
+            "counterparty_address_label": [
+              "CHOCO Token Deployer [BDVgXauN]"
+            ],
+            "interaction_count": 20,
+            "total_volume_usd": 11828.5034304777,
+            "volume_in_usd": 2258.1140312009916,
+            "volume_out_usd": 9570.389399276708,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "20"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "ETpmgvDnfvGv4rU7C2iYKsQCZNkRUpe4XShKXvF8WBPj",
+            "counterparty_address_label": [
+              "🤖 [ETpmgvDn]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 8170.628766266397,
+            "volume_in_usd": 3905.0098594624997,
+            "volume_out_usd": 4265.6189068038975,
+            "tokens_info": [
+              {
+                "token_address": "8mETm8mxyn7gP1igZLv4DryquuYLjcekkrQBVpZpFHvC",
+                "token_symbol": "DOGWIFXRP",
+                "token_name": "DogwifXRP",
+                "num_transfer": "3"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "AkqbdkeLGW1jjTSAgv5aJqtaNi3K9itkJPiN7r7Xx5vd",
+            "counterparty_address_label": [
+              "🤖 🏦 Pump.fun: WFXRP-SOL Liquidity Pool [AkqbdkeL]"
+            ],
+            "interaction_count": 52,
+            "total_volume_usd": 6405.888608029136,
+            "volume_in_usd": 3999.3216773615964,
+            "volume_out_usd": 2406.56693066754,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "26"
+              },
+              {
+                "token_address": "FnzYzrkRL1JLHmxS8QctidKDGJgJRa6BN4QH3hkVpump",
+                "token_symbol": "WFXRP",
+                "token_name": "WallfishXRP",
+                "num_transfer": "26"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "131P2vwaukE9wFhgVt9gEqfH5ax5w9sUXRaKkqnYJqQA",
+            "counterparty_address_label": [
+              "🤖 [131P2vwa]"
+            ],
+            "interaction_count": 11,
+            "total_volume_usd": 5643.758018592751,
+            "volume_in_usd": 3818.435834345046,
+            "volume_out_usd": 1825.3221842477046,
+            "tokens_info": [
+              {
+                "token_address": "FnzYzrkRL1JLHmxS8QctidKDGJgJRa6BN4QH3hkVpump",
+                "token_symbol": "WFXRP",
+                "token_name": "WallfishXRP",
+                "num_transfer": "10"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "2wrzcbfYSgpKtpsdt78LAW74VHGSiAE3jBGYn8ENrozM",
+            "counterparty_address_label": [
+              "🤖 🏦 Pump.fun: QTX-SOL Liquidity Pool [2wrzcbfY]"
+            ],
+            "interaction_count": 18,
+            "total_volume_usd": 1362.6838206186621,
+            "volume_in_usd": 748.6131371874953,
+            "volume_out_usd": 614.0706834311668,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "9"
+              },
+              {
+                "token_address": "AvMdYR4dVLatpMa3YecWhDrerXp5Wx7sNLNTyiA3pump",
+                "token_symbol": "QTX",
+                "token_name": "QuantumX",
+                "num_transfer": "9"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4aRVNo8nf3ca1q9bv2NzPQWLY3MAJe6XqFndzHkKRzL6",
+            "counterparty_address_label": [
+              "🤖 🏦 Pump.fun: ⚠️ RXRP-SOL Liquidity Pool [4aRVNo8n]"
+            ],
+            "interaction_count": 16,
+            "total_volume_usd": 1132.78300225912,
+            "volume_in_usd": 1132.78300225912,
+            "volume_out_usd": 0,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "16"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4VSRZwsrQUmPDiWywzHqNAgBnuJoiz255So1V5R4XaKB",
+            "counterparty_address_label": [
+              "🤖 [4VSRZwsr]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 898.8325310751903,
+            "volume_in_usd": 614.0706834311668,
+            "volume_out_usd": 284.76184764402353,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              },
+              {
+                "token_address": "AvMdYR4dVLatpMa3YecWhDrerXp5Wx7sNLNTyiA3pump",
+                "token_symbol": "QTX",
+                "token_name": "QuantumX",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "9xWqGkpJPbq4kCCaHBXfkvNyeRV836XEEXCzv5L5xJzq",
+            "counterparty_address_label": [
+              "🤖 [9xWqGkpJ]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 273.5618156769042,
+            "volume_in_usd": 0,
+            "volume_out_usd": 273.5618156769042,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "DyV9WAVVnV3kQ33D6wHrfWTFavLKDK74fxeR3eiLzQiN",
+            "counterparty_address_label": [
+              "Photon Trading Bot User [DyV9WAVV]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 235.0658071096494,
+            "volume_in_usd": 235.0658071096494,
+            "volume_out_usd": 0,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4stnxphHyNcskv5h9G8k5Q1PrYWVPW1nPqKBqQYXEVUm",
+            "counterparty_address_label": [
+              "🤖 [4stnxphH]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 213.70958981559534,
+            "volume_in_usd": 0,
+            "volume_out_usd": 213.70958981559534,
+            "tokens_info": [
+              {
+                "token_address": "3iKpCMMxGNbroEoPU8vP3aEqqdm1M2e7HWHG3Ft8pump",
+                "token_symbol": "RETARDCOIN",
+                "token_name": "Retardcoin",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "A7wSiV3XUyvanw9d7pSdkHRQQjoxmZeqkwApEAFyjdW4",
+            "counterparty_address_label": [
+              "🤖 [A7wSiV3X]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 190.88623558677597,
+            "volume_in_usd": 0,
+            "volume_out_usd": 190.88623558677597,
+            "tokens_info": [
+              {
+                "token_address": "DeYB89Dy8bkFPjz7R88NB8QTqzWuNViV5uwG9UeFpump",
+                "token_symbol": "DADCOIN",
+                "token_name": "Dadcoin",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "54A7C9ywW74VghKQSM4ypxAHwY7EGrdKHwKS8R3LmGcP",
+            "counterparty_address_label": [
+              "🤖 [54A7C9yw]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 145.5898183193442,
+            "volume_in_usd": 0,
+            "volume_out_usd": 145.5898183193442,
+            "tokens_info": [
+              {
+                "token_address": "6XeUeL3dmBZsfvCYXvmpPKQ8dVgbGea4iy9axgGxpump",
+                "token_symbol": "FLOG",
+                "token_name": "Flog the frog",
+                "num_transfer": "2"
+              },
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "7HeD6sLLqAnKVRuSfc1Ko3BSPMNKWgGTiWLKXJF31vKM",
+            "counterparty_address_label": [
+              "🏦 BloomBot: Fees [7HeD6sLL]"
+            ],
+            "interaction_count": 68,
+            "total_volume_usd": 75.74168536767712,
+            "volume_in_usd": 0,
+            "volume_out_usd": 75.74168536767712,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "68"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "9yj3zvLS3fDMqi1F8zhkaWfq8TZpZWHe6cz1Sgt7djXf",
+            "counterparty_address_label": [
+              "​​Phantom [9yj3zvLS]"
+            ],
+            "interaction_count": 5,
+            "total_volume_usd": 61.19115001313163,
+            "volume_in_usd": 0,
+            "volume_out_usd": 61.19115001313163,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "5"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "Fi25YeRjcBjXNgmnNfeQncG1ACnyqJxefEheZuTZHKzt",
+            "counterparty_address_label": [
+              "[Fi25YeRj]"
+            ],
+            "interaction_count": 14,
+            "total_volume_usd": 19.40028272119098,
+            "volume_in_usd": 0,
+            "volume_out_usd": 19.40028272119098,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "14"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "CebN5WGQ4jvEPvsVU4EoHEpgzq1VV7AbicfhtW4xC9iM",
+            "counterparty_address_label": [
+              "🏦 Pump.fun: Fee [CebN5WGQ]"
+            ],
+            "interaction_count": 7,
+            "total_volume_usd": 17.884430532065263,
+            "volume_in_usd": 0,
+            "volume_out_usd": 17.884430532065263,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "7"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4vieeGHPYPG2MmyPRcYjdiDmmhN3ww7hsFNap8pVN3Ey",
+            "counterparty_address_label": [
+              "helius_sender_tip8.sol [4vieeGHP]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 10.678569286650882,
+            "volume_in_usd": 0,
+            "volume_out_usd": 10.678569286650882,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "nozievPk7HyK1Rqy1MPJwVQ7qQg2QoJGyP71oeDwbsu",
+            "counterparty_address_label": [
+              "Nozomi: Tip [nozievPk]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 8.269065611403983,
+            "volume_in_usd": 0,
+            "volume_out_usd": 8.269065611403983,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "6MgjyQU7G988jgL6EGAgfHYoeesCnwYMyPeh1fpJ71FP",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip83.sol [6MgjyQU7]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 5.589440233791646,
+            "volume_in_usd": 0,
+            "volume_out_usd": 5.589440233791646,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "HvgA9hTyrTQCU5869fhZ7My9WkkHK2yBo4Wu6ojHmMio",
+            "counterparty_address_label": [
+              "blockrazor20.sol [HvgA9hTy]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 4.134532805701991,
+            "volume_in_usd": 0,
+            "volume_out_usd": 4.134532805701991,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "4"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "2d5viHZBHKt5DgEpMckXEfndR1CoZ1tHvcbL9fU4xqT7",
+            "counterparty_address_label": [
+              "blockrazor23.sol [2d5viHZB]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 3.7848041434687545,
+            "volume_in_usd": 0,
+            "volume_out_usd": 3.7848041434687545,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "4"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4LEkLhb2u5qCUXS1Hc3eL2zTxk2kjSzQeFK4ZgWsV3EM",
+            "counterparty_address_label": [
+              "blockrazor21.sol [4LEkLhb2]"
+            ],
+            "interaction_count": 4,
+            "total_volume_usd": 3.4350754812355166,
+            "volume_in_usd": 0,
+            "volume_out_usd": 3.4350754812355166,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "4"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "73VnqgMJq29j4HMzF6GRdBeVpZgz7ibouyKQvyAKbVZy",
+            "counterparty_address_label": [
+              "blockrazor22.sol [73VnqgMJ]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 2.7791710219610546,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.7791710219610546,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "3"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "NextbLoCkVtMGcV47JzewQdvBpLqT9TxQFozQkN98pE",
+            "counterparty_address_label": [
+              "🤖 NextBlock [NextbLoC]"
+            ],
+            "interaction_count": 3,
+            "total_volume_usd": 2.751170942043256,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.751170942043256,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "3"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "6rYLG55Q9RpsPGvqdPNJs4z5WTxJVatMB8zV3WJhs5EK",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip10.sol [6rYLG55Q]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 2.501988859785313,
+            "volume_in_usd": 0,
+            "volume_out_usd": 2.501988859785313,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "nozxNBgWohjR75vdspfxR5H9ceC7XXH99xpxhVGt3Bb",
+            "counterparty_address_label": [
+              "Nozomi: Tip [nozxNBgW]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 1.7455378205355567,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.7455378205355567,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "node1PUber6SFmSQgvf2ECmXsHP5o3boRSGhvJyPMX1",
+            "counterparty_address_label": [
+              "node1_dot_me_tip4.sol [node1PUb]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 1.7175377406177583,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.7175377406177583,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "D2L6yPZ2FmmmTKPgzaMKdhu6EWZcTpLy1Vhx8uvZe7NZ",
+            "counterparty_address_label": [
+              "helius_sender_tip2.sol [D2L6yPZ2]"
+            ],
+            "interaction_count": 2,
+            "total_volume_usd": 1.7175377406177583,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.7175377406177583,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "2"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "TpdxgNJBWZRL8UXF5mrEsyWxDWx9HQexA9P1eTWQ42p",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip19.sol [TpdxgNJB]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.455898183193442,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.455898183193442,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "GpZ1UYEdrEfjWSyjGQreYoVtLSMuvveGdFhTac9Y6tYX",
+            "counterparty_address_label": [
+              "[GpZ1UYEd]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "HDUxRXZeTB5eDRau9NhXheHFCyr1sAUqVAN1357tt8yA",
+            "counterparty_address_label": [
+              "[HDUxRXZe]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "node1PqAa3BWWzUnTHVbw8NJHC874zn9ngAkXjgWEej",
+            "counterparty_address_label": [
+              "node1_dot_me_tip1.sol [node1PqA]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "NexTbLoCkWykbLuB1NkjXgFWkX9oAtcoagQegygXXA2",
+            "counterparty_address_label": [
+              "🤖 NextBlock [NexTbLoC]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "6obfXKeNmvWzzdBCkuE9Mmm2dZrwD28MBqV5VbHWr6Rd",
+            "counterparty_address_label": [
+              "[6obfXKeN]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "noz3jAjPiHuBPqiSPkkugaJDkJscPuRhYnSpbi8UvC4",
+            "counterparty_address_label": [
+              "Nozomi: Tip [noz3jAjP]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "AsEF2SWSEZ1xpGZ5fdzDKaoka1XEtFSjGo39YUXkpvAh",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip98.sol [AsEF2SWS]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "DggsS83MWeUHZdrV2jyMUh8GDfLrU5P9Es36h7Uf3wRp",
+            "counterparty_address_label": [
+              "blockrazor24.sol [DggsS83M]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "Ahm7KF8gkGGmS9QDYjGYkHQcxkfWnEeaFYur7NyaW1Xf",
+            "counterparty_address_label": [
+              "[Ahm7KF8g]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "wyvPkWjVZz1M8fHQnMMCDTQDbkManefNNhweYk5WkcF",
+            "counterparty_address_label": [
+              "helius_sender.sol [wyvPkWjV]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "4TQLFNWK8AovT1gFvda5jfw2oJeRMKEmw7aH6MGBJ3or",
+            "counterparty_address_label": [
+              "helius_sender_tip9.sol [4TQLFNWK]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "NEXTbLoCkB51HpLBLojQfpyVAMorm3zzKg7w9NFdqid",
+            "counterparty_address_label": [
+              "NextBlock [NEXTbLoC]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 1.0336332014254979,
+            "volume_in_usd": 0,
+            "volume_out_usd": 1.0336332014254979,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "iZzEZH5tRCRYCHiswAztHdktoT7UUB75G1GEFwUrWAk",
+            "counterparty_address_label": [
+              "[iZzEZH5t]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.8542855429320706,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.8542855429320706,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "GBr4oYHo8BBVZTo6HLysExrkrXxGkHCGNJW2EUwTh8Ka",
+            "counterparty_address_label": [
+              "[GBr4oYHo]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.8206854470307126,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.8206854470307126,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "6SiVU5WEwqfFapRuYCndomztEwDjvS5xgtEof3PLEGm9",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip18.sol [6SiVU5WE]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.7341778291799075,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.7341778291799075,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "GQPFicsy3P3NXxB5piJohoxACqTvWE9fKpLgdsMduoHE",
+            "counterparty_address_label": [
+              "0slot_dot_trade_tip21.sol [GQPFicsy]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.727949091596721,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.727949091596721,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "b1oom3jaRNoyJzvSdSVbvSbth5uB4rRYtbjHXT5c1eW",
+            "counterparty_address_label": [
+              "[b1oom3ja]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.7119046191100589,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.7119046191100589,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "b1ooMDLjzz4QqecNsJ8bBXzJTzfAPDCP3CxijTS2K93",
+            "counterparty_address_label": [
+              "[b1ooMDLj]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.7119046191100589,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.7119046191100589,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "node1UzzTxAAeBTpfZkQPJXBAqixsbdth11ba1NXLBG",
+            "counterparty_address_label": [
+              "node1_dot_me_tip2.sol [node1Uzz]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.7119046191100589,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.7119046191100589,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "nozNVWs5N8mgzuD3qigrCG2UoKxZttxzZ85pvAQVrbP",
+            "counterparty_address_label": [
+              "Nozomi: Tip [nozNVWs5]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.6839045391922605,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.6839045391922605,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          },
+          {
+            "counterparty_address": "BTGphEjmiD1g2UZJkEXWwkqTjG5kcQVE5PziETRPWjnF",
+            "counterparty_address_label": [
+              "[BTGphEjm]"
+            ],
+            "interaction_count": 1,
+            "total_volume_usd": 0.6839045391922605,
+            "volume_in_usd": 0,
+            "volume_out_usd": 0.6839045391922605,
+            "tokens_info": [
+              {
+                "token_address": "So11111111111111111111111111111111111111112",
+                "token_symbol": "SOL",
+                "token_name": "Solana",
+                "num_transfer": "1"
+              }
+            ]
+          }
+        ]
+      },
+      "pnl": {
+        "pagination": {
+          "page": 1,
+          "per_page": 100,
+          "is_last_page": true
+        },
+        "data": []
+      }
+    },
+    "arkham": {
+      "intelligence": {
+        "address": "CJVEFdRSSPp9788dJ2zQZrL6GFWERsYaaYkTKqFxUPf6",
+        "chain": "solana",
+        "isUserAddress": false,
+        "program": false
+      }
+    },
+    "analysis": {
+      "network_counterparty_count": 2,
+      "total_counterparty_count": 50,
+      "deployer_token_trades": [],
+      "deployer_token_count": 0,
+      "total_traded_tokens": 0,
+      "funding_source": "BloFin Insider Hub",
+      "funding_is_deployer_exchange": false,
+      "blofin_connection": true,
+      "classification": "independent_sniper_blofin_network"
+    }
+  }
+]
