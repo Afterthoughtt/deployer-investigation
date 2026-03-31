@@ -69,18 +69,19 @@ if (networkMap.insiders?.coinspot_insider?.trading_wallet) {
   knownInsiders.add(networkMap.insiders.coinspot_insider.trading_wallet);
 }
 if (networkMap.insiders?.coinspot_insider?.collection) {
-  knownInsiders.add(networkMap.insiders.coinspot_insider.collection);
+  const c = networkMap.insiders.coinspot_insider.collection;
+  knownInsiders.add(typeof c === "object" ? c.address : c);
 }
 if (networkMap.insiders?.coinspot_insider?.connected_susye_deployer) {
-  knownInsiders.add(
-    networkMap.insiders.coinspot_insider.connected_susye_deployer
-  );
+  const c = networkMap.insiders.coinspot_insider.connected_susye_deployer;
+  knownInsiders.add(typeof c === "object" ? c.address : c);
 }
 if (networkMap.insiders?.blofin_insider?.hub) {
   knownInsiders.add(networkMap.insiders.blofin_insider.hub);
 }
 if (networkMap.insiders?.blofin_insider?.blofin_passthrough) {
-  knownInsiders.add(networkMap.insiders.blofin_insider.blofin_passthrough);
+  const c = networkMap.insiders.blofin_insider.blofin_passthrough;
+  knownInsiders.add(typeof c === "object" ? c.address : c);
 }
 
 // Resolved wallets — now identified from investigation

@@ -33,8 +33,8 @@ for (const [k, v] of Object.entries(networkMap.infrastructure || {})) {
   if (addr) KNOWN_NETWORK[addr] = k;
 }
 for (const [k, v] of Object.entries(networkMap.bundle_wallets || {})) KNOWN_NETWORK[v as string] = k;
-for (const [k, v] of Object.entries(networkMap.profit_routing || {})) KNOWN_NETWORK[v as string] = k;
-for (const [k, v] of Object.entries(networkMap.side_projects || {})) KNOWN_NETWORK[v as string] = k;
+for (const [k, v] of Object.entries(networkMap.profit_routing || {})) { const a = (v as any).address || v; if (typeof a === "string") KNOWN_NETWORK[a] = k; }
+for (const [k, v] of Object.entries(networkMap.side_projects || {})) { const a = (v as any).address || v; if (typeof a === "string") KNOWN_NETWORK[a] = k; }
 for (const [k, v] of Object.entries(networkMap.profit_cashout || {})) {
   const addr = (v as any).address;
   if (addr) KNOWN_NETWORK[addr] = k;

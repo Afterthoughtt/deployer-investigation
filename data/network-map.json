@@ -89,7 +89,11 @@
     },
     "fireblocks_passthrough": {
       "address": "9exPdTUVTCz9EKvZjXkKJSTJ5fZzJuwJHnFptrUFHFNH",
-      "notes": "Fireblocks Custody (Arkham). Funded by Coinbase CB9. Passthrough: receives from L7 ($31.6K), Bundles 1/3/5/6, Hub, LFS → forwards $49K to 9cDDJ5g2 (secondary aggregator) + $273 to E7VEsTzG (unknown). Active Jan 21-22 2026 only. Route C."
+      "notes": "Fireblocks Custody (Arkham). Funded by Coinbase CB9. Passthrough: receives from L7 ($31.6K), Bundles 1/3/5/6, Hub, LFS → forwards $49K to 9cDDJ5g2 (Fireblocks Custody shared wallet, see fireblocks_custody_9cDD) + $273 to E7VEsTzG (unknown). Active Jan 21-22 2026 only. Route C."
+    },
+    "fireblocks_custody_9cDD": {
+      "address": "9cDDJ5g2wPqVZUZwpPuwqzxN7ouvc6QFauFwrX2TTTAX",
+      "notes": "ADDED 2026-03-28. Shared Fireblocks Custody wallet (Arkham: isUserAddress=false). NOT deployer-controlled. Sole recipient of 9exPdTUV outflows (6,429 SOL / 760 txs, Jan 21-22 2026). Nansen: Trading Bot. Funds become opaque after entering this wallet — too much throughput to trace on-chain. Route C terminates here from an on-chain perspective."
     }
   },
   "side_projects": {
@@ -177,7 +181,7 @@
     },
     "secondary_aggregator": {
       "address": "2q8nSJgCpaZZjchK4s7mGy3f9tAJgsXZQQHDfKMB4EN7",
-      "notes": "Critical network node. Fireblocks Custody (Arkham). Receives from OG, Hub, Bundles 1/3/5, 6UrYwo9F (Route B) AND $49K from 9exPdTUV passthrough (Route C). Sends $28K+ to Token Millionaire. Also receives $49K via 9exPdTUV from L7+Bundles. Previously misclassified as 'NOT network' — reclassified: confirmed network profit aggregator."
+      "notes": "Critical network node. Fireblocks Custody (Arkham). Receives from OG, Hub, Bundles 1/3/5, 6UrYwo9F (Route B). Sends $28K+ to Token Millionaire. Prior claim of receiving $49K via 9exPdTUV is UNVERIFIABLE — 9exPdTUV sends to 9cDDJ5g2 (Fireblocks Custody shared wallet), not directly to 2q8nSJgC. May receive funds internally within Fireblocks but cannot be confirmed on-chain. Previously misclassified as 'NOT network' — reclassified: confirmed network profit aggregator."
     }
   },
   "network_connected": {

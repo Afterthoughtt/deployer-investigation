@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated": "2026-03-28T18:18:37.098Z",
+    "generated": "2026-03-29T23:07:16.097Z",
     "total_unique_wallets": 292,
-    "recurring_wallets_count": 55,
+    "recurring_wallets_count": 56,
     "by_tag": {
       "unknown": 22,
-      "known_infra": 25,
+      "known_infra": 26,
       "known_insider": 1,
       "resolved": 7
     },
@@ -1540,6 +1540,26 @@
       },
       "first_seen": "L6",
       "last_seen": "L6",
+      "gap_launches": [],
+      "investigate_rotation": false
+    },
+    {
+      "address": "9cDDJ5g2wPqVZUZwpPuwqzxN7ouvc6QFauFwrX2TTTAX",
+      "tag": "known_infra",
+      "launch_count": 1,
+      "launches": [
+        "L7"
+      ],
+      "appearances": {
+        "L7": {
+          "sources": [
+            "deployer_inflow"
+          ],
+          "position": null
+        }
+      },
+      "first_seen": "L7",
+      "last_seen": "L7",
       "gap_launches": [],
       "investigate_rotation": false
     },

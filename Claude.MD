@@ -43,10 +43,9 @@ data/
     raw/                       — Raw API response dumps (ground truth for addresses)
 src/                     — TypeScript investigation scripts (run with tsx)
 docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
-session_handoff.md       — Cross-session state (read at session start)
 ```
 
-Key files to read first: `session_handoff.md` (if exists), then `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit routes, funding path analysis, or uninvestigated counterparties.
+Key files to read first: `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit routes, funding path analysis, or uninvestigated counterparties.
 
 ## Code Conventions
 

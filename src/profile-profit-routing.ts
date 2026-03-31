@@ -24,7 +24,7 @@ for (const [k, v] of Object.entries(networkMap.deployers || {})) KNOWN[v as stri
 for (const [k, v] of Object.entries(networkMap.infrastructure || {})) { const a = (v as any).address || v; if (typeof a === "string") KNOWN[a] = k; }
 for (const [k, v] of Object.entries(networkMap.bundle_wallets || {})) KNOWN[v as string] = k;
 for (const [k, v] of Object.entries(networkMap.profit_routing || {})) { const a = (v as any).address || v; if (typeof a === "string") KNOWN[a] = k; }
-for (const [k, v] of Object.entries(networkMap.side_projects || {})) KNOWN[v as string] = k;
+for (const [k, v] of Object.entries(networkMap.side_projects || {})) { const a = (v as any).address || v; if (typeof a === "string") KNOWN[a] = k; }
 for (const [k, v] of Object.entries(networkMap.profit_cashout || {})) { const a = (v as any).address; if (a) KNOWN[a] = k; }
 for (const [k, v] of Object.entries(networkMap.network_connected || {})) { const a = (v as any).address; if (a) KNOWN[a] = k; }
 for (const [k, v] of Object.entries(networkMap.extras || {})) { const a = (v as any).address; if (a) KNOWN[a] = k; }
@@ -37,7 +37,7 @@ if (networkMap.insiders?.coinspot_insider) {
   const cs = networkMap.insiders.coinspot_insider;
   if (cs.trading_wallet) KNOWN[cs.trading_wallet] = "CoinSpot Insider";
   if (cs.token_trading_wallet?.address) KNOWN[cs.token_trading_wallet.address] = "CoinSpot Token Wallet";
-  if (cs.collection) KNOWN[cs.collection] = "CoinSpot Insider Collection";
+  if (cs.collection) { const a = typeof cs.collection === "object" ? cs.collection.address : cs.collection; if (a) KNOWN[a] = "CoinSpot Insider Collection"; }
 }
 
 function tag(addr: string, apiLabel?: string | null): string {

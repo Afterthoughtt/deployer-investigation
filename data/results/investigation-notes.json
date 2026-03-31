@@ -36,9 +36,9 @@
     },
     "route_c": {
       "name": "Fireblocks Passthrough Route",
-      "flow": "L7 Deployer ($31.6K) + Bundles 1/3/5/6 + Hub ($1.8K) → 9exPdTUV (Fireblocks passthrough) → 9cDDJ5g2 (secondary aggregator) → Token Millionaire",
+      "flow": "L7 Deployer ($31.6K) + Bundles 1/3/5/6 + Hub ($1.8K) → 9exPdTUV (Fireblocks passthrough) → 9cDDJ5g2 (Fireblocks Custody shared wallet). On-chain trail ends here.",
       "volume": "$49K through 9exPdTUV in 2 days (Jan 21-22 2026)",
-      "note": "Route C feeds INTO Route B's endpoint (9cDDJ5g2). Total through secondary aggregator: $77K+."
+      "note": "Route C terminates at Fireblocks Custody (9cDDJ5g2), a shared infrastructure wallet (isUserAddress=false). Prior claim that it feeds into Route B via 2q8nSJgC is UNVERIFIABLE on-chain. The $49K may reach Token Millionaire through internal Fireblocks processes, but we cannot trace it."
     },
     "route_d": {
       "name": "Direct Coinbase Deposit 2",
