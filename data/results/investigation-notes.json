@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Synthesized investigation findings — content NOT captured in network-map.json or launch-history.json",
-    "last_updated": "2026-03-28",
+    "last_updated": "2026-03-31",
     "goal": "Identify the deployer's next fresh wallet after it gets funded but before create_and_buy",
     "raw_data_location": "data/results/raw/ — full API responses for all investigations"
   },
