@@ -1,0 +1,1019 @@
+{
+  "ggfv_counterparties": {
+    "pagination": {
+      "page": 1,
+      "per_page": 25,
+      "is_last_page": false
+    },
+    "data": [
+      {
+        "counterparty_address": "CsDPpyYfEzxr7oFtLJxtSVgCBFw4QmnCfcrsJmHAusZZ",
+        "counterparty_address_label": [
+          "[CsDPpyYf]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 1407.4192280562975,
+        "volume_in_usd": 1407.4192280562975,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "EQdtK31jwvaAAoQHRLZZJPKGXFPS3B6Axi6LSQdYh6yC",
+        "counterparty_address_label": [
+          "[EQdtK31j]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 789.224600866622,
+        "volume_in_usd": 789.224600866622,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "DwjouMAbrxyAjp3UeSH6tVjYHjUGRDgQiKMx8SwKFFst",
+        "counterparty_address_label": [
+          "[DwjouMAb]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 778.7919290977173,
+        "volume_in_usd": 778.7919290977173,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "8x91hwiHDmEtfkmgE1VqZyFGEj3QrCr9TVzqcAbx15AT",
+        "counterparty_address_label": [
+          "[8x91hwiH]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 776.16355013901,
+        "volume_in_usd": 776.16355013901,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "22By34ryoutLpkoLfYr2BmSjHTvYpuku6GZBamfrZwsK",
+        "counterparty_address_label": [
+          "[22By34ry]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 775.1170571862058,
+        "volume_in_usd": 775.1170571862058,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "2xciQTek96ErNPBVamJ5LKs7A5ef9mrULYL3xN6KYNSp",
+        "counterparty_address_label": [
+          "[2xciQTek]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 769.6926040183575,
+        "volume_in_usd": 769.6926040183575,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "Dgq7Ba5NjDVWVcQXv5tQDD5arPowHNrw7XmrnPZjKPyN",
+        "counterparty_address_label": [
+          "[Dgq7Ba5N]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 768.7599798055785,
+        "volume_in_usd": 768.7599798055785,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "FcVCCwjBrLQaaTC4RbTpcvpJ9mJ1qrkz22ApGd9saiVA",
+        "counterparty_address_label": [
+          "[FcVCCwjB]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 762.8877313132377,
+        "volume_in_usd": 762.8877313132377,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "DFC8U3qC759fcx5MgoHAF6Afg5jr7RR5L6WXrH3fbDLG",
+        "counterparty_address_label": [
+          "[DFC8U3qC]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 736.2620837007227,
+        "volume_in_usd": 736.2620837007227,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "Att5WW8HxdszVQEqwk9bwDccLg4vL19To1snRLVUNdGP",
+        "counterparty_address_label": [
+          "[Att5WW8H]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 710.4063763664969,
+        "volume_in_usd": 710.4063763664969,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "5rV1qxJjoGF8NTM5B369zXow4Dw8Cff7kk38AkQX2RJx",
+        "counterparty_address_label": [
+          "[5rV1qxJj]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 696.5902656679399,
+        "volume_in_usd": 696.5902656679399,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "4Zrvy55uXnuLoxoUsz3fRttkDj5GKaszAuehyB2pQwDC",
+        "counterparty_address_label": [
+          "[4Zrvy55u]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 549.9413768350215,
+        "volume_in_usd": 549.9413768350215,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "7PFCDZVqLjcZnDkrmdDYybJ58pKuYtiBN5exgXknghxX",
+        "counterparty_address_label": [
+          "[7PFCDZVq]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 444.7602663340206,
+        "volume_in_usd": 444.7602663340206,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "Fk1JKk2zbHEEiTFfrhKhfbfDfBj41KnWeWbW8qEs7dpu",
+        "counterparty_address_label": [
+          "[Fk1JKk2z]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 398.8588103861772,
+        "volume_in_usd": 398.8588103861772,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "B1DkEaUeyVt9rQaJNH5Wk6KGHXbtUnmRHjxkxoWLTFMb",
+        "counterparty_address_label": [
+          "[B1DkEaUe]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 394.97769376482313,
+        "volume_in_usd": 0,
+        "volume_out_usd": 394.97769376482313,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "Akr8LLdBefQMPHFkvWncypTihhWCMBiiywRRP3vai9fB",
+        "counterparty_address_label": [
+          "[Akr8LLdB]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 222.53039377312663,
+        "volume_in_usd": 222.53039377312663,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "2HDHcbzcURRkrLSnYR72hfvMeaB2D7fQURG2Pjb9Y7Wc",
+        "counterparty_address_label": [
+          "[2HDHcbzc]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 125.71560874963863,
+        "volume_in_usd": 125.71560874963863,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "4winmY6j3X1QzihzA5aTV4aSEHvCxx7QgB99pWzLE1Co",
+        "counterparty_address_label": [
+          "[4winmY6j]"
+        ],
+        "interaction_count": 9,
+        "total_volume_usd": 98.22464577109272,
+        "volume_in_usd": 0,
+        "volume_out_usd": 98.22464577109272,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "9"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "3xpPNXoeARufjddcyKrs4qeoCodMGdQGgM2RDjykGK3W",
+        "counterparty_address_label": [
+          "[3xpPNXoe]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 78.51847546539285,
+        "volume_in_usd": 78.51847546539285,
+        "volume_out_usd": 0,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "bNxaWCYXCJiS186CX6nuhmS7YMoSxeZS2Sr1PrhJJXk",
+        "counterparty_address_label": [
+          "[bNxaWCYX]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 71.11076083917514,
+        "volume_in_usd": 0,
+        "volume_out_usd": 71.11076083917514,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "2owZ9p9JdfXDZrL5XScgw9tp9eYdHxsnSFoJVUbeBkKK",
+        "counterparty_address_label": [
+          "[2owZ9p9J]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 69.77688823078667,
+        "volume_in_usd": 0,
+        "volume_out_usd": 69.77688823078667,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "4BZWHfMN2JD7u4CSrQBCme6hLqXYJvkvrcQ8EZZJCHMx",
+        "counterparty_address_label": [
+          "[4BZWHfMN]"
+        ],
+        "interaction_count": 2,
+        "total_volume_usd": 66.27815142870665,
+        "volume_in_usd": 0,
+        "volume_out_usd": 66.27815142870665,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "2"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "3cWRsPr1zRLmQ5mZt3NogmjstGJHFZ8yqVTaKJLvZpaD",
+        "counterparty_address_label": [
+          "[3cWRsPr1]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 59.17855288274607,
+        "volume_in_usd": 0,
+        "volume_out_usd": 59.17855288274607,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "764DRkmQKG6TEFvP4iEGUXxKZCQ571nntic51n5fPLj2",
+        "counterparty_address_label": [
+          "[764DRkmQ]"
+        ],
+        "interaction_count": 1,
+        "total_volume_usd": 46.340345793036576,
+        "volume_in_usd": 0,
+        "volume_out_usd": 46.340345793036576,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "1"
+          }
+        ]
+      },
+      {
+        "counterparty_address": "FaiPKrdrrdoSZyzu2P8zFSsAEjiLrNiFZuW7bEX2HW2p",
+        "counterparty_address_label": [
+          "Stake.com: Deposit [FaiPKrdr]"
+        ],
+        "interaction_count": 2,
+        "total_volume_usd": 41.74581311277629,
+        "volume_in_usd": 0,
+        "volume_out_usd": 41.74581311277629,
+        "tokens_info": [
+          {
+            "token_address": "So11111111111111111111111111111111111111112",
+            "token_symbol": "SOL",
+            "token_name": "Solana",
+            "num_transfer": "2"
+          }
+        ]
+      }
+    ]
+  },
+  "ws_transfers": {
+    "data": [
+      {
+        "signature": "2fhFLfnH5ZdFJkJwdtp4Riix1b2TWhhAzGVdwgKqwrE5mA1JrAfNGw4w84dNf3odV3P6iq8wQuCwYVUWC8jYpJuJ",
+        "timestamp": 1774952024,
+        "direction": "in",
+        "counterparty": "37Zk1zJxgHz4CXZE32wdgykufWCTaXW6HHsvuM6WxFiN",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "5aTPKtXDsDnfGPekQS6RXx8UMDZDtSowtf4QBi3m9hU38aSWT4wpb1eDo6cDzpbJntimspNVTwDPQ3Cdhidpu2PM",
+        "timestamp": 1774951995,
+        "direction": "out",
+        "counterparty": "BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G",
+        "mint": "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",
+        "symbol": null,
+        "amount": 1894.113913,
+        "amountRaw": "1894",
+        "decimals": 0
+      },
+      {
+        "signature": "5psFfY3pKKj1bmAfxeA45Js7mMS91WJRw6v8cDekAn6855y2QgjPxJaxCq6g6MJMMwjkbG6BjQHt7R7sXSnbLEHU",
+        "timestamp": 1774951828,
+        "direction": "in",
+        "counterparty": "DqVM2fH8x2K674sqyk4NCV8tjfdr6n2zmQvy5i4gjiKc",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.0001,
+        "amountRaw": "100000",
+        "decimals": 9
+      },
+      {
+        "signature": "4JV86xkvPzr9GM3Q5QnTPGDJaHYV8UW5ydnfvCE2Cg3ybWQqwt7ruw2zHRjE7Gmsek99hncVmzikKjX75595QeXh",
+        "timestamp": 1774951754,
+        "direction": "in",
+        "counterparty": "DqveLNy2gg6kXJ6KcQ1HEm8RH2DMLmhBRqqrv2Lkjikc",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 4,
+        "amountRaw": "4000000000",
+        "decimals": 9
+      },
+      {
+        "signature": "3kmirvywYuz9iqqzn4Q9DKX8rEkRznG38azq4fUQfdwD2tEeSY635v4Zeo9WLZWVncHnuhcLoM8xhht9MrvwaZRi",
+        "timestamp": 1774951330,
+        "direction": "in",
+        "counterparty": "5bCJt8TrFN2g2n3GYh7ALW2ZnAEkXMs5jFUQZLPvB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.000001,
+        "amountRaw": "1000",
+        "decimals": 9
+      },
+      {
+        "signature": "Fa9YmeL7L2NfeScsdJpqyfwjL99cQ13cP3ptg4BNPmJBrh3pXhaM5TToVnhEYFuN6Vo9pKeiUWAkQc6EbFAfxqe",
+        "timestamp": 1774951177,
+        "direction": "in",
+        "counterparty": "Bmy6chz1MzBW5uH1sS4FaEHD9rSP4WRS8w6bDR877uKP",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.0001,
+        "amountRaw": "100000",
+        "decimals": 9
+      },
+      {
+        "signature": "uoz7ehw1LCa5TMatRKrwMqqHDg9DFi3dc6r6rhy2zdtnfhFVL4H95WhS2yvwEZbfsKAVo8vguEoQnKUKjaJNxkN",
+        "timestamp": 1774951150,
+        "direction": "in",
+        "counterparty": "BmYkMicsTX2NQ8cHmcmgkR849rq1b1KDB17K3bBd7uKp",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1,
+        "amountRaw": "1000000000",
+        "decimals": 9
+      },
+      {
+        "signature": "YxxyuE23nH4QT6j5Kf6GzurhggN6qsG15dA2PYiJdyjTzTKfyheUD59S24ZLE7wfMewSyYd2xgbFWAzJea2Nzrt",
+        "timestamp": 1774950666,
+        "direction": "in",
+        "counterparty": "CCyYKtnsnkkktZw9KuUrdRWZ4qv9rn3pcNB3LouFMY5Q",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "iKurobs8o2HbBtf6zf2jc5JWWrcJ5HP7DZFwVdteWf9tmGMnBBHjaV88ZNbY7dhTEQwMitDokSeMt1WkJe3cG7T",
+        "timestamp": 1774950666,
+        "direction": "in",
+        "counterparty": "CCyYKtnsnkkktZw9KuUrdRWZ4qv9rn3pcNB3LouFMY5Q",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "K9i3G8rQk2CoDnnX4n15N7EJ66LbjeZySkuPXg3SCDJvqonswaAUEfTcstPAyoyTqxbdAgCofvoqRGKNgEQjYde",
+        "timestamp": 1774950666,
+        "direction": "in",
+        "counterparty": "8HvfGdKrgy5iiG9MjR7cQQmfjPNUT2iE7kqH83bJgaPm",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "2WTZoNtuH3rcXNp4PZdrFaT27GG6n7XBqHuB4RLuMAUKBonkzE5v3FPfTwV2oiPPw88P3Yv6Hm5CVQR7oR6TSjwx",
+        "timestamp": 1774950666,
+        "direction": "in",
+        "counterparty": "8HvfGdKrgy5iiG9MjR7cQQmfjPNUT2iE7kqH83bJgaPm",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "5qZpmzLZNKePoJRY1LVXPAZC6bcrqoLs6cCqXFLZoCoPAqZmpeMGV5RZX9ioTvJy9Lipi6waXFetkLgjKoYdbLf",
+        "timestamp": 1774950664,
+        "direction": "out",
+        "counterparty": "BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G",
+        "mint": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
+        "symbol": null,
+        "amount": 945544.800085,
+        "amountRaw": "945545",
+        "decimals": 0
+      },
+      {
+        "signature": "4dtFTr5Cpg9uwarBqxmk9DMXrHvPqPSqTFuMdnk4H16iV7gkp8bLWyX1GgucQ4ULKxmMkn7ffbUcUUqVcNdJZ9Rj",
+        "timestamp": 1774950506,
+        "direction": "in",
+        "counterparty": "BZ4MuhgPR7jkiypA1HKpgeNciRyfe3m7PqAYf91vJJwG",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.00090088,
+        "amountRaw": "900880",
+        "decimals": 9
+      },
+      {
+        "signature": "DNAGLvf6CgjSSQVcb1vHLmb5inRVp6GpNMq9Me3JTNNrKnAa8t2tqZvmnuudXEtx5yuAgwNnMkSGTWpWz3HUr52",
+        "timestamp": 1774949514,
+        "direction": "out",
+        "counterparty": "BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 165.896181216,
+        "amountRaw": "165896181216",
+        "decimals": 9
+      },
+      {
+        "signature": "3qWZ6WbTySEz1rVe1tC2SAvP8PuRoZmvGNicnPwdvhQ8vPStDZyjL9FCQYSgNNsXQ25Y6Wdiks5g97U7y56U6hpp",
+        "timestamp": 1774947731,
+        "direction": "in",
+        "counterparty": "5bCJt8TrFN2g2n3GYh7ALW2ZnAEkXMs5jFUQZLPvB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.000001,
+        "amountRaw": "1000",
+        "decimals": 9
+      },
+      {
+        "signature": "3pR9X1SrjeRM9iixSMiJcqWwP6KwXWLTwpUzSMnhrBP6Pn2RZ4SyxddtiDDwRte9bNe71z4cWm8c9bqnasZodH6Z",
+        "timestamp": 1774945994,
+        "direction": "in",
+        "counterparty": "EEVQDyjxD9TfQX4wQiTRbFipWzcwoCMUNGps5KiRBDvd",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1.62509352,
+        "amountRaw": "1625093520",
+        "decimals": 9
+      },
+      {
+        "signature": "26RzhZnrrZLQA4Ti4Y93dbMK9MymU2dYcB5ftwAYBXTAZYNLcfGLwUZ6i2PjsbiL5QSwEMHTCXRSRj2nDHxiBqbG",
+        "timestamp": 1774945881,
+        "direction": "in",
+        "counterparty": "4bAwbA127DVfqhtAgfoM9TAzsbjknCUgoMsHqpExkaoR",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 58.05534912,
+        "amountRaw": "58055349120",
+        "decimals": 9
+      },
+      {
+        "signature": "4Ssu5LSXNzFJMZ1iunh8KwN8SbtkWLdpsYPBLnsg3PHNr8QJnQeUT5ZNgD8Defp8LShdmPYB6uGEjbubpPn9nuce",
+        "timestamp": 1774945175,
+        "direction": "in",
+        "counterparty": "A1xpRMUPF2i3uUHjRyDNHzkci5d51S2hR9PwDtyU6RAK",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 10.00426035,
+        "amountRaw": "10004260350",
+        "decimals": 9
+      },
+      {
+        "signature": "3FNQzbFA5HHFHx2qijbPbkvyv1t6gtNaMWJUPZZsTyd1G6cUYSCbUr3tap654FXgm4M16QwxWgbG3cqqdBSd3qjS",
+        "timestamp": 1774944242,
+        "direction": "in",
+        "counterparty": "3fEuPqLon2oCsKE2WWjRfRBbeNjJojUCqQze19LhWCw1",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 2.053623823,
+        "amountRaw": "2053623823",
+        "decimals": 9
+      },
+      {
+        "signature": "4beZSGkcQjttatAzsEUo1McfW1e9xX86sQ7BeSXbgUWYdaeFigMGjiCcmV2Fye2mY8sqNZ6Tfd2Z3UBiTfUYwGrC",
+        "timestamp": 1774944120,
+        "direction": "in",
+        "counterparty": "5bCJt8TrFN2g2n3GYh7ALW2ZnAEkXMs5jFUQZLPvB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.000001,
+        "amountRaw": "1000",
+        "decimals": 9
+      },
+      {
+        "signature": "5StrPJPhDRViEuRCFrcwUUZmE9L75ZkRr9inRVmm6SvGx6iP4Z9RgCuYqabQ28xq8hFGpy1aH1UrQArw3ZK8r51e",
+        "timestamp": 1774944086,
+        "direction": "in",
+        "counterparty": "4BYxfaKChnK7dvnmT7V27VycvBmUmM5cq11MVvnJDKGL",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 5,
+        "amountRaw": "5000000000",
+        "decimals": 9
+      },
+      {
+        "signature": "3sr7JYQEvuQ148G5diyak2b68xrRUCdKiooJsZvcji9tMcFHTXrHomcHAmGqbUqEBtVxwz6GxuWku8s2XCupyrhd",
+        "timestamp": 1774943852,
+        "direction": "out",
+        "counterparty": "BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G",
+        "mint": "DuMbhu7mvQvqQHGcnikDgb4XegXJRyhUBfdU22uELiZA",
+        "symbol": null,
+        "amount": 2009067.155841117,
+        "amountRaw": "2009067",
+        "decimals": 0
+      },
+      {
+        "signature": "2MMZQiVASwDaDFmifVDE8czR1uBQEky4saqcHMzqBGjSUww7UWYvb5aKtGxhnubR9rrgqDyVKo82184zvkAUCiTU",
+        "timestamp": 1774942162,
+        "direction": "out",
+        "counterparty": "BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": null,
+        "amount": 2651.07861,
+        "amountRaw": "2651",
+        "decimals": 0
+      },
+      {
+        "signature": "4VrXkzzsqapCJMLW4DjAddrBBXHaaxjS1dP3XLn8TaHbrxD2aTzvtqFsQZ7aJ5yYW8HkvnLz1XKc4Fb7pQ6fk8aM",
+        "timestamp": 1774942090,
+        "direction": "in",
+        "counterparty": "8HvfGdKrgy5iiG9MjR7cQQmfjPNUT2iE7kqH83bJgaPm",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "3x9pYq4xyMEQ86sNepTxbWgoCRGa6wPhHT9EYvcUsyhc3BrTWhdjWckMLzHo6tUZtUjDZukr6kpKWwDuGmDk9ids",
+        "timestamp": 1774942090,
+        "direction": "in",
+        "counterparty": "CCyYKtnsnkkktZw9KuUrdRWZ4qv9rn3pcNB3LouFMY5Q",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "Rocc5nfFJWsNqFn9AokpztsDLWnZv1T8kbtVLogEZCDi7xthP6oCW7TBrMiYVbx3ZHZd7zRGkbSXaeztnEJtmT8",
+        "timestamp": 1774942083,
+        "direction": "out",
+        "counterparty": "BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G",
+        "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+        "symbol": null,
+        "amount": 17079.227207,
+        "amountRaw": "17079",
+        "decimals": 0
+      },
+      {
+        "signature": "4tTLvHjTj8cxAKT47iWJeup95H4Ugwcf2239zQYS1eMvntnYfjMD8Fc8zqw6qtZ7KD7W8PPHLdL4uZBPiGjZfgrA",
+        "timestamp": 1774941814,
+        "direction": "in",
+        "counterparty": "8c4aLNGvxyJ8HJEbjN4gYS8Hg9dCxD8AvtzeJRjSWDZx",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1.39373409,
+        "amountRaw": "1393734090",
+        "decimals": 9
+      },
+      {
+        "signature": "5h4GAmSqSxhmQyjT1fynhk4Ceq6JG1Dg5bAG7ezd3otrQvJkZPLksnyuSnuQwFJaJj1Lxs3XZZAs67Qi5P1aPqKw",
+        "timestamp": 1774941133,
+        "direction": "in",
+        "counterparty": "37Zk1zJxgHz4CXZE32wdgykufWCTaXW6HHsvuM6WxFiN",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "4CjNHcdESNCoinJEKc8cnoVY5sHpDteou1gd3wc7W2vRiZD3kK6eiXdBGkTmbavBmgBatJ1jpKTKijYph9eVT5CG",
+        "timestamp": 1774940886,
+        "direction": "in",
+        "counterparty": "3zQ1TFtcNfGfBxqtzQDDSmNxss1iBis1WQwZmWQ1xoJC",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 33.653,
+        "amountRaw": "33653000000",
+        "decimals": 9
+      },
+      {
+        "signature": "4PyyQmrGFifBtTbumahL68Swo8UYkgrmehFBvc8gjGJMuiPhKdwXpuSNN6D4R5tqR3NeqFPfaLSQvo6YFweV9y7j",
+        "timestamp": 1774940523,
+        "direction": "in",
+        "counterparty": "5bCJt8TrFN2g2n3GYh7ALW2ZnAEkXMs5jFUQZLPvB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.000001,
+        "amountRaw": "1000",
+        "decimals": 9
+      },
+      {
+        "signature": "3Efuzod56J25Cv6vQh2BXqZx6wt34ZnzcrynkL6swpX4H2AhyuNSEn6yPQBKmnwmqo5GGwy7GShtzi1Z9agJpHfg",
+        "timestamp": 1774940020,
+        "direction": "in",
+        "counterparty": "37Zk1zJxgHz4CXZE32wdgykufWCTaXW6HHsvuM6WxFiN",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "36CKy6dixASmKoq93KFBsWSULGsb6gdy59zLsvoJDGFQJ7z8zyPsEme5vRGoevqyhLMZmbDuAczLuXZ25XPd5Nur",
+        "timestamp": 1774939964,
+        "direction": "in",
+        "counterparty": "37Zk1zJxgHz4CXZE32wdgykufWCTaXW6HHsvuM6WxFiN",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "q1vdMPq3hzRosRsb25nZTZzkJBBfD8LZ8JvvfuJDEkDU5CnCiBZ1HramuNJ5de2HivPnZZvZJT9giapcQ9esxDz",
+        "timestamp": 1774939797,
+        "direction": "in",
+        "counterparty": "37Zk1zJxgHz4CXZE32wdgykufWCTaXW6HHsvuM6WxFiN",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "4e1J9NipiVUxoTxNxjE8nUUp5wB5wejKoWxbFvKFbU9vWqr6JhKtCrWLosDPRexzVqqijAQpw2eahgbevyC1uAw9",
+        "timestamp": 1774939775,
+        "direction": "in",
+        "counterparty": "37Zk1zJxgHz4CXZE32wdgykufWCTaXW6HHsvuM6WxFiN",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "4weyUNfxaJ45MUbNeH7GT1FpDbjBUkA84G98Wc6Fjaw8tmwLCYUhTBW58M1GVe4kiKkTzGSZYNhBSeSgtJGgRodY",
+        "timestamp": 1774939617,
+        "direction": "in",
+        "counterparty": "4tY3tYggWk59PSwg72D6j47JJJHWKXAxbkLuues2Jxxk",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1.17,
+        "amountRaw": "1170000000",
+        "decimals": 9
+      },
+      {
+        "signature": "3bcqXq43UErk3B9JZ1yvFK74m9Ti1X1zcF7A6DQnBb4dEUmRJj3wFmBE9A9VzZomRrBu8dUmkgMDGF7ptazn4mYd",
+        "timestamp": 1774938580,
+        "direction": "in",
+        "counterparty": "DxaujwKTqsEmaxKiwe3Lk3KihKo6ycMJodMEitcnLevr",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 3.82893633,
+        "amountRaw": "3828936330",
+        "decimals": 9
+      },
+      {
+        "signature": "5rven6RbWP5tu5tuWWA1JCZBEN6CgdctAE8ptQjUcRkc2t1feKQVUMM8vJ8hoBpAWAQFvRKoDGptnBaYf9swdxJz",
+        "timestamp": 1774938233,
+        "direction": "in",
+        "counterparty": "37Zk1zJxgHz4CXZE32wdgykufWCTaXW6HHsvuM6WxFiN",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1e-9,
+        "amountRaw": "1",
+        "decimals": 9
+      },
+      {
+        "signature": "5E5ejqmH8SuqBmzw7xTtL86wE2wiv5cT6AP6tWw2h2zxAvKNhk2mmvorsYgsUmcBsum7ih9MVovgkDSbDqfqec3U",
+        "timestamp": 1774938057,
+        "direction": "in",
+        "counterparty": "8iBrjx6VnbvdttnVxRv9qqZ3MUFKPhb54WwGbYst1s1u",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 3.18024189,
+        "amountRaw": "3180241890",
+        "decimals": 9
+      },
+      {
+        "signature": "3FA7ScE44y9PjwMkXN76e9gYJmYN5stUDvQNnDMbMZzPA7PCw7Mc93w2C7sg3JL1KuLvxoeYnRkm1NAgGPTjatkW",
+        "timestamp": 1774937397,
+        "direction": "in",
+        "counterparty": "CnVuidbdXxZ61TJAPND9gSvKYRJ396zuLnvmEfJyzVre",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.0001,
+        "amountRaw": "100000",
+        "decimals": 9
+      },
+      {
+        "signature": "3tZCAsykhMH7N6dtMyjJJoKRFtwrE4i5cXxz4jDoiTYJKZHrDsdqZSPWytqYwAk2s9KxTBccBgf1JgJmZxRLRfzJ",
+        "timestamp": 1774937365,
+        "direction": "in",
+        "counterparty": "CnvUgtXZ2bVwTS2KbsdtANSKiAVu7fufXWMDLeZsZVrE",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 35.166152294,
+        "amountRaw": "35166152294",
+        "decimals": 9
+      },
+      {
+        "signature": "3cPyFD14yeimLprmn2zUrcLJFFH8BEFA1PtZK2j619cstRPH65AQVWZD62MMt95EKBN1AVrG3o2FTaad1Rnhy74Z",
+        "timestamp": 1774936872,
+        "direction": "in",
+        "counterparty": "5bCJt8TrFN2g2n3GYh7ALW2ZnAEkXMs5jFUQZLPvB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.000001,
+        "amountRaw": "1000",
+        "decimals": 9
+      },
+      {
+        "signature": "3Tht7BLtksw9Cf6WEuv14mkn919XgRmFacjyMgmHaZucdawrvVdRWDobjzrrDDvaCZ1fBYfaQS78TFiBuwjGEu9r",
+        "timestamp": 1774936463,
+        "direction": "in",
+        "counterparty": "6qdvWTRt12zFoDt62C5eY6yVheg8tAg9kCJKMQEd7sc3",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.3,
+        "amountRaw": "300000000",
+        "decimals": 9
+      },
+      {
+        "signature": "hxUNheTz9F9C57iLo6FjdNGWYNHG7mv3CFZPm498vAa94USWDRQMncpLWbJvb4EcKdzjNA1orTbbXXFrF2tQ8f1",
+        "timestamp": 1774936035,
+        "direction": "in",
+        "counterparty": "26jrANdCNkrvcrbh1FoWrZ4LoYt44sjTYUQtjGoB2nZy",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 8.465715943,
+        "amountRaw": "8465715943",
+        "decimals": 9
+      },
+      {
+        "signature": "5YBvKpzMSYnsqNWz9xjTY3HwRW3zSBtFu8mX1fk41kDkqg4xX4CCUhbKkegznrrzH7XG6t9zhc9sopLXqp5kKF2L",
+        "timestamp": 1774935084,
+        "direction": "in",
+        "counterparty": "C6K3ccsxHCApDLze1G7JoMffkP984QZnLvyzv4Mv7F4Y",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 2,
+        "amountRaw": "2000000000",
+        "decimals": 9
+      },
+      {
+        "signature": "51Kj6bZhv7JfDfSPG79GGrRS39Rr43TtKXTwxRFMdAq7HscFdoMprULnHfZM1qurd96AV2myjFpNw6GqxnVawvkS",
+        "timestamp": 1774934948,
+        "direction": "out",
+        "counterparty": "BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 285.993545994,
+        "amountRaw": "285993545994",
+        "decimals": 9
+      },
+      {
+        "signature": "5iS6SMCG5vn5E9RBhv1bWr677XP8PUUp4YPZdqTxbA3mR957VEUao7WWJf2RpyMkt7Xgvf9LU9xCLiu9wZYeRu2J",
+        "timestamp": 1774934678,
+        "direction": "in",
+        "counterparty": "2sLRMp72eRNpDDQNxYJmRQD4poSGtjnAHyEcEoFJnr4N",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 18.414732168,
+        "amountRaw": "18414732168",
+        "decimals": 9
+      },
+      {
+        "signature": "64cT5uSXURq88hdmDQeY38oCaQP1USDcncYoByyx2ZN1T3UbRvU8rWQHRzqmreNR1UGFa7QjZMsyksyyzLxFEt2W",
+        "timestamp": 1774933291,
+        "direction": "in",
+        "counterparty": "5bCJt8TrFN2g2n3GYh7ALW2ZnAEkXMs5jFUQZLPvB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.000001,
+        "amountRaw": "1000",
+        "decimals": 9
+      },
+      {
+        "signature": "mBancBZaJowegK9xoqo3zfQFgSULmi3gveRJvmQAZMvm5Fnh6XmDbb7VbUUVFrMr3AifiMpmqWfuQrj8Run8rw6",
+        "timestamp": 1774931677,
+        "direction": "in",
+        "counterparty": "7XMYb3yECKWgR7njPdf7gom6tMM7ih4Upt9Mg7nQz1G1",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 3.49,
+        "amountRaw": "3490000000",
+        "decimals": 9
+      },
+      {
+        "signature": "oBPkqyhutC1Jaygvy6taQRvt4srjMYapsQxHLHSJ3YvDnPY3sfYX4LAciin3c9WNDxtESvyxdtathPfzFqT12As",
+        "timestamp": 1774930493,
+        "direction": "in",
+        "counterparty": "7QVk15kroMzZocG9caHcdUXhRNa4wFUVH9uS38PUV6dp",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 115.696530918,
+        "amountRaw": "115696530918",
+        "decimals": 9
+      },
+      {
+        "signature": "X3KsWkpUBR36p4YceHhvnVoDjysKi9W3jGru1UiTG4tPAT6TsvCx113eQTzcYd4tNmMcuVF4UKqv3GFzCHiAwrS",
+        "timestamp": 1774929682,
+        "direction": "in",
+        "counterparty": "5bCJt8TrFN2g2n3GYh7ALW2ZnAEkXMs5jFUQZLPvB34G",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.000001,
+        "amountRaw": "1000",
+        "decimals": 9
+      }
+    ],
+    "pagination": {
+      "hasMore": true,
+      "nextCursor": "X3KsWkpUBR36p4YceHhvnVoDjysKi9W3jGru1UiTG4tPAT6TsvCx113eQTzcYd4tNmMcuVF4UKqv3GFzCHiAwrS"
+    }
+  }
+}

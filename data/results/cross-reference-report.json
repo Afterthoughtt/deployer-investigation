@@ -4,9 +4,9 @@
     "total_unique_wallets": 292,
     "recurring_wallets_count": 56,
     "by_tag": {
-      "unknown": 20,
+      "unknown": 19,
       "known_infra": 26,
-      "known_insider": 3,
+      "known_insider": 4,
       "resolved": 7
     },
     "rotation_candidates": 15
@@ -14,7 +14,7 @@
   "recurring_wallets": [
     {
       "address": "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
-      "tag": "unknown",
+      "tag": "known_insider:coinspot_susye_trading",
       "launch_count": 5,
       "launches": [
         "L3",

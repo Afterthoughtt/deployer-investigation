@@ -1,25 +1,8 @@
 {
   "metadata": {
-    "description": "Synthesized investigation findings — content NOT captured in network-map.json or launch-history.json",
+    "description": "Profit extraction routes — the only synthesized findings NOT captured in network-map.json, launch-history.json, or STRATEGY.md",
     "last_updated": "2026-03-31",
-    "goal": "Identify the deployer's next fresh wallet after it gets funded but before create_and_buy",
-    "raw_data_location": "data/results/raw/ — full API responses for all investigations"
-  },
-
-  "funding_path_evolution": {
-    "description": "The deployer varies the funding path every time. This is the #1 challenge for L11 detection.",
-    "history": [
-      { "launch": "L1-L3", "path": "Coinbase CB9 → OG deployer (direct, no fresh wallet)" },
-      { "launch": "L4", "path": "Coinbase → Hub Wallet → fresh deployer" },
-      { "launch": "L5", "path": "Coinbase → Hub Wallet → fresh deployer" },
-      { "launch": "L6", "path": "Coinbase → OG Deployer → fresh deployer" },
-      { "launch": "L7", "path": "Coinbase → Hub Wallet → fresh deployer" },
-      { "launch": "L8", "path": "Coinbase → L7 Deployer → fresh deployer" },
-      { "launch": "L9", "path": "Coinbase → JETNUT Deployer → fresh deployer" },
-      { "launch": "L10", "path": "MoonPay → fresh deployer (direct, no intermediary)" }
-    ],
-    "pattern": "Intermediary changes: Hub (x3), OG (x1), prior deployer (x1), side-project (x1), direct (x1). On-ramp also changed.",
-    "implication": "Must monitor ALL known network wallets for 10-18 SOL outflows to fresh addresses, not just on-ramps."
+    "note": "Sections removed in cleanup: confirmed_network_labels (duplicated in network-map.json notes), bqp79wmk_evidence_chain (duplicated in network-map.json monitoring section), funding_path_evolution (now in STRATEGY.md), uninvestigated_counterparties (all 7 resolved, findings in network-map.json), unverified_claims (Ed4UGBWK Rollbit resolved). Raw API responses in archive/raw-results/."
   },
 
   "profit_extraction_map": {
@@ -68,85 +51,5 @@
       "total_extracted": "$400K+ confirmed. Routes E and F overlap significantly — Rollbit winnings flow to Coinbase, Coinbase funds flow back to Rollbit."
     },
     "fireblocks_caveat": "Arkham labels many wallets 'Fireblocks Custody' on Solana — broad label covering any wallet interacting with Fireblocks infrastructure. Does NOT mean same entity."
-  },
-
-  "confirmed_network_labels": {
-    "description": "Nansen/Arkham labels confirmed for network wallets — useful for fingerprinting",
-    "hub_wallet": "BloomBot Trading Bot User (Nansen)",
-    "bundle_1": "BloomBot Trading Bot User (Nansen)",
-    "bundle_2": "BloomBot Trading Bot User (Nansen)",
-    "bundle_4": "BloomBot Trading Bot User (Nansen)",
-    "bundle_6": "Axiom-funded (NOT Coinbase like Bundles 1-5). Only 11 connections vs 18-22. Operationally distinct.",
-    "og_deployer": "Successful PumpFun Creator (Nansen) / \"devpanther\" on Pump.fun (Arkham)",
-    "l4_deployer": "XRPEP3 Token Deployer (Nansen) / \"devfroggy\" on Pump.fun (Arkham)",
-    "l5_deployer": "RizzmasCTO Token Deployer (Nansen)",
-    "l6_deployer": "Jakey Token Deployer (Nansen)",
-    "l7_deployer": "IslandBoys Token Deployer (Nansen)",
-    "l8_deployer": "ARTEMIS-2 Token Deployer (Nansen)",
-    "l9_deployer": "CUPID Token Deployer (Nansen)",
-    "l9_funder": "JETNUT Token Deployer (Nansen)",
-    "eggsheeran": "eggsheeran Token Deployer (Nansen) / \"andrewpapd\" on Pump.fun (Arkham)",
-    "hub_first_funder": "BloomBot Trading Bot User (Nansen)",
-    "collection_wallet": "Fireblocks Custody (Arkham)",
-    "large_funding_source": "Fireblocks Custody (Arkham)",
-    "fireblocks_passthrough": "Fireblocks Custody (Arkham)",
-    "coinbase_deposit": "Coinbase Deposit (Arkham)",
-    "coinbase_deposit_2": "Coinbase Deposit (Arkham)",
-    "rollbit_deposit": "Rollbit Deposit (Arkham)",
-    "blofin_insider": "\"zougz\" on Pump.fun (Arkham), funded by Crypto.com",
-    "blofin_passthrough": "BloFin Deposit (Arkham)",
-    "BqP79Wmk_funder": "GoonPump Token Deployer (Nansen)",
-    "BqP79Wmk_cashout": "Crypto.com Deposit (Arkham)"
-  },
-
-  "bqp79wmk_evidence_chain": {
-    "description": "Evidence proving BqP79Wmk is deployer's personal trading wallet",
-    "evidence": [
-      "1. Trades ALL 9 deployer tokens (covering all 10 launches): DOGWIFXRP $129K, WFXRP $49K, ARKXRP $8.2K, XAIC $6.1K, GSBANK $1.9K, QTX $1K, XRPEP3 $766, TROLLXRP $627, RXRP $431. Early buyer on L1-L3/L5/L6/L10, later buyer on L4/L7/L8/L9. Verified from Nansen counterparties (raw: l10-suspicious-buyers-profiles.json).",
-      "2. Funded via MoonPay MP1 — deployer's own on-ramp for L10",
-      "3. Receives $629 from Large Funding Source (Fireblocks) — deployer infrastructure",
-      "4. First funded on L1 launch day (2025-06-15)",
-      "5. Buys at +6 seconds on L10 — advance knowledge",
-      "6. Funder (GoonPump 231fshU8) ALSO trades deployer tokens (WFXRP) and receives from LFS",
-      "7. Cashout FKjuwJzH is Crypto.com Deposit (Arkham confirmed) — $7.2K to Crypto.com",
-      "8. Funder sends to MEXC Deposit — multiple exchange usage for personal ops"
-    ],
-    "pipeline": "MoonPay/Bitget → GoonPump (231fshU8) → BqP79Wmk → FKjuwJzH (Crypto.com Deposit) → Crypto.com",
-    "upstream_unresolved": {
-      "8QCVZ7KL": "$701 to GoonPump, Nansen: 'High Balance'. Needs profiling.",
-      "5c9EM9y2": "$1,249 to GoonPump, Nansen: 'Distributor'. Needs profiling."
-    },
-    "l11_implication": "GoonPump and BqP79Wmk will likely appear as early buyers on L11. Monitor both."
-  },
-
-  "uninvestigated_counterparties": {
-    "description": "Minor counterparties discovered during profiling but not yet identified",
-    "hub_wallet": {
-      "A9eAH6Az": {
-        "address": "A9eAH6Az7VoXRPwcEdXZuqXqQaf7GWfzAQC91dkf76xD",
-        "nansen_label": "High Balance",
-        "volume": "$4,595 bidirectional (in=$2,293 out=$2,302), 18 txs",
-        "note": "Balanced in/out suggests trading counterparty or exchange wallet."
-      },
-      "ChcEbZW2": {
-        "address": "ChcEbZW2F2rVf63pvv7q8bRQmCvmytSE8adFWaHZsijH",
-        "volume": "$700 outflow from Hub, 3 txs"
-      }
-    },
-    "fireblocks_7RLD6F9S": {
-      "BigpvKiU": "$2,075 in (2 txs — 24.57 SOL). Unidentified.",
-      "HBgtmeZD": "$1,264 in (1 tx — 10 SOL). Unidentified."
-    },
-    "jetnut_network": {
-      "7mb5n6uw": "$2,790 out (2 txs — 30+1 SOL sent Mar 21). Needs identification."
-    },
-    "cold_usdc_2": {
-      "EQdtK31j": "$789 out. Unknown.",
-      "Dgq7Ba5N": "$769 out. Unknown."
-    }
-  },
-
-  "unverified_claims": {
-    "ed4ugbwk_rollbit_deposits": "RB5KKB7h and RB2Yz3VS cited as Ed4UGBWK Rollbit deposits but no raw API data backs them. 2026-03-24 Arkham transfers query returned 0 Rollbit matches. May be transcription errors."
   }
 }

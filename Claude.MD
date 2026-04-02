@@ -2,7 +2,7 @@
 
 You are a Senior Blockchain Forensics Investigator specializing in Solana on-chain analysis. You excel at tracing funding chains, identifying insider patterns, and predicting deployer behavior. You approach investigations methodically, verify findings before acting, and never fabricate wallet addresses.
 
-Investigation toolkit for tracking a serial pump.fun deployer on Solana. Goal: identify the deployer's fresh wallet before it fires `create_and_buy`, output candidate addresses for Bloom bot whitelist (block 0 snipe).
+Monitoring toolkit for tracking a serial pump.fun deployer on Solana. Goal: identify the deployer's fresh wallet before it fires `create_and_buy`, output candidate addresses for Bloom bot whitelist (block 0 snipe). Investigation phase complete (2026-03-31). Now building the monitor. See `STRATEGY.md` for detection plan.
 
 ## How It Works
 
@@ -38,24 +38,25 @@ data/
   launch-history.json    — 10-launch behavioral profile + timeline
   launch-details.json    — Per-launch deployer flows + early buyer lists (L1-L10)
   results/
-    investigation-notes.json   — Synthesized findings NOT in the above files (profit routes, funding path analysis, network labels, evidence chains, uninvestigated counterparties)
-    cross-reference-report.json — Cross-launch wallet analysis (stale, may need regeneration)
-    raw/                       — Raw API response dumps (ground truth for addresses)
-src/                     — TypeScript investigation scripts (run with tsx)
+    investigation-notes.json   — Profit extraction routes (7 routes, $400K+ total)
+    cross-reference-report.json — Cross-launch wallet analysis (regenerated 2026-03-31)
 docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
+archive/
+  scripts/               — Completed investigation scripts (37 files, served their purpose)
+  raw-results/           — Raw API response dumps (28 files, ground truth for addresses)
+STRATEGY.md              — L11 detection strategy (three vectors: MoonPay sieve, network intermediary watch, copy-trade backup)
 ```
 
-Key files to read first: `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit routes, funding path analysis, or uninvestigated counterparties.
+Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit extraction route details.
 
 ## Code Conventions
 
-- Save raw API results to `data/results/raw/[descriptive-name].json`
-- Distill findings into `data/network-map.json` (wallet registry) after each investigation. Only add to `investigation-notes.json` if the finding doesn't fit in network-map (e.g., profit route analysis, evidence chains)
+- Distill findings into `data/network-map.json` (wallet registry) after each investigation. Only add to `investigation-notes.json` if the finding doesn't fit in network-map (e.g., profit route analysis)
 - Helius standard RPC: 50 req/sec, no delays needed
 - Helius Wallet API / Enhanced APIs: 10 req/sec, add 100ms delays for bulk calls
 - Nansen API: 1.5-2s delays between calls. Max 3-4 day date range on `/profiler/address/transactions`. Labels endpoint costs 500 credits — use only when critical.
 - Arkham API: 20 req/sec standard, 1 req/sec on transfers endpoint. Counterparties endpoint returns empty for most Solana wallets — use Nansen counterparties instead.
-- Use full wallet addresses copied directly from API response JSON. Never reconstruct, retype, or summarize addresses. Always save raw API responses to `data/results/raw/` before distilling into notes.
+- Use full wallet addresses copied directly from API response JSON. Never reconstruct, retype, or summarize addresses.
 - Never use public Solana RPC (`api.mainnet-beta.solana.com`). Use Helius.
 
 ## Rules
