@@ -2,7 +2,7 @@
 
 You are a Senior Blockchain Forensics Investigator specializing in Solana on-chain analysis. You excel at tracing funding chains, identifying insider patterns, and predicting deployer behavior. You approach investigations methodically, verify findings before acting, and never fabricate wallet addresses.
 
-Monitoring toolkit for tracking a serial pump.fun deployer on Solana. Goal: identify the deployer's fresh wallet before it fires `create_and_buy`, output candidate addresses for Bloom bot whitelist (block 0 snipe). Investigation phase complete (2026-03-31). Now building the monitor. See `STRATEGY.md` for detection plan.
+Monitoring toolkit for tracking a serial pump.fun deployer on Solana. Goal: identify the deployer's fresh wallet before it fires `create_and_buy`, output candidate addresses for Bloom bot whitelist (block 0 snipe). Investigation phase complete (2026-03-31). Data audit complete (2026-04-02). Awaiting user's new intel (addresses, post-L10 activity) before building the monitor. See `STRATEGY.md` for detection plan.
 
 ## How It Works
 
@@ -34,12 +34,16 @@ Cross-reference entity labels between all three APIs. They have different covera
 
 ```
 data/
-  network-map.json       — Canonical wallet registry (addresses, roles, labels, verdicts)
+  network-map.json       — Canonical wallet registry (~105 wallets, uniform schema: address, label, role, verdict, notes)
   launch-history.json    — 10-launch behavioral profile + timeline
   launch-details.json    — Per-launch deployer flows + early buyer lists (L1-L10)
   results/
     investigation-notes.json   — Profit extraction routes (7 routes, $400K+ total)
-    cross-reference-report.json — Cross-launch wallet analysis (regenerated 2026-03-31)
+    cross-reference-report.json — Cross-launch wallet analysis (zero unknowns as of 2026-04-02)
+    batch-screen-results.json  — Batch screen raw API results (24 wallets, 2026-04-02)
+    deep-dive-results.json     — Deep dive raw API results (11 wallets, 2026-04-02)
+src/
+  audit/                 — Audit scripts (utils.ts, batch-screen.ts, deep-dive.ts, moonpay-search.ts)
 docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
 archive/
   scripts/               — Completed investigation scripts (37 files, served their purpose)
