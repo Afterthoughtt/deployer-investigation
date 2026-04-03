@@ -10,34 +10,164 @@
     "funded_by_label": "Coinbase Hot Wallet 2 (CB9)",
     "funded_utc": "2025-03-22T17:48:46Z",
     "inflows": [
-      { "address": "DLGHPXKFVepjShuRvp8PDBkaCH7bkxaCK21USQGmSQ3e", "label": "OG Deployer WSOL ATA (not a wallet)", "transfers": 156, "volume_usd": 25280 },
-      { "address": "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW", "label": "Bundle 1", "transfers": 5, "volume_usd": 5530 },
-      { "address": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot", "label": "L9 Deployer", "transfers": 7, "volume_usd": 4040 },
-      { "address": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm", "label": "Bundle 6", "transfers": 7, "volume_usd": 4040 },
-      { "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta", "label": "Bundle 4", "transfers": 5, "volume_usd": 3300 },
-      { "address": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "label": "Bundle 5", "transfers": 8, "volume_usd": 3210 },
-      { "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB", "label": "Bundle 3", "transfers": 9, "volume_usd": 3200 },
-      { "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb", "label": "L4 Deployer", "transfers": 4, "volume_usd": 3090 },
-      { "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7", "label": "Bundle 2", "transfers": 4, "volume_usd": 2760 },
-      { "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y", "label": "L6 Deployer", "transfers": 3, "volume_usd": 2660 },
-      { "address": "E2NnJHhcMhwrMT2qZDJicnGLFQZw44ceqTAcrqo8BA8F", "label": "OG Deployer WSOL ATA (not a wallet)", "transfers": 37, "volume_usd": 2100 },
-      { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 9, "volume_usd": 1590 }
+      {
+        "address": "DLGHPXKFVepjShuRvp8PDBkaCH7bkxaCK21USQGmSQ3e",
+        "label": "OG Deployer WSOL ATA (not a wallet)",
+        "transfers": 156,
+        "volume_usd": 25280
+      },
+      {
+        "address": "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+        "label": "Bundle 1",
+        "transfers": 5,
+        "volume_usd": 5530
+      },
+      {
+        "address": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot",
+        "label": "L9 Deployer",
+        "transfers": 7,
+        "volume_usd": 4040
+      },
+      {
+        "address": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm",
+        "label": "Bundle 6",
+        "transfers": 7,
+        "volume_usd": 4040
+      },
+      {
+        "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+        "label": "Bundle 4",
+        "transfers": 5,
+        "volume_usd": 3300
+      },
+      {
+        "address": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+        "label": "Bundle 5",
+        "transfers": 8,
+        "volume_usd": 3210
+      },
+      {
+        "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+        "label": "Bundle 3",
+        "transfers": 9,
+        "volume_usd": 3200
+      },
+      {
+        "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+        "label": "L4 Deployer",
+        "transfers": 4,
+        "volume_usd": 3090
+      },
+      {
+        "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+        "label": "Bundle 2",
+        "transfers": 4,
+        "volume_usd": 2760
+      },
+      {
+        "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y",
+        "label": "L6 Deployer",
+        "transfers": 3,
+        "volume_usd": 2660
+      },
+      {
+        "address": "E2NnJHhcMhwrMT2qZDJicnGLFQZw44ceqTAcrqo8BA8F",
+        "label": "OG Deployer WSOL ATA (not a wallet)",
+        "transfers": 37,
+        "volume_usd": 2100
+      },
+      {
+        "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+        "label": "Hub Wallet",
+        "transfers": 9,
+        "volume_usd": 1590
+      }
     ],
     "outflows": [
-      { "address": "DLGHPXKFVepjShuRvp8PDBkaCH7bkxaCK21USQGmSQ3e", "label": "OG Deployer WSOL ATA (not a wallet)", "transfers": 432, "volume_usd": 26800 },
-      { "address": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT", "label": "Coinbase Deposit", "transfers": 28, "volume_usd": 11310 },
-      { "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y", "label": "L6 Deployer", "transfers": 4, "volume_usd": 6630 },
-      { "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE", "label": "L8 Deployer", "transfers": 2, "volume_usd": 5770 },
-      { "address": "6UrYwo9F97zDpd7cCvnKJp5HrcGnhSYKmHaphiZd71UE", "label": null, "transfers": 4, "volume_usd": 5100 },
-      { "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34", "label": "Collection Wallet", "transfers": 7, "volume_usd": 4470 },
-      { "address": "8CvuX95RTCCBfUY8cUET8FQZusoY49yUkQxTEL2skYyq", "label": "Cold USDC 1", "transfers": 2, "volume_usd": 3630 },
-      { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 4, "volume_usd": 3120 },
-      { "address": "21wG4F3ZR8gwGC47CkpD6ySBUgH9AABtYMBWFiYdTTgv", "label": "Binance Deposit", "transfers": 9, "volume_usd": 2660 },
-      { "address": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8", "label": "Eggsheeran", "transfers": 9, "volume_usd": 2650 },
-      { "address": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg", "label": "Routes Binance", "transfers": 2, "volume_usd": 2540 },
-      { "address": "2q8nSJgCpaZZjchK4s7mGy3f9tAJgsXZQQHDfKMB4EN7", "label": null, "transfers": 1, "volume_usd": 2290 },
-      { "address": "EAcUbdoiY8aCwJKdSo17fhU4uqMopW27K4oLqpstqfHe", "label": "Cold USDC 2", "transfers": 2, "volume_usd": 2150 },
-      { "address": "GpMZbSM2GgvTKHJirzeGfMFoaZ8UR2X7F4v8vHTvxFbL", "label": "Raydium Vault Authority", "transfers": 38, "volume_usd": 1900 }
+      {
+        "address": "DLGHPXKFVepjShuRvp8PDBkaCH7bkxaCK21USQGmSQ3e",
+        "label": "OG Deployer WSOL ATA (not a wallet)",
+        "transfers": 432,
+        "volume_usd": 26800
+      },
+      {
+        "address": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT",
+        "label": "Coinbase Deposit",
+        "transfers": 28,
+        "volume_usd": 11310
+      },
+      {
+        "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y",
+        "label": "L6 Deployer",
+        "transfers": 4,
+        "volume_usd": 6630
+      },
+      {
+        "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+        "label": "L8 Deployer",
+        "transfers": 2,
+        "volume_usd": 5770
+      },
+      {
+        "address": "6UrYwo9F97zDpd7cCvnKJp5HrcGnhSYKmHaphiZd71UE",
+        "label": null,
+        "transfers": 4,
+        "volume_usd": 5100
+      },
+      {
+        "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34",
+        "label": "Collection Wallet",
+        "transfers": 7,
+        "volume_usd": 4470
+      },
+      {
+        "address": "8CvuX95RTCCBfUY8cUET8FQZusoY49yUkQxTEL2skYyq",
+        "label": "Cold USDC 1",
+        "transfers": 2,
+        "volume_usd": 3630
+      },
+      {
+        "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+        "label": "Hub Wallet",
+        "transfers": 4,
+        "volume_usd": 3120
+      },
+      {
+        "address": "21wG4F3ZR8gwGC47CkpD6ySBUgH9AABtYMBWFiYdTTgv",
+        "label": "Binance Deposit",
+        "transfers": 9,
+        "volume_usd": 2660
+      },
+      {
+        "address": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8",
+        "label": "Eggsheeran",
+        "transfers": 9,
+        "volume_usd": 2650
+      },
+      {
+        "address": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg",
+        "label": "Routes Binance",
+        "transfers": 2,
+        "volume_usd": 2540
+      },
+      {
+        "address": "2q8nSJgCpaZZjchK4s7mGy3f9tAJgsXZQQHDfKMB4EN7",
+        "label": null,
+        "transfers": 1,
+        "volume_usd": 2290
+      },
+      {
+        "address": "EAcUbdoiY8aCwJKdSo17fhU4uqMopW27K4oLqpstqfHe",
+        "label": "Cold USDC 2",
+        "transfers": 2,
+        "volume_usd": 2150
+      },
+      {
+        "address": "GpMZbSM2GgvTKHJirzeGfMFoaZ8UR2X7F4v8vHTvxFbL",
+        "label": "Raydium Vault Authority",
+        "transfers": 38,
+        "volume_usd": 1900
+      }
     ],
     "extras": {
       "phantom_fee_wallet": "9yj3zvLS3fDMqi1F8zhkaWfq8TZpZWHe6cz1Sgt7djXf",
@@ -150,7 +280,6 @@
         "9HhoLseS5iq8hXWiyRWbAkh4mNWpnE9irRp61T43WJZu",
         "DPJeKWsgXzeMqym1YXSg5PtiF4eJ8VJjUokAf877wfPp",
         "4hdjasRHo6EgczkygeTVQ2DzLUJcXUEX6HoTqsJZdzqh",
-        "2eGkfs5jX9Mf12xanzthkTLMCfraSbFBL6MEDZkhebHm",
         "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC",
         "DXPgjgw6zPi45VQo8bH4bbf3uCPqFGdp1GA1tb2GeZtD",
         "CkUZV387xnoGpF7wC2moMa6mPmAgCvTT4pWgzq4M9fCD",
@@ -189,26 +318,116 @@
         "notes": "First launch with fresh wallet"
       },
       "inflows": [
-        { "address": "AE1EVLmmyS3trX6Qj4tnCmaKWphEHEU1xYhthuAt5RTD", "label": null, "transfers": 44, "volume_usd": 4630 },
-        { "address": "HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K", "label": "OKX DEX: Sa Authority", "transfers": 5, "volume_usd": 2670 },
-        { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer", "transfers": 1, "volume_usd": 2140 },
-        { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 2, "volume_usd": 1680 },
-        { "address": "JBP5kB1wzckyyWGLjgZGtnuEfFjjUpxwzpsRwP9CbmC4", "label": null, "transfers": 6, "volume_usd": 459 }
+        {
+          "address": "AE1EVLmmyS3trX6Qj4tnCmaKWphEHEU1xYhthuAt5RTD",
+          "label": null,
+          "transfers": 44,
+          "volume_usd": 4630
+        },
+        {
+          "address": "HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K",
+          "label": "OKX DEX: Sa Authority",
+          "transfers": 5,
+          "volume_usd": 2670
+        },
+        {
+          "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+          "label": "L7 Deployer",
+          "transfers": 1,
+          "volume_usd": 2140
+        },
+        {
+          "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+          "label": "Hub Wallet",
+          "transfers": 2,
+          "volume_usd": 1680
+        },
+        {
+          "address": "JBP5kB1wzckyyWGLjgZGtnuEfFjjUpxwzpsRwP9CbmC4",
+          "label": null,
+          "transfers": 6,
+          "volume_usd": 459
+        }
       ],
       "outflows": [
-        { "address": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT", "label": "Coinbase Deposit", "transfers": 10, "volume_usd": 4940 },
-        { "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "label": "OG Deployer", "transfers": 4, "volume_usd": 3090 },
-        { "address": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "label": "Bundle 5", "transfers": 5, "volume_usd": 2420 },
-        { "address": "HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K", "label": "OKX DEX: Sa Authority", "transfers": 6, "volume_usd": 2170 },
-        { "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y", "label": "L6 Deployer", "transfers": 1, "volume_usd": 1250 },
-        { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 5, "volume_usd": 881 },
-        { "address": "EkhrNUfEg1NuE1b5xG71oDPCkYiwieCGAnV5pEmHh3ZZ", "label": null, "transfers": 3, "volume_usd": 832 },
-        { "address": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot", "label": "L9 Deployer", "transfers": 4, "volume_usd": 715 },
-        { "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta", "label": "Bundle 4", "transfers": 3, "volume_usd": 618 },
-        { "address": "9XPXKx4Z1A25nQqRPrADqeyqRsoZTasY8kpNESgmaX9T", "label": null, "transfers": 65, "volume_usd": 302 },
-        { "address": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs", "label": "Profit Pass 1", "transfers": 3, "volume_usd": 281 },
-        { "address": "HesHwAX5pEJFYUTE9sdPUabuZ5Kh923H6Sasv2svR85n", "label": null, "transfers": 63, "volume_usd": 265 },
-        { "address": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8", "label": "Eggsheeran", "transfers": 2, "volume_usd": 240 }
+        {
+          "address": "J6YUyB4P4LFfHqWxJvfXQC7ktFKgvx8rzfJFEzTNJmcT",
+          "label": "Coinbase Deposit",
+          "transfers": 10,
+          "volume_usd": 4940
+        },
+        {
+          "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+          "label": "OG Deployer",
+          "transfers": 4,
+          "volume_usd": 3090
+        },
+        {
+          "address": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+          "label": "Bundle 5",
+          "transfers": 5,
+          "volume_usd": 2420
+        },
+        {
+          "address": "HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K",
+          "label": "OKX DEX: Sa Authority",
+          "transfers": 6,
+          "volume_usd": 2170
+        },
+        {
+          "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y",
+          "label": "L6 Deployer",
+          "transfers": 1,
+          "volume_usd": 1250
+        },
+        {
+          "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+          "label": "Hub Wallet",
+          "transfers": 5,
+          "volume_usd": 881
+        },
+        {
+          "address": "EkhrNUfEg1NuE1b5xG71oDPCkYiwieCGAnV5pEmHh3ZZ",
+          "label": null,
+          "transfers": 3,
+          "volume_usd": 832
+        },
+        {
+          "address": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot",
+          "label": "L9 Deployer",
+          "transfers": 4,
+          "volume_usd": 715
+        },
+        {
+          "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+          "label": "Bundle 4",
+          "transfers": 3,
+          "volume_usd": 618
+        },
+        {
+          "address": "9XPXKx4Z1A25nQqRPrADqeyqRsoZTasY8kpNESgmaX9T",
+          "label": null,
+          "transfers": 65,
+          "volume_usd": 302
+        },
+        {
+          "address": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs",
+          "label": "Profit Pass 1",
+          "transfers": 3,
+          "volume_usd": 281
+        },
+        {
+          "address": "HesHwAX5pEJFYUTE9sdPUabuZ5Kh923H6Sasv2svR85n",
+          "label": null,
+          "transfers": 63,
+          "volume_usd": 265
+        },
+        {
+          "address": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8",
+          "label": "Eggsheeran",
+          "transfers": 2,
+          "volume_usd": 240
+        }
       ],
       "early_buyers": [
         "GoLkNpVpe614sbbLef9juwrjE3TLxQgQoNeohsAMJ9WN",
@@ -266,28 +485,139 @@
         "funded_utc": "2025-11-02T16:55:07Z"
       },
       "inflows": [
-        { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 2, "volume_usd": 1450 },
-        { "address": "23xoGfDjq8t2RtCUpoeajwv75ewsbfZFAr853Sx1g7Xw", "label": null, "transfers": 7, "volume_usd": 537 },
-        { "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE", "label": "JETNUT Network", "transfers": 1, "volume_usd": 464 },
-        { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer", "transfers": 2, "volume_usd": 197 },
-        { "address": "WSg3SNqvuShr8LfqLHQJfKkSgZLcsjm3xVJCFv3zjHL", "label": null, "transfers": 6, "volume_usd": 92 },
-        { "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "label": "OG Deployer", "transfers": 2, "volume_usd": 84 },
-        { "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB", "label": "Bundle 3", "transfers": 2, "volume_usd": 13 },
-        { "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta", "label": "Bundle 4", "transfers": 1, "volume_usd": 8 },
-        { "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y", "label": "L6 Deployer", "transfers": 1, "volume_usd": null }
+        {
+          "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+          "label": "Hub Wallet",
+          "transfers": 2,
+          "volume_usd": 1450
+        },
+        {
+          "address": "23xoGfDjq8t2RtCUpoeajwv75ewsbfZFAr853Sx1g7Xw",
+          "label": null,
+          "transfers": 7,
+          "volume_usd": 537
+        },
+        {
+          "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE",
+          "label": "JETNUT Network",
+          "transfers": 1,
+          "volume_usd": 464
+        },
+        {
+          "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+          "label": "L7 Deployer",
+          "transfers": 2,
+          "volume_usd": 197
+        },
+        {
+          "address": "WSg3SNqvuShr8LfqLHQJfKkSgZLcsjm3xVJCFv3zjHL",
+          "label": null,
+          "transfers": 6,
+          "volume_usd": 92
+        },
+        {
+          "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+          "label": "OG Deployer",
+          "transfers": 2,
+          "volume_usd": 84
+        },
+        {
+          "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+          "label": "Bundle 3",
+          "transfers": 2,
+          "volume_usd": 13
+        },
+        {
+          "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+          "label": "Bundle 4",
+          "transfers": 1,
+          "volume_usd": 8
+        },
+        {
+          "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y",
+          "label": "L6 Deployer",
+          "transfers": 1,
+          "volume_usd": null
+        }
       ],
       "outflows": [
-        { "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34", "label": "Collection Wallet", "transfers": null, "volume_usd": null },
-        { "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB", "label": "Bundle 3", "transfers": null, "volume_usd": null },
-        { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer", "transfers": null, "volume_usd": null },
-        { "address": "EXm4xDFfFpT7hJ3S5iT9RUixnx7pDuSSNisr7vZLm2rw", "label": null, "transfers": null, "volume_usd": null },
-        { "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7", "label": "Bundle 2", "transfers": null, "volume_usd": null },
-        { "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta", "label": "Bundle 4", "transfers": null, "volume_usd": null },
-        { "address": "WSg3SNqvuShr8LfqLHQJfKkSgZLcsjm3xVJCFv3zjHL", "label": null, "transfers": null, "volume_usd": null },
-        { "address": "BiPmTqw98kfjzF8deg67K2stRVvWDz84ZcmXjE7VqHUy", "label": null, "transfers": null, "volume_usd": null },
-        { "address": "HLCSyZyfA9RoSiF7a1zPTsWvShYT5BbifDEh52bMemA1", "label": null, "transfers": null, "volume_usd": null },
-        { "address": "v8yPc72bZRfYXjfyEHV3GUmitnHDjepLseVjnL1fwVB", "label": null, "transfers": null, "volume_usd": null },
-        { "address": "95pnZsDgn7V1Mt4LNCJ1QRYNLky6yUXRrkd85NF1b3de", "label": null, "transfers": null, "volume_usd": null }
+        {
+          "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34",
+          "label": "Collection Wallet",
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+          "label": "Bundle 3",
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+          "label": "L7 Deployer",
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "EXm4xDFfFpT7hJ3S5iT9RUixnx7pDuSSNisr7vZLm2rw",
+          "label": null,
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+          "label": "Bundle 2",
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+          "label": "Bundle 4",
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "WSg3SNqvuShr8LfqLHQJfKkSgZLcsjm3xVJCFv3zjHL",
+          "label": null,
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "BiPmTqw98kfjzF8deg67K2stRVvWDz84ZcmXjE7VqHUy",
+          "label": null,
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "HLCSyZyfA9RoSiF7a1zPTsWvShYT5BbifDEh52bMemA1",
+          "label": null,
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "v8yPc72bZRfYXjfyEHV3GUmitnHDjepLseVjnL1fwVB",
+          "label": null,
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        },
+        {
+          "address": "95pnZsDgn7V1Mt4LNCJ1QRYNLky6yUXRrkd85NF1b3de",
+          "label": null,
+          "transfers": null,
+          "volume_usd": null,
+          "note": "data unavailable"
+        }
       ],
       "early_buyers": [
         "349CoXAujFK4DbN2YS95d2Cp6j4yZooKiUTy8rjEid9D",
@@ -339,34 +669,164 @@
         "funded_utc": "2025-11-30T19:02:41Z"
       },
       "inflows": [
-        { "address": "Ed4UGBWK4UpwBKiGFkM2uQMTPpahPwxgxEWjJTRXuAJv", "label": null, "transfers": 62, "volume_usd": 63220 },
-        { "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "label": "OG Deployer", "transfers": 4, "volume_usd": 6630 },
-        { "address": "B2XLRSaQqcB2Ab5KSUSjiepinQTMZqsQCExsKt9GTgDn", "label": null, "transfers": 21, "volume_usd": 4420 },
-        { "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb", "label": "L4 Deployer", "transfers": 1, "volume_usd": 1250 },
-        { "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn", "label": "OKX Router", "transfers": 4, "volume_usd": 1240 },
-        { "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE", "label": "L8 Deployer", "transfers": 1, "volume_usd": 1100 },
-        { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer", "transfers": 4, "volume_usd": 762 },
-        { "address": "HVRcXaCFyUFG7iZLm3T1Qn8ZGDMHj3P3BpezUfWfRf2x", "label": "Large Funding Source", "transfers": 1, "volume_usd": 397 },
-        { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 1, "volume_usd": 388 }
+        {
+          "address": "Ed4UGBWK4UpwBKiGFkM2uQMTPpahPwxgxEWjJTRXuAJv",
+          "label": null,
+          "transfers": 62,
+          "volume_usd": 63220
+        },
+        {
+          "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+          "label": "OG Deployer",
+          "transfers": 4,
+          "volume_usd": 6630
+        },
+        {
+          "address": "B2XLRSaQqcB2Ab5KSUSjiepinQTMZqsQCExsKt9GTgDn",
+          "label": null,
+          "transfers": 21,
+          "volume_usd": 4420
+        },
+        {
+          "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+          "label": "L4 Deployer",
+          "transfers": 1,
+          "volume_usd": 1250
+        },
+        {
+          "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn",
+          "label": "OKX Router",
+          "transfers": 4,
+          "volume_usd": 1240
+        },
+        {
+          "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+          "label": "L8 Deployer",
+          "transfers": 1,
+          "volume_usd": 1100
+        },
+        {
+          "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+          "label": "L7 Deployer",
+          "transfers": 4,
+          "volume_usd": 762
+        },
+        {
+          "address": "HVRcXaCFyUFG7iZLm3T1Qn8ZGDMHj3P3BpezUfWfRf2x",
+          "label": "Large Funding Source",
+          "transfers": 1,
+          "volume_usd": 397
+        },
+        {
+          "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+          "label": "Hub Wallet",
+          "transfers": 1,
+          "volume_usd": 388
+        }
       ],
       "outflows": [
-        { "address": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs", "label": "Profit Pass 1", "transfers": 125, "volume_usd": 47090 },
-        { "address": "HDTncsSnBmJWNRXd641Xuh8tYjKXx1xcJq8ACuCZQz52", "label": "Profit Pass 2", "transfers": 4, "volume_usd": 21280 },
-        { "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "label": "OG Deployer", "transfers": 3, "volume_usd": 2660 },
-        { "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34", "label": "Collection Wallet", "transfers": 8, "volume_usd": 2380 },
-        { "address": "8vrzfnticA7BwRM2FdRaeZcUHvTmWy2Q4vZwGYQ9aTrY", "label": null, "transfers": 33, "volume_usd": 1620 },
-        { "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn", "label": "OKX Router", "transfers": 5, "volume_usd": 1080 },
-        { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer", "transfers": 1, "volume_usd": 758 },
-        { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 4, "volume_usd": 445 },
-        { "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE", "label": "L8 Deployer", "transfers": 1, "volume_usd": 292 },
-        { "address": "8QMEEnPvS6nV91jQMhuM2CnRT7GddBuVTZ8XLPePEt5v", "label": "Meteora QBS-USDC Market", "transfers": 1, "volume_usd": 274 },
-        { "address": "FkEB6uvyzuoaGpgs4yRtFtxC4WJxhejNFbUkj5R6wR32", "label": "SolfiV2 USDT-USDC Market", "transfers": 1, "volume_usd": 244 },
-        { "address": "3nMFwZXwY1s1M5s8vYAHqd4wGs4iSxXE4LRoUMMYqEgF", "label": "Raydium WSOL-USDT Market", "transfers": 1, "volume_usd": 244 },
-        { "address": "4XzKyi1zaD3NnSxcUq9vDvCnKoh3PFMH3pXCSfBM58Zt", "label": null, "transfers": 3, "volume_usd": 138 },
-        { "address": "DQSD892EDvPCuYnEZpf7Hs6DZvpcQgZ6vLP4QZPbA9f8", "label": null, "transfers": 1, "volume_usd": 79 },
-        { "address": "RB3dQF6TsinAUsQsvXtAyxMztMHXJ2GaZ3gdMuuHiw7", "label": "Rollbit", "transfers": 1, "volume_usd": 71 },
-        { "address": "7RLD6F9SiFvtdqW4bYpy4m8D3mum7xVdZUSjzv1TWJaf", "label": null, "transfers": 1, "volume_usd": 59 },
-        { "address": "6n9VhCwQ7EwK6NqFDjnHPzEk6wZdRBTfh43RFgHQWHuQ", "label": "Humidfi WSOL-USDC Market", "transfers": 2, "volume_usd": 42 }
+        {
+          "address": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs",
+          "label": "Profit Pass 1",
+          "transfers": 125,
+          "volume_usd": 47090
+        },
+        {
+          "address": "HDTncsSnBmJWNRXd641Xuh8tYjKXx1xcJq8ACuCZQz52",
+          "label": "Profit Pass 2",
+          "transfers": 4,
+          "volume_usd": 21280
+        },
+        {
+          "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+          "label": "OG Deployer",
+          "transfers": 3,
+          "volume_usd": 2660
+        },
+        {
+          "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34",
+          "label": "Collection Wallet",
+          "transfers": 8,
+          "volume_usd": 2380
+        },
+        {
+          "address": "8vrzfnticA7BwRM2FdRaeZcUHvTmWy2Q4vZwGYQ9aTrY",
+          "label": null,
+          "transfers": 33,
+          "volume_usd": 1620
+        },
+        {
+          "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn",
+          "label": "OKX Router",
+          "transfers": 5,
+          "volume_usd": 1080
+        },
+        {
+          "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+          "label": "L7 Deployer",
+          "transfers": 1,
+          "volume_usd": 758
+        },
+        {
+          "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+          "label": "Hub Wallet",
+          "transfers": 4,
+          "volume_usd": 445
+        },
+        {
+          "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+          "label": "L8 Deployer",
+          "transfers": 1,
+          "volume_usd": 292
+        },
+        {
+          "address": "8QMEEnPvS6nV91jQMhuM2CnRT7GddBuVTZ8XLPePEt5v",
+          "label": "Meteora QBS-USDC Market",
+          "transfers": 1,
+          "volume_usd": 274
+        },
+        {
+          "address": "FkEB6uvyzuoaGpgs4yRtFtxC4WJxhejNFbUkj5R6wR32",
+          "label": "SolfiV2 USDT-USDC Market",
+          "transfers": 1,
+          "volume_usd": 244
+        },
+        {
+          "address": "3nMFwZXwY1s1M5s8vYAHqd4wGs4iSxXE4LRoUMMYqEgF",
+          "label": "Raydium WSOL-USDT Market",
+          "transfers": 1,
+          "volume_usd": 244
+        },
+        {
+          "address": "4XzKyi1zaD3NnSxcUq9vDvCnKoh3PFMH3pXCSfBM58Zt",
+          "label": null,
+          "transfers": 3,
+          "volume_usd": 138
+        },
+        {
+          "address": "DQSD892EDvPCuYnEZpf7Hs6DZvpcQgZ6vLP4QZPbA9f8",
+          "label": null,
+          "transfers": 1,
+          "volume_usd": 79
+        },
+        {
+          "address": "RB3dQF6TsinAUsQsvXtAyxMztMHXJ2GaZ3gdMuuHiw7",
+          "label": "Rollbit",
+          "transfers": 1,
+          "volume_usd": 71
+        },
+        {
+          "address": "7RLD6F9SiFvtdqW4bYpy4m8D3mum7xVdZUSjzv1TWJaf",
+          "label": null,
+          "transfers": 1,
+          "volume_usd": 59
+        },
+        {
+          "address": "6n9VhCwQ7EwK6NqFDjnHPzEk6wZdRBTfh43RFgHQWHuQ",
+          "label": "Humidfi WSOL-USDC Market",
+          "transfers": 2,
+          "volume_usd": 42
+        }
       ],
       "early_buyers": [
         "CJVEFdRSSPp9788dJ2zQZrL6GFWERsYaaYkTKqFxUPf6",
@@ -421,31 +881,146 @@
         "funded_utc": "2026-01-17T19:56:25Z"
       },
       "inflows": [
-        { "address": "Ed4UGBWK4UpwBKiGFkM2uQMTPpahPwxgxEWjJTRXuAJv", "label": null, "transfers": 24, "volume_usd": 29670 },
-        { "address": "3RmT3sTxX75cHPCJNjwzCXY87VBFEkZrZny7qXmrxn2v", "label": null, "transfers": 84, "volume_usd": 29290 },
-        { "address": "9cDDJ5g2wPqVZUZwpPuwqzxN7ouvc6QFauFwrX2TTTAX", "label": null, "transfers": 8, "volume_usd": 18150 },
-        { "address": "CQvXtWfC8Dz2EVU9jS7MjGeqaSfTpAzfZF87obyGCKWE", "label": null, "transfers": 72, "volume_usd": 9400 },
-        { "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE", "label": "L8 Deployer", "transfers": 16, "volume_usd": 4320 },
-        { "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7", "label": "Bundle 2", "transfers": 7, "volume_usd": 3380 },
-        { "address": "DB3sUCP2H4icbeKmK6yb6nUxU5ogbcRHtGuq7W2RoRwW", "label": "Humidfi WSOL-USDC", "transfers": 3, "volume_usd": 3240 },
-        { "address": "HRNrehVHSUME4xWuf5Du3jo84dNvxsWqvgrcXPMst6MW", "label": "ZeroFI WETH Vault", "transfers": 1, "volume_usd": 2920 },
-        { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 3, "volume_usd": 2430 },
-        { "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn", "label": "OKX Router", "transfers": 8, "volume_usd": 2380 },
-        { "address": "A9eAH6Az7VoXRPwcEdXZuqXqQaf7GWfzAQC91dkf76xD", "label": null, "transfers": 9, "volume_usd": 2120 }
+        {
+          "address": "Ed4UGBWK4UpwBKiGFkM2uQMTPpahPwxgxEWjJTRXuAJv",
+          "label": null,
+          "transfers": 24,
+          "volume_usd": 29670
+        },
+        {
+          "address": "3RmT3sTxX75cHPCJNjwzCXY87VBFEkZrZny7qXmrxn2v",
+          "label": null,
+          "transfers": 84,
+          "volume_usd": 29290
+        },
+        {
+          "address": "9cDDJ5g2wPqVZUZwpPuwqzxN7ouvc6QFauFwrX2TTTAX",
+          "label": null,
+          "transfers": 8,
+          "volume_usd": 18150
+        },
+        {
+          "address": "CQvXtWfC8Dz2EVU9jS7MjGeqaSfTpAzfZF87obyGCKWE",
+          "label": null,
+          "transfers": 72,
+          "volume_usd": 9400
+        },
+        {
+          "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+          "label": "L8 Deployer",
+          "transfers": 16,
+          "volume_usd": 4320
+        },
+        {
+          "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+          "label": "Bundle 2",
+          "transfers": 7,
+          "volume_usd": 3380
+        },
+        {
+          "address": "DB3sUCP2H4icbeKmK6yb6nUxU5ogbcRHtGuq7W2RoRwW",
+          "label": "Humidfi WSOL-USDC",
+          "transfers": 3,
+          "volume_usd": 3240
+        },
+        {
+          "address": "HRNrehVHSUME4xWuf5Du3jo84dNvxsWqvgrcXPMst6MW",
+          "label": "ZeroFI WETH Vault",
+          "transfers": 1,
+          "volume_usd": 2920
+        },
+        {
+          "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+          "label": "Hub Wallet",
+          "transfers": 3,
+          "volume_usd": 2430
+        },
+        {
+          "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn",
+          "label": "OKX Router",
+          "transfers": 8,
+          "volume_usd": 2380
+        },
+        {
+          "address": "A9eAH6Az7VoXRPwcEdXZuqXqQaf7GWfzAQC91dkf76xD",
+          "label": null,
+          "transfers": 9,
+          "volume_usd": 2120
+        }
       ],
       "outflows": [
-        { "address": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs", "label": "Profit Pass 1", "transfers": 80, "volume_usd": 36590 },
-        { "address": "9exPdTUVTCz9EKvZjXkKJSTJ5fZzJuwJHnFptrUFHFNH", "label": null, "transfers": 33, "volume_usd": 31720 },
-        { "address": "4mG6STWL5vSEMbekQsxd4keLmYhzxa3DpJm1eejZ3tPB", "label": null, "transfers": 156, "volume_usd": 11530 },
-        { "address": "8C1cFNH6DeUTpL4FAwt9ozJJgihQAZUUoPiyMYB97qkh", "label": null, "transfers": 88, "volume_usd": 9170 },
-        { "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE", "label": "L8 Deployer", "transfers": 9, "volume_usd": 7380 },
-        { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 6, "volume_usd": 5180 },
-        { "address": "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW", "label": "Bundle 1", "transfers": 3, "volume_usd": 3440 },
-        { "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB", "label": "Bundle 3", "transfers": 2, "volume_usd": 3440 },
-        { "address": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg", "label": "Routes Binance", "transfers": 2, "volume_usd": 2250 },
-        { "address": "E815fsnTHn2GE76Hu5V3ku5xY19MpbZgfHGQvKfFEN1P", "label": null, "transfers": 2, "volume_usd": 2920 },
-        { "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb", "label": "L4 Deployer", "transfers": 1, "volume_usd": 2140 },
-        { "address": "A9eAH6Az7VoXRPwcEdXZuqXqQaf7GWfzAQC91dkf76xD", "label": null, "transfers": 9, "volume_usd": 2120 }
+        {
+          "address": "4yWaU1QrwteHi1gixoFehknRP9a61T5PhAfM6ED3U2bs",
+          "label": "Profit Pass 1",
+          "transfers": 80,
+          "volume_usd": 36590
+        },
+        {
+          "address": "9exPdTUVTCz9EKvZjXkKJSTJ5fZzJuwJHnFptrUFHFNH",
+          "label": null,
+          "transfers": 33,
+          "volume_usd": 31720
+        },
+        {
+          "address": "4mG6STWL5vSEMbekQsxd4keLmYhzxa3DpJm1eejZ3tPB",
+          "label": null,
+          "transfers": 156,
+          "volume_usd": 11530
+        },
+        {
+          "address": "8C1cFNH6DeUTpL4FAwt9ozJJgihQAZUUoPiyMYB97qkh",
+          "label": null,
+          "transfers": 88,
+          "volume_usd": 9170
+        },
+        {
+          "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+          "label": "L8 Deployer",
+          "transfers": 9,
+          "volume_usd": 7380
+        },
+        {
+          "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+          "label": "Hub Wallet",
+          "transfers": 6,
+          "volume_usd": 5180
+        },
+        {
+          "address": "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+          "label": "Bundle 1",
+          "transfers": 3,
+          "volume_usd": 3440
+        },
+        {
+          "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+          "label": "Bundle 3",
+          "transfers": 2,
+          "volume_usd": 3440
+        },
+        {
+          "address": "DcEYX34vm5JYHmYbCCQC141XGJektNHqhnGDUoUTdGsg",
+          "label": "Routes Binance",
+          "transfers": 2,
+          "volume_usd": 2250
+        },
+        {
+          "address": "E815fsnTHn2GE76Hu5V3ku5xY19MpbZgfHGQvKfFEN1P",
+          "label": null,
+          "transfers": 2,
+          "volume_usd": 2920
+        },
+        {
+          "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+          "label": "L4 Deployer",
+          "transfers": 1,
+          "volume_usd": 2140
+        },
+        {
+          "address": "A9eAH6Az7VoXRPwcEdXZuqXqQaf7GWfzAQC91dkf76xD",
+          "label": null,
+          "transfers": 9,
+          "volume_usd": 2120
+        }
       ],
       "early_buyers": [
         "HN7v7VnbT57c8NrvQSu8UYdGiDoUNmVAXGvHVgsQCRda",
@@ -492,28 +1067,128 @@
         "funded_utc": "2026-01-31T10:46:59Z"
       },
       "inflows": [
-        { "address": "8ekCy2jHHUbW2yeNGFWYJT9Hm9FW7SvZcZK66dSZCDiF", "label": "Tessera V: Authority", "transfers": 7, "volume_usd": 7380 },
-        { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer", "transfers": 9, "volume_usd": 7380 },
-        { "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "label": "OG Deployer", "transfers": 2, "volume_usd": 5770 },
-        { "address": "9kXGR5BjH76oQouXbbN8HfvbsQWLReTwrupRqnchABqe", "label": null, "transfers": 32, "volume_usd": 4450 },
-        { "address": "65ZHSArs5XxPseKQbB1B4r16vDxMWnCxHMzogDAqiDUc", "label": "SolFIV2 WSOL-USDC", "transfers": 3, "volume_usd": 3490 },
-        { "address": "9C37cv2U8sFShbGQidSbjjJWQoXCrsj9hF2kuSctZSar", "label": null, "transfers": 2, "volume_usd": 2890 },
-        { "address": "RBHdGVfDfMjfU6iUfCb1LczMJcQLx7hGnxbzRsoDNvx", "label": "Rollbit Treasury", "transfers": 3, "volume_usd": 2520 },
-        { "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7", "label": "Bundle 2", "transfers": 2, "volume_usd": 2000 },
-        { "address": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm", "label": "Bundle 6", "transfers": 3, "volume_usd": 1620 },
-        { "address": "51FQwjrvo8J8zXUaKyAznJ5NYpoiTCuqAqCu3HAMB9NZ", "label": "BisonFI WSol-USDC", "transfers": 4, "volume_usd": 1590 },
-        { "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn", "label": "OKX Router", "transfers": 5, "volume_usd": 1540 }
+        {
+          "address": "8ekCy2jHHUbW2yeNGFWYJT9Hm9FW7SvZcZK66dSZCDiF",
+          "label": "Tessera V: Authority",
+          "transfers": 7,
+          "volume_usd": 7380
+        },
+        {
+          "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+          "label": "L7 Deployer",
+          "transfers": 9,
+          "volume_usd": 7380
+        },
+        {
+          "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+          "label": "OG Deployer",
+          "transfers": 2,
+          "volume_usd": 5770
+        },
+        {
+          "address": "9kXGR5BjH76oQouXbbN8HfvbsQWLReTwrupRqnchABqe",
+          "label": null,
+          "transfers": 32,
+          "volume_usd": 4450
+        },
+        {
+          "address": "65ZHSArs5XxPseKQbB1B4r16vDxMWnCxHMzogDAqiDUc",
+          "label": "SolFIV2 WSOL-USDC",
+          "transfers": 3,
+          "volume_usd": 3490
+        },
+        {
+          "address": "9C37cv2U8sFShbGQidSbjjJWQoXCrsj9hF2kuSctZSar",
+          "label": null,
+          "transfers": 2,
+          "volume_usd": 2890
+        },
+        {
+          "address": "RBHdGVfDfMjfU6iUfCb1LczMJcQLx7hGnxbzRsoDNvx",
+          "label": "Rollbit Treasury",
+          "transfers": 3,
+          "volume_usd": 2520
+        },
+        {
+          "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+          "label": "Bundle 2",
+          "transfers": 2,
+          "volume_usd": 2000
+        },
+        {
+          "address": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm",
+          "label": "Bundle 6",
+          "transfers": 3,
+          "volume_usd": 1620
+        },
+        {
+          "address": "51FQwjrvo8J8zXUaKyAznJ5NYpoiTCuqAqCu3HAMB9NZ",
+          "label": "BisonFI WSol-USDC",
+          "transfers": 4,
+          "volume_usd": 1590
+        },
+        {
+          "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn",
+          "label": "OKX Router",
+          "transfers": 5,
+          "volume_usd": 1540
+        }
       ],
       "outflows": [
-        { "address": "JnjzUBCfSRgVxr5zaUUhkKvAn5QWCFwDJw8jXK9f7pd", "label": null, "transfers": 212, "volume_usd": 19860 },
-        { "address": "4Xrj9iMTFE75rEkXHU9ZXo3pymyi8kE2iuXYpUJ3jHbz", "label": null, "transfers": 85, "volume_usd": 16520 },
-        { "address": "8ekCy2jHHUbW2yeNGFWYJT9Hm9FW7SvZcZK66dSZCDiF", "label": "Tessera V: Authority", "transfers": 7, "volume_usd": 7390 },
-        { "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34", "label": "Collection Wallet", "transfers": 6, "volume_usd": 6480 },
-        { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet", "transfers": 2, "volume_usd": 6110 },
-        { "address": "5MytJoczvqkiYPjTrvviqCjudw46ZwTLaLkQsVUB4irj", "label": null, "transfers": 2, "volume_usd": 5270 },
-        { "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB", "label": "Bundle 3", "transfers": 7, "volume_usd": 4250 },
-        { "address": "RB3dQF6TsinAUsQsvXtAyxMztMHXJ2GaZ3gdMuuHiw7", "label": "Rollbit", "transfers": 16, "volume_usd": 4180 },
-        { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer", "transfers": 7, "volume_usd": 3380 }
+        {
+          "address": "JnjzUBCfSRgVxr5zaUUhkKvAn5QWCFwDJw8jXK9f7pd",
+          "label": null,
+          "transfers": 212,
+          "volume_usd": 19860
+        },
+        {
+          "address": "4Xrj9iMTFE75rEkXHU9ZXo3pymyi8kE2iuXYpUJ3jHbz",
+          "label": null,
+          "transfers": 85,
+          "volume_usd": 16520
+        },
+        {
+          "address": "8ekCy2jHHUbW2yeNGFWYJT9Hm9FW7SvZcZK66dSZCDiF",
+          "label": "Tessera V: Authority",
+          "transfers": 7,
+          "volume_usd": 7390
+        },
+        {
+          "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34",
+          "label": "Collection Wallet",
+          "transfers": 6,
+          "volume_usd": 6480
+        },
+        {
+          "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+          "label": "Hub Wallet",
+          "transfers": 2,
+          "volume_usd": 6110
+        },
+        {
+          "address": "5MytJoczvqkiYPjTrvviqCjudw46ZwTLaLkQsVUB4irj",
+          "label": null,
+          "transfers": 2,
+          "volume_usd": 5270
+        },
+        {
+          "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+          "label": "Bundle 3",
+          "transfers": 7,
+          "volume_usd": 4250
+        },
+        {
+          "address": "RB3dQF6TsinAUsQsvXtAyxMztMHXJ2GaZ3gdMuuHiw7",
+          "label": "Rollbit",
+          "transfers": 16,
+          "volume_usd": 4180
+        },
+        {
+          "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+          "label": "L7 Deployer",
+          "transfers": 7,
+          "volume_usd": 3380
+        }
       ],
       "early_buyers": [
         "5bHytiqCaKmeNnF47tqnVJP7qBvR9f9uLvWGRshCsy4Q",
@@ -559,35 +1234,170 @@
         "funded_utc": "2026-02-13T06:41:42Z"
       },
       "inflows": [
-        { "address": "Fr6DCor29R1XNoxYaVsfSCRW65ht5F7BXJCv3wXzeeCQ", "label": null, "transfers": 78, "volume_usd": 19750 },
-        { "address": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8", "label": "Eggsheeran", "transfers": 4, "volume_usd": 3430 },
-        { "address": "2wrzcbfYSgpKtpsdt78LAW74VHGSiAE3jBGYn8ENrozM", "label": null, "transfers": 5, "volume_usd": 3430 },
-        { "address": "DcbyADbNZanTyzhuWokNt5HrbYFFn4HmPygNPvLZC1v9", "label": null, "transfers": 13, "volume_usd": 2990 },
-        { "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn", "label": "OKX Router", "transfers": 3, "volume_usd": 2810 },
-        { "address": "AAdHqf5NabTGctGyRSY8Ee5r9WFewBEqhWLQ6GsE42qf", "label": null, "transfers": 2, "volume_usd": 1890 },
-        { "address": "F7p3dFrjRTbtRp8FRF6qHLomXbKRBzpvBLjtQcfcgmNe", "label": "Relay: Solver", "transfers": 3, "volume_usd": 1300 },
-        { "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE", "label": "L8 Deployer", "transfers": 4, "volume_usd": 1240 },
-        { "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B", "label": null, "transfers": 5, "volume_usd": 1000 },
-        { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer", "transfers": 6, "volume_usd": 957 },
-        { "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7", "label": "Bundle 2", "transfers": 4, "volume_usd": 882 },
-        { "address": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm", "label": "Bundle 6", "transfers": 2, "volume_usd": 726 },
-        { "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb", "label": "L4 Deployer", "transfers": 4, "volume_usd": 715 },
-        { "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "label": "OG Deployer", "transfers": 5, "volume_usd": 669 },
-        { "address": "9EqrK8wW4JhSRcz8kJKSaiKaYvRfuUuNjYkkZqA7b7UX", "label": null, "transfers": 1, "volume_usd": 636 },
-        { "address": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "label": "Bundle 5", "transfers": 5, "volume_usd": 603 }
+        {
+          "address": "Fr6DCor29R1XNoxYaVsfSCRW65ht5F7BXJCv3wXzeeCQ",
+          "label": null,
+          "transfers": 78,
+          "volume_usd": 19750
+        },
+        {
+          "address": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8",
+          "label": "Eggsheeran",
+          "transfers": 4,
+          "volume_usd": 3430
+        },
+        {
+          "address": "2wrzcbfYSgpKtpsdt78LAW74VHGSiAE3jBGYn8ENrozM",
+          "label": null,
+          "transfers": 5,
+          "volume_usd": 3430
+        },
+        {
+          "address": "DcbyADbNZanTyzhuWokNt5HrbYFFn4HmPygNPvLZC1v9",
+          "label": null,
+          "transfers": 13,
+          "volume_usd": 2990
+        },
+        {
+          "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn",
+          "label": "OKX Router",
+          "transfers": 3,
+          "volume_usd": 2810
+        },
+        {
+          "address": "AAdHqf5NabTGctGyRSY8Ee5r9WFewBEqhWLQ6GsE42qf",
+          "label": null,
+          "transfers": 2,
+          "volume_usd": 1890
+        },
+        {
+          "address": "F7p3dFrjRTbtRp8FRF6qHLomXbKRBzpvBLjtQcfcgmNe",
+          "label": "Relay: Solver",
+          "transfers": 3,
+          "volume_usd": 1300
+        },
+        {
+          "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+          "label": "L8 Deployer",
+          "transfers": 4,
+          "volume_usd": 1240
+        },
+        {
+          "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
+          "label": null,
+          "transfers": 5,
+          "volume_usd": 1000
+        },
+        {
+          "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+          "label": "L7 Deployer",
+          "transfers": 6,
+          "volume_usd": 957
+        },
+        {
+          "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+          "label": "Bundle 2",
+          "transfers": 4,
+          "volume_usd": 882
+        },
+        {
+          "address": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm",
+          "label": "Bundle 6",
+          "transfers": 2,
+          "volume_usd": 726
+        },
+        {
+          "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+          "label": "L4 Deployer",
+          "transfers": 4,
+          "volume_usd": 715
+        },
+        {
+          "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+          "label": "OG Deployer",
+          "transfers": 5,
+          "volume_usd": 669
+        },
+        {
+          "address": "9EqrK8wW4JhSRcz8kJKSaiKaYvRfuUuNjYkkZqA7b7UX",
+          "label": null,
+          "transfers": 1,
+          "volume_usd": 636
+        },
+        {
+          "address": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+          "label": "Bundle 5",
+          "transfers": 5,
+          "volume_usd": 603
+        }
       ],
       "outflows": [
-        { "address": "HGigNVV9JvvsQvyRhW73tnYtVjvL1J4CZkjVLby9Rv3D", "label": null, "transfers": 64, "volume_usd": 9330 },
-        { "address": "5ZoNijNnPgPQWHggeXLrNPaeUYXoDpqKi4kvspwgTGdG", "label": null, "transfers": 103, "volume_usd": 8960 },
-        { "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "label": "OG Deployer", "transfers": 5, "volume_usd": 4380 },
-        { "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn", "label": "OKX Router", "transfers": 4, "volume_usd": 3380 },
-        { "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34", "label": "Collection Wallet", "transfers": 3, "volume_usd": 3380 },
-        { "address": "AAdHqf5NabTGctGyRSY8Ee5r9WFewBEqhWLQ6GsE42qf", "label": null, "transfers": 3, "volume_usd": 2310 },
-        { "address": "7uTT8Xi5RWXzy7h9XL244GRgEycDYDhLjr3ZyNdXi8pZ", "label": null, "transfers": 3, "volume_usd": 1460 },
-        { "address": "1nc1nerator11111111111111111111111111111111", "label": "Incinerator", "transfers": 1, "volume_usd": 1360 },
-        { "address": "9EqrK8wW4JhSRcz8kJKSaiKaYvRfuUuNjYkkZqA7b7UX", "label": null, "transfers": 2, "volume_usd": 1240 },
-        { "address": "BigpvKiUQBpmURwLfyMFSghRJVsLFH9bYZY8TDQPv75T", "label": null, "transfers": 2, "volume_usd": 935 },
-        { "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B", "label": null, "transfers": 2, "volume_usd": 552 }
+        {
+          "address": "HGigNVV9JvvsQvyRhW73tnYtVjvL1J4CZkjVLby9Rv3D",
+          "label": null,
+          "transfers": 64,
+          "volume_usd": 9330
+        },
+        {
+          "address": "5ZoNijNnPgPQWHggeXLrNPaeUYXoDpqKi4kvspwgTGdG",
+          "label": null,
+          "transfers": 103,
+          "volume_usd": 8960
+        },
+        {
+          "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+          "label": "OG Deployer",
+          "transfers": 5,
+          "volume_usd": 4380
+        },
+        {
+          "address": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn",
+          "label": "OKX Router",
+          "transfers": 4,
+          "volume_usd": 3380
+        },
+        {
+          "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34",
+          "label": "Collection Wallet",
+          "transfers": 3,
+          "volume_usd": 3380
+        },
+        {
+          "address": "AAdHqf5NabTGctGyRSY8Ee5r9WFewBEqhWLQ6GsE42qf",
+          "label": null,
+          "transfers": 3,
+          "volume_usd": 2310
+        },
+        {
+          "address": "7uTT8Xi5RWXzy7h9XL244GRgEycDYDhLjr3ZyNdXi8pZ",
+          "label": null,
+          "transfers": 3,
+          "volume_usd": 1460
+        },
+        {
+          "address": "1nc1nerator11111111111111111111111111111111",
+          "label": "Incinerator",
+          "transfers": 1,
+          "volume_usd": 1360
+        },
+        {
+          "address": "9EqrK8wW4JhSRcz8kJKSaiKaYvRfuUuNjYkkZqA7b7UX",
+          "label": null,
+          "transfers": 2,
+          "volume_usd": 1240
+        },
+        {
+          "address": "BigpvKiUQBpmURwLfyMFSghRJVsLFH9bYZY8TDQPv75T",
+          "label": null,
+          "transfers": 2,
+          "volume_usd": 935
+        },
+        {
+          "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
+          "label": null,
+          "transfers": 2,
+          "volume_usd": 552
+        }
       ],
       "early_buyers": [
         "4TxUPfwGhN9VQJqe3XKJezLRpxXbbER32GdEBddSVs1N",
@@ -627,28 +1437,106 @@
       ]
     },
     "L10": {
-      "token_name": "XAIC",
-      "token_address": "KfByHk48ecitUq8gXji2vr9smmRJKtqJwGAh2E9pump",
-      "deployer": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
-      "deploy_time_utc": "2026-03-15T21:40:44Z",
-      "funding_source": "MoonPay MP1 (Cc3bpPzU)",
-      "funding_amount_sol": 13.443,
-      "early_buyers_note": "150 BUY trades in first 69 seconds. 117 unique traders. 3 known network. Data from Nansen tgm/dex-trades 2026-03-25.",
+      "token": {
+        "name": "XAIC",
+        "ticker": "XAIC",
+        "ca": "KfByHk48ecitUq8gXji2vr9smmRJKtqJwGAh2E9pump",
+        "created_utc": "2026-03-15T21:40:44Z"
+      },
+      "deployer": {
+        "address": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+        "funded_by": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
+        "funded_by_label": "MoonPay Hot Wallet 1 (MP1)",
+        "funded_utc": "2026-03-15T04:51:00Z",
+        "notes": "First non-Coinbase funding (MoonPay via Phantom Buy button)"
+      },
+      "inflows": [],
+      "outflows": [],
       "early_buyers": [
-        { "position": 1, "address": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB", "seconds": 0, "usd": 1175, "tag": "L10 Deployer (create_and_buy)" },
-        { "position": 2, "address": "SF9TGdsfTPcA3ZVmPdPt4YUxmFXjk6baTyNGjzxKJHJ", "seconds": 1, "usd": 89, "tag": "unknown" },
-        { "position": 8, "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE", "seconds": 2, "usd": 1048, "tag": "NETWORK: jetnut_network" },
-        { "position": 13, "address": "niggerd597QYedtvjQDVHZTCCGyJrwHNm2i49dkm5zS", "seconds": 3, "usd": 916, "tag": "Nansen: Deployer. Suspicious — $916 at +3s" },
-        { "position": 24, "address": "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC", "seconds": 6, "usd": 689, "tag": "unknown. Suspicious — $689 at +6s" },
-        { "position": 56, "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE", "seconds": 9, "usd": 132, "tag": "KNOWN: F7RV6aBW (possible associate, L7-L9 recurring)" },
-        { "position": 61, "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1", "seconds": 9, "usd": 367, "tag": "BloomBot user. $367 at +9s" },
-        { "position": 63, "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj", "seconds": 10, "usd": 1075, "tag": "unknown. Suspicious — $1075 at +10s, largest non-deployer buy!" },
-        { "position": 114, "address": "4tMmABq7ZE1yaKRacMPeT3R3xQCzVHU73z66TLGhJFBf", "seconds": 63, "usd": 612, "tag": "unknown. $612 at +63s" }
+        "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+        "SF9TGdsfTPcA3ZVmPdPt4YUxmFXjk6baTyNGjzxKJHJ",
+        "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE",
+        "niggerd597QYedtvjQDVHZTCCGyJrwHNm2i49dkm5zS",
+        "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC",
+        "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE",
+        "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1",
+        "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+        "4tMmABq7ZE1yaKRacMPeT3R3xQCzVHU73z66TLGhJFBf"
       ],
+      "early_buyers_annotated": [
+        {
+          "position": 1,
+          "address": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+          "seconds": 0,
+          "usd": 1175,
+          "tag": "L10 Deployer (create_and_buy)"
+        },
+        {
+          "position": 2,
+          "address": "SF9TGdsfTPcA3ZVmPdPt4YUxmFXjk6baTyNGjzxKJHJ",
+          "seconds": 1,
+          "usd": 89,
+          "tag": "unknown"
+        },
+        {
+          "position": 8,
+          "address": "FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE",
+          "seconds": 2,
+          "usd": 1048,
+          "tag": "NETWORK: jetnut_network"
+        },
+        {
+          "position": 13,
+          "address": "niggerd597QYedtvjQDVHZTCCGyJrwHNm2i49dkm5zS",
+          "seconds": 3,
+          "usd": 916,
+          "tag": "Nansen: Deployer. Suspicious — $916 at +3s"
+        },
+        {
+          "position": 24,
+          "address": "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC",
+          "seconds": 6,
+          "usd": 689,
+          "tag": "unknown. Suspicious — $689 at +6s"
+        },
+        {
+          "position": 56,
+          "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE",
+          "seconds": 9,
+          "usd": 132,
+          "tag": "KNOWN: F7RV6aBW (possible associate, L7-L9 recurring)"
+        },
+        {
+          "position": 61,
+          "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1",
+          "seconds": 9,
+          "usd": 367,
+          "tag": "BloomBot user. $367 at +9s"
+        },
+        {
+          "position": 63,
+          "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+          "seconds": 10,
+          "usd": 1075,
+          "tag": "unknown. Suspicious — $1075 at +10s, largest non-deployer buy!"
+        },
+        {
+          "position": 114,
+          "address": "4tMmABq7ZE1yaKRacMPeT3R3xQCzVHU73z66TLGhJFBf",
+          "seconds": 63,
+          "usd": 612,
+          "tag": "unknown. $612 at +63s"
+        }
+      ],
+      "early_buyers_note": "150 BUY trades in first 69 seconds. 117 unique traders. 3 known network. Data from Nansen tgm/dex-trades 2026-03-25.",
       "coinspot_insider_note": "CoinSpot insider (DmA9Jab) NOT found in first 405 XAIC buy trades (20 min window, pages 1-9). Also not in sell trades. None of the insider's wallets (DmA9Jab, 4916Nkdu, 9a22FhBe, 2Zizao3x) or Bundle 1 appear. Prior '1 second after deploy' claim UNVERIFIED — no raw data source. Insider may have received tokens via bundle (4916Nkdu from Bundle 1 per network-map) or traded much later. Verified 2026-03-28.",
       "cross_reference_summary": {
         "network_matches": 3,
-        "known_wallets": ["L10 Deployer", "jetnut_network (position 8, $1048 at +2s)", "F7RV6aBW (position 56, $132 at +9s)"],
+        "known_wallets": [
+          "L10 Deployer",
+          "jetnut_network (position 8, $1048 at +2s)",
+          "F7RV6aBW (position 56, $132 at +9s)"
+        ],
         "suspicious_profiled": {
           "BqP79Wmk": "HIGHLY SUSPICIOUS — trades ALL deployer tokens (DOGWIFXRP $129K, WFXRP $49K, etc), MoonPay funded (same as L10), receives from Large Funding Source (Fireblocks). First funded on L1 launch day.",
           "7QJM8rXX": "POSSIBLE ASSOCIATE — largest non-deployer buy ($1075). Receives $142 from 98KvdqZJ (SUSYE/CoinSpot insider). MEXC funded.",
