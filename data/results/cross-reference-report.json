@@ -4,12 +4,12 @@
     "total_unique_wallets": 292,
     "recurring_wallets_count": 56,
     "by_tag": {
-      "unknown": 19,
-      "known_infra": 26,
       "known_insider": 4,
-      "resolved": 3,
-      "monitoring": 3,
-      "network_connected": 1
+      "resolved": 21,
+      "network_connected": 3,
+      "known_infra": 26,
+      "monitoring": 1,
+      "unresolved": 1
     },
     "rotation_candidates": 15
   },
@@ -64,7 +64,7 @@
     },
     {
       "address": "9HhoLseS5iq8hXWiyRWbAkh4mNWpnE9irRp61T43WJZu",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 3,
       "launches": [
         "L2",
@@ -98,7 +98,7 @@
     },
     {
       "address": "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 3,
       "launches": [
         "L4",
@@ -136,7 +136,7 @@
     },
     {
       "address": "H3qSndFCAyjvcNzhLcimVZcUbceeeSRGqnHDdcLQDCot",
-      "tag": "unknown",
+      "tag": "network_connected:BloFin_Insider_Sniper",
       "launch_count": 3,
       "launches": [
         "L4",
@@ -170,7 +170,7 @@
     },
     {
       "address": "Hqf4TZxph6H4P2uC3qdR1RjT6iiJA999VtvpBSU48EbT",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 3,
       "launches": [
         "L4",
@@ -206,7 +206,7 @@
     },
     {
       "address": "CAJx1pQAMDamc2idQXbivP5pM4DZFBzPy38YEi2WBfWH",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L2",
@@ -233,7 +233,7 @@
     },
     {
       "address": "2QfXwuqfLL1d95NBbb3ai5Gaj19qCvFjrXXd7whaiVa4",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L2",
@@ -260,7 +260,7 @@
     },
     {
       "address": "6yjqK7VWTiDFN2gfyLDTde63jCUmqZcp16SCgq9bNjov",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L6",
@@ -287,7 +287,7 @@
     },
     {
       "address": "BENE3RkN9qxCMjvHtJxWK1RApcQkmcExDPRvaLXfvmKh",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L1",
@@ -314,7 +314,7 @@
     },
     {
       "address": "nya666pQkP3PzWxi7JngU3rRMHuc7zbLK8c8wxQ4qpT",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L2",
@@ -343,7 +343,7 @@
     },
     {
       "address": "9EqrK8wW4JhSRcz8kJKSaiKaYvRfuUuNjYkkZqA7b7UX",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L5",
@@ -375,7 +375,7 @@
     },
     {
       "address": "qtMPaTvJrfU8yeg8TBSiDq7svPQJMcWJouXEzyhCiCR",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L1",
@@ -402,7 +402,7 @@
     },
     {
       "address": "JAfv6AiNzsAbGzvsSNpJz4qXvc3xuybDTxB9y3uLcxeG",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L6",
@@ -429,7 +429,7 @@
     },
     {
       "address": "BiwUUhwyToodUSXGe9hp9S32YtRHBRRg3xxvpYo5RxVZ",
-      "tag": "unknown",
+      "tag": "network_connected:Coinbase_Network_Bot",
       "launch_count": 2,
       "launches": [
         "L1",
@@ -458,7 +458,7 @@
     },
     {
       "address": "BoBo2S28s9E2gE2qMJPSMFUvdptpBCXaRhLg6UYR8teE",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L4",
@@ -485,7 +485,7 @@
     },
     {
       "address": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L1",
@@ -519,7 +519,7 @@
     },
     {
       "address": "CiQizNJ6vpx4cZix81YDrecoWALV2AVmNsmgbanb33T9",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L3",
@@ -551,7 +551,7 @@
     },
     {
       "address": "DrnuP46qcf7b7utTY9Esm46SwkTFhYu4TrtRGTyvkE67",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L8",
@@ -578,7 +578,7 @@
     },
     {
       "address": "C4eNLxxC7XLUivghMi35YUeSfvACgnvKB18115uPUqjg",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L7",
@@ -607,7 +607,7 @@
     },
     {
       "address": "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
-      "tag": "unknown",
+      "tag": "resolved:independent_trader",
       "launch_count": 2,
       "launches": [
         "L8",
@@ -1710,7 +1710,7 @@
     },
     {
       "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE",
-      "tag": "monitoring:F7RV6aBW",
+      "tag": "resolved:independent_trader",
       "launch_count": 4,
       "launches": [
         "L7",
@@ -1751,7 +1751,7 @@
     },
     {
       "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
-      "tag": "monitoring:7QJM8rXX",
+      "tag": "unresolved:needs_further",
       "launch_count": 3,
       "launches": [
         "L5",

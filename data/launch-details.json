@@ -110,7 +110,7 @@
       },
       {
         "address": "6UrYwo9F97zDpd7cCvnKJp5HrcGnhSYKmHaphiZd71UE",
-        "label": null,
+        "label": "6UrYwo9F (Network Relay → Secondary Aggregator)",
         "transfers": 4,
         "volume_usd": 5100
       },
@@ -152,7 +152,7 @@
       },
       {
         "address": "2q8nSJgCpaZZjchK4s7mGy3f9tAJgsXZQQHDfKMB4EN7",
-        "label": null,
+        "label": "Secondary Aggregator (2q8nSJgC)",
         "transfers": 1,
         "volume_usd": 2290
       },

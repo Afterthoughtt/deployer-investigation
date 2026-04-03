@@ -499,7 +499,7 @@
       "label": "6UrYwo9F",
       "role": "network_connected",
       "verdict": "network",
-      "notes": "Relay: OG sends $5.1K to it, it sends $5.2K to 2q8nSJgC (secondary aggregator). Part of Route B profit chain. First funder: Large Funding Source (HVRcXaCF / Fireblocks Custody)."
+      "notes": "Relay: OG sends $5.1K to it, it sends $5.2K to 2q8nSJgC (secondary aggregator). Part of Route B profit chain. First funder: Large Funding Source (HVRcXaCF / Fireblocks Custody). Deep dive 2026-04-02: 5 network counterparty overlaps confirmed (OG deployer, 2q8nSJgC, D1XcKeSS, LFS, L9 funder)."
     },
     "DcbyADbN": {
       "address": "DcbyADbNZanTyzhuWokNt5HrbYFFn4HmPygNPvLZC1v9",
@@ -578,6 +578,27 @@
         "notes": "Arkham: Crypto.com Deposit. Sends $7,186 to Crypto.com (ADqZYsW9). Receives from BqP79Wmk ($5.1K) + GoonPump ($2K). 100 sigs, last active Mar 16. CORRECTED 2026-03-25 — prior address FKjuwJzHJYAh... was TRANSCRIPTION ERROR (same prefix, wrong suffix)."
       },
       "funding_pipeline": "MoonPay/Bitget → GoonPump (231fshU8) → BqP79Wmk → FKjuwJzH (Crypto.com Deposit) → Crypto.com"
+    },
+    "D1XcKeSS": {
+      "address": "D1XcKeSSiZNX9bE56meS8hcR3ZEeoBU3GAejDdm3sTVQ",
+      "label": "D1XcKeSS",
+      "role": "network_connected",
+      "verdict": "network",
+      "notes": "UPGRADED 2026-04-02. 6 network counterparties: Hub, 2q8nSJgC (secondary aggregator), Bundle 1, Bundle 2, 6UrYwo9F, LFS. Previously possible_associate. 16 network connections. Funded via Kraken."
+    },
+    "BiwUUhwy": {
+      "address": "BiwUUhwyToodUSXGe9hp9S32YtRHBRRg3xxvpYo5RxVZ",
+      "label": "Coinbase Network Bot",
+      "role": "network_connected",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-02. Funded by Coinbase CB6 (deployer's exchange). isUserAddress=false (bot). 6 Coinbase hot wallet counterparties (CB3, CB4, CB5, CB6, CB8, CB9). Trades ARKXRP and DOGWIFXRP (deployer tokens). L1 and L3 early buyer. Previously unknown recurring wallet."
+    },
+    "H3qSndFC": {
+      "address": "H3qSndFCAyjvcNzhLcimVZcUbceeeSRGqnHDdcLQDCot",
+      "label": "BloFin Insider Sniper",
+      "role": "network_connected",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-02. Funded by BloFin Insider Hub (BDVgXauN). $94K volume with BloFin Hub. Part of BloFin sniper infrastructure (same network as 9J9VHoLW and CJVEFdRS). L4-L6 early buyer."
     }
   },
   "possible_associates": {
@@ -586,21 +607,7 @@
       "label": "7QJM8rXX",
       "role": "possible_associate",
       "verdict": "possible_associate",
-      "notes": "PROFILED 2026-03-25. L10 buyer #63 ($1,075 at +10s — largest non-deployer buy). Receives $142 from 98KvdqZJ (SUSYE deployer's trading wallet — CoinSpot insider connection!). Also shows DcbyADbN ($9, network). Trades XAIC ($4.9K), CUPID ($3.1K), QTX ($839), WFXRP ($670), TROLLXRP ($669). L2 funded by MEXC. 0 SOL. CoinSpot insider link notable but MEXC funding source differs from deployer."
-    },
-    "F7RV6aBW": {
-      "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE",
-      "label": "F7RV6aBW",
-      "role": "possible_associate",
-      "verdict": "possible_associate",
-      "notes": "Trading Bot (Nansen). Arkham: 'F7RV6a' on Pump.fun. Funded by Binance 8 (5tzFkiKs) — deployer uses Coinbase/MoonPay, not Binance. Funds DcbyADbN which relays profits to L9 deployer. Early buyer L7-L9. Network connection real but funding source mismatch. Moved from network_connected 2026-03-24."
-    },
-    "D1XcKeSS": {
-      "address": "D1XcKeSSiZNX9bE56meS8hcR3ZEeoBU3GAejDdm3sTVQ",
-      "label": "D1XcKeSS",
-      "role": "possible_associate",
-      "verdict": "possible_associate",
-      "notes": "16 network connections but funded via Kraken (deployer uses Coinbase/MoonPay). Receives from Hub ($4.8K), Bundles 1/2/5. Sends $2.8K to secondary aggregator, $680 to 6UrYwo9F, $594 to Eggsheeran, $5.8K to Coinbase, $512 to Bitget. Also trades independently (SOLWHIFF, GigmM8pZ). Could be associate/collaborator, not deployer. Monitor but not confirmed network."
+      "notes": "DEEP DIVED 2026-04-02. 2 network overlaps (98KvdqZJ SUSYE trading wallet, DcbyADbN network bot). MEXC-funded, not deployer exchange. Verdict: needs further investigation in Phase 2. Previously: L10 buyer #63 (,075 at +10s). Trades XAIC (.9K), CUPID (.1K), QTX (), WFXRP (), TROLLXRP ()."
     }
   },
   "og_deployer_token_accounts": {
@@ -676,6 +683,132 @@
       "role": "resolved",
       "verdict": "not_network",
       "notes": "PROFILED 2026-03-31. NOT NETWORK. 51.2 SOL. Funded by AoUs2hL7 (0.1 SOL, unknown). Nansen 422 (too active). Arkham: isUserAddress=false, no entity. Received $273 from fireblocks_passthrough — negligible relative to wallet size. Independent trader."
+    },
+    "F7RV6aBW_resolved": {
+      "address": "F7RV6aBWfniixoFkQNWmRwznDj2vae2XbusFfvMMjtbE",
+      "label": "F7RV6aBW (Resolved)",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "DOWNGRADED 2026-04-02. Deep dive: Nansen 422 (heavy independent trader), zero network counterparty overlaps from Arkham transfers. Despite DcbyADbN connection noted earlier, no broader network footprint. Funded by Binance 8. Currently trades CATGIRL tokens."
+    },
+    "nya666pQ_resolved": {
+      "address": "nya666pQkP3PzWxi7JngU3rRMHuc7zbLK8c8wxQ4qpT",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Deep dived 2026-04-02. Nansen 422 (heavy independent trader). Zero network overlaps. isUserAddress=false (bot). Funded by 3F2uT3Yo. 819.0 SOL balance."
+    },
+    "qtMPaTvJ_resolved": {
+      "address": "qtMPaTvJrfU8yeg8TBSiDq7svPQJMcWJouXEzyhCiCR",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Deep dived 2026-04-02. Nansen 422 (heavy independent trader). Zero network overlaps. isUserAddress=false (bot). Funded by 7ZGcwQJ6. 32.5 SOL balance."
+    },
+    "BoBo2S28_resolved": {
+      "address": "BoBo2S28s9E2gE2qMJPSMFUvdptpBCXaRhLg6UYR8teE",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Deep dived 2026-04-02. Nansen 422 (heavy independent trader). Zero network overlaps. isUserAddress=false (bot). Funded by 4z5jv7nz. 5.9 SOL balance."
+    },
+    "56S29mZ3_resolved": {
+      "address": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Deep dived 2026-04-02. Nansen 422 (heavy independent trader). Zero network overlaps. isUserAddress=false (bot). Funded by Fkq1moif. 84.0 SOL balance."
+    },
+    "CiQizNJ6_resolved": {
+      "address": "CiQizNJ6vpx4cZix81YDrecoWALV2AVmNsmgbanb33T9",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Deep dived 2026-04-02. Nansen 422 (heavy independent trader). Zero network overlaps. isUserAddress=false (bot). Funded by DJuih94g. 5.7 SOL balance."
+    },
+    "9HhoLseS_resolved": {
+      "address": "9HhoLseS5iq8hXWiyRWbAkh4mNWpnE9irRp61T43WJZu",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 2AwaeZXE. 0.002 SOL balance. No network counterparty overlaps."
+    },
+    "7ciGXut2_resolved": {
+      "address": "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by FiggKseF. 0.192 SOL balance. No network counterparty overlaps."
+    },
+    "Hqf4TZxp_resolved": {
+      "address": "Hqf4TZxph6H4P2uC3qdR1RjT6iiJA999VtvpBSU48EbT",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 2FyeNLZM. 0.000 SOL balance. No network counterparty overlaps."
+    },
+    "CAJx1pQA_resolved": {
+      "address": "CAJx1pQAMDamc2idQXbivP5pM4DZFBzPy38YEi2WBfWH",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 9HhoLseS. 0.000 SOL balance. No network counterparty overlaps."
+    },
+    "2QfXwuqf_resolved": {
+      "address": "2QfXwuqfLL1d95NBbb3ai5Gaj19qCvFjrXXd7whaiVa4",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 2AwaeZXE. 0.000 SOL balance. No network counterparty overlaps."
+    },
+    "6yjqK7VW_resolved": {
+      "address": "6yjqK7VWTiDFN2gfyLDTde63jCUmqZcp16SCgq9bNjov",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by Crypto.com Hot Wallet 1. 0.000 SOL balance. No network counterparty overlaps."
+    },
+    "BENE3RkN_resolved": {
+      "address": "BENE3RkN9qxCMjvHtJxWK1RApcQkmcExDPRvaLXfvmKh",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 2tyA6FzZ. 0.015 SOL balance. No network counterparty overlaps."
+    },
+    "9EqrK8wW_resolved": {
+      "address": "9EqrK8wW4JhSRcz8kJKSaiKaYvRfuUuNjYkkZqA7b7UX",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 56pfQ9C3. 0.050 SOL balance. No network counterparty overlaps."
+    },
+    "JAfv6AiN_resolved": {
+      "address": "JAfv6AiNzsAbGzvsSNpJz4qXvc3xuybDTxB9y3uLcxeG",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by Crypto.com Hot Wallet 1. 0.000 SOL balance. No network counterparty overlaps."
+    },
+    "DrnuP46q_resolved": {
+      "address": "DrnuP46qcf7b7utTY9Esm46SwkTFhYu4TrtRGTyvkE67",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 3WZUgThD. 0.570 SOL balance. No network counterparty overlaps."
+    },
+    "C4eNLxxC_resolved": {
+      "address": "C4eNLxxC7XLUivghMi35YUeSfvACgnvKB18115uPUqjg",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 9EdU9aj6. 3.428 SOL balance. No network counterparty overlaps."
+    },
+    "EP42Hi81_resolved": {
+      "address": "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+      "label": "Independent Trader",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 7ph615bZ. 0.000 SOL balance. No network counterparty overlaps."
     }
   }
 }
