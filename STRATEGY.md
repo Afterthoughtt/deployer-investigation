@@ -24,7 +24,7 @@ The deployer varies the funding path every launch. Could revert to intermediarie
 | MP4 | `AFKxebx96mnt1yn1ek6mcxeGDHmfrAWzo2h1fVdrrvWE` | Treasury only — funds MP1, do NOT monitor |
 | MP2/MP3 | Unknown | NOT found on Solana in prior search — may exist under different labels |
 
-Before this vector is operational, we need to attempt a more thorough MoonPay wallet discovery. The deployer could use a different MoonPay hot wallet for L11. If we only monitor MP1 and the deployer receives from MP2 or MP3, we miss it.
+Second discovery attempt (2026-04-02) via Arkham entity search + Arkham entity lookup + Nansen entity search found no additional Solana MoonPay wallets. Arkham returned the MoonPay entity but `addresses: null` (no address list exposed). Nansen confirmed entity name only. Gap confirmed — Vector A monitors MP1 only. If MoonPay rotates hot wallets, this vector has a blind spot.
 
 **Filter criteria (ALL must match):**
 - Amount: 8-25 SOL (L4+ range: 8.09-14.81, widened for safety)
