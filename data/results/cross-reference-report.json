@@ -7,7 +7,9 @@
       "unknown": 19,
       "known_infra": 26,
       "known_insider": 4,
-      "resolved": 7
+      "resolved": 3,
+      "monitoring": 3,
+      "network_connected": 1
     },
     "rotation_candidates": 15
   },
