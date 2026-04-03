@@ -30,6 +30,8 @@
       "created_utc": "2025-06-15T15:57:57Z",
       "funding_source": "Coinbase",
       "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "funded_by": null,
+      "funded_utc": null,
       "sol_spent": 0.39603,
       "notes": "Used OG deployer directly (pre-fresh-wallet era). Small dev buy with bundling."
     },
@@ -41,6 +43,8 @@
       "created_utc": "2025-07-20T18:09:58Z",
       "funding_source": "Coinbase",
       "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "funded_by": null,
+      "funded_utc": null,
       "sol_spent": 0.99009,
       "notes": "Used OG deployer directly. Small dev buy with bundling."
     },
@@ -52,6 +56,8 @@
       "created_utc": "2025-08-24T18:36:21Z",
       "funding_source": "Coinbase",
       "deployer": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "funded_by": null,
+      "funded_utc": null,
       "sol_spent": 1.98019,
       "notes": "Used OG deployer directly. Small dev buy with bundling."
     },
@@ -141,6 +147,8 @@
       "created_utc": "2026-03-15T21:40:44Z",
       "funding_source": "MoonPay",
       "deployer": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+      "funded_by": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
+      "funded_utc": "2026-03-15T04:51:00Z",
       "sol_spent": 13.31,
       "timeline_utc": {
         "funded": "2026-03-15T04:51:00Z",
