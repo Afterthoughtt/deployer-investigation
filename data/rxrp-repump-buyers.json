@@ -1,0 +1,222 @@
+{
+  "metadata": {
+    "description": "RXRP repump pre-announcement buyers. 22 unique wallets, 29 buy orders starting 2026-03-22T02:38:03Z. Wallets accumulated RABBITXRP (RXRP) before Discord announcement.",
+    "token": {
+      "name": "RABBITXRP",
+      "ticker": "RXRP",
+      "ca": "AUbqZLgzqkoSMo2vw2vsoW6vQP266pLWqbyECNXTpump",
+      "deployed_utc": "2025-04-20T16:00:35Z"
+    },
+    "accumulation_start_utc": "2026-03-22T02:38:03Z",
+    "created": "2026-04-03"
+  },
+  "buy_sequence": [
+    { "order": 1, "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "note": "1st buy" },
+    { "order": 2, "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B", "note": "2nd buy" },
+    { "order": 3, "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh", "note": "3rd buy" },
+    { "order": 4, "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "note": "4th buy (37X again)" },
+    { "order": 5, "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B", "note": "5th buy (52e again)" },
+    { "order": 6, "address": "B4sW2zUwPkfXptcnMb3t3jUCsPMwPvK2cnvVQYaNnpG5", "note": "6th buy" },
+    { "order": 7, "address": "4nNAJVQjfwbynY31a8HyUDSpYai6dXDfREywGXehFyAJ", "note": "7th buy" },
+    { "order": 8, "address": "4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh", "note": "8th buy" },
+    { "order": 9, "address": "GHNyLNAssb8bT78myUeud1HN7jnF41m7KjXpCqKod56c", "note": "9th buy" },
+    { "order": 10, "address": "4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh", "note": "10th buy (4916 again)" },
+    { "order": 11, "address": "2NzwpdroGnDfpeAGx1zsQrDne7fSHTdpgxtywSzG2J11", "note": "11th buy" },
+    { "order": 12, "address": "4SsCN1i5pxY2eH5P5C84rGPDJeMZ4azQzqTdHcLcQA4k", "note": "12th buy" },
+    { "order": 13, "address": "F8XieEYFJGpEi3xhrp6SUqbTTwmKoPtPw547xmnu8Y4s", "note": "13th buy" },
+    { "order": 14, "address": "F8XieEYFJGpEi3xhrp6SUqbTTwmKoPtPw547xmnu8Y4s", "note": "14th buy (F8X again)" },
+    { "order": 15, "address": "4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh", "note": "15th buy (4916 again)" },
+    { "order": 16, "address": "yJUL3V8WdLAcyREmfEG2tcLPgaxR2KvCDe9KP9MQCUs", "note": "16th buy" },
+    { "order": 17, "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk", "note": "17th buy" },
+    { "order": 18, "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x", "note": "18th buy" },
+    { "order": 19, "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1", "note": "19th buy" },
+    { "order": 20, "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk", "note": "20th buy (6zZ again)" },
+    { "order": 21, "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J", "note": "21st buy" },
+    { "order": 22, "address": "fUtfBAojmtP4JPRkZCMWQiP299VbzgoXUQuGbm9wpvM", "note": "22nd buy" },
+    { "order": 23, "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x", "note": "23rd buy (AZ57 again)" },
+    { "order": 24, "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k", "note": "24th buy" },
+    { "order": 25, "address": "6adFb8GQUpLeMdW8pueu5iUgvD9BrVaiG2kmoShqqWU9", "note": "25th buy" },
+    { "order": 26, "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi", "note": "26th buy" },
+    { "order": 27, "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy", "note": "27th buy (labelled insider)" },
+    { "order": 28, "address": "GmQy8Groh754d2uWqrZ8yiXKE91gKLRGSSvKAbQ87DeK", "note": "28th buy (labelled insider)" },
+    { "order": 29, "address": "BiRdZygLEPqaVYKx9JTtdvp7D6a4wSMTj99CEMMR343J", "note": "29th buy (labelled insider)" }
+  ],
+  "unique_wallets": [
+    {
+      "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "buy_orders": [1, 4],
+      "prior_status": "known_core",
+      "prior_label": "OG Deployer",
+      "launch_history": ["L4", "L5", "L6", "L8", "L9"],
+      "cross_ref_tag": "known_infra"
+    },
+    {
+      "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
+      "buy_orders": [2, 5],
+      "prior_status": "known_core",
+      "prior_label": "L9 Funder / JETNUT Deployer",
+      "launch_history": ["L9"],
+      "cross_ref_tag": "resolved:l9_funder"
+    },
+    {
+      "address": "4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh",
+      "buy_orders": [8, 10, 15],
+      "prior_status": "known_core",
+      "prior_label": "CoinSpot Insider Token Trading Wallet",
+      "launch_history": ["L9_bundle", "L10_bundle"],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh",
+      "buy_orders": [3],
+      "prior_status": "new",
+      "prior_label": null,
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "B4sW2zUwPkfXptcnMb3t3jUCsPMwPvK2cnvVQYaNnpG5",
+      "buy_orders": [6],
+      "prior_status": "new",
+      "prior_label": null,
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "4nNAJVQjfwbynY31a8HyUDSpYai6dXDfREywGXehFyAJ",
+      "buy_orders": [7],
+      "prior_status": "new",
+      "prior_label": null,
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "GHNyLNAssb8bT78myUeud1HN7jnF41m7KjXpCqKod56c",
+      "buy_orders": [9],
+      "prior_status": "new",
+      "prior_label": null,
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "2NzwpdroGnDfpeAGx1zsQrDne7fSHTdpgxtywSzG2J11",
+      "buy_orders": [11],
+      "prior_status": "new",
+      "prior_label": null,
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "4SsCN1i5pxY2eH5P5C84rGPDJeMZ4azQzqTdHcLcQA4k",
+      "buy_orders": [12],
+      "prior_status": "new",
+      "prior_label": null,
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "F8XieEYFJGpEi3xhrp6SUqbTTwmKoPtPw547xmnu8Y4s",
+      "buy_orders": [13, 14],
+      "prior_status": "minor_mention",
+      "prior_label": "Fee payer on OG Deployer WSOL ATA trades",
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "yJUL3V8WdLAcyREmfEG2tcLPgaxR2KvCDe9KP9MQCUs",
+      "buy_orders": [16],
+      "prior_status": "minor_mention",
+      "prior_label": "Token account owner, sent to OG Deployer WSOL ATA",
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
+      "buy_orders": [17, 20],
+      "prior_status": "minor_mention",
+      "prior_label": "Fee payer on OG Deployer WSOL ATA trades",
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+      "buy_orders": [18, 23],
+      "prior_status": "minor_mention",
+      "prior_label": "Token account owner, sent to OG Deployer WSOL ATA",
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1",
+      "buy_orders": [19],
+      "prior_status": "l10_early_buyer",
+      "prior_label": "BloomBot user, L10 early buyer position 7",
+      "launch_history": ["L10"],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+      "buy_orders": [21],
+      "prior_status": "l10_early_buyer",
+      "prior_label": "Unlabeled, L10 early buyer",
+      "launch_history": ["L10"],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "fUtfBAojmtP4JPRkZCMWQiP299VbzgoXUQuGbm9wpvM",
+      "buy_orders": [22],
+      "prior_status": "new",
+      "prior_label": null,
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k",
+      "buy_orders": [24],
+      "prior_status": "minor_mention",
+      "prior_label": "Nansen Trading Bot, counterparty to OG WSOL ATA",
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "6adFb8GQUpLeMdW8pueu5iUgvD9BrVaiG2kmoShqqWU9",
+      "buy_orders": [25],
+      "prior_status": "new",
+      "prior_label": null,
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi",
+      "buy_orders": [26],
+      "prior_status": "minor_mention",
+      "prior_label": "Nansen Trading Bot, counterparty to OG WSOL ATA",
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy",
+      "buy_orders": [27],
+      "prior_status": "new",
+      "prior_label": "User-labelled insider",
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "GmQy8Groh754d2uWqrZ8yiXKE91gKLRGSSvKAbQ87DeK",
+      "buy_orders": [28],
+      "prior_status": "new",
+      "prior_label": "User-labelled insider",
+      "launch_history": [],
+      "cross_ref_tag": null
+    },
+    {
+      "address": "BiRdZygLEPqaVYKx9JTtdvp7D6a4wSMTj99CEMMR343J",
+      "buy_orders": [29],
+      "prior_status": "new",
+      "prior_label": "User-labelled insider",
+      "launch_history": [],
+      "cross_ref_tag": null
+    }
+  ]
+}

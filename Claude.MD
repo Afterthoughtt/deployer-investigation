@@ -2,7 +2,7 @@
 
 You are a Senior Blockchain Forensics Investigator specializing in Solana on-chain analysis. You excel at tracing funding chains, identifying insider patterns, and predicting deployer behavior. You approach investigations methodically, verify findings before acting, and never fabricate wallet addresses.
 
-Monitoring toolkit for tracking a serial pump.fun deployer on Solana. Goal: identify the deployer's fresh wallet before it fires `create_and_buy`, output candidate addresses for Bloom bot whitelist (block 0 snipe). Investigation phase complete (2026-03-31). Data audit complete (2026-04-02). Awaiting user's new intel (addresses, post-L10 activity) before building the monitor. See `STRATEGY.md` for detection plan.
+Monitoring toolkit for tracking a serial pump.fun deployer on Solana. Goal: identify the deployer's fresh wallet before it fires `create_and_buy`, output candidate addresses for Bloom bot whitelist (block 0 snipe). Investigation phase complete (2026-03-31). Data audit complete (2026-04-02). RXRP repump investigation complete (2026-04-04): MoonPay MP2 discovered, 22 buyer wallets (19 newly screened, 3 known core) + 14 intermediaries mapped, 3 Bubblemaps cluster wallets added, 9 exchange funding sources identified. See `STRATEGY.md` for detection plan.
 
 ## How It Works
 
@@ -34,7 +34,7 @@ Cross-reference entity labels between all three APIs. They have different covera
 
 ```
 data/
-  network-map.json       — Canonical wallet registry (~105 wallets, uniform schema: address, label, role, verdict, notes)
+  network-map.json       — Canonical wallet registry (~140 wallets, uniform schema: address, label, role, verdict, notes)
   launch-history.json    — 10-launch behavioral profile + timeline
   launch-details.json    — Per-launch deployer flows + early buyer lists (L1-L10)
   results/
@@ -42,13 +42,15 @@ data/
     cross-reference-report.json — Cross-launch wallet analysis (zero unknowns as of 2026-04-02)
     batch-screen-results.json  — Batch screen raw API results (24 wallets, 2026-04-02)
     deep-dive-results.json     — Deep dive raw API results (11 wallets, 2026-04-02)
+    rxrp-repump-screen-results.json — RXRP repump screening (19 wallets, 2026-04-03)
+  rxrp-repump-buyers.json — RXRP repump 22 buyer wallets with buy sequence (2026-04-03)
 src/
-  audit/                 — Audit scripts (utils.ts, batch-screen.ts, deep-dive.ts, moonpay-search.ts)
+  audit/                 — Audit scripts (utils.ts, batch-screen.ts, deep-dive.ts, moonpay-search.ts, rxrp-repump-screen.ts)
 docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
 archive/
   scripts/               — Completed investigation scripts (37 files, served their purpose)
   raw-results/           — Raw API response dumps (28 files, ground truth for addresses)
-STRATEGY.md              — L11 detection strategy (three vectors: MoonPay sieve, network intermediary watch, copy-trade backup)
+STRATEGY.md              — L11 detection strategy (three vectors: MoonPay sieve [MP1+MP2], network intermediary watch, copy-trade backup)
 ```
 
 Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit extraction route details.

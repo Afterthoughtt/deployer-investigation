@@ -1,0 +1,689 @@
+{
+  "timestamp": "2026-04-03T08:33:44.811Z",
+  "target_count": 19,
+  "funder_clusters": {
+    "C5ivCCvG4erHaxE4ijXm1CtdZEccE5PRD7Ak7EJSn8kD": {
+      "funderName": "unknown",
+      "wallets": [
+        "B4sW2zUw",
+        "4nNAJVQj"
+      ]
+    },
+    "CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs": {
+      "funderName": "unknown",
+      "wallets": [
+        "4SsCN1i5",
+        "F8XieEYF"
+      ]
+    },
+    "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ": {
+      "funderName": "unknown",
+      "wallets": [
+        "6zZAKeF5",
+        "fUtfBAoj"
+      ]
+    },
+    "FpwQQhQQoEaVu3WU2qZMfF1hx48YyfwsLoRgXG83E99Q": {
+      "funderName": "Coinbase Hot Wallet 3",
+      "wallets": [
+        "7JCe3GHw",
+        "7iVCXQn4"
+      ]
+    }
+  },
+  "targets": [
+    {
+      "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh",
+      "buy_orders": [
+        3
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "balance_sol": 27.892387819,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "G2YxRa6wt1qePMwfJzdXZG62ej4qaTC7YURzuh2Lwd3t",
+        "funderName": "ChangeNOW Hot Wallet 2",
+        "funderType": "Centralized Exchange",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1.73128212,
+        "amountRaw": "1731282120",
+        "decimals": 9,
+        "signature": "zxdMHM5885WECut65ERpvE3fcbNYykoJSQKtX7PD4jhVbcR4a8iW9RWGW3EdkffzhTv7ZJpBpY1s2iYjUo2g7eY",
+        "timestamp": 1771974311,
+        "date": "2026-02-24T23:05:11.000Z",
+        "slot": 402502944,
+        "explorerUrl": "https://orbmarkets.io/tx/zxdMHM5885WECut65ERpvE3fcbNYykoJSQKtX7PD4jhVbcR4a8iW9RWGW3EdkffzhTv7ZJpBpY1s2iYjUo2g7eY?tab=summary"
+      },
+      "flags": [
+        "BOT",
+        "ACTIVE"
+      ]
+    },
+    {
+      "address": "B4sW2zUwPkfXptcnMb3t3jUCsPMwPvK2cnvVQYaNnpG5",
+      "buy_orders": [
+        6
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "balance_sol": 0,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "B4sW2zUwPkfXptcnMb3t3jUCsPMwPvK2cnvVQYaNnpG5",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "C5ivCCvG4erHaxE4ijXm1CtdZEccE5PRD7Ak7EJSn8kD",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 4,
+        "amountRaw": "4000000000",
+        "decimals": 9,
+        "signature": "3ErnLu6GWves32SnaSVribwEXRnxLxZbaPhHuskEmik375sy4iwk4cdgX82LFo4ydEBs6VCDRphbyguMRmppTu2Y",
+        "timestamp": 1774191103,
+        "date": "2026-03-22T14:51:43.000Z",
+        "slot": 408128823,
+        "explorerUrl": "https://orbmarkets.io/tx/3ErnLu6GWves32SnaSVribwEXRnxLxZbaPhHuskEmik375sy4iwk4cdgX82LFo4ydEBs6VCDRphbyguMRmppTu2Y?tab=summary"
+      },
+      "flags": [
+        "SHARED_FUNDER",
+        "BOT"
+      ]
+    },
+    {
+      "address": "4nNAJVQjfwbynY31a8HyUDSpYai6dXDfREywGXehFyAJ",
+      "buy_orders": [
+        7
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "balance_sol": 0,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "4nNAJVQjfwbynY31a8HyUDSpYai6dXDfREywGXehFyAJ",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "C5ivCCvG4erHaxE4ijXm1CtdZEccE5PRD7Ak7EJSn8kD",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 3.2,
+        "amountRaw": "3200000000",
+        "decimals": 9,
+        "signature": "3xnCqzAaag7hSjkg2Uurdj69YdfjF5p1Kuy9oL5zi4Ae9UuuFDDXGLc9mntDSmmhNhSvz6YKHLQW8edehDmcU5aL",
+        "timestamp": 1774191776,
+        "date": "2026-03-22T15:02:56.000Z",
+        "slot": 408130538,
+        "explorerUrl": "https://orbmarkets.io/tx/3xnCqzAaag7hSjkg2Uurdj69YdfjF5p1Kuy9oL5zi4Ae9UuuFDDXGLc9mntDSmmhNhSvz6YKHLQW8edehDmcU5aL?tab=summary"
+      },
+      "flags": [
+        "SHARED_FUNDER",
+        "BOT"
+      ]
+    },
+    {
+      "address": "GHNyLNAssb8bT78myUeud1HN7jnF41m7KjXpCqKod56c",
+      "buy_orders": [
+        9
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "balance_sol": 0.001316514,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "GHNyLNAssb8bT78myUeud1HN7jnF41m7KjXpCqKod56c",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "36EHoZGJ6DA9SSZj73j6NL4dPNcP6FA4mD9NA84VzqC3",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1.42,
+        "amountRaw": "1420000000",
+        "decimals": 9,
+        "signature": "5VxiqRtEyBbT5mCm63WheeuUzrKFgkji8ktn4nq89ULYr54GvqKrsqeEwsogcwwNsP3dUPiWnXiJH3KpHGLXVYHo",
+        "timestamp": 1773617429,
+        "date": "2026-03-15T23:30:29.000Z",
+        "slot": 406675441,
+        "explorerUrl": "https://orbmarkets.io/tx/5VxiqRtEyBbT5mCm63WheeuUzrKFgkji8ktn4nq89ULYr54GvqKrsqeEwsogcwwNsP3dUPiWnXiJH3KpHGLXVYHo?tab=summary"
+      },
+      "flags": [
+        "BOT"
+      ]
+    },
+    {
+      "address": "2NzwpdroGnDfpeAGx1zsQrDne7fSHTdpgxtywSzG2J11",
+      "buy_orders": [
+        11
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "balance_sol": 0.004925513,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "2NzwpdroGnDfpeAGx1zsQrDne7fSHTdpgxtywSzG2J11",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
+        "funderName": "MoonPay Hot Wallet 1",
+        "funderType": "Centralized Exchange",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1.02,
+        "amountRaw": "1020000000",
+        "decimals": 9,
+        "signature": "5Sm8sH5JgD6EWKgZmzwFBF2iytXLTskTxQRinUKWs5Q4RTZGtRgiojtre7ndB58LWag5xubkMjFbrGVJuA9yMSfA",
+        "timestamp": 1753030101,
+        "date": "2025-07-20T16:48:21.000Z",
+        "slot": 354594528,
+        "explorerUrl": "https://orbmarkets.io/tx/5Sm8sH5JgD6EWKgZmzwFBF2iytXLTskTxQRinUKWs5Q4RTZGtRgiojtre7ndB58LWag5xubkMjFbrGVJuA9yMSfA?tab=summary"
+      },
+      "flags": [
+        "NETWORK_FUNDED",
+        "DEPLOYER_EXCHANGE",
+        "BOT"
+      ]
+    },
+    {
+      "address": "4SsCN1i5pxY2eH5P5C84rGPDJeMZ4azQzqTdHcLcQA4k",
+      "buy_orders": [
+        12
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "balance_sol": 0,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "4SsCN1i5pxY2eH5P5C84rGPDJeMZ4azQzqTdHcLcQA4k",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 4.018684559,
+        "amountRaw": "4018684559",
+        "decimals": 9,
+        "signature": "4RK4ztxnSE4i4G9rGHhu9E7V5ZzRQPqiFZF6mhSm4n4mEJi7dQQ4ypTfpZ9KZtxZkWbkWBR8b3G4hi1zG4z8G6fA",
+        "timestamp": 1774319283,
+        "date": "2026-03-24T02:28:03.000Z",
+        "slot": 408454122,
+        "explorerUrl": "https://orbmarkets.io/tx/4RK4ztxnSE4i4G9rGHhu9E7V5ZzRQPqiFZF6mhSm4n4mEJi7dQQ4ypTfpZ9KZtxZkWbkWBR8b3G4hi1zG4z8G6fA?tab=summary"
+      },
+      "flags": [
+        "SHARED_FUNDER",
+        "BOT"
+      ]
+    },
+    {
+      "address": "F8XieEYFJGpEi3xhrp6SUqbTTwmKoPtPw547xmnu8Y4s",
+      "buy_orders": [
+        13,
+        14
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Fee payer on OG Deployer WSOL ATA trades",
+      "balance_sol": 0,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "F8XieEYFJGpEi3xhrp6SUqbTTwmKoPtPw547xmnu8Y4s",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1.59059637,
+        "amountRaw": "1590596370",
+        "decimals": 9,
+        "signature": "4pGyUakBm8mKQHxbWcc72i8mwXRSLdLtMao9WDyRAi7Ai8XzFi8Vd2LHt7FkQhR959N3FGTu2wdzGAPEcASJnf25",
+        "timestamp": 1771207377,
+        "date": "2026-02-16T02:02:57.000Z",
+        "slot": 400552383,
+        "explorerUrl": "https://orbmarkets.io/tx/4pGyUakBm8mKQHxbWcc72i8mwXRSLdLtMao9WDyRAi7Ai8XzFi8Vd2LHt7FkQhR959N3FGTu2wdzGAPEcASJnf25?tab=summary"
+      },
+      "flags": [
+        "SHARED_FUNDER",
+        "BOT"
+      ]
+    },
+    {
+      "address": "yJUL3V8WdLAcyREmfEG2tcLPgaxR2KvCDe9KP9MQCUs",
+      "buy_orders": [
+        16
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Token account owner, sent to OG Deployer WSOL ATA",
+      "balance_sol": 0.004991877,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "yJUL3V8WdLAcyREmfEG2tcLPgaxR2KvCDe9KP9MQCUs",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "ASTyfSima4LLAdDgoFGkgqoKowG1LZFDr9fAQrg7iaJZ",
+        "funderName": "MEXC Exchange",
+        "funderType": "Centralized Exchange",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 1.33189824,
+        "amountRaw": "1331898240",
+        "decimals": 9,
+        "signature": "nfWsLEMFrARuZa8S8Z534MpcE45jn1WvvjMDoWSe1stt9XidvmD6XcsNy1innWnMUxmMNiXG62Xo522QgTLHEzY",
+        "timestamp": 1774341480,
+        "date": "2026-03-24T08:38:00.000Z",
+        "slot": 408510725,
+        "explorerUrl": "https://orbmarkets.io/tx/nfWsLEMFrARuZa8S8Z534MpcE45jn1WvvjMDoWSe1stt9XidvmD6XcsNy1innWnMUxmMNiXG62Xo522QgTLHEzY?tab=summary"
+      },
+      "flags": [
+        "BOT"
+      ]
+    },
+    {
+      "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
+      "buy_orders": [
+        17,
+        20
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Fee payer on OG Deployer WSOL ATA trades",
+      "balance_sol": 10.080882687,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 4.92,
+        "amountRaw": "4920000000",
+        "decimals": 9,
+        "signature": "3Hc8zEdxgVd4JCHNqY8xV2Sgf2QS9cZ4ToNwrGJZXUn7fymcHcrsnJ61Ysm5eDTttspDkHJD2KP4KaMwRsRYs2f9",
+        "timestamp": 1771424198,
+        "date": "2026-02-18T14:16:38.000Z",
+        "slot": 401105282,
+        "explorerUrl": "https://orbmarkets.io/tx/3Hc8zEdxgVd4JCHNqY8xV2Sgf2QS9cZ4ToNwrGJZXUn7fymcHcrsnJ61Ysm5eDTttspDkHJD2KP4KaMwRsRYs2f9?tab=summary"
+      },
+      "flags": [
+        "SHARED_FUNDER",
+        "BOT",
+        "ACTIVE"
+      ]
+    },
+    {
+      "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+      "buy_orders": [
+        18,
+        23
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Token account owner, sent to OG Deployer WSOL ATA",
+      "balance_sol": 47.580311196,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "8pCo2yj6q2Nr6wdZEojDUCsnnDF8JWBem64qupvTT1sW",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.390810245,
+        "amountRaw": "390810245",
+        "decimals": 9,
+        "signature": "5HDTSkkXgXGKHM8HFKdnaVgjcDAgySMU3hHViYbY6sAg882Bj6A9UcnikheFGikLQopvUrymxFJwMHR1QMbcuJaR",
+        "timestamp": 1763856951,
+        "date": "2025-11-23T00:15:51.000Z",
+        "slot": 381870703,
+        "explorerUrl": "https://orbmarkets.io/tx/5HDTSkkXgXGKHM8HFKdnaVgjcDAgySMU3hHViYbY6sAg882Bj6A9UcnikheFGikLQopvUrymxFJwMHR1QMbcuJaR?tab=summary"
+      },
+      "flags": [
+        "BOT",
+        "ACTIVE"
+      ]
+    },
+    {
+      "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1",
+      "buy_orders": [
+        19
+      ],
+      "prior_status": "l10_early_buyer",
+      "prior_label": "BloomBot user, L10 early buyer position 7",
+      "balance_sol": 3.101408348,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "Gad9RgHw2d956ZxkJBM8i8pKWQWrwBNLbZQrrVvZmYkF",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 3.449042388,
+        "amountRaw": "3449042388",
+        "decimals": 9,
+        "signature": "3iV6FFx5F1M3KZBFNNQa5Gy8F6hhDv4iL86sRSaP472xjG5hrPshLfGfdWTLobTiSxJjg6bPWvWTfMffFXPv46db",
+        "timestamp": 1772347112,
+        "date": "2026-03-01T06:38:32.000Z",
+        "slot": 403447936,
+        "explorerUrl": "https://orbmarkets.io/tx/3iV6FFx5F1M3KZBFNNQa5Gy8F6hhDv4iL86sRSaP472xjG5hrPshLfGfdWTLobTiSxJjg6bPWvWTfMffFXPv46db?tab=summary"
+      },
+      "flags": [
+        "BOT",
+        "ACTIVE"
+      ]
+    },
+    {
+      "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+      "buy_orders": [
+        21
+      ],
+      "prior_status": "l10_early_buyer",
+      "prior_label": "Unlabeled, L10 early buyer",
+      "balance_sol": 15.722463839,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "BVjWqMXu2JUcvCRmKj2cXSwZEC7NBZyKh4JRuxTdYvoY",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 3.15,
+        "amountRaw": "3150000000",
+        "decimals": 9,
+        "signature": "95UxoqwAzgXt1RvyBBEij3pSbkhGvpW9vBKPMp8RSyXjHjTzbkKk6nZpEFmXRsSAASMw7XX6xLsa8yR93hLgxix",
+        "timestamp": 1767384765,
+        "date": "2026-01-02T20:12:45.000Z",
+        "slot": 390895474,
+        "explorerUrl": "https://orbmarkets.io/tx/95UxoqwAzgXt1RvyBBEij3pSbkhGvpW9vBKPMp8RSyXjHjTzbkKk6nZpEFmXRsSAASMw7XX6xLsa8yR93hLgxix?tab=summary"
+      },
+      "flags": [
+        "BOT",
+        "ACTIVE"
+      ]
+    },
+    {
+      "address": "fUtfBAojmtP4JPRkZCMWQiP299VbzgoXUQuGbm9wpvM",
+      "buy_orders": [
+        22
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "balance_sol": 0,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "fUtfBAojmtP4JPRkZCMWQiP299VbzgoXUQuGbm9wpvM",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.036624558,
+        "amountRaw": "36624558",
+        "decimals": 9,
+        "signature": "31nWbt4XSktxNYnSgZiacjY6W6JECrJumZwB5WL3ZXayGPUK2gShqaaHXRx8czgJPmE2Ec1LoCk47T6s7r69zF2H",
+        "timestamp": 1765404845,
+        "date": "2025-12-10T22:14:05.000Z",
+        "slot": 385841487,
+        "explorerUrl": "https://orbmarkets.io/tx/31nWbt4XSktxNYnSgZiacjY6W6JECrJumZwB5WL3ZXayGPUK2gShqaaHXRx8czgJPmE2Ec1LoCk47T6s7r69zF2H?tab=summary"
+      },
+      "flags": [
+        "SHARED_FUNDER",
+        "BOT"
+      ]
+    },
+    {
+      "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k",
+      "buy_orders": [
+        24
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Nansen Trading Bot, counterparty to OG WSOL ATA",
+      "balance_sol": 224.721048065,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "FpwQQhQQoEaVu3WU2qZMfF1hx48YyfwsLoRgXG83E99Q",
+        "funderName": "Coinbase Hot Wallet 3",
+        "funderType": "Centralized Exchange",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.014064203,
+        "amountRaw": "14064203",
+        "decimals": 9,
+        "signature": "62Acvrgn9FzEENHPTbiRGQTeVSBccneWWoU96DoqodgaGsE18Drd39wS6eL4XTrMjCvehkiMPRiKvHLsnXFTPUwp",
+        "timestamp": 1768521675,
+        "date": "2026-01-16T00:01:15.000Z",
+        "slot": 393767621,
+        "explorerUrl": "https://orbmarkets.io/tx/62Acvrgn9FzEENHPTbiRGQTeVSBccneWWoU96DoqodgaGsE18Drd39wS6eL4XTrMjCvehkiMPRiKvHLsnXFTPUwp?tab=summary"
+      },
+      "flags": [
+        "NETWORK_FUNDED",
+        "DEPLOYER_EXCHANGE",
+        "SHARED_FUNDER",
+        "BOT",
+        "ACTIVE"
+      ]
+    },
+    {
+      "address": "6adFb8GQUpLeMdW8pueu5iUgvD9BrVaiG2kmoShqqWU9",
+      "buy_orders": [
+        25
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "balance_sol": 0.004956056,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "6adFb8GQUpLeMdW8pueu5iUgvD9BrVaiG2kmoShqqWU9",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "FRBPS12hytf1qhBGDxBX9Tmfzn1PBwJk6yNccoWgpS69",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.67,
+        "amountRaw": "670000000",
+        "decimals": 9,
+        "signature": "5NwwgVPjZm1M3Qen3XNsbCDTNdf77a9ocSv2EgY5sRR1kn2Mg8h2uqGJNwFtSzruoie7xjYiGmwoLzoqfTnZrnZm",
+        "timestamp": 1712391911,
+        "date": "2024-04-06T08:25:11.000Z",
+        "slot": 258636500,
+        "explorerUrl": "https://orbmarkets.io/tx/5NwwgVPjZm1M3Qen3XNsbCDTNdf77a9ocSv2EgY5sRR1kn2Mg8h2uqGJNwFtSzruoie7xjYiGmwoLzoqfTnZrnZm?tab=summary"
+      },
+      "flags": [
+        "BOT"
+      ]
+    },
+    {
+      "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi",
+      "buy_orders": [
+        26
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Nansen Trading Bot, counterparty to OG WSOL ATA",
+      "balance_sol": 220.901551794,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "FpwQQhQQoEaVu3WU2qZMfF1hx48YyfwsLoRgXG83E99Q",
+        "funderName": "Coinbase Hot Wallet 3",
+        "funderType": "Centralized Exchange",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 2,
+        "amountRaw": "2000000000",
+        "decimals": 9,
+        "signature": "4NceGRMCqxHRD7hYm6pdSM5dA4uCP7di8AbracCT8KxxDe4dxLi5qBTR8eU6NrX4oXuTd8kRvifMM4X7rjqr4ud9",
+        "timestamp": 1758131659,
+        "date": "2025-09-17T17:54:19.000Z",
+        "slot": 367471865,
+        "explorerUrl": "https://orbmarkets.io/tx/4NceGRMCqxHRD7hYm6pdSM5dA4uCP7di8AbracCT8KxxDe4dxLi5qBTR8eU6NrX4oXuTd8kRvifMM4X7rjqr4ud9?tab=summary"
+      },
+      "flags": [
+        "NETWORK_FUNDED",
+        "DEPLOYER_EXCHANGE",
+        "SHARED_FUNDER",
+        "BOT",
+        "ACTIVE"
+      ]
+    },
+    {
+      "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy",
+      "buy_orders": [
+        27
+      ],
+      "prior_status": "new",
+      "prior_label": "User-labelled insider",
+      "balance_sol": 94.160577398,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "A9BP3ZP1wH7H3JwDXTThcC6fb7zUW5AfrLXbHHqBQsG",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.01,
+        "amountRaw": "10000000",
+        "decimals": 9,
+        "signature": "5prNxLYWyVUKjvhhC8gjk7XknykQFRjQiA1WyurKaZZb4Da8Pdvc3uDm96oNMSFp96WYJxPpWsmwH3wHCGspds5G",
+        "timestamp": 1748654034,
+        "date": "2025-05-31T01:13:54.000Z",
+        "slot": 343578730,
+        "explorerUrl": "https://orbmarkets.io/tx/5prNxLYWyVUKjvhhC8gjk7XknykQFRjQiA1WyurKaZZb4Da8Pdvc3uDm96oNMSFp96WYJxPpWsmwH3wHCGspds5G?tab=summary"
+      },
+      "flags": [
+        "BOT",
+        "ACTIVE"
+      ]
+    },
+    {
+      "address": "GmQy8Groh754d2uWqrZ8yiXKE91gKLRGSSvKAbQ87DeK",
+      "buy_orders": [
+        28
+      ],
+      "prior_status": "new",
+      "prior_label": "User-labelled insider",
+      "balance_sol": 0.025498447,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "GmQy8Groh754d2uWqrZ8yiXKE91gKLRGSSvKAbQ87DeK",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "EMXJqHznGSnSzeMyigBGQNEFw4EeaNDbj1UwaFTpp3sg",
+        "funderName": null,
+        "funderType": null,
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 0.21332,
+        "amountRaw": "213320000",
+        "decimals": 9,
+        "signature": "3tEd5p9X5jsVcpWbBBPt58UeFAn2kpJwCqfZ3ArDckao3mA34SVYeEevwWWYXq2AuCBKWmt8SpP7gcgSFmZhqWks",
+        "timestamp": 1755875947,
+        "date": "2025-08-22T15:19:07.000Z",
+        "slot": 361781930,
+        "explorerUrl": "https://orbmarkets.io/tx/3tEd5p9X5jsVcpWbBBPt58UeFAn2kpJwCqfZ3ArDckao3mA34SVYeEevwWWYXq2AuCBKWmt8SpP7gcgSFmZhqWks?tab=summary"
+      },
+      "flags": [
+        "BOT"
+      ]
+    },
+    {
+      "address": "BiRdZygLEPqaVYKx9JTtdvp7D6a4wSMTj99CEMMR343J",
+      "buy_orders": [
+        29
+      ],
+      "prior_status": "new",
+      "prior_label": "User-labelled insider",
+      "balance_sol": 0.149538339,
+      "helius_identity": null,
+      "arkham_intel": {
+        "address": "BiRdZygLEPqaVYKx9JTtdvp7D6a4wSMTj99CEMMR343J",
+        "chain": "solana",
+        "isUserAddress": false
+      },
+      "funded_by": {
+        "funder": "6LY1JzAFVZsP2a2xKrtU6znQMQ5h4i7tocWdgrkZzkzF",
+        "funderName": "Kraken Hot Wallet 1",
+        "funderType": "Centralized Exchange",
+        "mint": "So11111111111111111111111111111111111111111",
+        "symbol": "SOL",
+        "amount": 18.304,
+        "amountRaw": "18304000000",
+        "decimals": 9,
+        "signature": "3LfxUyrkEitPAAHEwSPPqWPjZyUTnRa8nGdD6Mmf4BtgLshrurn5Xjjd1UK9PVtvAWm5LzoJFUJKjXaoVvGCYy12",
+        "timestamp": 1773041386,
+        "date": "2026-03-09T07:29:46.000Z",
+        "slot": 405207744,
+        "explorerUrl": "https://orbmarkets.io/tx/3LfxUyrkEitPAAHEwSPPqWPjZyUTnRa8nGdD6Mmf4BtgLshrurn5Xjjd1UK9PVtvAWm5LzoJFUJKjXaoVvGCYy12?tab=summary"
+      },
+      "flags": [
+        "BOT",
+        "ACTIVE"
+      ]
+    }
+  ]
+}

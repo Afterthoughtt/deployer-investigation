@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Known wallet addresses in the deployer network",
-    "updated": "2026-04-02"
+    "updated": "2026-04-03"
   },
   "deployers": {
     "L4": {
@@ -437,30 +437,54 @@
       }
     },
     "moonpay": {
-      "notes": "MAPPED 2026-03-25. 2 wallets found on Solana. MP1 is customer-facing (sends SOL to buyers). MP4 is treasury (funds MP1). MoonPay Hot Wallets 2/3 not found — possibly inactive on Solana. Nansen entity holds 14K SOL + $568K USDC + $77K USDT aggregate.",
+      "notes": "UPDATED 2026-04-03. TWO customer-facing MoonPay SOL wallets confirmed: MP1 (Cc3bpPzU, fed by MP4 treasury) and MP2 (5F1seMKU, fed by Binance 8 — separate supply chain). MP2 discovered via RXRP repump funder chain tracing: MP2 → FiggKseF → 6zZAKeF5/fUtfBAoj/Dj9WL4Nh. Vector A MUST monitor both MP1 and MP2. Arkham-labeled 'Hot Wallets' 4FoRA1uL and CYAziJxf are MP1's USDC and xoUSD token accounts (ATAs), NOT independent wallets.",
       "MP1": {
         "address": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
         "label": "MoonPay Hot Wallet 1",
         "role": "onramp",
         "verdict": "network",
-        "details": "Helius: MoonPay Hot Wallet 1. Customer-facing distribution. Only sends SOL outflows to buyers. Nansen counterparties 422 (too much activity). Used for L10 (13.443 SOL to deployer).",
-        "notes": ""
+        "notes": "Helius: MoonPay Hot Wallet 1. Arkham: MoonPay entity, 'Hot Wallet' label. Customer-facing SOL + stablecoin distribution. Sends SOL to end-user wallets, USDC via ATA 4FoRA1uL ($352K balance), xoUSD via ATA CYAziJxf. Used for L10 (13.443 SOL to deployer) and RXRP repump wallet 2Nzwpdro. Funded by MP4.",
+        "token_accounts": {
+          "USDC": "4FoRA1uLBcE31TC799djhLt3rqpGuh2gV9C5KdvLgUPg",
+          "xoUSD": "CYAziJxfTbh3qhavSQdAHeSfXJt6NPkQYzLf1yBmATRc"
+        }
       },
       "MP4": {
         "address": "AFKxebx96mnt1yn1ek6mcxeGDHmfrAWzo2h1fVdrrvWE",
         "label": "MoonPay Hot Wallet 4",
+        "role": "treasury",
+        "verdict": "network",
+        "notes": "Helius: MoonPay Hot Wallet 4. Arkham: MoonPay entity, 'Hot Wallet' label. Treasury wallet. Funded by Bitstamp Exchange 2 (HBxZShcE, confirmed) + FalconX Hot Wallet (9CKnC2kmqG9ZBtQXDfxR5H7Av7X878geV367DdYtybT4, confirmed). SOL outflows go ONLY to MP1 — confirmed via Helius transfers (all pages exhausted, 11 txs, 27,500 SOL, sole recipient). Also receives from Coinbase Hot Wallets (8+), OKX, Circle Treasury. Not customer-facing — do NOT monitor for L11."
+      },
+      "MP2": {
+        "address": "5F1seMKUqSNhv45f6FhB2cFmgJbk8U1avJw7M6TexUq1",
+        "label": "MoonPay Hot Wallet 2",
         "role": "onramp",
         "verdict": "network",
-        "details": "Helius: MoonPay Hot Wallet 4. Treasury wallet, 17,056 SOL balance. Funded by Bitstamp Exchange 2 (HBxZShcE) + FalconX Hot Wallet (9CKnC2km). Only sends to MP1 (427,200 SOL total). Not customer-facing — do NOT monitor for L11.",
-        "notes": ""
+        "notes": "Helius: MoonPay Hot Wallet 2. Arkham: MoonPay entity, 'Hot Wallet' label. Customer-facing SOL distribution — SEPARATE supply chain from MP1. Funded by Binance 8 (5tzFkiKs, not MP4). 1,952 SOL balance. Discovered 2026-04-03 via RXRP repump funder tracing: MP2 funded FiggKseF which funded 6zZAKeF5, fUtfBAoj, and Dj9WL4Nh chain. Previously searched for twice (2026-03-25, 2026-04-02) and not found because it has a separate supply chain from MP4. MUST monitor for L11 alongside MP1."
+      },
+      "upstream": {
+        "bitstamp": {
+          "address": "HBxZShcE86UMmF93KUM8eWJKqeEXi5cqWCLYLMMhqMYm",
+          "label": "Bitstamp Exchange 2",
+          "role": "liquidity_provider",
+          "verdict": "not_network",
+          "notes": "Helius: 'Bitstamp Exchange 2', Centralized Exchange. Arkham: Bitstamp entity, 'Hot Wallet' label, isUserAddress=false. Provides SOL liquidity to MoonPay MP4. Not relevant for L11 monitoring."
+        },
+        "falconx": {
+          "address": "9CKnC2kmqG9ZBtQXDfxR5H7Av7X878geV367DdYtybT4",
+          "label": "FalconX Hot Wallet",
+          "role": "liquidity_provider",
+          "verdict": "not_network",
+          "notes": "Helius: 'FalconX Hot Wallet', Centralized Exchange. Arkham: FalconX entity, 'Hot Wallet' label, isUserAddress=false. Institutional OTC desk. Provides SOL liquidity to MoonPay MP4 ($91M total via Nansen). Not relevant for L11 monitoring."
+        }
       }
     },
     "unmapped": [
       "Ramp Network",
       "Transak",
       "Simplex",
-      "Banxa",
-      "Robinhood Connect"
+      "Banxa"
     ]
   },
   "profit_cashout": {
@@ -599,6 +623,267 @@
       "role": "network_connected",
       "verdict": "network",
       "notes": "DISCOVERED 2026-04-02. Funded by BloFin Insider Hub (BDVgXauN). $94K volume with BloFin Hub. Part of BloFin sniper infrastructure (same network as 9J9VHoLW and CJVEFdRS). L4-L6 early buyer."
+    }
+  },
+  "rxrp_repump_network": {
+    "notes": "DISCOVERED 2026-04-03. RXRP repump pre-announcement accumulation (Mar 22 2026). 22 unique wallets made 29 coordinated buys before Discord announcement. ALL 19 non-core wallets are isUserAddress=false (bots). Funded through 9 exchanges via intermediary layers. See data/rxrp-repump-buyers.json for full buy sequence and data/results/rxrp-repump-screen-results.json for raw API data.",
+    "intermediaries": {
+      "FiggKseF": {
+        "address": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+        "label": "MoonPay MP2 Intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by MoonPay Hot Wallet 2 (5F1seMKU). Feeds 6zZAKeF5, fUtfBAoj, and 73Y9DZAx chain (→ Gad9RgHw → Dj9WL4Nh). isUserAddress=false. Critical hub in MP2 funding chain."
+      },
+      "C5ivCCvG": {
+        "address": "C5ivCCvG4erHaxE4ijXm1CtdZEccE5PRD7Ak7EJSn8kD",
+        "label": "Bybit Intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by Bybit Hot Wallet 6 on 2026-03-22 (same day as RXRP accumulation start). Feeds B4sW2zUw + 4nNAJVQj. isUserAddress=false. Freshly funded for this operation."
+      },
+      "CSEncqtq": {
+        "address": "CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs",
+        "label": "CoinSpot Exchange Hot Wallet",
+        "role": "onramp",
+        "verdict": "network",
+        "notes": "CoinSpot exchange hot wallet (same address referenced in insiders.coinspot_insider.exchange). Funded by Binance 6 (CoinSpot sources SOL from Binance, like MoonPay from Bitstamp). Deployer withdraws SOL from CoinSpot to fund 4SsCN1i5 + F8XieEYF. isUserAddress=false."
+      },
+      "73Y9DZAx": {
+        "address": "73Y9DZAxXzQWkb3YzQq6wLZH9vwdkCpgaQZbV8yVDuR4",
+        "label": "FiggKseF Sub-intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by FiggKseF (2025-12-10). Feeds Gad9RgHw → Dj9WL4Nh. Part of MoonPay MP2 chain. isUserAddress=false."
+      },
+      "Gad9RgHw": {
+        "address": "Gad9RgHw2d956ZxkJBM8i8pKWQWrwBNLbZQrrVvZmYkF",
+        "label": "FiggKseF Sub-intermediary 2",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by 73Y9DZAx (2026-02-18). Feeds Dj9WL4Nh (BloomBot user, L10 early buyer #7). Part of MoonPay MP2 chain. isUserAddress=false."
+      },
+      "36EHoZGJ": {
+        "address": "36EHoZGJ6DA9SSZj73j6NL4dPNcP6FA4mD9NA84VzqC3",
+        "label": "Kraken Intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by Kraken Hot Wallet 1 on 2026-03-15 (day of L10 launch). Feeds GHNyLNAs. isUserAddress=false."
+      },
+      "BVjWqMXu": {
+        "address": "BVjWqMXu2JUcvCRmKj2cXSwZEC7NBZyKh4JRuxTdYvoY",
+        "label": "Binance 8 Intermediary A",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by Binance 8 (2023-12-18). Feeds BvYi1ZV9. isUserAddress=false."
+      },
+      "FRBPS12h": {
+        "address": "FRBPS12hytf1qhBGDxBX9Tmfzn1PBwJk6yNccoWgpS69",
+        "label": "Binance 8 Intermediary B",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by Binance 8 (2023-02-24). Feeds 6adFb8GQ. isUserAddress=false."
+      },
+      "8pCo2yj6": {
+        "address": "8pCo2yj6q2Nr6wdZEojDUCsnnDF8JWBem64qupvTT1sW",
+        "label": "Robinhood Intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by Robinhood Hot Wallet (2025-09-25). Feeds AZ57WTNM. isUserAddress=false."
+      },
+      "EMXJqHzn": {
+        "address": "EMXJqHznGSnSzeMyigBGQNEFw4EeaNDbj1UwaFTpp3sg",
+        "label": "Robinhood 2 Intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by Robinhood Hot Wallet 2 (2025-06-24). Feeds GmQy8Gro. isUserAddress=false."
+      },
+      "BGXGZvwK": {
+        "address": "BGXGZvwKDhJbXJHR9NRPof7DK4ZNFPyq4Hr9q5gmRJyJ",
+        "label": "FTX US Intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by FTX US Hot Wallet (2022-08-08, pre-collapse). Feeds A9BP3ZP1 → 54Pz1e35. isUserAddress=false."
+      },
+      "A9BP3ZP1": {
+        "address": "A9BP3ZP1wH7H3JwDXTThcC6fb7zUW5AfrLXbHHqBQsG",
+        "label": "FTX US Sub-intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by BGXGZvwK. Feeds 54Pz1e35 (user-labelled insider, $94 SOL). isUserAddress=false."
+      }
+    },
+    "buyer_wallets": {
+      "7cthuERB": {
+        "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh",
+        "label": "RXRP Buyer — ChangeNOW",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #3. Funded by ChangeNOW Hot Wallet 2. 27.89 SOL active. isUserAddress=false. No-KYC exchange source."
+      },
+      "B4sW2zUw": {
+        "address": "B4sW2zUwPkfXptcnMb3t3jUCsPMwPvK2cnvVQYaNnpG5",
+        "label": "RXRP Buyer — Bybit cluster",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #6. Funded by C5ivCCvG (Bybit chain). 0 SOL (drained). isUserAddress=false."
+      },
+      "4nNAJVQj": {
+        "address": "4nNAJVQjfwbynY31a8HyUDSpYai6dXDfREywGXehFyAJ",
+        "label": "RXRP Buyer — Bybit cluster",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #7. Funded by C5ivCCvG (Bybit chain). 0 SOL (drained). isUserAddress=false."
+      },
+      "GHNyLNAs": {
+        "address": "GHNyLNAssb8bT78myUeud1HN7jnF41m7KjXpCqKod56c",
+        "label": "RXRP Buyer — Kraken cluster",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #9. Funded by 36EHoZGJ (Kraken chain, funded on L10 launch day). isUserAddress=false."
+      },
+      "2Nzwpdro": {
+        "address": "2NzwpdroGnDfpeAGx1zsQrDne7fSHTdpgxtywSzG2J11",
+        "label": "RXRP Buyer — MoonPay MP1",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #11. Funded directly by MoonPay Hot Wallet 1 (Cc3bpPzU) — same wallet that funded L10 deployer. isUserAddress=false."
+      },
+      "4SsCN1i5": {
+        "address": "4SsCN1i5pxY2eH5P5C84rGPDJeMZ4azQzqTdHcLcQA4k",
+        "label": "RXRP Buyer — Binance 6 cluster",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #12. Funded by CSEncqtq (CoinSpot exchange). 0 SOL (drained). isUserAddress=false."
+      },
+      "F8XieEYF": {
+        "address": "F8XieEYFJGpEi3xhrp6SUqbTTwmKoPtPw547xmnu8Y4s",
+        "label": "RXRP Buyer — Binance 6 cluster + OG fee payer",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buys #13-14. Funded by CSEncqtq (CoinSpot exchange). Previously seen as fee payer on OG Deployer WSOL ATA trades. isUserAddress=false. RECLASSIFIED from incidental to network."
+      },
+      "yJUL3V8W": {
+        "address": "yJUL3V8WdLAcyREmfEG2tcLPgaxR2KvCDe9KP9MQCUs",
+        "label": "RXRP Buyer — MEXC",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #16. Funded by MEXC Exchange. Previously seen as token account owner sending to OG Deployer WSOL ATA. isUserAddress=false. RECLASSIFIED from incidental to network."
+      },
+      "6zZAKeF5": {
+        "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
+        "label": "RXRP Buyer — MoonPay MP2 cluster + OG fee payer",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buys #17,20. Funded by FiggKseF (MoonPay MP2 chain). 10.08 SOL active. Previously seen as fee payer on OG Deployer WSOL ATA trades. isUserAddress=false. RECLASSIFIED from incidental to network."
+      },
+      "AZ57WTNM": {
+        "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+        "label": "RXRP Buyer — Robinhood",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buys #18,23. Funded by 8pCo2yj6 (Robinhood chain). 47.58 SOL active. Previously seen as token account owner in OG Deployer WSOL ATA. isUserAddress=false. RECLASSIFIED from incidental to network."
+      },
+      "Dj9WL4Nh": {
+        "address": "Dj9WL4NhdQHd9X46KjoFfkDgKho1ZDYqpomJerbqDfe1",
+        "label": "RXRP Buyer — MoonPay MP2 chain + BloomBot L10 buyer",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #19. L10 early buyer position 7. Funded via 4-layer chain: MP2 → FiggKseF → 73Y9DZAx → Gad9RgHw → Dj9WL4Nh. BloomBot user. 3.10 SOL active. isUserAddress=false. RECLASSIFIED from 'NOT network (independent BloomBot user)' to network."
+      },
+      "BvYi1ZV9": {
+        "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+        "label": "RXRP Buyer — Binance 8 cluster + L10 buyer",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #21. L10 early buyer. Funded by BVjWqMXu (Binance 8 chain). 15.72 SOL active. isUserAddress=false. RECLASSIFIED from 'NOT network (unlabeled)' to network."
+      },
+      "fUtfBAoj": {
+        "address": "fUtfBAojmtP4JPRkZCMWQiP299VbzgoXUQuGbm9wpvM",
+        "label": "RXRP Buyer — MoonPay MP2 cluster",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #22. Funded by FiggKseF (MoonPay MP2 chain). 0 SOL (drained). isUserAddress=false."
+      },
+      "7JCe3GHw": {
+        "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k",
+        "label": "RXRP Buyer — Coinbase cluster",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #24. Funded by Coinbase Hot Wallet 8 (FpwQQhQQ, in network map). 224.72 SOL active. Previously labeled 'Trading Bot' by Nansen. isUserAddress=false. RECLASSIFIED from independent bot to network."
+      },
+      "6adFb8GQ": {
+        "address": "6adFb8GQUpLeMdW8pueu5iUgvD9BrVaiG2kmoShqqWU9",
+        "label": "RXRP Buyer — Binance 8 cluster",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #25. Funded by FRBPS12h (Binance 8 chain). isUserAddress=false."
+      },
+      "7iVCXQn4": {
+        "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi",
+        "label": "RXRP Buyer — Coinbase cluster",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "Buy #26. Funded by Coinbase Hot Wallet 8 (FpwQQhQQ, in network map). 220.90 SOL active. Previously labeled 'Trading Bot' by Nansen. isUserAddress=false. RECLASSIFIED from independent bot to network."
+      },
+      "54Pz1e35": {
+        "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy",
+        "label": "RXRP Buyer — FTX US chain (user-labelled insider)",
+        "role": "insider",
+        "verdict": "network",
+        "notes": "Buy #27. User-labelled insider. Funded via FTX US → BGXGZvwK → A9BP3ZP1. 94.16 SOL active. isUserAddress=false."
+      },
+      "GmQy8Gro": {
+        "address": "GmQy8Groh754d2uWqrZ8yiXKE91gKLRGSSvKAbQ87DeK",
+        "label": "RXRP Buyer — Robinhood 2 (user-labelled insider)",
+        "role": "insider",
+        "verdict": "network",
+        "notes": "Buy #28. User-labelled insider. Funded by EMXJqHzn (Robinhood 2 chain). isUserAddress=false."
+      },
+      "BiRdZygL": {
+        "address": "BiRdZygLEPqaVYKx9JTtdvp7D6a4wSMTj99CEMMR343J",
+        "label": "RXRP Buyer — Kraken (user-labelled insider)",
+        "role": "insider",
+        "verdict": "network",
+        "notes": "Buy #29. User-labelled insider. Funded directly by Kraken Hot Wallet 1. isUserAddress=false."
+      },
+      "9yRRiXhm": {
+        "address": "9yRRiXhmQiCb4FCB5W4scMWon57sG6P6QCaVXHD7pDBb",
+        "label": "RXRP Holder — DZc1evNL funded (Bubblemaps cluster)",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "From Bubblemaps RXRP cluster. Funded by DZc1evNL (known network, 5 connections). 12.81 SOL active. isUserAddress=false."
+      },
+      "8fCxXEEq": {
+        "address": "8fCxXEEqdv8a8CZ5QvLm6xzE45qYGZ3iCcRqmLLhDPms",
+        "label": "RXRP Holder — Binance 8 (Bubblemaps cluster)",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "From Bubblemaps RXRP cluster. Funded by Binance 8 (deployer's exchange). isUserAddress=false."
+      },
+      "J5GLMu33": {
+        "address": "J5GLMu33utKgRK87MJxuDLrCGbgawmJUj7AbvVC12VeC",
+        "label": "RXRP Holder — OG Deployer chain (Bubblemaps cluster)",
+        "role": "network_connected",
+        "verdict": "network",
+        "notes": "From Bubblemaps RXRP cluster. Funded via 3-layer chain: OG Deployer (37Xxihfs) → E85CMHUx → 9iUdep6N → J5GLMu33. isUserAddress=false."
+      }
+    },
+    "bubblemaps_intermediaries": {
+      "E85CMHUx": {
+        "address": "E85CMHUxXQxw89AhUzvH239gu9oaswuS3BBZouk2A9xo",
+        "label": "OG Deployer Sub-intermediary",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by OG Deployer (37Xxihfs, 0.25 SOL). Feeds 9iUdep6N → J5GLMu33. isUserAddress likely false."
+      },
+      "9iUdep6N": {
+        "address": "9iUdep6NGiN1DD5dTNF2QADpvbu86mBViy9qAdso9vpX",
+        "label": "OG Deployer Sub-intermediary 2",
+        "role": "intermediary",
+        "verdict": "network",
+        "notes": "Funded by E85CMHUx (OG Deployer chain). Feeds J5GLMu33. isUserAddress=false."
+      }
     }
   },
   "possible_associates": {

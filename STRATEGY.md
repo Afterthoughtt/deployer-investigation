@@ -16,24 +16,27 @@ The deployer varies the funding path every launch. Could revert to intermediarie
 
 **Rationale:** L10 used MoonPay MP1 → fresh wallet. Most likely path for L11.
 
-**CRITICAL GAP: MoonPay wallet mapping is INCOMPLETE.** We have only confirmed ONE MoonPay hot wallet on Solana:
+**TWO confirmed MoonPay customer-facing wallets on Solana** (MP2 discovered 2026-04-03 via RXRP repump funder chain tracing):
 
 | Wallet | Address | Status |
 |--------|---------|--------|
-| MP1 | `Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6` | Confirmed — customer-facing, funded L10 deployer |
-| MP4 | `AFKxebx96mnt1yn1ek6mcxeGDHmfrAWzo2h1fVdrrvWE` | Treasury only — funds MP1, do NOT monitor |
-| MP2/MP3 | Unknown | NOT found on Solana in prior search — may exist under different labels |
+| MP1 | `Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6` | Confirmed — customer-facing, funded L10 deployer + RXRP wallet 2Nzwpdro |
+| MP2 | `5F1seMKUqSNhv45f6FhB2cFmgJbk8U1avJw7M6TexUq1` | Confirmed — customer-facing, 1,952 SOL balance, separate supply chain (Binance 8). Funded RXRP intermediary FiggKseF |
+| MP4 | `AFKxebx96mnt1yn1ek6mcxeGDHmfrAWzo2h1fVdrrvWE` | Treasury only — funds MP1 only, do NOT monitor |
+| MP3 | Unknown | Still not found on Solana |
 
-Second discovery attempt (2026-04-02) via Arkham entity search + Arkham entity lookup + Nansen entity search found no additional Solana MoonPay wallets. Arkham returned the MoonPay entity but `addresses: null` (no address list exposed). Nansen confirmed entity name only. Gap confirmed — Vector A monitors MP1 only. If MoonPay rotates hot wallets, this vector has a blind spot.
+MP2 has a completely separate supply chain from MP1: funded by Binance 8, not by MP4 (Bitstamp/FalconX). This is why two prior searches failed — MP2 doesn't appear in MP4's outflows. Only found by tracing the deployer's RXRP repump wallet funding chains backward. **Both MP1 and MP2 must be monitored for L11.**
 
-**Filter criteria (ALL must match):**
+**Filter criteria — SOL path (primary, ALL must match):**
 - Amount: 8-25 SOL (L4+ range: 8.09-14.81, widened for safety)
 - Recipient has 0 prior signatures (fresh wallet)
 - Recipient has 0 prior balance
 
+**Filter criteria — USDC path (fallback):** If the deployer buys USDC via MoonPay instead of SOL, the USDC arrives from MP1's USDC ATA (`4FoRA1uLBcE31TC799djhLt3rqpGuh2gV9C5KdvLgUPg`), not MP1/MP2 directly. The recipient would then swap USDC → SOL on a DEX before deploying. Monitor MP1's USDC ATA for outflows of ~$1,000-3,500 USDC to fresh wallets. Lower likelihood than SOL path (all 10 historical launches used direct SOL funding), but would bypass the SOL sieve entirely if used.
+
 **Expected noise:** MoonPay processes thousands of transactions, but the specific fingerprint (8-25 SOL to a zero-history wallet) should have low false positive rate. Candidates can be manually reviewed in the 12-17h window before deploy.
 
-**Credit cost:** Polling MP1 via `getSignaturesForAddress` (10 credits) + `getTransaction` for each new sig (10 credits each). At reasonable polling intervals (every 5-10 min), this is well within Helius Developer plan limits.
+**Credit cost:** Polling MP1 + MP2 + MP1 USDC ATA via `getSignaturesForAddress` (10 credits each) + `getTransaction` for each new sig (10 credits each). At reasonable polling intervals (every 5-10 min), this is well within Helius Developer plan limits.
 
 ---
 
@@ -41,19 +44,25 @@ Second discovery attempt (2026-04-02) via Arkham entity search + Arkham entity l
 
 **Rationale:** L4-L9 all used network intermediaries. Deployer could revert. These wallets already hold SOL.
 
-**Wallet selection is TBD.** The candidates below are a starting point based on SOL balances and network centrality. Final watchlist needs to be determined — not all of these may be worth monitoring, and others from network-map.json may be better candidates.
+**UPDATED 2026-04-04.** RXRP repump investigation revealed 14 intermediary wallets, 19 buyer wallets (22 total, 3 already known core), and 3 Bubblemaps cluster wallets. Several have significant SOL balances worth monitoring.
 
-**Candidate watchlist (wallets with SOL that could fund a fresh deployer):**
+**Candidate watchlist (original network + RXRP repump wallets with active SOL):**
 
 | Label | Address | SOL Balance | Role |
 |-------|---------|-------------|------|
+| 7JCe3GHw | `7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k` | 224.7 | RXRP buyer, Coinbase-funded, Trading Bot |
+| 7iVCXQn4 | `7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi` | 220.9 | RXRP buyer, Coinbase-funded, Trading Bot |
 | GgFVQNY5 | `GgFVQNY5hck2WMFtpVeWi37yQKepyHLqLD8eZ3nmLvKH` | 112.7 | Collection wallet, relay chain convergence |
+| 54Pz1e35 | `54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy` | 94.2 | RXRP buyer, user-labelled insider, FTX US chain |
+| AZ57WTNM | `AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x` | 47.6 | RXRP buyer, Robinhood-funded |
 | 7RLD6F9S | `7RLD6F9SiFvtdqW4bYpy4m8D3mum7xVdZUSjzv1TWJaf` | 43.79 | Fireblocks, Hub-funded |
-| jetnut_network | `FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE` | 7.9 | Active trader, 13 network connections |
-| cold_usdc_2 | `EAcUbdoiY8aCwJKdSo17fhU4uqMopW27K4oLqpstqfHe` | 1.97 | USDC converter, still active Mar 20 |
-| eggsheeran | `DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8` | ~0.05 | 35 network connections, critical node |
+| 7cthuERB | `7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh` | 27.9 | RXRP buyer, ChangeNOW-funded (no-KYC) |
+| BvYi1ZV9 | `BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J` | 15.7 | RXRP buyer + L10 early buyer, Binance 8 chain |
+| 6zZAKeF5 | `6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk` | 10.1 | RXRP buyer, MoonPay MP2 chain, OG fee payer |
+| FiggKseF | `FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ` | TBD | MP2 intermediary hub, feeds 3+ wallets |
+| CSEncqtq | `CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs` | TBD | Binance 6 intermediary, feeds 2 wallets |
 
-**Note:** Balances were last checked 2026-03-31 and will change. SOL balances should be re-verified before the monitor goes live. Additional candidates (hub, OG deployer, prior deployers with residual SOL) are in `data/network-map.json`.
+**Note:** Balances checked 2026-04-03 for RXRP wallets. Older entries (GgFVQNY5, 7RLD6F9S) last checked 2026-03-31. All should be re-verified before monitor goes live.
 
 **Signal quality:** If any of these wallets send 8-25 SOL to a zero-history address, that is extremely high signal. But the right watchlist still needs to be finalized.
 
@@ -79,7 +88,7 @@ Second discovery attempt (2026-04-02) via Arkham entity search + Arkham entity l
 | Label | Address | Notes |
 |-------|---------|-------|
 | CoinSpot insider (token wallet) | `4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh` | Buys early but L10 activity unverified. May receive tokens via bundle rather than open market buy. |
-| Cross-reference unknowns | See `data/results/cross-reference-report.json` | 19 unknown wallets appearing in 2-3 launches. Not profiled. Could contain reliable early buyers. |
+| Cross-reference unknowns | See `data/results/cross-reference-report.json` | All resolved as of 2026-04-02. 1 remaining unresolved: 7QJM8rXX (2 network overlaps, MEXC-funded, ambiguous). |
 
 **Decision needed:** Which wallet(s) provide the best copy-trade signal? BqP79Wmk is the most proven (10/10 launches), but its 0 SOL balance means it needs re-funding first — which is itself a signal.
 
@@ -102,7 +111,7 @@ Second discovery attempt (2026-04-02) via Arkham entity search + Arkham entity l
 | Supply purchased | 30-35% |
 | SOL spent (fresh wallet era) | 8.09-14.81 SOL |
 | Bundle wallets | 6 (receive tokens within seconds of deploy) |
-| On-ramp history | Coinbase (L1-L9), MoonPay (L10) |
+| On-ramp history | Coinbase (L1-L9), MoonPay (L10), RXRP repump: Coinbase/MoonPay MP1+MP2/Bybit/Binance/Kraken/ChangeNOW/MEXC/Robinhood/FTX US |
 | Token naming | XRP-themed memecoins |
 
 ## Architecture (TBD)
@@ -112,10 +121,12 @@ Polling vs. webhooks, alerting mechanism (Discord/Telegram/terminal), Bloom bot 
 ## Data Files
 
 All investigation findings are in these canonical files:
-- `data/network-map.json` — wallet registry (70+ addresses, roles, labels, verdicts)
+- `data/network-map.json` — wallet registry (~147 addresses, roles, labels, verdicts)
 - `data/launch-history.json` — 10-launch behavioral profile + timeline
 - `data/launch-details.json` — per-launch deployer flows + early buyer lists
 - `data/results/investigation-notes.json` — profit extraction routes (7 routes, $400K+ total)
 - `data/results/cross-reference-report.json` — cross-launch recurring wallet analysis
+- `data/rxrp-repump-buyers.json` — RXRP repump 22 buyer wallets with buy sequence
+- `data/results/rxrp-repump-screen-results.json` — RXRP repump screening results (19 wallets)
 
 Investigation scripts and raw API results archived in `archive/`.
