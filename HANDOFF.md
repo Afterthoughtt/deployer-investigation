@@ -14,14 +14,14 @@ Investigation phase is **done**. Operational monitor build is **in progress**.
 
 ## 2. Two Directories, Two Repos
 
-Both are siblings under `~/Desktop/` on the user's machine. Each has its own `.git/`. Neither is nested inside the other.
+Both are siblings under `~/Desktop/` on the user's machine. Each has its own `.git/`. Neither is nested inside the other. Both are private GitHub repos on the `Afterthoughtt` account.
 
-| Dir | Role | Status |
-|-----|------|--------|
-| `investigation/` (this one) | Frozen research archive — ~147 wallets mapped, strategy doc, audit scripts | Has 13 days of uncommitted work as of 2026-04-15, see section 7 |
-| `../l11-monitor/` | Active operational build — standalone TypeScript project | Clean working tree, Phases 0-1 complete |
+| Dir | Role | Clone URL |
+|-----|------|-----------|
+| `investigation/` (this one) | Frozen research archive — ~147 wallets mapped, strategy doc, audit scripts | `git@github.com:Afterthoughtt/deployer-investigation.git` |
+| `../l11-monitor/` | Active operational build — standalone TypeScript project, Phases 0-1 complete | `git@github.com:Afterthoughtt/deployer-monitor.git` |
 
-**Both repos must be cloned on the new machine.** They transfer independently — push and pull each separately.
+**Both repos must be cloned on the new machine.** They transfer independently.
 
 ## 3. Where the Build Is
 
@@ -95,25 +95,35 @@ These are captured only in auto-memory on the old machine, and need to live here
 
 - **User is in PDT (UTC-7).** Plan sessions accordingly.
 
-## 7. Investigation Repo State
+## 7. Repo State (Both Synced to GitHub)
 
-Committed and pushed as of 2026-04-15. Most recent commit on `main`:
+Both repos are committed and pushed to `Afterthoughtt` GitHub account as of 2026-04-15.
 
+**investigation/** — most recent commits on `main`:
+- `46ebc93` — Add HANDOFF.md for cross-computer continuation
 - `a957314` — RXRP repump investigation: MP2 discovery + 22 buyer wallets mapped
 - `fbd38a9` — Update CLAUDE.md: reflect audit completion, add src/audit and results files
-- `eb59807` — Remove completed audit spec and plan
-- `6eb44a7` — Update data files with audit findings: all unknowns triaged, labels updated
 
-Remote: `git@github-afterthoughtt:afterthoughtt/deployer-investigation.git`
+**l11-monitor/** — most recent commits on `main`:
+- `75dcd8f` — Add docs/ — Helius + Telegram API references
+- `01e6dde` — Add PLAN.md and PROGRESS.md to project directory
+- `c4cc5e3` — Phase 1: core standby polling
+- `2fb20b5` — Phase 0: scaffold l11-monitor project
 
-`.DS_Store` is now gitignored. Working tree is clean except for this HANDOFF.md (about to be committed).
+`.DS_Store` is gitignored in investigation/. Both working trees are clean.
 
 ## 8. Setup Checklist (New Machine)
 
-1. Clone both repos: `investigation/` and `l11-monitor/` under `~/Desktop/` (or anywhere sibling to each other).
+1. Clone both repos (they must be siblings — monitor reads `../investigation/` paths at development time):
+   ```
+   cd ~/Desktop
+   git clone git@github.com:Afterthoughtt/deployer-investigation.git investigation
+   git clone git@github.com:Afterthoughtt/deployer-monitor.git l11-monitor
+   ```
+   (If SSH isn't set up on the new machine yet, use HTTPS URLs instead, or run `gh auth login --git-protocol ssh --web` first.)
 2. Install Node v24+ (native WebSocket is used in l11-monitor/ Phase 3 — no `ws` npm package).
-3. Create `investigation/.env` with: `HELIUS_API_KEY`, `NANSEN_API_KEY`, `ARKAN_API_KEY`. Copy values from old machine or generate fresh keys at the providers.
-4. Create `l11-monitor/.env` with: `HELIUS_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
+3. Create `investigation/.env` with: `HELIUS_API_KEY`, `NANSEN_API_KEY`, `ARKAN_API_KEY`. Copy values from the old machine's `.env` or generate fresh keys at the providers.
+4. Create `l11-monitor/.env` with: `HELIUS_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. (`.env.example` in the repo shows the format.)
 5. **Telegram bot does NOT yet exist.** Blocker for Phase 2. User action required: message `@BotFather` on Telegram → `/newbot` → follow prompts → copy bot token. Then message the new bot once, visit `https://api.telegram.org/bot<TOKEN>/getUpdates`, find `"chat":{"id":...}`. Add both to `l11-monitor/.env`.
 6. Install monitor deps: `cd l11-monitor && npm install`.
 7. Smoke test: `cd l11-monitor && npx tsx src/index.ts` — should poll the 15 watchlist wallets in standby mode. Clean SIGINT (Ctrl+C) to quit. Expected cost: ~15 credits per cycle.
