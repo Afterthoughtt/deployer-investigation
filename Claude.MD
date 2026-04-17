@@ -34,7 +34,7 @@ Cross-reference entity labels between all three APIs. They have different covera
 
 ```
 data/
-  network-map.json       — Canonical wallet registry (~140 wallets, uniform schema: address, label, role, verdict, notes)
+  network-map.json       — Canonical wallet registry (~94 catalogued wallets incl. 26 screened-out, uniform schema: address, label, role, verdict, notes)
   launch-history.json    — 10-launch behavioral profile + timeline
   launch-details.json    — Per-launch deployer flows + early buyer lists (L1-L10)
   results/

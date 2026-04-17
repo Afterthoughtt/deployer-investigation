@@ -97,8 +97,8 @@ MP2 has a completely separate supply chain from MP1: funded by Binance 8, not by
 ## Timing
 
 - **Cadence:** ~Monthly. L10 was March 15.
-- **L11 expected:** Mid-April 2026 (~April 12-18)
-- **Monitor must be live by:** April 10 at latest
+- **L11 expected:** April 20-30, 2026 (community intel, 2026-04-11)
+- **Monitor must be armed-capable by:** April 19, 2026
 - **Funding-to-deploy gap:** 12-17h (max observed: 26h)
 - **Deploy window:** 18:00-23:43 UTC (L5+ pattern)
 
@@ -121,7 +121,7 @@ Polling vs. webhooks, alerting mechanism (Discord/Telegram/terminal), Bloom bot 
 ## Data Files
 
 All investigation findings are in these canonical files:
-- `data/network-map.json` — wallet registry (~147 addresses, roles, labels, verdicts)
+- `data/network-map.json` — wallet registry (~94 catalogued wallets, roles, labels, verdicts)
 - `data/launch-history.json` — 10-launch behavioral profile + timeline
 - `data/launch-details.json` — per-launch deployer flows + early buyer lists
 - `data/results/investigation-notes.json` — profit extraction routes (7 routes, $400K+ total)
