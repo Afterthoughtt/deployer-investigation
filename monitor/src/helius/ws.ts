@@ -1,6 +1,8 @@
 import WebSocket from "ws";
 
 const ENHANCED_WS_URL = "wss://atlas-mainnet.helius-rpc.com";
+const INITIAL_BACKOFF_MS = 1_000;
+const MAX_BACKOFF_MS = 60_000;
 
 export interface TransactionEvent {
   signature: string;
@@ -16,106 +18,130 @@ export interface HeliusWsOptions {
   onSubscribed?: (subscriptionId: number) => void;
   onClose?: (code: number, reason: string) => void;
   onError?: (err: Error) => void;
+  onReconnecting?: (attempt: number, delayMs: number) => void;
 }
 
 export interface HeliusWsHandle {
   close: () => void;
-}
-
-interface JsonRpcResponse {
-  jsonrpc: "2.0";
-  id?: number;
-  result?: unknown;
-  error?: { code: number; message: string };
-}
-
-interface TransactionNotification {
-  jsonrpc: "2.0";
-  method: "transactionNotification";
-  params: {
-    subscription: number;
-    result: {
-      signature?: string;
-      slot?: number;
-      transaction?: unknown;
-    };
-  };
+  /** Forcibly terminate the current socket; reconnect will kick in. Test-only. */
+  forceDisconnect: () => void;
 }
 
 export function connectHeliusWs(opts: HeliusWsOptions): HeliusWsHandle {
   const url = `${ENHANCED_WS_URL}/?api-key=${opts.apiKey}`;
-  const ws = new WebSocket(url);
+  let ws: WebSocket | null = null;
+  let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
+  let closed = false;
+  let consecutiveFailures = 0;
 
-  ws.on("open", () => {
-    opts.onOpen?.();
-    const subscribeReq = {
-      jsonrpc: "2.0",
-      id: 1,
-      method: "transactionSubscribe",
-      params: [
-        {
-          accountInclude: opts.accounts,
-          vote: false,
-          failed: false,
-        },
-        {
-          commitment: "confirmed",
-          encoding: "jsonParsed",
-          transactionDetails: "full",
-          maxSupportedTransactionVersion: 0,
-        },
-      ],
-    };
-    ws.send(JSON.stringify(subscribeReq));
-  });
+  const scheduleReconnect = () => {
+    if (closed) return;
+    const delayMs = Math.min(
+      INITIAL_BACKOFF_MS * 2 ** consecutiveFailures,
+      MAX_BACKOFF_MS,
+    );
+    consecutiveFailures++;
+    opts.onReconnecting?.(consecutiveFailures, delayMs);
+    reconnectTimer = setTimeout(() => {
+      reconnectTimer = null;
+      connect();
+    }, delayMs);
+  };
 
-  ws.on("message", (raw) => {
-    let msg: JsonRpcResponse | TransactionNotification;
-    try {
-      msg = JSON.parse(raw.toString());
-    } catch {
-      return;
-    }
+  const connect = () => {
+    if (closed) return;
+    const sock = new WebSocket(url);
+    ws = sock;
 
-    if ("id" in msg && msg.id === 1) {
-      if (msg.error) {
-        opts.onError?.(
-          new Error(`transactionSubscribe failed: ${msg.error.code} ${msg.error.message}`),
-        );
+    sock.on("open", () => {
+      opts.onOpen?.();
+      const subscribeReq = {
+        jsonrpc: "2.0",
+        id: 1,
+        method: "transactionSubscribe",
+        params: [
+          { accountInclude: opts.accounts, vote: false, failed: false },
+          {
+            commitment: "confirmed",
+            encoding: "jsonParsed",
+            transactionDetails: "full",
+            maxSupportedTransactionVersion: 0,
+          },
+        ],
+      };
+      sock.send(JSON.stringify(subscribeReq));
+    });
+
+    sock.on("message", (raw) => {
+      let msg: unknown;
+      try {
+        msg = JSON.parse(raw.toString());
+      } catch {
         return;
       }
-      if (typeof msg.result === "number") {
-        opts.onSubscribed?.(msg.result);
+      if (typeof msg !== "object" || msg === null) return;
+      const m = msg as Record<string, unknown>;
+
+      if ("id" in m && m.id === 1) {
+        if (m.error && typeof m.error === "object") {
+          const e = m.error as { code?: number; message?: string };
+          opts.onError?.(
+            new Error(
+              `transactionSubscribe failed: ${e.code ?? "?"} ${e.message ?? ""}`,
+            ),
+          );
+          return;
+        }
+        if (typeof m.result === "number") {
+          consecutiveFailures = 0;
+          opts.onSubscribed?.(m.result);
+        }
+        return;
       }
-      return;
-    }
 
-    if ("method" in msg && msg.method === "transactionNotification") {
-      const result = msg.params?.result;
-      if (!result) return;
-      const sig = result.signature ?? extractFirstSignature(result.transaction);
-      if (sig === undefined || result.slot === undefined) return;
-      opts.onEvent({
-        signature: sig,
-        slot: result.slot,
-        raw: result,
-      });
-    }
-  });
+      if (m.method === "transactionNotification") {
+        const params = m.params as { result?: Record<string, unknown> } | undefined;
+        const result = params?.result;
+        if (!result) return;
+        const sig =
+          typeof result.signature === "string"
+            ? result.signature
+            : extractFirstSignature(result.transaction);
+        const slot = typeof result.slot === "number" ? result.slot : undefined;
+        if (!sig || slot === undefined) return;
+        opts.onEvent({ signature: sig, slot, raw: result });
+      }
+    });
 
-  ws.on("error", (err) => {
-    opts.onError?.(err instanceof Error ? err : new Error(String(err)));
-  });
+    sock.on("error", (err) => {
+      opts.onError?.(err instanceof Error ? err : new Error(String(err)));
+    });
 
-  ws.on("close", (code, reason) => {
-    opts.onClose?.(code, reason.toString());
-  });
+    sock.on("close", (code, reason) => {
+      if (ws === sock) ws = null;
+      opts.onClose?.(code, reason.toString());
+      if (!closed) scheduleReconnect();
+    });
+  };
+
+  connect();
 
   return {
     close: () => {
-      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
-        ws.close();
+      closed = true;
+      if (reconnectTimer) {
+        clearTimeout(reconnectTimer);
+        reconnectTimer = null;
       }
+      if (ws) {
+        const s = ws;
+        if (s.readyState === WebSocket.OPEN || s.readyState === WebSocket.CONNECTING) {
+          s.close();
+        }
+      }
+    },
+    forceDisconnect: () => {
+      if (ws) ws.terminate();
     },
   };
 }
