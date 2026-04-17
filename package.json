@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "tsx src/index.ts"
+    "start": "tsx src/index.ts",
+    "monitor:dev": "tsx monitor/src/index.ts",
+    "monitor:build": "tsc -p monitor",
+    "monitor:start": "node monitor/dist/index.js"
   },
   "dependencies": {
-    "dotenv": "^17.3.1",
-    "tsx": "^4.21.0"
+    "better-sqlite3": "^12.9.0",
+    "dotenv": "^17.4.2"
   },
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   }
 }

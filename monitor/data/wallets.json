@@ -1,0 +1,11 @@
+{
+  "onramps": [
+    { "address": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6", "label": "MoonPay Hot Wallet 1" },
+    { "address": "5F1seMKUqSNhv45f6FhB2cFmgJbk8U1avJw7M6TexUq1", "label": "MoonPay Hot Wallet 2" }
+  ],
+  "hubs": [
+    { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet" }
+  ],
+  "intermediaries": [],
+  "ignore": []
+}

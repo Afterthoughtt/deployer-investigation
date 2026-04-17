@@ -1,4 +1,8 @@
-import "dotenv/config";
+import { resolve } from "node:path";
+import dotenv from "dotenv";
+import { REPO_ROOT, resolveFromMonitor } from "./paths.js";
+
+dotenv.config({ path: resolve(REPO_ROOT, ".env") });
 
 const LOG_LEVELS = ["trace", "debug", "info", "warn", "error", "fatal"] as const;
 type LogLevel = (typeof LOG_LEVELS)[number];
@@ -8,6 +12,7 @@ export interface Config {
   telegramBotToken: string;
   telegramChatId: number;
   dbPath: string;
+  walletsPath: string;
   logLevel: LogLevel;
 }
 
@@ -37,7 +42,10 @@ export function loadConfig(): Config {
     }
   }
 
-  const dbPath = process.env.DB_PATH?.trim() || "./data/l11.db";
+  const dbPathRaw = process.env.DB_PATH?.trim() || "./data/l11.db";
+  const dbPath = resolveFromMonitor(dbPathRaw);
+
+  const walletsPath = resolveFromMonitor("./data/wallets.json");
 
   const logLevelRaw = process.env.LOG_LEVEL?.trim() || "info";
   if (!LOG_LEVELS.includes(logLevelRaw as LogLevel)) {
@@ -58,6 +66,7 @@ export function loadConfig(): Config {
     telegramBotToken,
     telegramChatId,
     dbPath,
+    walletsPath,
     logLevel: logLevelRaw as LogLevel,
   };
 }

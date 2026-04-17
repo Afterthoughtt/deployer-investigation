@@ -12,8 +12,10 @@ The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spe
 
 - TypeScript (ES Modules, strict mode)
 - Node.js with tsx for direct execution
-- API keys loaded from `.env` via dotenv
+- better-sqlite3 (monitor, WAL mode)
+- API keys loaded from root `.env` via dotenv (shared by audit scripts + monitor)
 - Helius API (RPC + Wallet API), Nansen API, Arkham API
+- One root `package.json` covers both audit scripts and monitor runtime. Monitor-only compile config lives in `monitor/tsconfig.json`.
 
 ## APIs
 
@@ -25,10 +27,16 @@ Cross-reference entity labels between all three APIs. They have different covera
 
 ## Environment
 
-`.env` file contains API keys (never commit):
-- `NANSEN_API_KEY` — Nansen API
-- `ARKAN_API_KEY` — Arkham API (note: ARKAN, not ARKHAM)
-- `HELIUS_API_KEY` — Helius RPC + Wallet API
+Single root `.env` (never commit; see `.env.example`):
+- `HELIUS_API_KEY` — Helius RPC + Wallet API (audit + monitor)
+- `NANSEN_API_KEY` — Nansen API (audit only)
+- `ARKAN_API_KEY` — Arkham API (audit only; note: ARKAN, not ARKHAM)
+- `TELEGRAM_BOT_TOKEN` — Monitor Telegram bot (required at monitor startup)
+- `TELEGRAM_CHAT_ID` — Monitor destination chat, integer; negative for supergroups (required)
+- `DB_PATH` — Monitor SQLite path, optional, default `./data/l11.db` (relative to `monitor/`)
+- `LOG_LEVEL` — Monitor log level, optional, default `info` (trace/debug/info/warn/error/fatal)
+
+Monitor loads the root `.env` via `import.meta.url`-resolved path; in production, systemd's `EnvironmentFile=` preloads `process.env` before launch.
 
 ## Directory Structure
 
@@ -46,7 +54,10 @@ data/
   rxrp-repump-buyers.json — RXRP repump 22 buyer wallets with buy sequence (2026-04-03)
 src/
   audit/                 — Audit scripts (utils.ts, batch-screen.ts, deep-dive.ts, moonpay-search.ts, rxrp-repump-screen.ts)
-monitor/                 — L11 operational monitor (self-contained Node package, to be built — detects funded fresh wallets before create_and_buy fires; see MONITOR_BUILD_PLAN.md)
+monitor/                 — L11 operational monitor (detects funded fresh wallets before create_and_buy fires). Runtime deps in root package.json; run via `npm run monitor:dev` / `monitor:build` / `monitor:start`. See MONITOR_BUILD_PLAN.md.
+  src/                   — config.ts, db.ts, wallets.ts, paths.ts, index.ts
+  data/                  — wallets.json (committed), l11.db (gitignored)
+  tsconfig.json          — monitor-only compile config
 docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
 archive/
   scripts/               — Completed investigation scripts (37 files, served their purpose)

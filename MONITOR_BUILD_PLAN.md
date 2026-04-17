@@ -44,8 +44,14 @@ If a step depends on live data, use real data. Do not mock Helius or Telegram. M
 Before writing any feature code, establish the run command and verify it works with a minimal skeleton. The user needs to be able to:
 
 ```bash
-# Local development
-npm run dev
+# Local development (from repo root)
+npm run monitor:dev
+
+# Build compiled JS into monitor/dist/
+npm run monitor:build
+
+# Run compiled daemon (what systemd invokes)
+npm run monitor:start
 
 # Production on the VPS
 systemctl start l11-monitor
@@ -53,7 +59,7 @@ systemctl status l11-monitor
 journalctl -u l11-monitor -f
 ```
 
-If you add a new dependency, new env var, or new build step, update the run instructions in this document and confirm the daemon still starts cleanly.
+Runtime deps and scripts live in the root `package.json`. Monitor-only compile settings live in `monitor/tsconfig.json`. If you add a new dependency, new env var, or new build step, update the run instructions in this document and confirm the daemon still starts cleanly.
 
 ### Do not over-engineer
 
@@ -83,8 +89,10 @@ Never reconstruct a wallet address from a truncated prefix. Copy full addresses 
 - grammy for Telegram
 - Helius Developer plan ($24.50/mo): Enhanced WSS `transactionSubscribe` with `accountInclude` filter, plus RPC for backfill
 - pino for structured logging
-- dotenv for config
+- dotenv for config (reads the single root `.env`)
 - systemd for process management (no pm2)
+
+Packaging: one root `package.json` at the repo root covers runtime + dev deps for both audit scripts and monitor. Monitor sources live in `monitor/src/` with `monitor/tsconfig.json` for scoped compilation into `monitor/dist/`. No separate `monitor/package.json`, no separate `monitor/.env`.
 
 **Credit budget (Helius Developer plan, 10M credits/month):** estimated burn ~45–90K credits/month for normal operation — Enhanced WS data streaming at 3 credits / 0.1 MB, with ~30 monitored wallets producing ~50–100 MB/day of parsed transaction data. Reconnect-backfill (`getSignaturesForAddress` at 10 credits, `getTransaction` at 10 credits) adds margin. Normal-day operation leaves >100x headroom. Track actual burn on the Helius dashboard, not programmatically in v1.
 
@@ -315,20 +323,24 @@ Callback handlers on `wl:*` and `rj:*`. Acknowledge the callback immediately (Gr
 
 ## Configuration
 
-`.env` file at project root, not committed. `.env.example` is committed.
+Single `.env` at the **repo root** (`investigation/.env`), not committed. `.env.example` at the repo root is committed. The monitor loads it via an `import.meta.url`-resolved path, so cwd doesn't matter.
 
-Required env vars:
+Required env vars (monitor):
 ```
 HELIUS_API_KEY=
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
-DB_PATH=./data/l11.db
-LOG_LEVEL=info
 ```
 
-On startup, validate all env vars exist. Fail loudly if any missing.
+Optional env vars (monitor):
+```
+DB_PATH=./data/l11.db   # relative paths resolve from monitor/; absolute paths used as-is
+LOG_LEVEL=info          # trace | debug | info | warn | error | fatal
+```
 
-Nansen is not required for runtime. It was used in prior investigation to build the wallet map, but the daemon itself doesn't call Nansen.
+The audit scripts also read this same `.env` for `NANSEN_API_KEY` and `ARKAN_API_KEY`. Those are NOT required for the monitor runtime.
+
+On startup, the monitor validates its required env vars. Fail loudly if any missing. Missing audit keys are fine — the monitor never touches them.
 
 ---
 
@@ -396,38 +408,45 @@ If the replay produces the correct alert, the system is ready. If not, fix and r
 
 ## File layout
 
-Self-contained Node package at `investigation/monitor/` (top-level beside `src/`, `data/`, `docs/`):
+Monitor sources live at `investigation/monitor/` (top-level beside `src/`, `data/`, `docs/`). The package boundary is root — `package.json`, `package-lock.json`, `node_modules/`, `.env`, `.env.example`, `.gitignore` all live one level up.
 
 ```
-monitor/
-  src/
-    index.ts              # entrypoint, wires everything up
-    config.ts             # env loading and validation
-    db.ts                 # better-sqlite3 setup, migrations, prepared statements
-    helius/
-      ws.ts               # WebSocket connection, reconnect, backfill
-      rpc.ts              # getSignaturesForAddress, getTransaction
-    detection/
-      candidate.ts        # candidate detection logic
-      fresh.ts            # fresh-wallet check
-    telegram/
-      bot.ts              # grammy setup, command handlers, callback handlers
-      push.ts             # outbound alert formatters
-    health.ts             # /health endpoint, event freshness tracker
-    log.ts                # pino setup
-    wallets.ts            # wallets.json loader, sync to DB
-  data/
-    l11.db                # gitignored
-    wallets.json          # committed
-  systemd/
-    l11-monitor.service   # systemd unit for VPS
-  .env.example            # committed
-  .env                    # gitignored
-  package.json
-  tsconfig.json
+investigation/
+  package.json                    # shared runtime + dev deps (audit + monitor)
+  package-lock.json
+  node_modules/                   # shared
+  .env                            # gitignored; audit + monitor keys
+  .env.example                    # committed
+  .gitignore                      # covers monitor/data/l11.db* etc.
+  src/audit/                      # audit scripts (pre-existing)
+  monitor/
+    src/
+      index.ts                    # entrypoint, wires everything up
+      config.ts                   # env loading and validation (loads root .env)
+      paths.ts                    # MONITOR_ROOT / REPO_ROOT / resolveFromMonitor helper
+      db.ts                       # better-sqlite3 setup, migrations, prepared statements
+      helius/
+        ws.ts                     # WebSocket connection, reconnect, backfill
+        rpc.ts                    # getSignaturesForAddress, getTransaction
+      detection/
+        candidate.ts              # candidate detection logic
+        fresh.ts                  # fresh-wallet check
+      telegram/
+        bot.ts                    # grammy setup, command handlers, callback handlers
+        push.ts                   # outbound alert formatters
+      health.ts                   # /health endpoint, event freshness tracker
+      log.ts                      # pino setup
+      wallets.ts                  # wallets.json loader, sync to DB
+    data/
+      l11.db                      # gitignored
+      wallets.json                # committed
+    systemd/
+      l11-monitor.service         # systemd unit for VPS
+    tsconfig.json                 # monitor-scoped compile config (src -> dist)
+    dist/                         # tsc output; gitignored
 ```
 
-The monitor has its own `package.json` and `tsconfig.json` separate from the audit scripts in `investigation/src/audit/` so the daemon's runtime deps stay minimal.
+Originally the monitor was planned as a self-contained package with its own `package.json`/`.env`. Consolidated 2026-04-17 after realizing the audit side has no runtime deps worth separating, so duplicating the dep tree and `.env` was pure overhead for a one-developer project.
 
 ---
 
@@ -445,7 +464,7 @@ Wants=network-online.target
 Type=simple
 User=l11
 WorkingDirectory=/opt/l11-monitor
-ExecStart=/usr/bin/node dist/index.js
+ExecStart=/usr/bin/node monitor/dist/index.js
 Restart=always
 RestartSec=5
 StandardOutput=journal
@@ -466,10 +485,10 @@ Once acceptance test passes locally:
 1. Provision a small Linux VM (DigitalOcean Premium Droplet 2 vCPU / 4GB recommended; Hetzner / Vultr / Linode equivalents work too). Ubuntu 24.04 LTS, NYC region (or closest to user)
 2. Harden: ufw allow 22, fail2ban, disable root, SSH key only
 3. Create `l11` system user, `/opt/l11-monitor` directory owned by that user
-4. Install Node LTS, git
-5. Clone repo, `npm ci` inside `monitor/`, build with `tsc`
-6. Install `.env` with production credentials (scp over, chmod 600, chown l11)
-7. Place systemd unit, `systemctl daemon-reload && systemctl enable --now l11-monitor`
+4. Install Node LTS, git, build-essential (better-sqlite3 may need to compile native bindings for the VPS's Node version)
+5. Clone the repo INTO `/opt/l11-monitor` so the repo root *is* `/opt/l11-monitor`. Run `npm ci` at the repo root, then `npm run monitor:build` to produce `monitor/dist/`
+6. Install `.env` at the repo root (`/opt/l11-monitor/.env`) with production credentials (scp over, chmod 600, chown l11)
+7. Place systemd unit at `/etc/systemd/system/l11-monitor.service`, `systemctl daemon-reload && systemctl enable --now l11-monitor`
 8. `journalctl -u l11-monitor -f` to tail logs
 9. Verify Telegram heartbeat and startup message arrive
 10. Enable provider's automated weekly backups (DO has a checkbox in the control panel)

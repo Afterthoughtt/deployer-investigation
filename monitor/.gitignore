@@ -1,6 +1,0 @@
-node_modules/
-dist/
-.env
-data/l11.db
-data/l11.db-wal
-data/l11.db-shm
