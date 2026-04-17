@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
-import type { Candidate } from "./detection/candidate.js";
+import type { Candidate, Confidence } from "./detection/candidate.js";
 
 const SCHEMA_DDL = `
 CREATE TABLE IF NOT EXISTS monitored_wallets (
@@ -81,6 +81,33 @@ export interface CandidateActionResult {
 }
 
 export type CandidateAction = (id: number) => CandidateActionResult;
+
+export interface ActiveCandidateRow {
+  id: number;
+  address: string;
+  fundedAmountSol: number;
+  fundingSourceLabel: string | null;
+  confidence: Confidence;
+  detectedAt: number;
+}
+
+export type ListActiveCandidates = () => ActiveCandidateRow[];
+
+/** Snapshot of candidates currently awaiting a whitelist/reject decision. */
+export function makeListActiveCandidates(db: Db): ListActiveCandidates {
+  const stmt = db.prepare(
+    `SELECT id,
+            address,
+            funded_amount_sol    AS fundedAmountSol,
+            funding_source_label AS fundingSourceLabel,
+            confidence,
+            detected_at          AS detectedAt
+       FROM candidates
+      WHERE status = 'detected'
+      ORDER BY detected_at DESC`,
+  );
+  return () => stmt.all() as ActiveCandidateRow[];
+}
 
 /**
  * Build a persist function bound to prepared statements for this db handle.

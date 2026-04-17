@@ -4,6 +4,7 @@ import {
   makePersistCandidate,
   makeWhitelistCandidate,
   makeRejectCandidate,
+  makeListActiveCandidates,
 } from "./db.js";
 import { connectHeliusWs, type TransactionEvent } from "./helius/ws.js";
 import { loadWalletsFile, syncWalletsToDb, type Category } from "./wallets.js";
@@ -44,6 +45,7 @@ try {
   const persistCandidate = makePersistCandidate(db);
   const whitelistCandidate = makeWhitelistCandidate(db);
   const rejectCandidate = makeRejectCandidate(db);
+  const listActiveCandidates = makeListActiveCandidates(db);
   console.log("l11-monitor: db opened");
 
   const wallets = loadWalletsFile(config.walletsPath);
@@ -81,6 +83,13 @@ try {
     `l11-monitor: starting helius ws (${accounts.length} accounts, ${ignoreSet.size} ignored, ${alreadyCandidates.size} existing candidates)`,
   );
 
+  const status = {
+    startedAt: Date.now(),
+    wsConnected: false,
+    subscribeCount: 0,
+    lastEventAt: null as number | null,
+  };
+
   const bot = createTelegramBot({
     token: config.telegramBotToken,
     chatId: config.telegramChatId,
@@ -94,6 +103,8 @@ try {
       }
       return result;
     },
+    listActiveCandidates,
+    getStatus: () => status,
   });
   await bot.start();
   try {
@@ -115,7 +126,6 @@ try {
   );
 
   let eventCount = 0;
-  let subscribeCount = 0;
   let candidateCount = 0;
   let backfillPromise: Promise<unknown> | null = null;
   const abortController = new AbortController();
@@ -127,6 +137,7 @@ try {
   const handleEvent = (source: "ws" | "backfill") => (ev: TransactionEvent) => {
     if (shuttingDown) return;
     eventCount++;
+    status.lastEventAt = Date.now();
     const touched = findTouchedAddresses(ev.raw, monitoredSet);
     for (const addr of touched) {
       advanceCursorStmt.run(ev.signature, ev.slot, addr, ev.slot);
@@ -212,17 +223,21 @@ try {
   const wsHandle = connectHeliusWs({
     apiKey: config.heliusApiKey,
     accounts,
-    onOpen: () => console.log("helius-ws: open"),
+    onOpen: () => {
+      status.wsConnected = true;
+      console.log("helius-ws: open");
+    },
     onSubscribed: (id) => {
-      subscribeCount++;
+      status.subscribeCount++;
       console.log(
-        `helius-ws: subscribed (id=${id}, subscribe #${subscribeCount})`,
+        `helius-ws: subscribed (id=${id}, subscribe #${status.subscribeCount})`,
       );
       triggerBackfill();
     },
     onEvent: handleEvent("ws"),
     onError: (err) => console.error(`helius-ws: error ${err.message}`),
     onClose: (code, reason) => {
+      status.wsConnected = false;
       console.log(
         `helius-ws: close code=${code} reason=${reason || "(none)"}`,
       );
@@ -243,7 +258,7 @@ try {
     if (shuttingDown) return;
     shuttingDown = true;
     console.log(
-      `l11-monitor: ${signal} received, shutting down (events=${eventCount}, subscribes=${subscribeCount}, candidates=${candidateCount})`,
+      `l11-monitor: ${signal} received, shutting down (events=${eventCount}, subscribes=${status.subscribeCount}, candidates=${candidateCount})`,
     );
     abortController.abort();
     wsHandle.close();

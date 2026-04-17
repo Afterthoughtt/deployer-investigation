@@ -19,6 +19,7 @@ import {
   makePersistCandidate,
   makeWhitelistCandidate,
   makeRejectCandidate,
+  makeListActiveCandidates,
 } from "../src/db.js";
 import { createTelegramBot } from "../src/telegram/bot.js";
 import { sendCandidateAlert } from "../src/telegram/push.js";
@@ -33,6 +34,8 @@ const db = openDb(dbPath);
 const persist = makePersistCandidate(db);
 const whitelist = makeWhitelistCandidate(db);
 const reject = makeRejectCandidate(db);
+const listActiveCandidates = makeListActiveCandidates(db);
+const startedAt = Date.now();
 
 const cleanup = () => {
   try {
@@ -89,6 +92,13 @@ const bot = createTelegramBot({
     console.log(`smoke: onReject id=${id}`);
     return reject(id);
   },
+  listActiveCandidates,
+  getStatus: () => ({
+    startedAt,
+    wsConnected: false,
+    subscribeCount: 0,
+    lastEventAt: null,
+  }),
 });
 
 await bot.start();

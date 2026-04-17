@@ -1,6 +1,7 @@
 import { InlineKeyboard } from "grammy";
-import type { Candidate, Confidence } from "../detection/candidate.js";
+import type { Candidate } from "../detection/candidate.js";
 import type { TelegramBotHandle } from "./bot.js";
+import { TIER_EMOJI, escapeHtml } from "./format.js";
 
 export async function sendStartupMessage(
   bot: TelegramBotHandle,
@@ -13,12 +14,6 @@ export async function sendStartupMessage(
   ];
   await bot.sendText(lines.join("\n"));
 }
-
-const TIER_EMOJI: Record<Confidence, string> = {
-  HIGH: "\uD83D\uDFE2",   // 🟢
-  MEDIUM: "\uD83D\uDFE1", // 🟡
-  LOW: "\uD83D\uDD34",    // 🔴
-};
 
 export async function sendCandidateAlert(
   bot: TelegramBotHandle,
@@ -47,11 +42,4 @@ export async function sendCandidateAlert(
       `https://solscan.io/account/${candidate.recipient}`,
     );
   await bot.sendHtml(lines.join("\n"), keyboard);
-}
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
 }
