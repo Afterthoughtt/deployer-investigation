@@ -1,11 +1,11 @@
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { detectCandidates, type MonitoredWallet } from "../src/detection/candidate.js";
 import type { FreshnessChecker } from "../src/detection/fresh.js";
 
-const FIXTURE_PATH = resolve(
-  "/Users/error/Desktop/investigation/monitor/test/fixtures/l10-rpc.json",
-);
+const TEST_DIR = dirname(fileURLToPath(import.meta.url));
+const FIXTURE_PATH = resolve(TEST_DIR, "fixtures/l10-rpc.json");
 
 // Pinned from MONITOR_BUILD_PLAN.md — verified on-chain 2026-04-16.
 const L10_FUNDING_SIG =

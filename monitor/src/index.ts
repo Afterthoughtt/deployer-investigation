@@ -1,5 +1,5 @@
 import { loadConfig } from "./config.js";
-import { openDb } from "./db.js";
+import { openDb, makePersistCandidate } from "./db.js";
 import { connectHeliusWs, type TransactionEvent } from "./helius/ws.js";
 import { loadWalletsFile, syncWalletsToDb, type Category } from "./wallets.js";
 import { runBackfill, type BackfillLogger } from "./backfill.js";
@@ -25,6 +25,7 @@ try {
   console.log(`  LOG_LEVEL:          ${config.logLevel}`);
 
   const db = openDb(config.dbPath);
+  const persistCandidate = makePersistCandidate(db);
   console.log("l11-monitor: db opened");
 
   const wallets = loadWalletsFile(config.walletsPath);
@@ -112,9 +113,25 @@ try {
       .then((cands) => {
         for (const c of cands) {
           inFlightRecipients.delete(c.recipient);
+          let result;
+          try {
+            result = persistCandidate(c);
+          } catch (err) {
+            // Leave alreadyCandidates untouched — a later event can retry.
+            console.error(
+              `persist: ${c.recipient} sig=${c.fundingSignature} failed: ${err instanceof Error ? err.message : String(err)}`,
+            );
+            continue;
+          }
           alreadyCandidates.add(c.recipient);
-          candidateCount++;
-          logCandidate(source, candidateCount, c);
+          if (result.candidateInserted) {
+            candidateCount++;
+            logCandidate(source, candidateCount, c);
+          } else {
+            console.log(
+              `${source}-candidate DUPLICATE ${c.recipient} sig=${c.fundingSignature} (candidates row already exists; event ${result.eventInserted ? "inserted" : "already present"})`,
+            );
+          }
         }
       })
       .catch((err) => {

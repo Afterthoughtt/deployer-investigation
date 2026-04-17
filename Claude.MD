@@ -55,9 +55,11 @@ data/
 src/
   audit/                 — Audit scripts (utils.ts, batch-screen.ts, deep-dive.ts, moonpay-search.ts, rxrp-repump-screen.ts)
 monitor/                 — L11 operational monitor (detects funded fresh wallets before create_and_buy fires). Runtime deps in root package.json; run via `npm run monitor:dev` / `monitor:build` / `monitor:start`. See MONITOR_BUILD_PLAN.md.
-  src/                   — config.ts, db.ts, wallets.ts, paths.ts, backfill.ts, index.ts
+  src/                   — config.ts, db.ts, wallets.ts, paths.ts, backfill.ts, util.ts, index.ts
     helius/              — ws.ts (Enhanced WSS subscription with auto-reconnect), rpc.ts (getSignaturesForAddress + getTransaction for backfill)
+    detection/           — candidate.ts (SOL transfer parsing + tiering + persist), fresh.ts (freshness check via getSignaturesForAddress)
   data/                  — wallets.json (committed), l11.db (gitignored)
+  test/                  — replay-l10.ts (detection acceptance), replay-l10-dedup.ts (DB dedup acceptance), fixtures/ (pinned tx payloads)
   tsconfig.json          — monitor-only compile config
 docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
 archive/

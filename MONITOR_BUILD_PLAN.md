@@ -137,7 +137,7 @@ WebSockets drop. The daemon must:
   - For each missed signature, call `getTransaction` to fetch the full parsed tx
   - Run through the same candidate detection logic as live events
   - Update `last_processed_signature` as events flow
-- Deduplicate against SQLite `events` table before inserting candidates
+- Deduplicate candidates via the `candidates.address` UNIQUE constraint and an in-memory `alreadyCandidates` set rebuilt from the `candidates` table at startup. The `events` table records each persisted funding tx by signature (PK) as an audit trail, so the same sig re-arriving via WS + backfill can't produce two event rows either.
 
 This logic is where this class of daemon fails silently. Build it before anything downstream and test it by killing the connection mid-run.
 
@@ -424,12 +424,14 @@ investigation/
       index.ts                    # entrypoint, wires everything up
       config.ts                   # env loading and validation (loads root .env)
       paths.ts                    # MONITOR_ROOT / REPO_ROOT / resolveFromMonitor helper
-      db.ts                       # better-sqlite3 setup, migrations, prepared statements
+      util.ts                     # shared helpers (sleep w/ AbortSignal)
+      db.ts                       # better-sqlite3 setup, schema, makePersistCandidate
+      backfill.ts                 # on-reconnect catch-up via getSignaturesForAddress + getTransaction
       helius/
-        ws.ts                     # WebSocket connection, reconnect, backfill
-        rpc.ts                    # getSignaturesForAddress, getTransaction
+        ws.ts                     # Enhanced WSS transactionSubscribe, reconnect w/ backoff
+        rpc.ts                    # rpcCall + getSignaturesForAddress + getTransaction
       detection/
-        candidate.ts              # candidate detection logic
+        candidate.ts              # SOL transfer parse, filter, tier
         fresh.ts                  # fresh-wallet check
       telegram/
         bot.ts                    # grammy setup, command handlers, callback handlers
@@ -437,6 +439,11 @@ investigation/
       health.ts                   # /health endpoint, event freshness tracker
       log.ts                      # pino setup
       wallets.ts                  # wallets.json loader, sync to DB
+    test/
+      replay-l10.ts               # detection acceptance (pinned L10 fixture)
+      replay-l10-dedup.ts         # DB dedup acceptance
+      capture-l10-fixture.ts      # one-off fixture capture via getTransaction
+      fixtures/                   # pinned tx payloads
     data/
       l11.db                      # gitignored
       wallets.json                # committed
