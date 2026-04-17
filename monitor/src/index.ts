@@ -1,8 +1,14 @@
 import { loadConfig } from "./config.js";
 import { openDb } from "./db.js";
 import { connectHeliusWs, type TransactionEvent } from "./helius/ws.js";
-import { loadWalletsFile, syncWalletsToDb } from "./wallets.js";
+import { loadWalletsFile, syncWalletsToDb, type Category } from "./wallets.js";
 import { runBackfill, type BackfillLogger } from "./backfill.js";
+import {
+  detectCandidates,
+  type Candidate,
+  type MonitoredWallet,
+} from "./detection/candidate.js";
+import { makeFreshnessChecker } from "./detection/fresh.js";
 
 let shuttingDown = false;
 
@@ -27,13 +33,34 @@ try {
     `l11-monitor: wallets synced (${stats.monitored.inserted} new, ${stats.monitored.alreadyPresent} existing)`,
   );
 
-  const accounts = [
-    ...wallets.onramps.map((w) => w.address),
-    ...wallets.hubs.map((w) => w.address),
-    ...wallets.intermediaries.map((w) => w.address),
+  const categorized: Array<[typeof wallets.onramps, Category]> = [
+    [wallets.onramps, "onramp"],
+    [wallets.hubs, "hub"],
+    [wallets.intermediaries, "intermediary"],
   ];
-  const monitoredSet = new Set(accounts);
-  console.log(`l11-monitor: starting helius ws (${accounts.length} accounts)`);
+  const monitoredMap = new Map<string, MonitoredWallet>();
+  for (const [entries, category] of categorized) {
+    for (const w of entries) {
+      monitoredMap.set(w.address, { address: w.address, label: w.label, category });
+    }
+  }
+  const monitoredSet = new Set(monitoredMap.keys());
+  const accounts = Array.from(monitoredSet);
+
+  const ignoreSet = new Set<string>(
+    (db.prepare(`SELECT address FROM ignore_list`).all() as { address: string }[]).map(
+      (r) => r.address,
+    ),
+  );
+  const alreadyCandidates = new Set<string>(
+    (db.prepare(`SELECT address FROM candidates`).all() as { address: string }[]).map(
+      (r) => r.address,
+    ),
+  );
+  const inFlightRecipients = new Set<string>();
+  console.log(
+    `l11-monitor: starting helius ws (${accounts.length} accounts, ${ignoreSet.size} ignored, ${alreadyCandidates.size} existing candidates)`,
+  );
 
   const advanceCursorStmt = db.prepare(
     `UPDATE monitored_wallets
@@ -44,8 +71,13 @@ try {
 
   let eventCount = 0;
   let subscribeCount = 0;
+  let candidateCount = 0;
   let backfillPromise: Promise<unknown> | null = null;
   const abortController = new AbortController();
+  const freshness = makeFreshnessChecker(
+    config.heliusApiKey,
+    abortController.signal,
+  );
 
   const backfillLog: BackfillLogger = {
     info: (m) => console.log(m),
@@ -63,6 +95,34 @@ try {
     console.log(
       `${source}-event #${eventCount} sig=${ev.signature} slot=${ev.slot} touched=${touched.size}`,
     );
+
+    // If no monitored wallet appears anywhere in the payload, the tx can't
+    // contain a system.transfer whose source is monitored — skip the parse.
+    if (touched.size === 0) return;
+
+    detectCandidates({
+      event: ev,
+      monitored: monitoredMap,
+      ignore: ignoreSet,
+      alreadyCandidates,
+      inFlight: inFlightRecipients,
+      freshness,
+      log: (m) => console.log(m),
+    })
+      .then((cands) => {
+        for (const c of cands) {
+          inFlightRecipients.delete(c.recipient);
+          alreadyCandidates.add(c.recipient);
+          candidateCount++;
+          logCandidate(source, candidateCount, c);
+        }
+      })
+      .catch((err) => {
+        if (abortController.signal.aborted) return;
+        console.error(
+          `detection: fatal ${err instanceof Error ? err.message : String(err)}`,
+        );
+      });
   };
 
   const triggerBackfill = () => {
@@ -122,7 +182,7 @@ try {
     if (shuttingDown) return;
     shuttingDown = true;
     console.log(
-      `l11-monitor: ${signal} received, shutting down (events=${eventCount}, subscribes=${subscribeCount})`,
+      `l11-monitor: ${signal} received, shutting down (events=${eventCount}, subscribes=${subscribeCount}, candidates=${candidateCount})`,
     );
     abortController.abort();
     wsHandle.close();
@@ -142,6 +202,19 @@ try {
 } catch (err) {
   console.error(err instanceof Error ? err.message : err);
   process.exit(1);
+}
+
+function logCandidate(
+  source: "ws" | "backfill",
+  n: number,
+  c: Candidate,
+): void {
+  console.log(
+    `${source}-candidate #${n} [${c.confidence}] ${c.recipient} ` +
+      `<- ${c.fundedAmountSol.toFixed(3)} SOL ` +
+      `from ${c.fundingSourceLabel} (${c.fundingSourceAddress}) ` +
+      `sig=${c.fundingSignature} slot=${c.fundingSlot} priorSigs=${c.priorSigCount}`,
+  );
 }
 
 function findTouchedAddresses(
