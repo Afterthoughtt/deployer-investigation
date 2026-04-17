@@ -43,9 +43,7 @@ try {
   );
 
   let eventCount = 0;
-  let backfillEventCount = 0;
   let subscribeCount = 0;
-  let backfillInFlight = false;
   let backfillPromise: Promise<unknown> | null = null;
   const abortController = new AbortController();
 
@@ -58,7 +56,6 @@ try {
   const handleEvent = (source: "ws" | "backfill") => (ev: TransactionEvent) => {
     if (shuttingDown) return;
     eventCount++;
-    if (source === "backfill") backfillEventCount++;
     const touched = findTouchedAddresses(ev.raw, monitoredSet);
     for (const addr of touched) {
       advanceCursorStmt.run(ev.signature, ev.slot, addr, ev.slot);
@@ -70,11 +67,10 @@ try {
 
   const triggerBackfill = () => {
     if (shuttingDown) return;
-    if (backfillInFlight) {
+    if (backfillPromise) {
       console.log("backfill: skipped — previous backfill still running");
       return;
     }
-    backfillInFlight = true;
     backfillPromise = runBackfill({
       db,
       apiKey: config.heliusApiKey,
@@ -88,7 +84,6 @@ try {
         );
       })
       .finally(() => {
-        backfillInFlight = false;
         backfillPromise = null;
       });
   };
@@ -127,7 +122,7 @@ try {
     if (shuttingDown) return;
     shuttingDown = true;
     console.log(
-      `l11-monitor: ${signal} received, shutting down (events=${eventCount}, backfill_events=${backfillEventCount}, subscribes=${subscribeCount})`,
+      `l11-monitor: ${signal} received, shutting down (events=${eventCount}, subscribes=${subscribeCount})`,
     );
     abortController.abort();
     wsHandle.close();
@@ -149,10 +144,6 @@ try {
   process.exit(1);
 }
 
-// String-walk rather than reading accountKeys directly: the WS notification
-// and getTransaction payloads have different shapes, and full parsing lands
-// in increment 6. Base58 address collisions against memo/log content are
-// effectively zero.
 function findTouchedAddresses(
   payload: unknown,
   monitored: Set<string>,
