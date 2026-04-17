@@ -6,7 +6,7 @@
 - Enhanced Transactions: POST to `https://api.helius.xyz/v0/transactions?api-key=HELIUS_API_KEY`
 - Webhooks: `https://api-mainnet.helius-rpc.com/v0/webhooks` with `Authorization: Bearer HELIUS_API_KEY`
 - WebSocket: `wss://mainnet.helius-rpc.com?api-key=HELIUS_API_KEY`
-- Developer plan ($49/mo): RPC 50 req/sec, Wallet API / Enhanced APIs 10 req/sec, 10M credits/month
+- Developer plan ($24.50/mo, was $49): RPC 50 req/sec, Wallet API / Enhanced APIs 10 req/sec, 10M credits/month, Standard + Enhanced WebSockets included, LaserStream Devnet only
 
 ---
 
@@ -161,13 +161,19 @@ Notifies on transaction logs mentioning address.
 
 ---
 
-## Enhanced WebSockets (Business plan+ ONLY, NOT Developer)
+## Enhanced WebSockets (Included on Developer plan and above)
 
 Connect: `wss://atlas-mainnet.helius-rpc.com/?api-key=KEY`
 
 ### transactionSubscribe
 `{ "jsonrpc":"2.0", "id":1, "method":"transactionSubscribe", "params":[{ "accountInclude":["addr1","addr2"], "vote":false, "failed":false }, { "commitment":"confirmed", "encoding":"jsonParsed", "transactionDetails":"full", "maxSupportedTransactionVersion":0 }] }`
-Up to 50,000 addresses in accountInclude filter. 3 credits per 0.1 MB. NOT available on Developer plan.
+Up to 50,000 addresses in accountInclude filter. 3 credits per 0.1 MB. Returns full parsed transaction payloads on each event — no follow-up `getTransaction` call needed.
+
+---
+
+## LaserStream gRPC (Devnet on Developer, Devnet+Mainnet on Business+)
+
+Higher-throughput streaming alternative to Enhanced WebSockets. 3 credits per 0.1 MB. Developer plan is Devnet only — for mainnet streaming on Developer, use Enhanced WebSockets `transactionSubscribe`.
 
 ---
 

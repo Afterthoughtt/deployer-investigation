@@ -17,7 +17,7 @@ The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spe
 
 ## APIs
 
-- **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Developer plan ($49/mo). Docs: @docs/helius_docs.md
+- **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Developer plan ($24.50/mo, was $49). Docs: @docs/helius_docs.md
 - **Nansen**: Entity labeling, counterparties, transactions. POST to `https://api.nansen.ai/api/v1`. Auth: `apiKey` header. Docs: @docs/nansen_docs.md
 - **Arkham**: Address intel, transfer scanning, entity search. GET from `https://api.arkm.com`. Auth: `API-Key` header. 30-day trial. Docs: @docs/arkham_docs.md
 
@@ -34,7 +34,7 @@ Cross-reference entity labels between all three APIs. They have different covera
 
 ```
 data/
-  network-map.json       — Canonical wallet registry (~94 catalogued wallets incl. 26 screened-out, uniform schema: address, label, role, verdict, notes)
+  network-map.json       — Canonical wallet registry (147 catalogued wallets: 118 network, 28 not_network, 1 possible_associate; uniform schema: address, label, role, verdict, notes)
   launch-history.json    — 10-launch behavioral profile + timeline
   launch-details.json    — Per-launch deployer flows + early buyer lists (L1-L10)
   results/
@@ -46,12 +46,13 @@ data/
   rxrp-repump-buyers.json — RXRP repump 22 buyer wallets with buy sequence (2026-04-03)
 src/
   audit/                 — Audit scripts (utils.ts, batch-screen.ts, deep-dive.ts, moonpay-search.ts, rxrp-repump-screen.ts)
-  monitor/               — L11 operational monitor (to be built — detects funded fresh wallets before create_and_buy fires)
+monitor/                 — L11 operational monitor (self-contained Node package, to be built — detects funded fresh wallets before create_and_buy fires; see MONITOR_BUILD_PLAN.md)
 docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
 archive/
   scripts/               — Completed investigation scripts (37 files, served their purpose)
   raw-results/           — Raw API response dumps (28 files, ground truth for addresses)
 STRATEGY.md              — L11 detection strategy (three vectors: MoonPay sieve [MP1+MP2], network intermediary watch, copy-trade backup)
+MONITOR_BUILD_PLAN.md    — L11 monitor build plan (Enhanced WSS transactionSubscribe, SQLite, Telegram bot, systemd; finalized 2026-04-16)
 ```
 
 Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit extraction route details.
