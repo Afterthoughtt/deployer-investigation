@@ -13,10 +13,10 @@ export interface StalenessMonitor {
 export interface CreateStalenessMonitorArgs {
   thresholdMs: number;
   checkIntervalMs: number;
-  /** Used as the implicit floor before any on-ramp event has arrived, so a
-   *  fresh daemon doesn't alarm in the first `thresholdMs` after boot. */
-  startedAt: number;
-  getOnrampLastEventAt: () => number | null;
+  /** Timestamp of the most recent on-ramp event. Caller is responsible for
+   *  the "no events yet" fallback (typically `lastEventAt ?? startedAt` so
+   *  a fresh daemon doesn't alarm in the first `thresholdMs` after boot). */
+  getOnrampLastEventAt: () => number;
   onStaleEnter: (info: { ageMs: number }) => void;
   onStaleExit: (info: { stalenessDurationMs: number }) => void;
   log: Logger;
@@ -40,7 +40,7 @@ export function createStalenessMonitor(
   let staleSince: number | null = null;
 
   const tick = (): void => {
-    const last = args.getOnrampLastEventAt() ?? args.startedAt;
+    const last = args.getOnrampLastEventAt();
     const t = now();
     const ageMs = t - last;
     const nowStale = ageMs > args.thresholdMs;
@@ -84,8 +84,9 @@ export interface StartHealthServerArgs {
   /** Defaults to 127.0.0.1 so the endpoint stays on the loopback interface. */
   host?: string;
   thresholdMs: number;
-  startedAt: number;
-  getOnrampLastEventAt: () => number | null;
+  /** Same contract as on `CreateStalenessMonitorArgs` — caller pre-applies the
+   *  `?? startedAt` grace-window floor. */
+  getOnrampLastEventAt: () => number;
   getWsConnected: () => boolean;
   log: Logger;
   now?: () => number;
@@ -103,7 +104,7 @@ export async function startHealthServer(
       return;
     }
     const wsConnected = args.getWsConnected();
-    const last = args.getOnrampLastEventAt() ?? args.startedAt;
+    const last = args.getOnrampLastEventAt();
     const ageMs = now() - last;
     const healthy = wsConnected && ageMs <= args.thresholdMs;
     res.statusCode = healthy ? 200 : 503;

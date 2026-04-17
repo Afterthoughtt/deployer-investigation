@@ -29,14 +29,14 @@ const silentLog = {
 {
   console.log("Staleness monitor:");
   let now = 1_000_000;
+  const startedAt = now;
   let lastEvent: number | null = null;
   const entered: Array<{ ageMs: number }> = [];
   const exited: Array<{ stalenessDurationMs: number }> = [];
   const mon = createStalenessMonitor({
     thresholdMs: 1000,
     checkIntervalMs: 10_000_000, // effectively never auto-fires; we drive via tick()
-    startedAt: now,
-    getOnrampLastEventAt: () => lastEvent,
+    getOnrampLastEventAt: () => lastEvent ?? startedAt,
     onStaleEnter: (info) => entered.push(info),
     onStaleExit: (info) => exited.push(info),
     log: silentLog,
@@ -104,13 +104,13 @@ const silentLog = {
 {
   console.log("Staleness callback error isolation:");
   let now = 2_000_000;
+  const startedAt = now;
   let lastEvent: number | null = now;
   let enterCalls = 0;
   const mon = createStalenessMonitor({
     thresholdMs: 1000,
     checkIntervalMs: 10_000_000,
-    startedAt: now,
-    getOnrampLastEventAt: () => lastEvent,
+    getOnrampLastEventAt: () => lastEvent ?? startedAt,
     onStaleEnter: () => {
       enterCalls++;
       throw new Error("boom");
@@ -142,13 +142,13 @@ const silentLog = {
 {
   console.log("Health HTTP server:");
   let now = 3_000_000;
+  const startedAt = now;
   let lastEvent: number | null = null;
   let wsConnected = true;
   const server = await startHealthServer({
     port: 0, // OS-assigned
     thresholdMs: 1000,
-    startedAt: now,
-    getOnrampLastEventAt: () => lastEvent,
+    getOnrampLastEventAt: () => lastEvent ?? startedAt,
     getWsConnected: () => wsConnected,
     log: silentLog,
     now: () => now,

@@ -278,11 +278,16 @@ try {
     },
   });
 
+  // Pre-applied "no events yet" floor: until an on-ramp event has arrived,
+  // age is measured from boot so the daemon doesn't alarm in its own grace
+  // window. Shared between the staleness monitor and /health.
+  const onrampLastOrBoot = () =>
+    status.lastEventByCategory.onramp ?? status.startedAt;
+
   const stalenessMonitor = createStalenessMonitor({
     thresholdMs: config.staleThresholdMs,
     checkIntervalMs: config.stalenessCheckIntervalMs,
-    startedAt: status.startedAt,
-    getOnrampLastEventAt: () => status.lastEventByCategory.onramp,
+    getOnrampLastEventAt: onrampLastOrBoot,
     onStaleEnter: ({ ageMs }) => {
       console.warn(
         `staleness: on-ramp stale (age=${ageMs}ms, threshold=${config.staleThresholdMs}ms)`,
@@ -310,8 +315,7 @@ try {
   const healthServer = await startHealthServer({
     port: config.healthPort,
     thresholdMs: config.staleThresholdMs,
-    startedAt: status.startedAt,
-    getOnrampLastEventAt: () => status.lastEventByCategory.onramp,
+    getOnrampLastEventAt: onrampLastOrBoot,
     getWsConnected: () => status.wsConnected,
     log: consoleLog,
   });
