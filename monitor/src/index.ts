@@ -1,6 +1,9 @@
 import { loadConfig } from "./config.js";
 import { openDb } from "./db.js";
+import { connectHeliusWs } from "./helius/ws.js";
 import { loadWalletsFile, syncWalletsToDb } from "./wallets.js";
+
+let shuttingDown = false;
 
 try {
   const config = loadConfig();
@@ -18,32 +21,51 @@ try {
   console.log("l11-monitor: db opened");
 
   const wallets = loadWalletsFile(config.walletsPath);
-  console.log("l11-monitor: wallets.json loaded");
-  console.log(`  onramps:        ${wallets.onramps.length}`);
-  console.log(`  hubs:           ${wallets.hubs.length}`);
-  console.log(`  intermediaries: ${wallets.intermediaries.length}`);
-  console.log(`  ignore:         ${wallets.ignore.length}`);
-
   const stats = syncWalletsToDb(db, wallets);
-  console.log("l11-monitor: wallets synced to db");
   console.log(
-    `  monitored: ${stats.monitored.inserted} inserted, ${stats.monitored.alreadyPresent} already present (${stats.monitored.totalInFile} in file)`,
-  );
-  console.log(
-    `  ignore:    ${stats.ignore.inserted} inserted, ${stats.ignore.alreadyPresent} already present (${stats.ignore.totalInFile} in file)`,
+    `l11-monitor: wallets synced (${stats.monitored.inserted} new, ${stats.monitored.alreadyPresent} existing)`,
   );
 
-  const rows = db
-    .prepare(
-      `SELECT address, label, category FROM monitored_wallets ORDER BY category, label`,
-    )
-    .all() as { address: string; label: string; category: string }[];
-  console.log(`l11-monitor: monitored_wallets table (${rows.length} rows)`);
-  for (const r of rows) {
-    console.log(`  [${r.category}] ${r.label} — ${r.address}`);
-  }
+  const accounts = [
+    ...wallets.onramps.map((w) => w.address),
+    ...wallets.hubs.map((w) => w.address),
+    ...wallets.intermediaries.map((w) => w.address),
+  ];
+  console.log(`l11-monitor: starting helius ws (${accounts.length} accounts)`);
 
-  db.close();
+  let eventCount = 0;
+  const wsHandle = connectHeliusWs({
+    apiKey: config.heliusApiKey,
+    accounts,
+    onOpen: () => console.log("helius-ws: open"),
+    onSubscribed: (id) => console.log(`helius-ws: subscribed (id=${id})`),
+    onEvent: (ev) => {
+      eventCount++;
+      console.log(
+        `helius-ws: event #${eventCount} sig=${ev.signature} slot=${ev.slot}`,
+      );
+    },
+    onError: (err) => console.error(`helius-ws: error ${err.message}`),
+    onClose: (code, reason) => {
+      console.log(`helius-ws: close code=${code} reason=${reason || "(none)"}`);
+      if (!shuttingDown) {
+        console.log(
+          "helius-ws: connection dropped (reconnect not implemented yet — increment 5)",
+        );
+      }
+    },
+  });
+
+  const shutdown = (signal: string) => {
+    if (shuttingDown) return;
+    shuttingDown = true;
+    console.log(`l11-monitor: ${signal} received, shutting down (events=${eventCount})`);
+    wsHandle.close();
+    db.close();
+    setTimeout(() => process.exit(0), 500);
+  };
+  process.on("SIGINT", () => shutdown("SIGINT"));
+  process.on("SIGTERM", () => shutdown("SIGTERM"));
 } catch (err) {
   console.error(err instanceof Error ? err.message : err);
   process.exit(1);
