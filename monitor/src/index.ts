@@ -46,6 +46,8 @@ try {
   let backfillEventCount = 0;
   let subscribeCount = 0;
   let backfillInFlight = false;
+  let backfillPromise: Promise<unknown> | null = null;
+  const abortController = new AbortController();
 
   const backfillLog: BackfillLogger = {
     info: (m) => console.log(m),
@@ -54,6 +56,7 @@ try {
   };
 
   const handleEvent = (source: "ws" | "backfill") => (ev: TransactionEvent) => {
+    if (shuttingDown) return;
     eventCount++;
     if (source === "backfill") backfillEventCount++;
     const touched = findTouchedAddresses(ev.raw, monitoredSet);
@@ -66,16 +69,18 @@ try {
   };
 
   const triggerBackfill = () => {
+    if (shuttingDown) return;
     if (backfillInFlight) {
       console.log("backfill: skipped — previous backfill still running");
       return;
     }
     backfillInFlight = true;
-    runBackfill({
+    backfillPromise = runBackfill({
       db,
       apiKey: config.heliusApiKey,
       onEvent: handleEvent("backfill"),
       log: backfillLog,
+      signal: abortController.signal,
     })
       .catch((err) => {
         console.error(
@@ -84,6 +89,7 @@ try {
       })
       .finally(() => {
         backfillInFlight = false;
+        backfillPromise = null;
       });
   };
 
@@ -117,18 +123,27 @@ try {
     wsHandle.forceDisconnect();
   });
 
-  const shutdown = (signal: string) => {
+  const shutdown = async (signal: string) => {
     if (shuttingDown) return;
     shuttingDown = true;
     console.log(
       `l11-monitor: ${signal} received, shutting down (events=${eventCount}, backfill_events=${backfillEventCount}, subscribes=${subscribeCount})`,
     );
+    abortController.abort();
     wsHandle.close();
+    if (backfillPromise) {
+      console.log("l11-monitor: awaiting in-flight backfill to drain");
+      try {
+        await backfillPromise;
+      } catch {
+        // errors already logged by triggerBackfill's .catch
+      }
+    }
     db.close();
-    setTimeout(() => process.exit(0), 500);
+    process.exit(0);
   };
-  process.on("SIGINT", () => shutdown("SIGINT"));
-  process.on("SIGTERM", () => shutdown("SIGTERM"));
+  process.on("SIGINT", () => void shutdown("SIGINT"));
+  process.on("SIGTERM", () => void shutdown("SIGTERM"));
 } catch (err) {
   console.error(err instanceof Error ? err.message : err);
   process.exit(1);
