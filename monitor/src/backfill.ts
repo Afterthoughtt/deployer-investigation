@@ -5,7 +5,7 @@ import {
   type SignatureInfo,
 } from "./helius/rpc.js";
 import type { TransactionEvent } from "./helius/ws.js";
-import { sleep } from "./util.js";
+import { errMessage, sleep, type Logger } from "./util.js";
 
 const SIGS_PER_PAGE = 1000;
 const MAX_PAGES_PER_WALLET = 10;
@@ -18,17 +18,11 @@ interface CursorRow {
   lastSlot: number | null;
 }
 
-export interface BackfillLogger {
-  info: (msg: string) => void;
-  warn: (msg: string) => void;
-  error: (msg: string) => void;
-}
-
 export interface RunBackfillArgs {
   db: Db;
   apiKey: string;
   onEvent: (event: TransactionEvent) => void;
-  log: BackfillLogger;
+  log: Logger;
   throttleMs?: number;
   signal?: AbortSignal;
 }
@@ -71,7 +65,7 @@ async function backfillOneWallet(
   w: CursorRow,
   apiKey: string,
   onEvent: (event: TransactionEvent) => void,
-  log: BackfillLogger,
+  log: Logger,
   throttleMs: number,
   signal: AbortSignal | undefined,
 ): Promise<number> {
@@ -122,9 +116,7 @@ async function backfillOneWallet(
         tx = await getTransaction(apiKey, s.signature, signal);
       } catch (err) {
         log.error(
-          `backfill: ${w.label} getTransaction ${s.signature} failed: ${
-            err instanceof Error ? err.message : String(err)
-          }`,
+          `backfill: ${w.label} getTransaction ${s.signature} failed: ${errMessage(err)}`,
         );
         continue;
       }
@@ -135,7 +127,7 @@ async function backfillOneWallet(
     }
   } catch (err) {
     log.error(
-      `backfill: ${w.label} (${w.address}) aborted: ${err instanceof Error ? err.message : String(err)}`,
+      `backfill: ${w.label} (${w.address}) aborted: ${errMessage(err)}`,
     );
   }
 

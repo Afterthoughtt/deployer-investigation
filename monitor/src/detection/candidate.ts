@@ -1,4 +1,5 @@
 import type { Category } from "../wallets.js";
+import { errMessage } from "../util.js";
 import type { FreshnessChecker } from "./fresh.js";
 
 const MIN_SOL_LAMPORTS = 8_000_000_000;
@@ -75,9 +76,7 @@ export async function detectCandidates(
     } catch (err) {
       args.inFlight.delete(t.destination);
       args.log?.(
-        `detection: freshness check failed for ${t.destination}: ${
-          err instanceof Error ? err.message : String(err)
-        }`,
+        `detection: freshness check failed for ${t.destination}: ${errMessage(err)}`,
       );
       continue;
     }

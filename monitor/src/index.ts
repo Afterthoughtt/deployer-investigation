@@ -2,13 +2,24 @@ import { loadConfig } from "./config.js";
 import { openDb, makePersistCandidate } from "./db.js";
 import { connectHeliusWs, type TransactionEvent } from "./helius/ws.js";
 import { loadWalletsFile, syncWalletsToDb, type Category } from "./wallets.js";
-import { runBackfill, type BackfillLogger } from "./backfill.js";
+import { runBackfill } from "./backfill.js";
 import {
   detectCandidates,
   type Candidate,
   type MonitoredWallet,
 } from "./detection/candidate.js";
 import { makeFreshnessChecker } from "./detection/fresh.js";
+import { createTelegramBot } from "./telegram/bot.js";
+import { sendStartupMessage } from "./telegram/push.js";
+import { errMessage, sleep, type Logger } from "./util.js";
+
+const consoleLog: Logger = {
+  info: (m) => console.log(m),
+  warn: (m) => console.warn(m),
+  error: (m) => console.error(m),
+};
+
+const BOT_STOP_TIMEOUT_MS = 2000;
 
 let shuttingDown = false;
 
@@ -63,6 +74,23 @@ try {
     `l11-monitor: starting helius ws (${accounts.length} accounts, ${ignoreSet.size} ignored, ${alreadyCandidates.size} existing candidates)`,
   );
 
+  const bot = createTelegramBot({
+    token: config.telegramBotToken,
+    chatId: config.telegramChatId,
+    log: consoleLog,
+  });
+  await bot.start();
+  try {
+    await sendStartupMessage(bot, {
+      monitoredCount: accounts.length,
+      existingCandidates: alreadyCandidates.size,
+    });
+    console.log("telegram: startup message sent");
+  } catch (err) {
+    // Non-fatal — bot is running, but push failed (bad chat id, network, etc).
+    console.error(`telegram: startup push failed: ${errMessage(err)}`);
+  }
+
   const advanceCursorStmt = db.prepare(
     `UPDATE monitored_wallets
      SET last_processed_signature = ?, last_processed_slot = ?
@@ -79,12 +107,6 @@ try {
     config.heliusApiKey,
     abortController.signal,
   );
-
-  const backfillLog: BackfillLogger = {
-    info: (m) => console.log(m),
-    warn: (m) => console.warn(m),
-    error: (m) => console.error(m),
-  };
 
   const handleEvent = (source: "ws" | "backfill") => (ev: TransactionEvent) => {
     if (shuttingDown) return;
@@ -119,7 +141,7 @@ try {
           } catch (err) {
             // Leave alreadyCandidates untouched — a later event can retry.
             console.error(
-              `persist: ${c.recipient} sig=${c.fundingSignature} failed: ${err instanceof Error ? err.message : String(err)}`,
+              `persist: ${c.recipient} sig=${c.fundingSignature} failed: ${errMessage(err)}`,
             );
             continue;
           }
@@ -136,9 +158,7 @@ try {
       })
       .catch((err) => {
         if (abortController.signal.aborted) return;
-        console.error(
-          `detection: fatal ${err instanceof Error ? err.message : String(err)}`,
-        );
+        console.error(`detection: fatal ${errMessage(err)}`);
       });
   };
 
@@ -152,13 +172,11 @@ try {
       db,
       apiKey: config.heliusApiKey,
       onEvent: handleEvent("backfill"),
-      log: backfillLog,
+      log: consoleLog,
       signal: abortController.signal,
     })
       .catch((err) => {
-        console.error(
-          `backfill: fatal ${err instanceof Error ? err.message : String(err)}`,
-        );
+        console.error(`backfill: fatal ${errMessage(err)}`);
       })
       .finally(() => {
         backfillPromise = null;
@@ -211,13 +229,28 @@ try {
         // errors already logged by triggerBackfill's .catch
       }
     }
+    try {
+      // Grammy's bot.stop() waits for the in-flight getUpdates long-poll to
+      // return (up to ~30s). Cap so a manual SIGINT exits promptly; under
+      // systemd TimeoutStopSec is plenty of slack anyway.
+      await Promise.race([
+        bot.stop(),
+        sleep(BOT_STOP_TIMEOUT_MS).then(() => {
+          console.warn(
+            `telegram: stop did not complete within ${BOT_STOP_TIMEOUT_MS}ms — proceeding`,
+          );
+        }),
+      ]);
+    } catch (err) {
+      console.error(`telegram: stop failed: ${errMessage(err)}`);
+    }
     db.close();
     process.exit(0);
   };
   process.on("SIGINT", () => void shutdown("SIGINT"));
   process.on("SIGTERM", () => void shutdown("SIGTERM"));
 } catch (err) {
-  console.error(err instanceof Error ? err.message : err);
+  console.error(errMessage(err));
   process.exit(1);
 }
 

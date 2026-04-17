@@ -1,4 +1,4 @@
-import { sleep } from "../util.js";
+import { errMessage, sleep } from "../util.js";
 
 const RPC_URL_BASE = "https://mainnet.helius-rpc.com/";
 
@@ -70,7 +70,7 @@ export async function rpcCall<T>(
     } catch (err) {
       if (attempt >= MAX_ATTEMPTS || signal?.aborted) {
         throw new RpcError(
-          `RPC ${method} network error: ${err instanceof Error ? err.message : String(err)}`,
+          `RPC ${method} network error: ${errMessage(err)}`,
           { attempts: attempt },
         );
       }
