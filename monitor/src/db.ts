@@ -63,10 +63,24 @@ export function openDb(dbPath: string): Db {
 
 export interface PersistCandidateResult {
   candidateInserted: boolean; // false => already persisted (DB dedup fired)
+  candidateId: number | null; // lastInsertRowid on successful insert; null if ignored
   eventInserted: boolean;     // false => sig already in events table
 }
 
 export type PersistCandidate = (c: Candidate) => PersistCandidateResult;
+
+export type CandidateStatus = "detected" | "whitelisted" | "rejected";
+
+export interface CandidateActionResult {
+  /** null if the id doesn't exist in the candidates table. */
+  address: string | null;
+  /** true iff this call moved the row from 'detected' to the target status. */
+  statusChanged: boolean;
+  /** row's status *before* this call; null iff the row was missing. */
+  previousStatus: CandidateStatus | null;
+}
+
+export type CandidateAction = (id: number) => CandidateActionResult;
 
 /**
  * Build a persist function bound to prepared statements for this db handle.
@@ -125,7 +139,69 @@ export function makePersistCandidate(db: Db): PersistCandidate {
     );
     return {
       candidateInserted: candRes.changes === 1,
+      candidateId:
+        candRes.changes === 1 ? Number(candRes.lastInsertRowid) : null,
       eventInserted: evRes.changes === 1,
     };
   });
+}
+
+/**
+ * Only transitions from 'detected'. Re-invoking on a terminal row is a no-op
+ * (statusChanged=false, previousStatus reflects what's in the DB).
+ */
+function makeStatusTransition(
+  db: Db,
+  update: Database.Statement,
+  afterUpdate?: (address: string, id: number, now: number) => void,
+): CandidateAction {
+  const fetchRow = db.prepare(
+    `SELECT address, status FROM candidates WHERE id = ?`,
+  );
+  return db.transaction((id: number): CandidateActionResult => {
+    const row = fetchRow.get(id) as
+      | { address: string; status: CandidateStatus }
+      | undefined;
+    if (!row) {
+      return { address: null, statusChanged: false, previousStatus: null };
+    }
+    const now = Date.now();
+    const res = update.run(now, id);
+    const statusChanged = res.changes === 1;
+    if (statusChanged) afterUpdate?.(row.address, id, now);
+    return {
+      address: row.address,
+      statusChanged,
+      previousStatus: row.status,
+    };
+  });
+}
+
+export function makeWhitelistCandidate(db: Db): CandidateAction {
+  return makeStatusTransition(
+    db,
+    db.prepare(
+      `UPDATE candidates
+       SET status = 'whitelisted', whitelisted_at = ?
+       WHERE id = ? AND status = 'detected'`,
+    ),
+  );
+}
+
+/** Rejecting also adds the address to ignore_list so subsequent detection runs skip it. */
+export function makeRejectCandidate(db: Db): CandidateAction {
+  const insertIgnore = db.prepare(
+    `INSERT OR IGNORE INTO ignore_list (address, reason, added_at)
+     VALUES (?, ?, ?)`,
+  );
+  return makeStatusTransition(
+    db,
+    db.prepare(
+      `UPDATE candidates
+       SET status = 'rejected', rejected_at = ?
+       WHERE id = ? AND status = 'detected'`,
+    ),
+    (address, id, now) =>
+      insertIgnore.run(address, `rejected candidate ${id}`, now),
+  );
 }

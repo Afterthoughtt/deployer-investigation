@@ -1,10 +1,16 @@
 import { Bot, GrammyError, HttpError } from "grammy";
+import type { InlineKeyboard } from "grammy";
+import type { CandidateAction } from "../db.js";
 import { errMessage, type Logger } from "../util.js";
 
 export interface CreateTelegramBotArgs {
   token: string;
   chatId: number;
   log: Logger;
+  /** Invoked when the user taps the "Whitelist" inline button on a candidate alert. */
+  onWhitelist: CandidateAction;
+  /** Invoked when the user taps the "Reject" inline button on a candidate alert. */
+  onReject: CandidateAction;
 }
 
 export interface TelegramBotHandle {
@@ -17,6 +23,8 @@ export interface TelegramBotHandle {
   stop: () => Promise<void>;
   /** Send plain text to the configured chat. */
   sendText: (text: string) => Promise<void>;
+  /** Send HTML-formatted text to the configured chat, optionally with an inline keyboard. */
+  sendHtml: (html: string, replyMarkup?: InlineKeyboard) => Promise<void>;
 }
 
 const COMMANDS = [
@@ -28,7 +36,7 @@ const COMMANDS = [
 ];
 
 export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandle {
-  const { token, chatId, log } = args;
+  const { token, chatId, log, onWhitelist, onReject } = args;
   const bot = new Bot(token);
 
   // Chat guard: drop every update whose chat isn't the configured one.
@@ -48,6 +56,41 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
       await ctx.reply(`stub: /${command} not yet implemented`);
     });
   }
+
+  bot.callbackQuery(/^(wl|rj):(\d+)$/, async (ctx) => {
+    await ctx.answerCallbackQuery();
+    if (!ctx.match || typeof ctx.match === "string") return;
+    const prefix = ctx.match[1];
+    const idStr = ctx.match[2];
+    if (!prefix || !idStr) return;
+    const id = Number(idStr);
+    if (!Number.isFinite(id)) return;
+    const isWhitelist = prefix === "wl";
+    const verb = isWhitelist ? "whitelist" : "reject";
+    const action = isWhitelist ? onWhitelist : onReject;
+
+    let result;
+    try {
+      result = action(id);
+    } catch (err) {
+      log.error(`telegram: ${verb} C${id} failed: ${errMessage(err)}`);
+      await ctx.reply(`${verb} C${id} failed: ${errMessage(err)}`);
+      return;
+    }
+    if (!result.address) {
+      await ctx.reply(`C${id} not found`);
+      return;
+    }
+    if (!result.statusChanged) {
+      await ctx.reply(`C${id} already ${result.previousStatus ?? "(unknown)"}`);
+      return;
+    }
+    const emoji = isWhitelist ? "\u2705" : "\u274C";
+    const past = isWhitelist ? "whitelisted" : "rejected";
+    await ctx.reply(`${emoji} C${id} ${past}\n\n<code>${result.address}</code>`, {
+      parse_mode: "HTML",
+    });
+  });
 
   bot.catch((err) => {
     const e = err.error;
@@ -73,6 +116,12 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     },
     sendText: async (text: string) => {
       await bot.api.sendMessage(chatId, text);
+    },
+    sendHtml: async (html: string, replyMarkup?: InlineKeyboard) => {
+      await bot.api.sendMessage(chatId, html, {
+        parse_mode: "HTML",
+        ...(replyMarkup ? { reply_markup: replyMarkup } : {}),
+      });
     },
   };
 }

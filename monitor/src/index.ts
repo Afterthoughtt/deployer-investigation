@@ -1,5 +1,10 @@
 import { loadConfig } from "./config.js";
-import { openDb, makePersistCandidate } from "./db.js";
+import {
+  openDb,
+  makePersistCandidate,
+  makeWhitelistCandidate,
+  makeRejectCandidate,
+} from "./db.js";
 import { connectHeliusWs, type TransactionEvent } from "./helius/ws.js";
 import { loadWalletsFile, syncWalletsToDb, type Category } from "./wallets.js";
 import { runBackfill } from "./backfill.js";
@@ -10,7 +15,7 @@ import {
 } from "./detection/candidate.js";
 import { makeFreshnessChecker } from "./detection/fresh.js";
 import { createTelegramBot } from "./telegram/bot.js";
-import { sendStartupMessage } from "./telegram/push.js";
+import { sendStartupMessage, sendCandidateAlert } from "./telegram/push.js";
 import { errMessage, sleep, type Logger } from "./util.js";
 
 const consoleLog: Logger = {
@@ -37,6 +42,8 @@ try {
 
   const db = openDb(config.dbPath);
   const persistCandidate = makePersistCandidate(db);
+  const whitelistCandidate = makeWhitelistCandidate(db);
+  const rejectCandidate = makeRejectCandidate(db);
   console.log("l11-monitor: db opened");
 
   const wallets = loadWalletsFile(config.walletsPath);
@@ -78,6 +85,15 @@ try {
     token: config.telegramBotToken,
     chatId: config.telegramChatId,
     log: consoleLog,
+    onWhitelist: whitelistCandidate,
+    onReject: (id) => {
+      const result = rejectCandidate(id);
+      // Skip the 10-credit freshness RPC on future sigs to this recipient.
+      if (result.statusChanged && result.address) {
+        ignoreSet.add(result.address);
+      }
+      return result;
+    },
   });
   await bot.start();
   try {
@@ -149,6 +165,16 @@ try {
           if (result.candidateInserted) {
             candidateCount++;
             logCandidate(source, candidateCount, c);
+            const id = result.candidateId;
+            if (id !== null) {
+              sendCandidateAlert(bot, c, id).catch((err) => {
+                // Non-fatal: candidate is already persisted. Log the recipient
+                // so a tailing operator can still act on L11 if the push drops.
+                console.error(
+                  `telegram: alert push for C${id} (${c.recipient}) failed: ${errMessage(err)}`,
+                );
+              });
+            }
           } else {
             console.log(
               `${source}-candidate DUPLICATE ${c.recipient} sig=${c.fundingSignature} (candidates row already exists; event ${result.eventInserted ? "inserted" : "already present"})`,
