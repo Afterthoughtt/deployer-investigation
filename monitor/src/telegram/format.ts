@@ -1,4 +1,5 @@
 import type { Confidence } from "../detection/candidate.js";
+import type { Category } from "../wallets.js";
 
 export const TIER_EMOJI: Record<Confidence, string> = {
   HIGH: "\uD83D\uDFE2",   // 🟢
@@ -42,4 +43,23 @@ export function formatAge(timestamp: number | null, now: number): string {
   const diff = now - timestamp;
   if (diff < 1000) return "just now";
   return `${formatDuration(diff)} ago`;
+}
+
+const CATEGORY_LABELS: Record<Category, string> = {
+  onramp: "On-ramp",
+  hub: "Hub",
+  intermediary: "Intermediary",
+};
+
+/**
+ * Three "<Category> last event: X ago" lines, rendered in a fixed order so
+ * /status and /heartbeat read consistently across restarts.
+ */
+export function formatLastEventLines(
+  lastByCategory: Record<Category, number | null>,
+  now: number,
+): string[] {
+  return (["onramp", "hub", "intermediary"] as const).map(
+    (c) => `${CATEGORY_LABELS[c]} last event: ${formatAge(lastByCategory[c], now)}`,
+  );
 }

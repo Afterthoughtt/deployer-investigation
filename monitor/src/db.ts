@@ -93,6 +93,16 @@ export interface ActiveCandidateRow {
 
 export type ListActiveCandidates = () => ActiveCandidateRow[];
 
+export type ActiveCandidateCount = () => number;
+
+/** Fast count for /heartbeat + /status — doesn't materialize the row set. */
+export function makeActiveCandidateCount(db: Db): ActiveCandidateCount {
+  const stmt = db.prepare(
+    `SELECT COUNT(*) AS n FROM candidates WHERE status = 'detected'`,
+  );
+  return () => (stmt.get() as { n: number }).n;
+}
+
 /** Snapshot of candidates currently awaiting a whitelist/reject decision. */
 export function makeListActiveCandidates(db: Db): ListActiveCandidates {
   const stmt = db.prepare(

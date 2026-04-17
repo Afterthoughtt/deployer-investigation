@@ -334,9 +334,15 @@ TELEGRAM_CHAT_ID=
 
 Optional env vars (monitor):
 ```
-DB_PATH=./data/l11.db   # relative paths resolve from monitor/; absolute paths used as-is
-LOG_LEVEL=info          # trace | debug | info | warn | error | fatal
+DB_PATH=./data/l11.db                 # relative paths resolve from monitor/; absolute paths used as-is
+LOG_LEVEL=info                        # trace | debug | info | warn | error | fatal
+HEALTH_PORT=9479                      # loopback-only /health endpoint port
+STALE_THRESHOLD_MS=7200000            # 2h — on-ramp silence that triggers stale alarm
+STALENESS_CHECK_INTERVAL_MS=300000    # 5m — how often the staleness loop evaluates
+HEARTBEAT_INTERVAL_MS=86400000        # 24h — daily Telegram heartbeat cadence
 ```
+
+The staleness/heartbeat overrides exist so the timers can be dialed down (e.g. `STALE_THRESHOLD_MS=30000`) for local acceptance; production always uses the defaults.
 
 The audit scripts also read this same `.env` for `NANSEN_API_KEY` and `ARKAN_API_KEY`. Those are NOT required for the monitor runtime.
 
@@ -442,6 +448,7 @@ investigation/
     test/
       replay-l10.ts               # detection acceptance (pinned L10 fixture)
       replay-l10-dedup.ts         # DB dedup acceptance
+      health.ts                   # staleness state machine + /health server acceptance
       capture-l10-fixture.ts      # one-off fixture capture via getTransaction
       fixtures/                   # pinned tx payloads
     data/

@@ -14,7 +14,16 @@ export interface Config {
   dbPath: string;
   walletsPath: string;
   logLevel: LogLevel;
+  healthPort: number;
+  staleThresholdMs: number;
+  stalenessCheckIntervalMs: number;
+  heartbeatIntervalMs: number;
 }
+
+const DEFAULT_HEALTH_PORT = 9479;
+const DEFAULT_STALE_THRESHOLD_MS = 2 * 60 * 60 * 1000;
+const DEFAULT_STALENESS_CHECK_INTERVAL_MS = 5 * 60 * 1000;
+const DEFAULT_HEARTBEAT_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
 function requireString(name: string, errors: string[]): string {
   const v = process.env[name];
@@ -23,6 +32,21 @@ function requireString(name: string, errors: string[]): string {
     return "";
   }
   return v.trim();
+}
+
+function optionalPositiveInt(
+  name: string,
+  defaultValue: number,
+  errors: string[],
+): number {
+  const raw = process.env[name]?.trim();
+  if (raw === undefined || raw === "") return defaultValue;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n <= 0) {
+    errors.push(`${name} must be a positive integer, got: ${raw}`);
+    return defaultValue;
+  }
+  return n;
 }
 
 export function loadConfig(): Config {
@@ -54,6 +78,27 @@ export function loadConfig(): Config {
     );
   }
 
+  const healthPort = optionalPositiveInt(
+    "HEALTH_PORT",
+    DEFAULT_HEALTH_PORT,
+    errors,
+  );
+  const staleThresholdMs = optionalPositiveInt(
+    "STALE_THRESHOLD_MS",
+    DEFAULT_STALE_THRESHOLD_MS,
+    errors,
+  );
+  const stalenessCheckIntervalMs = optionalPositiveInt(
+    "STALENESS_CHECK_INTERVAL_MS",
+    DEFAULT_STALENESS_CHECK_INTERVAL_MS,
+    errors,
+  );
+  const heartbeatIntervalMs = optionalPositiveInt(
+    "HEARTBEAT_INTERVAL_MS",
+    DEFAULT_HEARTBEAT_INTERVAL_MS,
+    errors,
+  );
+
   if (errors.length > 0) {
     const msg = ["Config validation failed:", ...errors.map((e) => `  - ${e}`)].join(
       "\n",
@@ -68,5 +113,9 @@ export function loadConfig(): Config {
     dbPath,
     walletsPath,
     logLevel: logLevelRaw as LogLevel,
+    healthPort,
+    staleThresholdMs,
+    stalenessCheckIntervalMs,
+    heartbeatIntervalMs,
   };
 }

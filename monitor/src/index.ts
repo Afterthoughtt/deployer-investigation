@@ -5,6 +5,7 @@ import {
   makeWhitelistCandidate,
   makeRejectCandidate,
   makeListActiveCandidates,
+  makeActiveCandidateCount,
 } from "./db.js";
 import { connectHeliusWs, type TransactionEvent } from "./helius/ws.js";
 import { loadWalletsFile, syncWalletsToDb, type Category } from "./wallets.js";
@@ -16,7 +17,18 @@ import {
 } from "./detection/candidate.js";
 import { makeFreshnessChecker } from "./detection/fresh.js";
 import { createTelegramBot } from "./telegram/bot.js";
-import { sendStartupMessage, sendCandidateAlert } from "./telegram/push.js";
+import {
+  sendStartupMessage,
+  sendCandidateAlert,
+  sendStaleWarning,
+  sendStaleRecovery,
+  sendHeartbeat,
+} from "./telegram/push.js";
+import {
+  createStalenessMonitor,
+  startHealthServer,
+  createHeartbeat,
+} from "./health.js";
 import { errMessage, sleep, type Logger } from "./util.js";
 
 const consoleLog: Logger = {
@@ -40,12 +52,18 @@ try {
   console.log(`  DB_PATH:            ${config.dbPath}`);
   console.log(`  WALLETS_PATH:       ${config.walletsPath}`);
   console.log(`  LOG_LEVEL:          ${config.logLevel}`);
+  console.log(`  HEALTH_PORT:        ${config.healthPort}`);
+  console.log(
+    `  STALE_THRESHOLD_MS: ${config.staleThresholdMs} (check every ${config.stalenessCheckIntervalMs}ms)`,
+  );
+  console.log(`  HEARTBEAT_MS:       ${config.heartbeatIntervalMs}`);
 
   const db = openDb(config.dbPath);
   const persistCandidate = makePersistCandidate(db);
   const whitelistCandidate = makeWhitelistCandidate(db);
   const rejectCandidate = makeRejectCandidate(db);
   const listActiveCandidates = makeListActiveCandidates(db);
+  const activeCandidateCount = makeActiveCandidateCount(db);
   console.log("l11-monitor: db opened");
 
   const wallets = loadWalletsFile(config.walletsPath);
@@ -87,7 +105,11 @@ try {
     startedAt: Date.now(),
     wsConnected: false,
     subscribeCount: 0,
-    lastEventAt: null as number | null,
+    lastEventByCategory: {
+      onramp: null,
+      hub: null,
+      intermediary: null,
+    } as Record<Category, number | null>,
   };
 
   const bot = createTelegramBot({
@@ -104,6 +126,7 @@ try {
       return result;
     },
     listActiveCandidates,
+    activeCandidateCount,
     getStatus: () => status,
   });
   await bot.start();
@@ -137,10 +160,16 @@ try {
   const handleEvent = (source: "ws" | "backfill") => (ev: TransactionEvent) => {
     if (shuttingDown) return;
     eventCount++;
-    status.lastEventAt = Date.now();
+    const ts = Date.now();
     const touched = findTouchedAddresses(ev.raw, monitoredSet);
+    const touchedCategories = new Set<Category>();
     for (const addr of touched) {
       advanceCursorStmt.run(ev.signature, ev.slot, addr, ev.slot);
+      const w = monitoredMap.get(addr);
+      if (w) touchedCategories.add(w.category);
+    }
+    for (const c of touchedCategories) {
+      status.lastEventByCategory[c] = ts;
     }
     console.log(
       `${source}-event #${eventCount} sig=${ev.signature} slot=${ev.slot} touched=${touched.size}`,
@@ -249,6 +278,55 @@ try {
     },
   });
 
+  const stalenessMonitor = createStalenessMonitor({
+    thresholdMs: config.staleThresholdMs,
+    checkIntervalMs: config.stalenessCheckIntervalMs,
+    startedAt: status.startedAt,
+    getOnrampLastEventAt: () => status.lastEventByCategory.onramp,
+    onStaleEnter: ({ ageMs }) => {
+      console.warn(
+        `staleness: on-ramp stale (age=${ageMs}ms, threshold=${config.staleThresholdMs}ms)`,
+      );
+      sendStaleWarning(bot, {
+        ageMs,
+        thresholdMs: config.staleThresholdMs,
+      }).catch((err) => {
+        console.error(`telegram: stale warning push failed ${errMessage(err)}`);
+      });
+    },
+    onStaleExit: ({ stalenessDurationMs }) => {
+      console.log(
+        `staleness: on-ramp recovered (was stale ${stalenessDurationMs}ms)`,
+      );
+      sendStaleRecovery(bot, { stalenessDurationMs }).catch((err) => {
+        console.error(
+          `telegram: stale recovery push failed ${errMessage(err)}`,
+        );
+      });
+    },
+    log: consoleLog,
+  });
+
+  const healthServer = await startHealthServer({
+    port: config.healthPort,
+    thresholdMs: config.staleThresholdMs,
+    startedAt: status.startedAt,
+    getOnrampLastEventAt: () => status.lastEventByCategory.onramp,
+    getWsConnected: () => status.wsConnected,
+    log: consoleLog,
+  });
+
+  const heartbeat = createHeartbeat({
+    intervalMs: config.heartbeatIntervalMs,
+    push: () =>
+      sendHeartbeat(bot, {
+        uptimeMs: Date.now() - status.startedAt,
+        activeCandidateCount: activeCandidateCount(),
+        lastEventByCategory: status.lastEventByCategory,
+      }),
+    log: consoleLog,
+  });
+
   process.on("SIGUSR2", () => {
     console.log("l11-monitor: SIGUSR2 — forcing WS disconnect (test harness)");
     wsHandle.forceDisconnect();
@@ -260,6 +338,13 @@ try {
     console.log(
       `l11-monitor: ${signal} received, shutting down (events=${eventCount}, subscribes=${status.subscribeCount}, candidates=${candidateCount})`,
     );
+    heartbeat.stop();
+    stalenessMonitor.stop();
+    try {
+      await healthServer.close();
+    } catch (err) {
+      console.error(`health: close failed ${errMessage(err)}`);
+    }
     abortController.abort();
     wsHandle.close();
     if (backfillPromise) {

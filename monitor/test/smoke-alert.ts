@@ -20,6 +20,7 @@ import {
   makeWhitelistCandidate,
   makeRejectCandidate,
   makeListActiveCandidates,
+  makeActiveCandidateCount,
 } from "../src/db.js";
 import { createTelegramBot } from "../src/telegram/bot.js";
 import { sendCandidateAlert } from "../src/telegram/push.js";
@@ -35,6 +36,7 @@ const persist = makePersistCandidate(db);
 const whitelist = makeWhitelistCandidate(db);
 const reject = makeRejectCandidate(db);
 const listActiveCandidates = makeListActiveCandidates(db);
+const activeCandidateCount = makeActiveCandidateCount(db);
 const startedAt = Date.now();
 
 const cleanup = () => {
@@ -93,11 +95,12 @@ const bot = createTelegramBot({
     return reject(id);
   },
   listActiveCandidates,
+  activeCandidateCount,
   getStatus: () => ({
     startedAt,
     wsConnected: false,
     subscribeCount: 0,
-    lastEventAt: null,
+    lastEventByCategory: { onramp: null, hub: null, intermediary: null },
   }),
 });
 

@@ -1,14 +1,25 @@
 import { Bot, GrammyError, HttpError } from "grammy";
 import type { Context, InlineKeyboard } from "grammy";
-import type { CandidateAction, ListActiveCandidates } from "../db.js";
+import type {
+  ActiveCandidateCount,
+  CandidateAction,
+  ListActiveCandidates,
+} from "../db.js";
 import { errMessage, type Logger } from "../util.js";
-import { TIER_EMOJI, escapeHtml, formatAge, formatDuration } from "./format.js";
+import type { Category } from "../wallets.js";
+import {
+  TIER_EMOJI,
+  escapeHtml,
+  formatAge,
+  formatDuration,
+  formatLastEventLines,
+} from "./format.js";
 
 export interface DaemonStatus {
   startedAt: number;
   wsConnected: boolean;
   subscribeCount: number;
-  lastEventAt: number | null;
+  lastEventByCategory: Record<Category, number | null>;
 }
 
 export interface CreateTelegramBotArgs {
@@ -19,8 +30,10 @@ export interface CreateTelegramBotArgs {
   onWhitelist: CandidateAction;
   /** Invoked when the user taps the "Reject" inline button or types /reject <id>. */
   onReject: CandidateAction;
-  /** Reader for /candidates and the count in /status. */
+  /** Reader for /candidates. */
   listActiveCandidates: ListActiveCandidates;
+  /** Count used by /status (cheaper than materializing the whole row set). */
+  activeCandidateCount: ActiveCandidateCount;
   /** Snapshot of daemon uptime/ws/last-event state for /status. */
   getStatus: () => DaemonStatus;
 }
@@ -59,6 +72,7 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     onWhitelist,
     onReject,
     listActiveCandidates,
+    activeCandidateCount,
     getStatus,
   } = args;
   const bot = new Bot(token);
@@ -148,7 +162,6 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
   bot.command("status", async (ctx) => {
     const s = getStatus();
     const now = Date.now();
-    const active = listActiveCandidates().length;
     const muteLine = isMuted()
       ? `muted for ${formatDuration((muteUntil ?? 0) - now)}`
       : "off";
@@ -156,8 +169,8 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
       "l11-monitor status",
       `Uptime: ${formatDuration(now - s.startedAt)}`,
       `WS: ${s.wsConnected ? "connected" : "disconnected"} (subscribes: ${s.subscribeCount})`,
-      `Last event: ${formatAge(s.lastEventAt, now)}`,
-      `Active candidates: ${active}`,
+      ...formatLastEventLines(s.lastEventByCategory, now),
+      `Active candidates: ${activeCandidateCount()}`,
       `Mute: ${muteLine}`,
     ];
     await reply(ctx, lines.join("\n"));
