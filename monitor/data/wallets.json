@@ -6,6 +6,27 @@
   "hubs": [
     { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "Hub Wallet" }
   ],
-  "intermediaries": [],
+  "intermediaries": [
+    { "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2", "label": "OG Deployer" },
+    { "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb", "label": "L4 Deployer" },
+    { "address": "DBmxMiP8xeiZ4T45AviCjZCmmmTFETFU8VtsC8vdJZWy", "label": "L5 Deployer" },
+    { "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y", "label": "L6 Deployer" },
+    { "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG", "label": "L7 Deployer" },
+    { "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE", "label": "L8 Deployer" },
+    { "address": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot", "label": "L9 Deployer" },
+    { "address": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB", "label": "L10 Deployer" },
+    { "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B", "label": "L9 Side Funder" },
+    { "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k", "label": "RXRP Buyer 7JCe3GHw (Coinbase cluster)" },
+    { "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi", "label": "RXRP Buyer 7iVCXQn4 (Coinbase cluster)" },
+    { "address": "GgFVQNY5hck2WMFtpVeWi37yQKepyHLqLD8eZ3nmLvKH", "label": "GgFVQNY5 Relay Convergence" },
+    { "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy", "label": "RXRP Buyer 54Pz1e35 (FTX US chain, user-labelled insider)" },
+    { "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x", "label": "RXRP Buyer AZ57WTNM (Robinhood)" },
+    { "address": "7RLD6F9SiFvtdqW4bYpy4m8D3mum7xVdZUSjzv1TWJaf", "label": "Fireblocks 7RLD6F9S (Hub-funded)" },
+    { "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh", "label": "RXRP Buyer 7cthuERB (ChangeNOW)" },
+    { "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J", "label": "RXRP Buyer BvYi1ZV9 (Binance 8 chain, L10 early buyer)" },
+    { "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk", "label": "RXRP Buyer 6zZAKeF5 (MoonPay MP2 chain)" },
+    { "address": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ", "label": "MoonPay MP2 Intermediary FiggKseF" },
+    { "address": "CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs", "label": "CoinSpot Exchange Hot Wallet" }
+  ],
   "ignore": []
 }
