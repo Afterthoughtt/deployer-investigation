@@ -1,0 +1,19 @@
+[Unit]
+Description=L11 Monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=l11
+WorkingDirectory=/opt/l11-monitor
+ExecStart=/usr/bin/node monitor/dist/index.js
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+Environment=NODE_ENV=production
+EnvironmentFile=/opt/l11-monitor/.env
+
+[Install]
+WantedBy=multi-user.target

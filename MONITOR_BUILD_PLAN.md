@@ -494,18 +494,101 @@ WantedBy=multi-user.target
 
 ## Deployment to VPS
 
-Once acceptance test passes locally:
+### Completed 2026-04-18
 
-1. Provision a small Linux VM (DigitalOcean Premium Droplet 2 vCPU / 4GB recommended; Hetzner / Vultr / Linode equivalents work too). Ubuntu 24.04 LTS, NYC region (or closest to user)
-2. Harden: ufw allow 22, fail2ban, disable root, SSH key only
-3. Create `l11` system user, `/opt/l11-monitor` directory owned by that user
-4. Install Node LTS, git, build-essential (better-sqlite3 may need to compile native bindings for the VPS's Node version)
-5. Clone the repo INTO `/opt/l11-monitor` so the repo root *is* `/opt/l11-monitor`. Run `npm ci` at the repo root, then `npm run monitor:build` to produce `monitor/dist/`
-6. Install `.env` at the repo root (`/opt/l11-monitor/.env`) with production credentials (scp over, chmod 600, chown l11)
-7. Place systemd unit at `/etc/systemd/system/l11-monitor.service`, `systemctl daemon-reload && systemctl enable --now l11-monitor`
-8. `journalctl -u l11-monitor -f` to tail logs
-9. Verify Telegram heartbeat and startup message arrive
-10. Enable provider's automated weekly backups (DO has a checkbox in the control panel)
+- DigitalOcean Premium Droplet provisioned (Intel 2 vCPU / 4GB / 120GB NVMe, NYC3, Ubuntu 24.04.3 LTS, IPv4 `143.198.12.56`)
+- Base packages installed: `ufw`, `fail2ban`, `git`, `build-essential`, `curl`, `ca-certificates`, `gnupg`
+- Node.js 20.20.2 LTS installed via NodeSource
+- `l11` system user created (uid 997, `/bin/bash`, sudo group, passwordless sudo via `/etc/sudoers.d/l11`)
+- Mac SSH key installed in `/root/.ssh/authorized_keys` and `/home/l11/.ssh/authorized_keys` (chmod 600, 700 dirs)
+- `/opt/l11-monitor` directory created, owned by `l11:l11`
+- `ufw`: default deny incoming, default allow outgoing, `22/tcp` allow (v4+v6), enabled
+- `fail2ban`: enabled, sshd jail active
+- SSH password auth disabled (DO cloud-init default: `passwordauthentication no`, `permitemptypasswords no`, `kbdinteractiveauthentication no`)
+- Weekly DO backups: user-deferred (see session 2026-04-18 decision — daemon self-recovers from l11.db loss via forward-only bootstrap)
+
+### Remaining increments
+
+Each increment is runnable + verifiable on its own. Stop and confirm output matches expectation before continuing.
+
+#### V1 — Repo clone + deps + build
+
+As `l11`:
+
+```bash
+ssh l11@143.198.12.56
+cd /opt/l11-monitor
+# Repo must be empty; if anything is there, double-check before proceeding
+git clone git@github.com:Afterthoughtt/deployer-investigation.git .
+npm ci
+npm run monitor:build
+```
+
+GitHub clone over SSH requires the l11 account's key to be authorized on the GitHub repo (add `~/.ssh/id_ed25519.pub` as a deploy key with read access, or generate a new key on the droplet). HTTPS + personal-access-token also works.
+
+**Verify**:
+- `ls monitor/dist/index.js` exists
+- `node -e "import('./monitor/dist/db.js').then(() => console.log('loads'))"` prints `loads`
+- `git log --oneline -3` shows the most recent commits
+
+#### V2 — .env install
+
+From Mac (repo root):
+
+```bash
+scp ./.env l11@143.198.12.56:/opt/l11-monitor/.env
+ssh l11@143.198.12.56 'chmod 600 /opt/l11-monitor/.env && stat -c "%a %U:%G %n" /opt/l11-monitor/.env'
+```
+
+Should print `600 l11:l11 /opt/l11-monitor/.env`.
+
+**Verify** (as `l11` on droplet, dry-run that does NOT start WS):
+
+```bash
+cd /opt/l11-monitor
+node -e "import('./monitor/dist/config.js').then(m => m.loadConfig()).then(() => console.log('config ok'))"
+```
+
+Should print `config ok` and the config-loaded banner. Any missing env var → fail loudly.
+
+#### V3 — systemd unit install + service start
+
+As `l11` with sudo:
+
+```bash
+sudo cp /opt/l11-monitor/monitor/systemd/l11-monitor.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now l11-monitor
+```
+
+**Verify**:
+- `systemctl status l11-monitor` → `active (running)`
+- `journalctl -u l11-monitor -n 50 --no-pager` → shows config banner, `wallets synced (0 new, 23 existing)` (wallets.json already committed), WS subscribe confirmation, live events flowing
+- `curl -s http://127.0.0.1:9479/health` → HTTP 200, `{"healthy":true,"wsConnected":true,…}`
+- Telegram: startup message received in the configured chat (`@l11_monitor_bot` → chat id from `.env`)
+- After ~24h idle the first heartbeat message should arrive (or dial down via `HEARTBEAT_INTERVAL_MS` in `.env` for a faster confirmation)
+
+#### V4 — Final SSH hardening
+
+As root (last time root SSH is used):
+
+```bash
+cat > /etc/ssh/sshd_config.d/99-l11-hardening.conf <<'EOF'
+PermitRootLogin no
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PubkeyAuthentication yes
+EOF
+sshd -t        # config check — must return no output
+systemctl reload ssh
+```
+
+**Verify** (from Mac):
+- `ssh -o ConnectTimeout=5 root@143.198.12.56 'echo test' 2>&1 | grep -i 'permission denied'` → root is denied
+- `ssh l11@143.198.12.56 'echo works'` → `works`
+- `ssh l11@143.198.12.56 'sudo sshd -T | grep -E "permitrootlogin|passwordauthentication"'` → `permitrootlogin no`, `passwordauthentication no`
+
+Daemon should still be running through all this (`systemctl is-active l11-monitor` → `active`).
 
 ---
 
