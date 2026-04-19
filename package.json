@@ -9,6 +9,8 @@
     "monitor:start": "node monitor/dist/index.js"
   },
   "dependencies": {
+    "@grammyjs/auto-retry": "2.0.2",
+    "@grammyjs/transformer-throttler": "1.2.1",
     "better-sqlite3": "^12.9.0",
     "dotenv": "^17.4.2",
     "grammy": "1.42.0",

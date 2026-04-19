@@ -18,8 +18,14 @@ import {
   makeListActiveCandidates,
 } from "../src/db.js";
 import type { Candidate } from "../src/detection/candidate.js";
+import type { ActiveCandidateRow } from "../src/db.js";
 import { parseMuteDuration } from "../src/telegram/bot.js";
-import { formatAge, formatDuration } from "../src/telegram/format.js";
+import {
+  MAX_CANDIDATES_BODY_CHARS,
+  formatAge,
+  formatCandidatesBody,
+  formatDuration,
+} from "../src/telegram/format.js";
 
 let pass = true;
 const check = (name: string, cond: boolean, detail?: string) => {
@@ -222,6 +228,90 @@ check(
 
 db.close();
 rmSync(tmpDir, { recursive: true, force: true });
+
+// ---------- formatCandidatesBody (PH2: 4096-char truncation guard) ----------
+check(
+  "formatCandidatesBody: empty rows → 'No active candidates.'",
+  formatCandidatesBody([], NOW) === "No active candidates.",
+);
+
+const makeFakeRow = (i: number): ActiveCandidateRow => ({
+  id: i,
+  // realistic 44-char base58 pubkey (content doesn't matter for truncation math)
+  address: `PumpFunDeployer${String(i).padStart(6, "0")}XXXXXXXXXXXXXXXXXXXXXXXX`.slice(
+    0,
+    44,
+  ),
+  fundedAmountSol: 13.443,
+  fundingSourceLabel: "MoonPay Hot Wallet 1",
+  confidence: "MEDIUM",
+  detectedAt: NOW - i * 60_000,
+});
+
+// 3 rows: well under cap, no footer, every included row is complete (4 lines).
+const smallBody = formatCandidatesBody([1, 2, 3].map(makeFakeRow), NOW);
+check(
+  "formatCandidatesBody small: under cap",
+  smallBody.length <= MAX_CANDIDATES_BODY_CHARS,
+  `${smallBody.length} chars`,
+);
+check(
+  "formatCandidatesBody small: no truncation footer",
+  !smallBody.includes("more (use /whitelist"),
+);
+check(
+  "formatCandidatesBody small: header shows total",
+  smallBody.startsWith("Active candidates (3):"),
+);
+check(
+  "formatCandidatesBody small: three Solscan rows",
+  (smallBody.match(/Solscan<\/a>/g) ?? []).length === 3,
+);
+
+// 60 rows @ ~215 chars each = ~12KB → guaranteed overflow.
+const bigRows = Array.from({ length: 60 }, (_, i) => makeFakeRow(i + 1));
+const bigBody = formatCandidatesBody(bigRows, NOW);
+check(
+  "formatCandidatesBody big: under 4096 char Telegram cap",
+  bigBody.length <= 4096,
+  `${bigBody.length} chars`,
+);
+check(
+  "formatCandidatesBody big: under MAX_CANDIDATES_BODY_CHARS",
+  bigBody.length <= MAX_CANDIDATES_BODY_CHARS,
+  `${bigBody.length} chars`,
+);
+check(
+  "formatCandidatesBody big: header still shows total=60",
+  bigBody.startsWith("Active candidates (60):"),
+);
+const footerMatch = bigBody.match(/\u2026 and (\d+) more \(use \/whitelist <id> or \/reject <id> directly\)/);
+check(
+  "formatCandidatesBody big: truncation footer present",
+  footerMatch !== null,
+);
+const droppedN = Number(footerMatch?.[1] ?? -1);
+const solscanCount = (bigBody.match(/Solscan<\/a>/g) ?? []).length;
+check(
+  "formatCandidatesBody big: dropped + included = total",
+  solscanCount + droppedN === 60,
+  `included=${solscanCount} dropped=${droppedN}`,
+);
+// Every included row must be complete (4 lines → ending in Solscan closing tag)
+// — no dangling `<code>` or truncated header line. Easiest check: every
+// occurrence of `<code>` is followed by its closing `</code>` before the next.
+check(
+  "formatCandidatesBody big: no dangling <code> tags",
+  (bigBody.match(/<code>/g) ?? []).length ===
+    (bigBody.match(/<\/code>/g) ?? []).length &&
+    (bigBody.match(/<code>/g) ?? []).length === solscanCount,
+);
+// The last included row's Solscan link must be followed by blank separator
+// + footer, never by a half-rendered next row.
+check(
+  "formatCandidatesBody big: footer follows the last complete Solscan link",
+  /Solscan<\/a>\n\n\u2026 and \d+ more/.test(bigBody),
+);
 
 if (!pass) {
   console.error("COMMANDS TEST FAILED");

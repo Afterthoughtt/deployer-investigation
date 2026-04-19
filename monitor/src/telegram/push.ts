@@ -14,7 +14,7 @@ export async function sendStartupMessage(
   meta: { monitoredCount: number; existingCandidates: number },
 ): Promise<void> {
   const lines = [
-    "l11-monitor: online",
+    "\uD83D\uDFE2 l11-monitor: online",
     `monitoring ${meta.monitoredCount} wallets`,
     `${meta.existingCandidates} existing candidates in DB`,
   ];
@@ -117,6 +117,7 @@ export async function sendHeartbeat(
   bot: TelegramBotHandle,
   meta: {
     uptimeMs: number;
+    wsConnected: boolean;
     activeCandidateCount: number;
     lastEventByCategory: Record<Category, number | null>;
   },
@@ -124,6 +125,7 @@ export async function sendHeartbeat(
   const lines = [
     "\uD83D\uDC93 l11-monitor heartbeat",
     `Uptime: ${formatDuration(meta.uptimeMs)}`,
+    `WS: ${meta.wsConnected ? "connected" : "disconnected"}`,
     `Active candidates: ${meta.activeCandidateCount}`,
     ...formatLastEventLines(meta.lastEventByCategory, Date.now()),
   ];

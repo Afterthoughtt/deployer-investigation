@@ -37,17 +37,28 @@ Wallet map, deployer history, insider networks, and API docs are all in this rep
 - 5 real candidates detected (all `status='detected'`, MoonPay origin, awaiting manual whitelist).
 - 10.5-minute soak: 488 WS events + 3 backfill events processed, 0 new candidates during soak, `/health` 200 throughout, clean exit.
 
-**In progress — production hardening before L11:**
+**Implemented locally 2026-04-19 — tests green, pending VPS deploy:**
 
-- 🔄 PH1a — `@grammyjs/auto-retry` plugin (MUST)
-- 🔄 PH1b — `@grammyjs/transformer-throttler` plugin (SHOULD)
-- 🔄 PH2 — `/candidates` 4096-char truncation guard (MUST)
-- 🔄 PH3 — Startup replay of un-alerted candidates + schema migration for `alert_sent_at` + `prior_sig_count` (MUST)
-- 🔄 PH4 — Heartbeat includes WS state line (SHOULD)
-- 🔄 PH5 — Startup message emoji prefix for triage consistency (SHOULD)
-- 🔄 PH6 — `/unreject <id>` and `/unwhitelist <id>` undo commands (SHOULD)
+- 🟢 PH1a — `@grammyjs/auto-retry` plugin (MUST) — wired in `monitor/src/telegram/bot.ts` after `new Bot(token)`.
+- 🟢 PH1b — `@grammyjs/transformer-throttler` plugin (SHOULD) — throttler registered before autoRetry so retries re-enter the throttled queue.
+- 🟢 PH2 — `/candidates` 4096-char truncation guard (MUST) — `formatCandidatesBody` in `monitor/src/telegram/format.ts`, covered by 13 new assertions in `monitor/test/commands.ts`.
+- 🟢 PH3 — Startup replay + schema migration for `alert_sent_at` + `prior_sig_count` (MUST) — idempotent `ALTER TABLE` in `openDb`, `makeMarkAlertSent` + `makeListUnalertedCandidates` readers, replay block in `index.ts` between startup push and WS connect. Covered by 13 new assertions in `monitor/test/candidate-actions.ts` including legacy-DB migration + crash-recovery simulation.
+- 🟢 PH4 — Heartbeat includes WS state line (SHOULD) — `wsConnected` added to `sendHeartbeat` meta + wired from `status.wsConnected` in `index.ts`.
+- 🟢 PH5 — Startup message emoji prefix (SHOULD) — 🟢 prefix on `sendStartupMessage`'s first line.
+- 🟢 PH6 — `/unreject <id>` + `/unwhitelist <id>` undo commands (SHOULD) — `makeUnwhitelistCandidate` + `makeUnrejectCandidate` in `db.ts` (unreject removes from `ignore_list`, mirrored in-memory via `ignoreSet.delete` in `index.ts`), new `ActionConfig` dispatcher in `bot.ts` (replaces the prior boolean-flag dispatcher). Covered by 18 new assertions in `monitor/test/candidate-actions.ts`.
 - ⏸️ PH7 — `/wallets` command (OPTIONAL)
 - ⏸️ PH8 — `/stats` command (OPTIONAL)
+
+**Test totals after this session:** `commands.ts` 54 assertions, `candidate-actions.ts` 53 assertions. Full suite (`replay-l10`, `replay-l10-dedup`, `commands`, `candidate-actions`, `health`, `selfcheck-synthetic`) green via `tsx`; `npm run monitor:build` clean.
+
+**Internal refactor landed in same diff:** `makeStatusTransition(db, runUpdate, afterUpdate?)` in `db.ts` changed from taking a prepared `Statement` to taking a `(id, now) => RunResult` callback. Needed because undo transitions null-out a timestamp column and can't bind `(now, id)` like the forward transitions. Callers updated in lockstep; helper is not exported.
+
+**Audit findings (from `/audit` 2026-04-19) — follow-ups, not ship-blockers:**
+- 🔸 MEDIUM: no unit test locks the "`sendCandidateAlert` rejection → `markAlertSent` NOT called" contract that PH3 replay depends on. ~10 lines in `candidate-actions.ts` would cover it.
+- 🔸 MEDIUM: PH3 replay loop at `index.ts:203-228` has no burst cap. Throttler serializes, but a long outage could pile up dozens of rows. Slicing to first 50 with a warn log is cheap hardening.
+- 🔹 LOW (pre-existing + PH6): `monitor/test/smoke-alert.ts:85` `createTelegramBot({…})` call is missing `onUnwhitelist`, `onUnreject` (added by PH6), and `runHealthChecks` (missing since increment 11). Hidden by `tsconfig.json`'s `include: ["src/**/*"]` — tsx runs transpile-only so the smoke script still runs, but type-soundness of test/ is broken. Fix when convenient.
+
+**VPS deploy outstanding.** Pre-deploy step for PH3: `scp` the VPS `l11.db` to `./backups/l11-pre-ph3-2026-04-19.db` before `systemctl restart`, since PH3 runs `ALTER TABLE` + a `UPDATE` over existing rows. Post-deploy, the 5 live `status='detected'` candidates will each get one replay alert on first boot (their `alert_sent_at` is NULL by definition).
 
 See §Production hardening below for details on each.
 
@@ -110,7 +121,7 @@ Never reconstruct a wallet address from a truncated prefix. Copy full addresses 
 - tsx for dev execution
 - TypeScript, strict mode
 - better-sqlite3 with WAL mode
-- grammy for Telegram (1.42.0) — `@grammyjs/auto-retry` + `@grammyjs/transformer-throttler` pending via PH1
+- grammy for Telegram (1.42.0) — `@grammyjs/auto-retry` 2.0.2 + `@grammyjs/transformer-throttler` 1.2.1 installed via PH1a/PH1b (local as of 2026-04-19, pending VPS deploy)
 - Helius Developer plan ($24.50/mo): Enhanced WSS `transactionSubscribe` with `accountInclude` filter, plus RPC for backfill
 - dotenv for config (reads the single root `.env`)
 - systemd for process management (no pm2)
@@ -290,7 +301,7 @@ Single chat, hardcoded chat ID in env. Bot responds only to that chat (chat guar
 
 ### Commands (registered via `bot.api.setMyCommands` on startup)
 
-**Shipped:**
+**Shipped to VPS:**
 - `/status` — daemon uptime, WebSocket state + subscribe count, per-category last-event ages, active candidate count, mute state. In-memory + one SQL COUNT; no external calls.
 - `/health` — end-to-end 5-probe liveness probe (SQLite read, Helius `getBalance` on MP1, WS connected + on-ramp freshness < 5min, detection synthetic payload, Telegram alert pipe). Burns ~1 Helius credit per invocation; do not loop.
 - `/candidates` — list active candidates with tier emoji, id, confidence, amount, source label, age, address in `<code>` block, Solscan link per row.
@@ -299,8 +310,12 @@ Single chat, hardcoded chat ID in env. Bot responds only to that chat (chat guar
 - `/mute <duration>` — parses `Ns`/`Nm`/`Nh`/`Nd` up to 7d cap; sets in-memory `muteUntil` that adds `disable_notification: true` to every outbound push. (In-memory only — restart clears.)
 - `/unmute` — cancel active mute.
 
-**Pending (see §Production hardening):**
-- PH6: `/unwhitelist <id>`, `/unreject <id>` — undo a misfire; unreject also removes from ignore_list.
+**Implemented locally 2026-04-19, pending VPS deploy:**
+- `/candidates` now applies a 4096-char truncation guard with a `… and N more` footer (PH2).
+- `/unwhitelist <id>` — undo a misfire on a whitelisted candidate (DB-only; does not unwind a Bloom paste).
+- `/unreject <id>` — undo a misfire on a rejected candidate; also removes the address from `ignore_list` so it can be re-detected.
+
+**Pending implementation:**
 - PH7: `/wallets` — list monitored wallets grouped by category (OPTIONAL).
 - PH8: `/stats` — candidate / event rollup counts (OPTIONAL).
 
@@ -337,12 +352,12 @@ Callback handlers on `wl:*` and `rj:*`. Acknowledge via `ctx.answerCallbackQuery
 - **Stale on-ramp warning + recovery:** triggers when no on-ramp event received in `STALE_THRESHOLD_MS` (default 2h); recovery reports staleness duration.
 - **WS-down warning + recovery:** sustained WS disconnect (>60s) pushes `⚠️ sendWsDownWarning`; `✅ sendWsRecovery` on next open. Flaps < 60s are silent.
 - **RPC failure warning + recovery:** 5 consecutive `getSignaturesForAddress` failures (after `rpcCall`'s own 5-attempt retry with `Retry-After`) triggers `⚠️ sendRpcFailureWarning`; next successful call triggers `✅ sendRpcFailureRecovery`.
-- **Daily heartbeat (`💓`):** uptime, active candidate count, per-category last-event ages. Cadence `HEARTBEAT_INTERVAL_MS` (default 24h). PH4 adds a WS-state line.
-- **Startup message:** one-liner with monitored-wallet count + existing-candidate count. PH5 adds a `🟢` prefix for triage consistency.
+- **Daily heartbeat (`💓`):** uptime, WS state (`connected`/`disconnected`), active candidate count, per-category last-event ages. Cadence `HEARTBEAT_INTERVAL_MS` (default 24h). WS-state line added by PH4 2026-04-19 (local, pending VPS deploy).
+- **Startup message:** `🟢` prefix + monitored-wallet count + existing-candidate count. 🟢 prefix added by PH5 2026-04-19 (local, pending VPS deploy).
 
 ### Telegram 429 handling
 
-**Original plan claimed "grammy handles this" — this is wrong.** grammy does NOT retry 429s by default; the official solution is `@grammyjs/auto-retry`. Addressed in PH1a.
+**Original plan claimed "grammy handles this" — this is wrong.** grammy does NOT retry 429s by default; the official solution is `@grammyjs/auto-retry`. Installed locally 2026-04-19 via PH1a (pending VPS deploy); PH1b adds `@grammyjs/transformer-throttler` in front of it so retries themselves are rate-limited.
 
 ---
 
@@ -404,9 +419,9 @@ npx tsx monitor/test/replay-l10.ts
 - **Helius RPC 429** — `rpcCall` honors `Retry-After`, exponential backoff, never hammers.
 - **Helius credit exhaustion** — track manually via dashboard, not programmatically in v1.
 - **SQLite WAL grows large** — checkpoint manually if > 100MB (unlikely at our write volume).
-- **Telegram 429** — **requires `@grammyjs/auto-retry` plugin (PH1a)**; grammy does not retry by default. Without PH1a, a 429 silently drops the alert.
-- **Telegram 5xx / network blip at send time** — same: requires auto-retry (PH1a). Candidate row persists to SQLite; PH3 startup replay covers the gap on next boot.
-- **Daemon crash between SQLite persist and Telegram send** — PH3 startup replay covers it. Without PH3 the candidate is orphaned with no operator notification.
+- **Telegram 429** — `@grammyjs/auto-retry` (installed locally via PH1a 2026-04-19; pending VPS deploy) retries honoring `retry_after` up to 3 attempts within a 30s cap. Before this lands on the VPS, a 429 silently drops the alert.
+- **Telegram 5xx / network blip at send time** — same: auto-retry (PH1a) covers it. On final failure, the candidate row's `alert_sent_at` stays NULL → PH3 startup replay covers the gap on next boot.
+- **Daemon crash between SQLite persist and Telegram send** — PH3 startup replay (local 2026-04-19, pending VPS deploy) covers it: un-alerted rows surface via `SELECT … WHERE status='detected' AND alert_sent_at IS NULL` and the push is fired-and-forgotten after `bot.start()` but before WS connect. Before PH3 lands on the VPS, such a candidate is orphaned with no operator notification.
 - **Daemon crash in general** — systemd restarts (`Restart=always`, `RestartSec=5`), startup backfill covers the gap for WS events.
 - **VPS reboot** — systemd starts daemon at boot, backfill covers the gap.
 - **Deployer funds from an on-ramp we're not monitoring** — cannot detect. Known gap.
@@ -472,8 +487,8 @@ investigation/
     test/
       replay-l10.ts               # detection acceptance (pinned L10 fixture, 12 assertions)
       replay-l10-dedup.ts         # DB dedup acceptance (11 assertions)
-      commands.ts                 # parseMuteDuration, formatDuration, formatAge, listActiveCandidates (41 assertions)
-      candidate-actions.ts        # whitelist/reject transitions + ignore_list wiring (22 assertions)
+      commands.ts                 # parseMuteDuration, formatDuration, formatAge, listActiveCandidates, formatCandidatesBody truncation (54 assertions)
+      candidate-actions.ts        # whitelist/reject/unwhitelist/unreject transitions + ignore_list wiring + PH3 replay + migration (53 assertions)
       health.ts                   # staleness state machine + /health HTTP server (15 assertions)
       selfcheck-synthetic.ts      # /health synthetic-detection probe
       smoke-alert.ts              # manual: push a synthetic candidate alert end-to-end
@@ -554,6 +569,13 @@ For schema-changing deploys (e.g. PH3), first pull a backup:
 mkdir -p backups
 scp l11@143.198.12.56:/opt/l11-monitor/monitor/data/l11.db ./backups/l11-pre-<change>-<date>.db
 ```
+
+**Next deploy (PH1a/PH1b/PH2/PH3/PH4/PH5/PH6 bundle, 2026-04-19):**
+1. Pre-deploy: `scp l11@143.198.12.56:/opt/l11-monitor/monitor/data/l11.db ./backups/l11-pre-ph3-2026-04-19.db` (PH3 runs ALTER + UPDATE on existing rows).
+2. Deploy via standard sequence above. `npm ci` picks up the two new grammy plugins from `package-lock.json`.
+3. Expect on first boot: `db-migrate: candidates +alert_sent_at` + `db-migrate: candidates +prior_sig_count` + `db-migrate: candidates.prior_sig_count backfilled N row(s)` log lines, then `replay: queued 5 un-alerted candidate(s)` and 5 alert messages in the Telegram chat for the pre-existing `detected` candidates. Subsequent boots: migration is a no-op and replay returns 0 (those rows will have been marked `alert_sent_at`).
+4. Post-deploy sanity: `/status` reports expected uptime, `/candidates` renders with Solscan links, `/health` returns all checks passed. The new commands (`/unwhitelist`, `/unreject`) are registered via `setMyCommands` — visible in the Telegram command menu.
+5. Rollback: `scp ./backups/l11-pre-ph3-2026-04-19.db l11@143.198.12.56:/opt/l11-monitor/monitor/data/l11.db` + `git reset --hard <prev-sha>` on VPS + `npm ci && npm run monitor:build && sudo systemctl restart l11-monitor`. Migration is idempotent so the DB restore is the primary reversal mechanism.
 
 ---
 

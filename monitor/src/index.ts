@@ -4,8 +4,12 @@ import {
   makePersistCandidate,
   makeWhitelistCandidate,
   makeRejectCandidate,
+  makeUnwhitelistCandidate,
+  makeUnrejectCandidate,
   makeListActiveCandidates,
   makeActiveCandidateCount,
+  makeMarkAlertSent,
+  makeListUnalertedCandidates,
 } from "./db.js";
 import { connectHeliusWs, type TransactionEvent } from "./helius/ws.js";
 import { loadWalletsFile, syncWalletsToDb, type Category } from "./wallets.js";
@@ -69,8 +73,12 @@ try {
   const persistCandidate = makePersistCandidate(db);
   const whitelistCandidate = makeWhitelistCandidate(db);
   const rejectCandidate = makeRejectCandidate(db);
+  const unwhitelistCandidate = makeUnwhitelistCandidate(db);
+  const unrejectCandidate = makeUnrejectCandidate(db);
   const listActiveCandidates = makeListActiveCandidates(db);
   const activeCandidateCount = makeActiveCandidateCount(db);
+  const markAlertSent = makeMarkAlertSent(db);
+  const listUnalertedCandidates = makeListUnalertedCandidates(db);
   console.log("l11-monitor: db opened");
 
   const wallets = loadWalletsFile(config.walletsPath);
@@ -139,6 +147,16 @@ try {
       }
       return result;
     },
+    onUnwhitelist: unwhitelistCandidate,
+    onUnreject: (id) => {
+      const result = unrejectCandidate(id);
+      // Mirror of /reject: on successful undo, drop the address from the
+      // in-memory ignore set so it can be re-detected on the next funding tx.
+      if (result.statusChanged && result.address) {
+        ignoreSet.delete(result.address);
+      }
+      return result;
+    },
     listActiveCandidates,
     activeCandidateCount,
     getStatus: () => status,
@@ -165,6 +183,49 @@ try {
   } catch (err) {
     // Non-fatal — bot is running, but push failed (bad chat id, network, etc).
     console.error(`telegram: startup push failed: ${errMessage(err)}`);
+  }
+
+  // PH3: replay any candidate that was persisted but never alerted (crash
+  // between persistCandidate and the Telegram ack, or Telegram-side drop
+  // before auto-retry was wired in).
+  //
+  // Fire-and-forget on purpose: with throttler+auto-retry in front of the API,
+  // burst replays self-pace at ~1/sec, and WS connect is not blocked.
+  //
+  // Caveat: `fundedAmountLamports` here is reconstructed from `funded_amount_sol`
+  // and is lossy (REAL has ~1-lamport rounding). Safe for sendCandidateAlert
+  // (reads fundedAmountSol only). Do NOT pass replay Candidates through
+  // detectCandidates or persistCandidate — those paths assume authoritative
+  // lamports.
+  const unalerted = listUnalertedCandidates();
+  if (unalerted.length > 0) {
+    console.log(`replay: queued ${unalerted.length} un-alerted candidate(s)`);
+    for (const row of unalerted) {
+      const cat =
+        monitoredMap.get(row.fundingSource)?.category ?? "intermediary";
+      const replayCandidate: Candidate = {
+        recipient: row.address,
+        fundingSourceAddress: row.fundingSource,
+        fundingSourceLabel: row.fundingSourceLabel ?? "(unknown)",
+        fundingSourceCategory: cat,
+        fundedAmountLamports: Math.round(row.fundedAmountSol * 1e9),
+        fundedAmountSol: row.fundedAmountSol,
+        fundingSignature: row.fundingSignature,
+        fundingSlot: row.fundingSlot,
+        fundingTimestamp: row.fundingTimestamp,
+        confidence: row.confidence,
+        // Pre-PH3 rows had NULL priorSigCount until backfilled; backfill sets
+        // it to 1 but cover the `?? 1` path defensively for safety.
+        priorSigCount: row.priorSigCount ?? 1,
+      };
+      sendCandidateAlert(bot, replayCandidate, row.id)
+        .then(() => markAlertSent(row.id))
+        .catch((err) => {
+          console.error(
+            `replay: alert push for C${row.id} (${row.address}) failed: ${errMessage(err)}`,
+          );
+        });
+    }
   }
 
   const advanceCursorStmt = db.prepare(
@@ -272,13 +333,17 @@ try {
             logCandidate(source, candidateCount, c);
             const id = result.candidateId;
             if (id !== null) {
-              sendCandidateAlert(bot, c, id).catch((err) => {
-                // Non-fatal: candidate is already persisted. Log the recipient
-                // so a tailing operator can still act on L11 if the push drops.
-                console.error(
-                  `telegram: alert push for C${id} (${c.recipient}) failed: ${errMessage(err)}`,
-                );
-              });
+              sendCandidateAlert(bot, c, id)
+                .then(() => markAlertSent(id))
+                .catch((err) => {
+                  // Non-fatal: candidate is already persisted. Log the recipient
+                  // so a tailing operator can still act on L11 if the push drops.
+                  // alert_sent_at stays NULL → PH3 startup replay will retry
+                  // on the next boot.
+                  console.error(
+                    `telegram: alert push for C${id} (${c.recipient}) failed: ${errMessage(err)}`,
+                  );
+                });
             }
           } else {
             console.log(
@@ -420,6 +485,7 @@ try {
     push: () =>
       sendHeartbeat(bot, {
         uptimeMs: Date.now() - status.startedAt,
+        wsConnected: status.wsConnected,
         activeCandidateCount: activeCandidateCount(),
         lastEventByCategory: status.lastEventByCategory,
       }),

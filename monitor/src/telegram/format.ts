@@ -1,3 +1,4 @@
+import type { ActiveCandidateRow } from "../db.js";
 import type { Confidence } from "../detection/candidate.js";
 import type { Category } from "../wallets.js";
 
@@ -62,4 +63,52 @@ export function formatLastEventLines(
   return (["onramp", "hub", "intermediary"] as const).map(
     (c) => `${CATEGORY_LABELS[c]} last event: ${formatAge(lastByCategory[c], now)}`,
   );
+}
+
+// Telegram hard-caps sendMessage text at 4096 chars (raw, including HTML tags).
+// We leave 196 chars of headroom for last-minute append churn.
+export const MAX_CANDIDATES_BODY_CHARS = 3900;
+
+/**
+ * Render the /candidates reply body, honoring the 4096-char Telegram hard cap.
+ * Each row is a 4-line chunk (blank separator + header + code-block address +
+ * Solscan link). When the concatenated body would overflow, trailing chunks
+ * are dropped in whole, and a "… and N more" footer is appended — never a
+ * partial chunk.
+ *
+ * Exported for regression testing; `bot.ts` is the only runtime caller.
+ */
+export function formatCandidatesBody(
+  rows: ActiveCandidateRow[],
+  now: number,
+): string {
+  if (rows.length === 0) return "No active candidates.";
+  const total = rows.length;
+  const header = `Active candidates (${total}):`;
+  const rowChunks: string[][] = rows.map((r) => {
+    const emoji = TIER_EMOJI[r.confidence];
+    const src = escapeHtml(r.fundingSourceLabel ?? "(unknown)");
+    const amount = r.fundedAmountSol.toFixed(3);
+    const age = formatAge(r.detectedAt, now);
+    const addr = escapeHtml(r.address);
+    return [
+      "",
+      `${emoji} C${r.id} ${r.confidence} ${amount} SOL from ${src} \u00B7 ${age}`,
+      `<code>${addr}</code>`,
+      `<a href="https://solscan.io/account/${addr}">\uD83D\uDD0D Solscan</a>`,
+    ];
+  });
+
+  const footer = (dropped: number): string =>
+    `\n\n\u2026 and ${dropped} more (use /whitelist <id> or /reject <id> directly)`;
+
+  for (let n = total; n >= 0; n--) {
+    const body = rowChunks.slice(0, n).flat().join("\n");
+    const f = n < total ? footer(total - n) : "";
+    const text = `${header}${body ? `\n${body}` : ""}${f}`;
+    if (text.length <= MAX_CANDIDATES_BODY_CHARS) return text;
+  }
+  // Header+footer alone is ~120 chars — always fits. This return is unreachable
+  // in practice but makes the function total.
+  return `${header}${footer(total)}`;
 }

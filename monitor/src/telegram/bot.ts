@@ -1,5 +1,7 @@
 import { Bot, GrammyError, HttpError } from "grammy";
 import type { Context, InlineKeyboard } from "grammy";
+import { autoRetry } from "@grammyjs/auto-retry";
+import { apiThrottler } from "@grammyjs/transformer-throttler";
 import type {
   ActiveCandidateCount,
   CandidateAction,
@@ -9,9 +11,8 @@ import type { HealthCheckResult } from "../selfcheck.js";
 import { errMessage, type Logger } from "../util.js";
 import type { Category } from "../wallets.js";
 import {
-  TIER_EMOJI,
   escapeHtml,
-  formatAge,
+  formatCandidatesBody,
   formatDuration,
   formatLastEventLines,
 } from "./format.js";
@@ -31,6 +32,10 @@ export interface CreateTelegramBotArgs {
   onWhitelist: CandidateAction;
   /** Invoked when the user taps the "Reject" inline button or types /reject <id>. */
   onReject: CandidateAction;
+  /** PH6: invoked by /unwhitelist <id> — moves a whitelisted row back to 'detected'. */
+  onUnwhitelist: CandidateAction;
+  /** PH6: invoked by /unreject <id> — moves a rejected row back to 'detected' and removes from ignore_list. */
+  onUnreject: CandidateAction;
   /** Reader for /candidates. */
   listActiveCandidates: ListActiveCandidates;
   /** Count used by /status (cheaper than materializing the whole row set). */
@@ -61,12 +66,25 @@ const COMMANDS = [
   { command: "candidates", description: "list active candidates" },
   { command: "whitelist", description: "mark candidate whitelisted: /whitelist <id>" },
   { command: "reject", description: "reject candidate + add to ignore list: /reject <id>" },
+  { command: "unwhitelist", description: "undo a whitelist: /unwhitelist <id>" },
+  { command: "unreject", description: "undo a reject + remove from ignore list: /unreject <id>" },
   { command: "mute", description: "silence alerts for a duration: /mute 2h" },
   { command: "unmute", description: "cancel an active mute" },
 ];
 
 // Reject /mute durations over 7d as typos rather than silently clamp.
 const MAX_MUTE_MS = 7 * 24 * 60 * 60 * 1000;
+
+interface ActionConfig {
+  /** verb used in usage messages and error lines ("whitelist", "unreject", …) */
+  verb: string;
+  action: CandidateAction;
+  /** rendered as the confirmation body (HTML). receives id + already-escaped address. */
+  successHtml: (id: number, addrHtml: string) => string;
+  /** rendered when the row exists but its status doesn't match the expected source.
+   *  Receives id and the actual previousStatus. */
+  mismatchText: (id: number, previousStatus: string) => string;
+}
 
 export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandle {
   const {
@@ -75,12 +93,26 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     log,
     onWhitelist,
     onReject,
+    onUnwhitelist,
+    onUnreject,
     listActiveCandidates,
     activeCandidateCount,
     getStatus,
     runHealthChecks,
   } = args;
   const bot = new Bot(token);
+
+  // Transformer order: first-registered runs innermost (closest to the API
+  // call). Throttler first → autoRetry wraps the throttled call, so when
+  // autoRetry retries a 429 the retry itself re-enters the throttler queue
+  // and is rate-limited. Throttler defaults align with Telegram's documented
+  // per-chat + per-group limits — fine for our single-chat bot.
+  bot.api.config.use(apiThrottler());
+  // Retries 429 (flood-wait, honoring retry_after) and transient 5xx. Without
+  // this, a single blip between `handleEvent` fire and Telegram ack silently
+  // drops the candidate alert. maxDelaySeconds=30 absorbs typical 1–5s
+  // flood-waits while refusing the 460–490s lockout windows.
+  bot.api.config.use(autoRetry({ maxRetryAttempts: 3, maxDelaySeconds: 30 }));
 
   // In-memory only: a daemon restart clears the mute, which is the right default
   // — restarts are rare and the user will want to know the daemon is healthy.
@@ -110,19 +142,46 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     });
   };
 
+  const whitelistCfg: ActionConfig = {
+    verb: "whitelist",
+    action: onWhitelist,
+    successHtml: (id, a) => `\u2705 C${id} whitelisted\n\n<code>${a}</code>`,
+    mismatchText: (id, prev) => `C${id} already ${prev}`,
+  };
+  const rejectCfg: ActionConfig = {
+    verb: "reject",
+    action: onReject,
+    successHtml: (id, a) => `\u274C C${id} rejected\n\n<code>${a}</code>`,
+    mismatchText: (id, prev) => `C${id} already ${prev}`,
+  };
+  const unwhitelistCfg: ActionConfig = {
+    verb: "unwhitelist",
+    action: onUnwhitelist,
+    successHtml: (id, a) =>
+      `\u21A9\uFE0F C${id} moved back to detected\n\n<code>${a}</code>`,
+    mismatchText: (id, prev) =>
+      `C${id} not in whitelisted state (currently ${prev})`,
+  };
+  const unrejectCfg: ActionConfig = {
+    verb: "unreject",
+    action: onUnreject,
+    successHtml: (id, a) =>
+      `\u21A9\uFE0F C${id} moved back to detected\n\n<code>${a}</code>`,
+    mismatchText: (id, prev) =>
+      `C${id} not in rejected state (currently ${prev})`,
+  };
+
   const dispatchCandidateAction = async (
     ctx: Context,
     id: number,
-    isWhitelist: boolean,
+    cfg: ActionConfig,
   ): Promise<void> => {
-    const verb = isWhitelist ? "whitelist" : "reject";
-    const action = isWhitelist ? onWhitelist : onReject;
     let result;
     try {
-      result = action(id);
+      result = cfg.action(id);
     } catch (err) {
-      log.error(`telegram: ${verb} C${id} failed: ${errMessage(err)}`);
-      await reply(ctx, `${verb} C${id} failed: ${errMessage(err)}`);
+      log.error(`telegram: ${cfg.verb} C${id} failed: ${errMessage(err)}`);
+      await reply(ctx, `${cfg.verb} C${id} failed: ${errMessage(err)}`);
       return;
     }
     if (!result.address) {
@@ -132,36 +191,31 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     if (!result.statusChanged) {
       await reply(
         ctx,
-        `C${id} already ${result.previousStatus ?? "(unknown)"}`,
+        cfg.mismatchText(id, result.previousStatus ?? "(unknown)"),
       );
       return;
     }
-    const emoji = isWhitelist ? "\u2705" : "\u274C";
-    const past = isWhitelist ? "whitelisted" : "rejected";
-    await reply(
-      ctx,
-      `${emoji} C${id} ${past}\n\n<code>${escapeHtml(result.address)}</code>`,
-      { html: true },
-    );
+    await reply(ctx, cfg.successHtml(id, escapeHtml(result.address)), {
+      html: true,
+    });
   };
 
   const runIdCommand = async (
     ctx: Context,
     argText: string,
-    isWhitelist: boolean,
+    cfg: ActionConfig,
   ): Promise<void> => {
-    const verb = isWhitelist ? "whitelist" : "reject";
     const trimmed = argText.trim();
     if (trimmed === "") {
-      await reply(ctx, `usage: /${verb} <id>`);
+      await reply(ctx, `usage: /${cfg.verb} <id>`);
       return;
     }
     const id = Number(trimmed);
     if (!Number.isInteger(id) || id <= 0) {
-      await reply(ctx, `usage: /${verb} <id> (got: ${trimmed})`);
+      await reply(ctx, `usage: /${cfg.verb} <id> (got: ${trimmed})`);
       return;
     }
-    await dispatchCandidateAction(ctx, id, isWhitelist);
+    await dispatchCandidateAction(ctx, id, cfg);
   };
 
   bot.command("status", async (ctx) => {
@@ -198,36 +252,23 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
 
   bot.command("candidates", async (ctx) => {
     const rows = listActiveCandidates();
-    if (rows.length === 0) {
-      await reply(ctx, "No active candidates.");
-      return;
-    }
-    const now = Date.now();
-    const lines: string[] = [`Active candidates (${rows.length}):`];
-    for (const r of rows) {
-      const emoji = TIER_EMOJI[r.confidence];
-      const src = escapeHtml(r.fundingSourceLabel ?? "(unknown)");
-      const amount = r.fundedAmountSol.toFixed(3);
-      const age = formatAge(r.detectedAt, now);
-      const addr = escapeHtml(r.address);
-      lines.push("");
-      lines.push(
-        `${emoji} C${r.id} ${r.confidence} ${amount} SOL from ${src} · ${age}`,
-      );
-      lines.push(`<code>${addr}</code>`);
-      lines.push(
-        `<a href="https://solscan.io/account/${addr}">\uD83D\uDD0D Solscan</a>`,
-      );
-    }
-    await reply(ctx, lines.join("\n"), { html: true });
+    await reply(ctx, formatCandidatesBody(rows, Date.now()), { html: true });
   });
 
   bot.command("whitelist", async (ctx) => {
-    await runIdCommand(ctx, ctx.match, true);
+    await runIdCommand(ctx, ctx.match, whitelistCfg);
   });
 
   bot.command("reject", async (ctx) => {
-    await runIdCommand(ctx, ctx.match, false);
+    await runIdCommand(ctx, ctx.match, rejectCfg);
+  });
+
+  bot.command("unwhitelist", async (ctx) => {
+    await runIdCommand(ctx, ctx.match, unwhitelistCfg);
+  });
+
+  bot.command("unreject", async (ctx) => {
+    await runIdCommand(ctx, ctx.match, unrejectCfg);
   });
 
   bot.command("mute", async (ctx) => {
@@ -269,7 +310,11 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     const prefix = ctx.match[1];
     const idStr = ctx.match[2];
     if (!prefix || !idStr) return;
-    await dispatchCandidateAction(ctx, Number(idStr), prefix === "wl");
+    await dispatchCandidateAction(
+      ctx,
+      Number(idStr),
+      prefix === "wl" ? whitelistCfg : rejectCfg,
+    );
   });
 
   bot.catch((err) => {

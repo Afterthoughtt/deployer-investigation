@@ -26,7 +26,9 @@ CREATE TABLE IF NOT EXISTS candidates (
   status TEXT NOT NULL,
   detected_at INTEGER NOT NULL,
   whitelisted_at INTEGER,
-  rejected_at INTEGER
+  rejected_at INTEGER,
+  alert_sent_at INTEGER,
+  prior_sig_count INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS ignore_list (
@@ -58,7 +60,56 @@ export function openDb(dbPath: string): Db {
   db.pragma("journal_mode = WAL");
   db.pragma("foreign_keys = ON");
   db.exec(SCHEMA_DDL);
+  migrateCandidatesSchema(db);
   return db;
+}
+
+/**
+ * Idempotent migration for columns added after the original CREATE TABLE. For
+ * each column listed in CANDIDATES_MIGRATIONS that is missing, run the ALTER
+ * and its optional post-ALTER backfill. Runs before any prepared statements
+ * so `makePersistCandidate`'s INSERT binds against the final column set.
+ */
+const CANDIDATES_MIGRATIONS: Array<{
+  column: string;
+  ddl: string; // full ALTER TABLE ... ADD COLUMN ... clause
+  /** One-shot SQL to populate the new column for rows that existed pre-migration.
+   *  Runs only when the column was actually added. */
+  backfill?: string;
+}> = [
+  // PH3: persist whether each candidate has successfully been alerted to the
+  // operator. NULL means "never alerted" → startup replay will push it.
+  { column: "alert_sent_at", ddl: "ADD COLUMN alert_sent_at INTEGER" },
+  // PH3: replay needs priorSigCount to render the "1 prior sig" / "N prior sigs"
+  // line faithfully. Historical detections all had priorSigCount=1 (by tiering
+  // logic at the time), so backfill NULLs to 1.
+  {
+    column: "prior_sig_count",
+    ddl: "ADD COLUMN prior_sig_count INTEGER",
+    backfill:
+      "UPDATE candidates SET prior_sig_count = 1 WHERE prior_sig_count IS NULL",
+  },
+];
+
+function migrateCandidatesSchema(db: Db): void {
+  const existing = new Set(
+    (
+      db
+        .prepare(`SELECT name FROM pragma_table_info('candidates')`)
+        .all() as { name: string }[]
+    ).map((r) => r.name),
+  );
+  for (const m of CANDIDATES_MIGRATIONS) {
+    if (existing.has(m.column)) continue;
+    db.exec(`ALTER TABLE candidates ${m.ddl}`);
+    console.log(`db-migrate: candidates +${m.column}`);
+    if (m.backfill) {
+      const info = db.prepare(m.backfill).run();
+      console.log(
+        `db-migrate: candidates.${m.column} backfilled ${info.changes} row(s)`,
+      );
+    }
+  }
 }
 
 export interface PersistCandidateResult {
@@ -135,8 +186,8 @@ export function makePersistCandidate(db: Db): PersistCandidate {
     `INSERT OR IGNORE INTO candidates
        (address, funded_amount_sol, funding_source, funding_source_label,
         funding_signature, funding_slot, funding_timestamp,
-        confidence, status, detected_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'detected', ?)`,
+        confidence, status, detected_at, prior_sig_count)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'detected', ?, ?)`,
   );
   const insertEvent = db.prepare(
     `INSERT OR IGNORE INTO events
@@ -163,6 +214,7 @@ export function makePersistCandidate(db: Db): PersistCandidate {
       eventTimestamp,
       c.confidence,
       now,
+      c.priorSigCount,
     );
     const evRes = insertEvent.run(
       c.fundingSignature,
@@ -182,13 +234,66 @@ export function makePersistCandidate(db: Db): PersistCandidate {
   });
 }
 
+/** PH3: stamp `alert_sent_at` once a candidate's Telegram alert has been ack'd
+ *  by the Bot API. Rows with NULL in this column after startup will be replayed
+ *  by `listUnalertedCandidates` on the next boot. */
+export type MarkAlertSent = (id: number) => void;
+
+export function makeMarkAlertSent(db: Db): MarkAlertSent {
+  const stmt = db.prepare(
+    `UPDATE candidates SET alert_sent_at = ? WHERE id = ?`,
+  );
+  return (id: number) => {
+    stmt.run(Date.now(), id);
+  };
+}
+
+/** PH3: rows whose alert has not yet been pushed. Ordered oldest-first so the
+ *  operator sees replay events in the same sequence they were detected. */
+export interface UnalertedCandidateRow {
+  id: number;
+  address: string;
+  fundedAmountSol: number;
+  fundingSource: string;
+  fundingSourceLabel: string | null;
+  fundingSignature: string;
+  fundingSlot: number;
+  fundingTimestamp: number;
+  confidence: Confidence;
+  priorSigCount: number | null;
+}
+
+export type ListUnalertedCandidates = () => UnalertedCandidateRow[];
+
+export function makeListUnalertedCandidates(db: Db): ListUnalertedCandidates {
+  const stmt = db.prepare(
+    `SELECT id,
+            address,
+            funded_amount_sol    AS fundedAmountSol,
+            funding_source       AS fundingSource,
+            funding_source_label AS fundingSourceLabel,
+            funding_signature    AS fundingSignature,
+            funding_slot         AS fundingSlot,
+            funding_timestamp    AS fundingTimestamp,
+            confidence,
+            prior_sig_count      AS priorSigCount
+       FROM candidates
+      WHERE status = 'detected' AND alert_sent_at IS NULL
+      ORDER BY detected_at ASC`,
+  );
+  return () => stmt.all() as UnalertedCandidateRow[];
+}
+
 /**
- * Only transitions from 'detected'. Re-invoking on a terminal row is a no-op
- * (statusChanged=false, previousStatus reflects what's in the DB).
+ * Source-status filter lives inside each caller's UPDATE WHERE clause, so a
+ * row whose status doesn't match the intended source is a no-op
+ * (statusChanged=false, previousStatus reflects what's actually in the DB).
+ * `runUpdate` does the bind so forward transitions can stamp a timestamp and
+ * undo transitions can null one out without inventing a placeholder for `now`.
  */
 function makeStatusTransition(
   db: Db,
-  update: Database.Statement,
+  runUpdate: (id: number, now: number) => Database.RunResult,
   afterUpdate?: (address: string, id: number, now: number) => void,
 ): CandidateAction {
   const fetchRow = db.prepare(
@@ -202,7 +307,7 @@ function makeStatusTransition(
       return { address: null, statusChanged: false, previousStatus: null };
     }
     const now = Date.now();
-    const res = update.run(now, id);
+    const res = runUpdate(id, now);
     const statusChanged = res.changes === 1;
     if (statusChanged) afterUpdate?.(row.address, id, now);
     return {
@@ -214,30 +319,60 @@ function makeStatusTransition(
 }
 
 export function makeWhitelistCandidate(db: Db): CandidateAction {
-  return makeStatusTransition(
-    db,
-    db.prepare(
-      `UPDATE candidates
-       SET status = 'whitelisted', whitelisted_at = ?
-       WHERE id = ? AND status = 'detected'`,
-    ),
+  const stmt = db.prepare(
+    `UPDATE candidates
+     SET status = 'whitelisted', whitelisted_at = ?
+     WHERE id = ? AND status = 'detected'`,
   );
+  return makeStatusTransition(db, (id, now) => stmt.run(now, id));
 }
 
 /** Rejecting also adds the address to ignore_list so subsequent detection runs skip it. */
 export function makeRejectCandidate(db: Db): CandidateAction {
+  const stmt = db.prepare(
+    `UPDATE candidates
+     SET status = 'rejected', rejected_at = ?
+     WHERE id = ? AND status = 'detected'`,
+  );
   const insertIgnore = db.prepare(
     `INSERT OR IGNORE INTO ignore_list (address, reason, added_at)
      VALUES (?, ?, ?)`,
   );
   return makeStatusTransition(
     db,
-    db.prepare(
-      `UPDATE candidates
-       SET status = 'rejected', rejected_at = ?
-       WHERE id = ? AND status = 'detected'`,
-    ),
+    (id, now) => stmt.run(now, id),
     (address, id, now) =>
       insertIgnore.run(address, `rejected candidate ${id}`, now),
+  );
+}
+
+/** PH6: undo a whitelist → moves the row back to 'detected' and clears
+ *  whitelisted_at. DB-only — does not affect a Bloom bot paste already made. */
+export function makeUnwhitelistCandidate(db: Db): CandidateAction {
+  const stmt = db.prepare(
+    `UPDATE candidates
+     SET status = 'detected', whitelisted_at = NULL
+     WHERE id = ? AND status = 'whitelisted'`,
+  );
+  return makeStatusTransition(db, (id) => stmt.run(id));
+}
+
+/** PH6: undo a reject → moves the row back to 'detected', clears rejected_at,
+ *  and removes the address from ignore_list (symmetric with the reject hook). */
+export function makeUnrejectCandidate(db: Db): CandidateAction {
+  const stmt = db.prepare(
+    `UPDATE candidates
+     SET status = 'detected', rejected_at = NULL
+     WHERE id = ? AND status = 'rejected'`,
+  );
+  const deleteIgnore = db.prepare(
+    `DELETE FROM ignore_list WHERE address = ?`,
+  );
+  return makeStatusTransition(
+    db,
+    (id) => stmt.run(id),
+    (address) => {
+      deleteIgnore.run(address);
+    },
   );
 }
