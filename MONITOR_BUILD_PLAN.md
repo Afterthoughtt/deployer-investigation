@@ -6,42 +6,66 @@ Build a persistent daemon that detects the deployer wallet funding event before 
 
 **The daemon's only job is pre-launch wallet identification.** Once the candidate is whitelisted in Bloom, the daemon's role is done. It does not detect deploys, track launches, or do post-launch reporting. Those are too late to be useful.
 
-L10 was missed because no monitor was running at the time. We are building this from scratch ahead of L11 (window: April 20–30, 2026, per community intel) and designing it source-agnostic across fiat on-ramps so the deployer can't dodge us by switching providers (as they did from Coinbase → MoonPay between L9 and L10).
+L10 was missed because no monitor was running at the time. We built this from scratch ahead of L11 (window: April 20–30, 2026, per community intel), designed source-agnostic across fiat on-ramps so the deployer can't dodge us by switching providers (as they did from Coinbase → MoonPay between L9 and L10).
 
 Wallet map, deployer history, insider networks, and API docs are all in this repo. Read them before writing code. Do not re-derive what is already documented.
 
 ---
 
-## How to work on this codebase
+## Implementation status (2026-04-19)
 
-These are instructions for Claude Code. Follow them.
+**Shipped to VPS and running live:**
+
+- ✅ **Increment 1** — Config loader + env validation (`monitor/src/config.ts`)
+- ✅ **Increment 2** — SQLite schema + WAL mode (`monitor/src/db.ts`)
+- ✅ **Increment 3** — Wallets.json loader + idempotent DB sync (`monitor/src/wallets.ts`)
+- ✅ **Increment 4** — Helius Enhanced WSS subscription (`monitor/src/helius/ws.ts`)
+- ✅ **Increment 5** — Reconnect + backfill with exponential backoff (`monitor/src/helius/rpc.ts`, `monitor/src/backfill.ts`)
+- ✅ **Increment 6** — Candidate detection + tiering (`monitor/src/detection/`)
+- ✅ **Increment 7** — SQLite candidate persistence + dedup (`makePersistCandidate` in `db.ts`)
+- ✅ **Increment 8** — Telegram bot skeleton (`monitor/src/telegram/bot.ts`)
+- ✅ **Increment 9** — Candidate alert push + inline-button callbacks (`monitor/src/telegram/push.ts`)
+- ✅ **Increment 10** — Command bodies: /status, /candidates, /whitelist, /reject, /mute, /unmute
+- ✅ **Increment 11** — Staleness monitor, /health HTTP endpoint, daily heartbeat (`monitor/src/health.ts`)
+- ✅ **/health command** + end-to-end selfcheck (`monitor/src/selfcheck.ts`)
+- ✅ **Proactive alarms** — WS-down warning + recovery, RPC-failure warning + recovery
+- ✅ **wallets.json reviewed set** committed (23 wallets: MP1, MP2, v49 hub, 20 intermediaries)
+- ✅ **VPS deployment V1–V4** — DO droplet provisioned, repo cloned, systemd unit installed and active, SSH hardened
+
+**Production state as of 2026-04-18:**
+- Daemon running under systemd on `143.198.12.56`.
+- 5 real candidates detected (all `status='detected'`, MoonPay origin, awaiting manual whitelist).
+- 10.5-minute soak: 488 WS events + 3 backfill events processed, 0 new candidates during soak, `/health` 200 throughout, clean exit.
+
+**In progress — production hardening before L11:**
+
+- 🔄 PH1a — `@grammyjs/auto-retry` plugin (MUST)
+- 🔄 PH1b — `@grammyjs/transformer-throttler` plugin (SHOULD)
+- 🔄 PH2 — `/candidates` 4096-char truncation guard (MUST)
+- 🔄 PH3 — Startup replay of un-alerted candidates + schema migration for `alert_sent_at` + `prior_sig_count` (MUST)
+- 🔄 PH4 — Heartbeat includes WS state line (SHOULD)
+- 🔄 PH5 — Startup message emoji prefix for triage consistency (SHOULD)
+- 🔄 PH6 — `/unreject <id>` and `/unwhitelist <id>` undo commands (SHOULD)
+- ⏸️ PH7 — `/wallets` command (OPTIONAL)
+- ⏸️ PH8 — `/stats` command (OPTIONAL)
+
+See §Production hardening below for details on each.
+
+---
+
+## How to work on this codebase
 
 ### Build in small, runnable increments
 
-Do not write the whole daemon and then try to run it. Build one component, run it, verify it works end-to-end with real output, then move to the next. Every increment must be runnable on its own.
-
-Order:
-1. Config loader + env validation — prove it loads the Helius key, Telegram token, chat ID
-2. SQLite schema + migrations — prove the DB opens and tables exist
-3. Wallets.json loader — prove the starting wallet set loads correctly
-4. Helius WebSocket connection — prove it connects, subscribes, and receives at least one real event from a busy on-ramp wallet
-5. Reconnect + backfill logic — prove it recovers when you kill the connection mid-run
-6. Candidate detection — prove it correctly identifies an 8-25 SOL outflow to a fresh wallet
-7. SQLite candidate insertion + dedup — prove no double-insertion on reconnect
-8. Telegram bot skeleton — prove it pushes a test message to the right chat
-9. Alert wiring — candidate detected produces a Telegram alert with inline buttons
-10. Telegram commands: /status, /candidates, /whitelist, /reject, /mute
-11. Health self-check and daily heartbeat
+One component at a time. Run it, verify it works end-to-end with real output, then move to the next. Every increment must be runnable on its own.
 
 ### Stop and verify after every increment
 
-After each increment, stop writing code. Run the thing. Show the output. Confirm it matches expectation before continuing.
+Run the thing. Show the output. Confirm it matches expectation before continuing.
 
-If a step depends on live data, use real data. Do not mock Helius or Telegram. Mocks hide the bugs that actually matter for this system.
+If a step depends on live data, use real data. Do not mock Helius or Telegram.
 
 ### Know how to start and run the daemon end-to-end
-
-Before writing any feature code, establish the run command and verify it works with a minimal skeleton. The user needs to be able to:
 
 ```bash
 # Local development (from repo root)
@@ -68,7 +92,7 @@ Runtime deps and scripts live in the root `package.json`. Monitor-only compile s
 - No GraphQL, no tRPC, no Express. Grammy handles Telegram. A minimal `http.createServer` on localhost handles the health endpoint.
 - No Docker unless it earns its place. Node + systemd is simpler.
 - No MCP servers.
-- No tests beyond the acceptance test described below. This is a single-user tool with a short lifespan and manual verification.
+- **Divergence from original plan:** the plan said "no tests beyond the acceptance test". In practice we maintain small regression-test files (`monitor/test/*.ts`) for the state machines and DB helpers — they caught real bugs during increments 5–11 and are cheap to keep.
 
 ### Ask before assuming
 
@@ -82,21 +106,22 @@ Never reconstruct a wallet address from a truncated prefix. Copy full addresses 
 
 ## Stack
 
-- Node.js LTS
+- Node.js 20 LTS
 - tsx for dev execution
 - TypeScript, strict mode
 - better-sqlite3 with WAL mode
-- grammy for Telegram
+- grammy for Telegram (1.42.0) — `@grammyjs/auto-retry` + `@grammyjs/transformer-throttler` pending via PH1
 - Helius Developer plan ($24.50/mo): Enhanced WSS `transactionSubscribe` with `accountInclude` filter, plus RPC for backfill
-- pino for structured logging
 - dotenv for config (reads the single root `.env`)
 - systemd for process management (no pm2)
 
-Packaging: one root `package.json` at the repo root covers runtime + dev deps for both audit scripts and monitor. Monitor sources live in `monitor/src/` with `monitor/tsconfig.json` for scoped compilation into `monitor/dist/`. No separate `monitor/package.json`, no separate `monitor/.env`.
+**Divergence from original plan:** the plan listed `pino` for structured logging. Current code uses a minimal `console.log`-based `Logger` interface (`monitor/src/util.ts`). Sufficient for single-user journalctl tailing; pino was never added.
 
-**Credit budget (Helius Developer plan, 10M credits/month):** estimated burn ~45–90K credits/month for normal operation — Enhanced WS data streaming at 3 credits / 0.1 MB, with ~30 monitored wallets producing ~50–100 MB/day of parsed transaction data. Reconnect-backfill (`getSignaturesForAddress` at 10 credits, `getTransaction` at 10 credits) adds margin. Normal-day operation leaves >100x headroom. Track actual burn on the Helius dashboard, not programmatically in v1.
+Packaging: one root `package.json` at the repo root covers runtime + dev deps for both audit scripts and monitor. Monitor sources live in `monitor/src/` with `monitor/tsconfig.json` for scoped compilation into `monitor/dist/`. No separate `monitor/package.json`, no separate `monitor/.env`. (Originally planned as a self-contained package 2026-04-16; consolidated 2026-04-17 after realizing the audit side had no runtime deps worth separating.)
 
-Deployment target: a small always-on Linux VM. DigitalOcean Premium Droplet (2 vCPU / 4GB / NVMe), NYC region, Ubuntu 24.04 LTS recommended; Hetzner / Vultr / Linode work the same way. Hardening: ufw, fail2ban, SSH key only, automated weekly DO backups enabled.
+**Credit budget (Helius Developer plan, 10M credits/month):** observed burn ~1–3K credits/day during normal operation. Enhanced WS data streaming at 3 credits / 0.1 MB; 23 monitored wallets produce well under the estimated 50–100 MB/day. Reconnect-backfill (`getSignaturesForAddress` at 10 credits, `getTransaction` at 10 credits) adds margin. Normal-day operation leaves >100x headroom. Track actual burn on the Helius dashboard, not programmatically.
+
+Deployment target (confirmed): DigitalOcean Premium Droplet (Intel 2 vCPU / 4GB / 120GB NVMe), NYC3, Ubuntu 24.04.3 LTS, IPv4 `143.198.12.56`. Hardening: ufw, fail2ban, SSH key only.
 
 ---
 
@@ -128,26 +153,26 @@ That's the full loop. Nothing after step 6 is the daemon's concern.
 
 ### Reconnect and backfill
 
-WebSockets drop. The daemon must:
-- Reconnect with exponential backoff (start 1s, cap 60s, reset on successful receive)
-- Re-register all subscriptions on reconnect
-- Track `last_processed_signature` per monitored address in SQLite
+WebSockets drop. The daemon:
+- Reconnects with exponential backoff (start 1s, cap 60s, reset on successful subscribe confirmation)
+- Re-registers all subscriptions on reconnect
+- Tracks `last_processed_signature` per monitored address in SQLite (MAX-slot semantics)
 - On reconnect, for each monitored address:
-  - Call `getSignaturesForAddress` with `until: last_processed_signature` to get missed signatures
-  - For each missed signature, call `getTransaction` to fetch the full parsed tx
-  - Run through the same candidate detection logic as live events
-  - Update `last_processed_signature` as events flow
-- Deduplicate candidates via the `candidates.address` UNIQUE constraint and an in-memory `alreadyCandidates` set rebuilt from the `candidates` table at startup. The `events` table records each persisted funding tx by signature (PK) as an audit trail, so the same sig re-arriving via WS + backfill can't produce two event rows either.
-
-This logic is where this class of daemon fails silently. Build it before anything downstream and test it by killing the connection mid-run.
+  - Calls `getSignaturesForAddress` with `until: last_processed_signature` to get missed signatures (up to 10 pages × 1000 sigs)
+  - For each missed signature, calls `getTransaction` to fetch the full parsed tx
+  - Runs through the same candidate detection logic as live events (shared handler)
+  - Updates `last_processed_signature` as events flow
+- Deduplicates candidates via the `candidates.address` UNIQUE constraint and an in-memory `alreadyCandidates` set rebuilt from the `candidates` table at startup. The `events` table records each persisted funding tx by signature (PK) as an audit trail, so the same sig re-arriving via WS + backfill can't produce two event rows either.
 
 **New-wallet bootstrap policy:** when a wallet is added to `wallets.json` for the first time (no row in `monitored_wallets`), the daemon goes **forward-only** for that wallet — it does NOT backfill historical signatures. We're predicting future funding events, not retro-detecting past ones. Backfill applies only to existing wallets that were watched before a disconnect.
 
 ### Health self-check
 
-Track `last_event_received_at` per wallet category. **Only the on-ramp category drives the staleness alarm:** if no on-ramp wallet has produced an event in 2 hours, push a Telegram warning. On-ramp hot wallets (MoonPay, Coinbase) globally always have traffic in any 2-hour window — silence means our subscription is broken. Hub and intermediary wallets (`v49jgwyQ…`, RXRP repump intermediaries) can sit idle for days legitimately, so they do not gate the alarm.
+Track `last_event_received_at` per wallet category. **Only the on-ramp category drives the staleness alarm:** if no on-ramp wallet has produced an event in 2 hours, push a Telegram warning. On-ramp hot wallets (MoonPay, Coinbase) globally always have traffic in any 2-hour window — silence means our subscription is broken. Hub and intermediary wallets can sit idle for days legitimately, so they do not gate the alarm.
 
 Expose `GET /health` on 127.0.0.1 only. Returns 200 if WebSocket connected and at least one on-ramp event received in last 2 hours, else 503.
+
+Separately, the `/health` Telegram command runs an interactive 5-probe selfcheck (SQLite read, Helius RPC `getBalance` on MP1, WS freshness < 5min, detection synthetic, Telegram alert pipe) — see Telegram interface below.
 
 ---
 
@@ -164,9 +189,9 @@ A wallet becomes a candidate when ALL of:
 
 ### Confidence tiering (simple, rules-based)
 
-- HIGH: amount 12-18 SOL, source is a clean on-ramp (MoonPay or Coinbase), recipient has exactly 1 prior signature
-- MEDIUM: amount 8-25 SOL, source is any on-ramp, recipient has ≤ 1 prior signature
-- LOW: amount 8-25 SOL, source is a hub or intermediary (noisy)
+- **HIGH:** amount 12-18 SOL, source is a clean on-ramp (MoonPay or Coinbase), recipient has exactly 1 prior signature
+- **MEDIUM:** amount 8-25 SOL, source is any on-ramp, recipient has ≤ 1 prior signature
+- **LOW:** amount 8-25 SOL, source is a hub or intermediary (noisy)
 
 All tiers push to Telegram. Emoji reflects confidence. The user decides what to do with each.
 
@@ -206,7 +231,9 @@ CREATE TABLE candidates (
   status TEXT NOT NULL,                -- 'detected' | 'whitelisted' | 'rejected'
   detected_at INTEGER NOT NULL,        -- epoch ms UTC
   whitelisted_at INTEGER,              -- epoch ms UTC
-  rejected_at INTEGER                  -- epoch ms UTC
+  rejected_at INTEGER,                 -- epoch ms UTC
+  alert_sent_at INTEGER,               -- PH3: epoch ms UTC, NULL if alert never sent (replay on next boot)
+  prior_sig_count INTEGER              -- PH3: priorSigCount at detection, for faithful replay formatting
 );
 
 CREATE TABLE ignore_list (
@@ -234,60 +261,48 @@ All timestamps are epoch milliseconds UTC, everywhere. Always.
 
 Rejected candidates stay in the `candidates` table with `status='rejected'`. Their addresses are also added to `ignore_list` so the same wallet cannot be re-detected.
 
+**PH3 migration note:** `alert_sent_at` and `prior_sig_count` are added to the live DB via `ALTER TABLE candidates ADD COLUMN …` inside `openDb` before any prepared statements are created. After the ALTER, `UPDATE candidates SET prior_sig_count = 1 WHERE prior_sig_count IS NULL` backfills existing rows (all historical detections had priorSigCount=1). New columns are nullable; rows created before PH3 ships get `alert_sent_at=NULL` and are replayed once on the first boot post-migration.
+
 ---
 
 ## Wallets.json — source of truth for monitored addresses
 
-Committed to the repo at `monitor/data/wallets.json`. Loaded on daemon startup. Adding or removing wallets is a config change plus a daemon restart.
+Committed at `monitor/data/wallets.json`. Loaded on daemon startup. Adding or removing wallets is a config change plus a daemon restart.
 
-Minimal placeholder shape (replace with the full reviewed set before deploy):
+**Current committed set (23 wallets, reviewed and signed off 2026-04-18):**
+- `onramps` (2): MoonPay MP1 + MP2
+- `hubs` (1): `v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5`
+- `intermediaries` (20): OG deployer `37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2` (1), L4–L10 prior fresh-wallet deployers (7), side funder `52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B` (1), 10 RXRP Vector B wallets, plus CSEncqtq (CoinSpot Exchange Hot Wallet per `data/network-map.json`) placed here (LOW tier) rather than as on-ramp → 1+7+1+10+1 = 20
+- `ignore`: initially empty; grows via `/reject`
 
-```json
-{
-  "onramps": [
-    { "address": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6", "label": "MoonPay MP1" },
-    { "address": "5F1seMKUqSNhv45f6FhB2cFmgJbk8U1avJw7M6TexUq1", "label": "MoonPay MP2" }
-  ],
-  "hubs": [
-    { "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "label": "v49 hub" }
-  ],
-  "intermediaries": [],
-  "ignore": [
-    { "address": "Ed4UGBWK4UpwBKiGFkM2uQMTPpahPwxgxEWjJTRXuAJv", "reason": "shared trading bot infrastructure" }
-  ]
-}
-```
+**Divergences from original pre-deploy review:**
+- **Coinbase Hot Wallets (CB1–CB10) deferred** per explicit user decision 2026-04-18. Rationale: confident L11 uses MoonPay given the L10 precedent (Coinbase → MoonPay switch between L9 and L10) plus 5 live MP candidates in a single day. If L11 uses Coinbase anyway, CBs can be added for L12.
+- **Fireblocks `HVRcXaCFyUFG7iZLm3T1Qn8ZGDMHj3P3BpezUfWfRf2x` dropped** — only a 1-launch tie via L6 and very noisy.
+- **CSEncqtq** placed in `intermediaries` (forces LOW tier) rather than as an on-ramp.
 
-Pull all on-ramp, hub, and intermediary addresses verbatim from `data/network-map.json` in this repo. Do not invent them, do not retype from a truncated prefix. The registry contains 10 Coinbase Hot Wallets, MoonPay MP1/MP2 (MP4 is treasury — do NOT monitor), and the Vector B intermediaries listed in `STRATEGY.md`.
-
-**Pre-deploy review gate (BLOCKING):** the daemon ships with the minimal placeholder set above so coding isn't blocked, but `wallets.json` MUST be reviewed and signed off by the user before the daemon goes to production. The full reviewed set should include:
-- All 10 Coinbase Hot Wallets (`onramps.coinbase.CB1` through `CB10` in `network-map.json`)
-- MoonPay MP1 + MP2
-- Hub `v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5`
-- OG deployer `37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2` (funded L6)
-- Prior fresh-wallet deployers L4–L10 (any of them could fund the next launch)
-- Side funder `52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B` (funded L9)
-- The high-balance RXRP repump intermediaries from STRATEGY.md Vector B (`7JCe3GHw…`, `7iVCXQn4…`, `GgFVQNY5…`, `54Pz1e35…`, `AZ57WTNM…`, `7RLD6F9S…`, `7cthuERB…`, `BvYi1ZV9…`, `6zZAKeF5…`, `FiggKseF…`, `CSEncqtq…` — verify each from `network-map.json` before adding)
-
-Open question for the user during review: keep `HVRcXaCFyUFG7iZLm3T1Qn8ZGDMHj3P3BpezUfWfRf2x` (Fireblocks Custody, only 1-launch tie via L6, very noisy) or drop it. If kept, force its candidates to LOW tier.
-
-On daemon startup, compare `wallets.json` to the `monitored_wallets` table. Insert new wallets, mark removed wallets as inactive (don't delete, preserve history). Update the subscribe filter accordingly.
+On daemon startup, `syncWalletsToDb` compares `wallets.json` to the `monitored_wallets` table. Insert new wallets (added_at=now), leave removed wallets in the table with no action (history preserved; they simply stop being subscribed). Subscribe filter is rebuilt from `wallets.json` every boot.
 
 ---
 
 ## Telegram interface
 
-Single chat, hardcoded chat ID in env. Bot responds only to that chat.
+Single chat, hardcoded chat ID in env. Bot responds only to that chat (chat guard at `bot.ts:91-99` logs and drops any non-matching chat).
 
 ### Commands (registered via `bot.api.setMyCommands` on startup)
 
-- `/status` — daemon uptime, WebSocket state, active candidates count, last event received timestamp (cheap in-memory + one SQL COUNT; no external calls)
-- `/health` — end-to-end liveness probe. Runs five checks and replies with per-line pass/fail + ms timings: SQLite read, Helius RPC (`getBalance` on MP1 — 1 credit), WS connected + on-ramp freshness < 5 min, detection code path against a synthetic MP1→fresh-address payload (no DB write), Telegram alert pipe via `bot.sendHtml` with an inline keyboard (labeled `🧪 TEST` so tapping replies "C0 not found" — proves the callback round-trip). Burns ~1 credit per invocation; do not script in a tight loop.
-- `/candidates` — list active candidates with confidence, source, amount, age
-- `/whitelist <id>` — mark candidate whitelisted
-- `/reject <id>` — mark candidate rejected, add to ignore list
-- `/mute <duration>` — silence non-critical alerts (e.g. `/mute 2h`)
-- `/unmute` — cancel mute
+**Shipped:**
+- `/status` — daemon uptime, WebSocket state + subscribe count, per-category last-event ages, active candidate count, mute state. In-memory + one SQL COUNT; no external calls.
+- `/health` — end-to-end 5-probe liveness probe (SQLite read, Helius `getBalance` on MP1, WS connected + on-ramp freshness < 5min, detection synthetic payload, Telegram alert pipe). Burns ~1 Helius credit per invocation; do not loop.
+- `/candidates` — list active candidates with tier emoji, id, confidence, amount, source label, age, address in `<code>` block, Solscan link per row.
+- `/whitelist <id>` — mark candidate whitelisted.
+- `/reject <id>` — mark candidate rejected + add address to ignore_list.
+- `/mute <duration>` — parses `Ns`/`Nm`/`Nh`/`Nd` up to 7d cap; sets in-memory `muteUntil` that adds `disable_notification: true` to every outbound push. (In-memory only — restart clears.)
+- `/unmute` — cancel active mute.
+
+**Pending (see §Production hardening):**
+- PH6: `/unwhitelist <id>`, `/unreject <id>` — undo a misfire; unreject also removes from ignore_list.
+- PH7: `/wallets` — list monitored wallets grouped by category (OPTIONAL).
+- PH8: `/stats` — candidate / event rollup counts (OPTIONAL).
 
 ### Candidate alert format
 
@@ -307,24 +322,33 @@ Confidence: HIGH
 Inline buttons via Grammy's `InlineKeyboard`:
 ```typescript
 new InlineKeyboard()
-  .text("✅ Whitelist", `wl:${candidate.id}`)
-  .text("❌ Reject", `rj:${candidate.id}`)
+  .text("✅ Whitelist", `wl:${candidateId}`)
+  .text("❌ Reject", `rj:${candidateId}`)
   .url("🔍 Solscan", `https://solscan.io/account/${candidate.address}`);
 ```
 
-Callback handlers on `wl:*` and `rj:*`. Acknowledge the callback immediately (Grammy: `ctx.answerCallbackQuery()`) to dismiss the loading state.
+Callback handlers on `wl:*` and `rj:*`. Acknowledge via `ctx.answerCallbackQuery()` immediately to dismiss the loading state.
+
+**Research-button buttons (Bubblemaps / Nansen) considered and dropped:** Bubblemaps accepts wallet addresses but renders its cluster visualization from token-holder data — a priorSigCount=1 fresh wallet produces no actionable cluster. Nansen profiler on the same wallet has effectively no data. Would waste taps.
 
 ### Other pushes
 
-- Candidate whitelisted: confirmation, includes the address in code block again for convenience
-- Health warning: WebSocket stale, reconnect failing repeatedly
-- Daily heartbeat: uptime, candidate count, last event age
+- **Candidate whitelisted/rejected:** confirmation reply with address in `<code>` block again for convenience.
+- **Stale on-ramp warning + recovery:** triggers when no on-ramp event received in `STALE_THRESHOLD_MS` (default 2h); recovery reports staleness duration.
+- **WS-down warning + recovery:** sustained WS disconnect (>60s) pushes `⚠️ sendWsDownWarning`; `✅ sendWsRecovery` on next open. Flaps < 60s are silent.
+- **RPC failure warning + recovery:** 5 consecutive `getSignaturesForAddress` failures (after `rpcCall`'s own 5-attempt retry with `Retry-After`) triggers `⚠️ sendRpcFailureWarning`; next successful call triggers `✅ sendRpcFailureRecovery`.
+- **Daily heartbeat (`💓`):** uptime, active candidate count, per-category last-event ages. Cadence `HEARTBEAT_INTERVAL_MS` (default 24h). PH4 adds a WS-state line.
+- **Startup message:** one-liner with monitored-wallet count + existing-candidate count. PH5 adds a `🟢` prefix for triage consistency.
+
+### Telegram 429 handling
+
+**Original plan claimed "grammy handles this" — this is wrong.** grammy does NOT retry 429s by default; the official solution is `@grammyjs/auto-retry`. Addressed in PH1a.
 
 ---
 
 ## Configuration
 
-Single `.env` at the **repo root** (`investigation/.env`), not committed. `.env.example` at the repo root is committed. The monitor loads it via an `import.meta.url`-resolved path, so cwd doesn't matter.
+Single `.env` at the **repo root** (`investigation/.env`), not committed. `.env.example` at the repo root is committed. The monitor loads it via an `import.meta.url`-resolved path, so cwd doesn't matter. In production systemd's `EnvironmentFile=` preloads `process.env` before launch.
 
 Required env vars (monitor):
 ```
@@ -351,9 +375,9 @@ On startup, the monitor validates its required env vars. Fail loudly if any miss
 
 ---
 
-## Acceptance test
+## Acceptance test ✅ passed 2026-04-17
 
-Before deploying to a host, verify by replaying the L10 funding event through the detection logic end-to-end.
+Replay the L10 funding event through the detection logic end-to-end.
 
 **Pinned constants (verified on-chain via Helius RPC, 2026-04-16):**
 - L10 deployer wallet: `2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB`
@@ -364,33 +388,30 @@ Before deploying to a host, verify by replaying the L10 funding event through th
 - blockTime: `1773550293` (2026-03-15 04:51:33 UTC)
 - spl-memo on the tx: `7c61e6fde07f70c202784ed4c9884939` (likely MoonPay's internal reference — informational only, do NOT use for detection logic; on-chain memos are attacker-controllable per project rules)
 
-Fetch the funding tx via Helius `getTransaction`, feed it through the candidate detection code path, confirm:
-- Detected as candidate
-- Confidence correctly assigned (HIGH — amount 13.443 ∈ 12–18 band, source is MoonPay MP1 on-ramp, recipient previously had 0 prior signatures)
-- Source labeled as "MoonPay MP1"
-- Amount parsed as 13.443 SOL
-- Recipient flagged as fresh wallet
-- SQLite insert succeeds
-- Telegram alert fires with correct format and working inline buttons (Whitelist / Reject / Solscan)
+Fixture captured to `monitor/test/fixtures/l10-rpc.json` via `capture-l10-fixture.ts`. `monitor/test/replay-l10.ts` runs 12 assertions and passes clean. Re-run after any detection change:
 
-If the replay produces the correct alert, the system is ready. If not, fix and re-run.
+```bash
+npx tsx monitor/test/replay-l10.ts
+```
 
 ---
 
-## Failure modes to handle explicitly
+## Failure modes
 
-- Helius WebSocket drops silently — detected by stale on-ramp event timer, triggers reconnect + backfill
-- Helius WebSocket stays closed > 60s — push Telegram warning (`sendWsDownWarning`); recovery message (`sendWsRecovery`) when it reopens. Flaps < 60s are silent. Complements the slower on-ramp staleness alarm so operators see sustained disconnects within a minute instead of waiting for the 15m–2h on-ramp threshold.
-- Freshness RPC (`getSignaturesForAddress`) fails 5 consecutive times — push Telegram warning (`sendRpcFailureWarning`); recovery message on next successful call. A silently failing freshness check drops candidates without alerting, so this alarm is the last line before missed detections during an outage. `rpcCall` itself retries up to 5 times per call (honoring `Retry-After`), so 5 consecutive freshness failures = 25 raw HTTP attempts.
-- Helius RPC 429 — exponential backoff, never hammer
-- Helius credit exhaustion — track manually via dashboard, not programmatically in v1
-- SQLite WAL grows large — checkpoint manually if > 100MB (unlikely at our write volume)
-- Telegram 429 — respect `retry_after`, grammy handles this
-- Daemon crash — systemd restarts, startup backfill covers the gap
-- VPS reboot — systemd starts daemon at boot, backfill covers the gap
-- Deployer funds from an on-ramp we're not monitoring — cannot detect. Known gap.
-- Deployer funds via USDC instead of SOL — cannot detect in v1. Known gap (see Detection logic § USDC flows).
-- Deployer funds via a cross-chain bridge — cannot detect. Known gap.
+- **Helius WebSocket drops silently** — detected by stale on-ramp event timer, triggers reconnect + backfill.
+- **Helius WebSocket stays closed > 60s** — push `⚠️ sendWsDownWarning`; `✅ sendWsRecovery` when it reopens. Flaps < 60s are silent. Complements the slower on-ramp staleness alarm.
+- **Freshness RPC (`getSignaturesForAddress`) fails 5 consecutive times** — push `⚠️ sendRpcFailureWarning`; recovery on next success. `rpcCall` itself retries up to 5 times per call (honoring `Retry-After`), so 5 consecutive freshness failures = 25 raw HTTP attempts.
+- **Helius RPC 429** — `rpcCall` honors `Retry-After`, exponential backoff, never hammers.
+- **Helius credit exhaustion** — track manually via dashboard, not programmatically in v1.
+- **SQLite WAL grows large** — checkpoint manually if > 100MB (unlikely at our write volume).
+- **Telegram 429** — **requires `@grammyjs/auto-retry` plugin (PH1a)**; grammy does not retry by default. Without PH1a, a 429 silently drops the alert.
+- **Telegram 5xx / network blip at send time** — same: requires auto-retry (PH1a). Candidate row persists to SQLite; PH3 startup replay covers the gap on next boot.
+- **Daemon crash between SQLite persist and Telegram send** — PH3 startup replay covers it. Without PH3 the candidate is orphaned with no operator notification.
+- **Daemon crash in general** — systemd restarts (`Restart=always`, `RestartSec=5`), startup backfill covers the gap for WS events.
+- **VPS reboot** — systemd starts daemon at boot, backfill covers the gap.
+- **Deployer funds from an on-ramp we're not monitoring** — cannot detect. Known gap.
+- **Deployer funds via USDC instead of SOL** — cannot detect in v1. Known gap (see Detection logic § USDC flows).
+- **Deployer funds via a cross-chain bridge** — cannot detect. Known gap.
 
 ---
 
@@ -408,7 +429,6 @@ If the replay produces the correct alert, the system is ready. If not, fix and r
 - HA or hot standby
 - Web UI
 - Docker container
-- Tests beyond the acceptance test
 - USDC flow handling (v1)
 - Credit burn API polling
 - **Copy-trade backup detection (STRATEGY.md Vector C — wallets `BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC` and `231fshU82vSSeyytyCZJUEUG8Ti3UAgnDSoNFGTETCuK`).** Intentional v1 scope cut: vectors A and B are higher signal, and Vector C only catches launches at block-1 or later (already too late for Bloom's block-0 snipe).
@@ -417,7 +437,7 @@ If the replay produces the correct alert, the system is ready. If not, fix and r
 
 ## File layout
 
-Monitor sources live at `investigation/monitor/` (top-level beside `src/`, `data/`, `docs/`). The package boundary is root — `package.json`, `package-lock.json`, `node_modules/`, `.env`, `.env.example`, `.gitignore` all live one level up.
+Monitor sources live at `investigation/monitor/`. Package boundary is root — `package.json`, `package-lock.json`, `node_modules/`, `.env`, `.env.example`, `.gitignore` all live one level up.
 
 ```
 investigation/
@@ -433,43 +453,46 @@ investigation/
       index.ts                    # entrypoint, wires everything up
       config.ts                   # env loading and validation (loads root .env)
       paths.ts                    # MONITOR_ROOT / REPO_ROOT / resolveFromMonitor helper
-      util.ts                     # shared helpers (sleep w/ AbortSignal)
-      db.ts                       # better-sqlite3 setup, schema, makePersistCandidate
+      util.ts                     # Logger interface, errMessage, sleep w/ AbortSignal
+      db.ts                       # better-sqlite3 setup, schema, persist/mutation helpers
       backfill.ts                 # on-reconnect catch-up via getSignaturesForAddress + getTransaction
+      wallets.ts                  # wallets.json loader, sync to DB
+      health.ts                   # staleness monitor + /health HTTP server + heartbeat scheduler
+      selfcheck.ts                # /health command 5-probe runner
       helius/
         ws.ts                     # Enhanced WSS transactionSubscribe, reconnect w/ backoff
-        rpc.ts                    # rpcCall + getSignaturesForAddress + getTransaction
+        rpc.ts                    # rpcCall (retry-aware) + getSignaturesForAddress + getTransaction
       detection/
-        candidate.ts              # SOL transfer parse, filter, tier
-        fresh.ts                  # fresh-wallet check
+        candidate.ts              # SOL transfer parse, filter, tier, Candidate type
+        fresh.ts                  # fresh-wallet check (getSignaturesForAddress limit=2)
       telegram/
         bot.ts                    # grammy setup, command handlers, callback handlers
-        push.ts                   # outbound alert formatters
-      health.ts                   # /health endpoint, event freshness tracker
-      log.ts                      # pino setup
-      wallets.ts                  # wallets.json loader, sync to DB
+        push.ts                   # outbound alert formatters (candidate, startup, heartbeat, warnings)
+        format.ts                 # TIER_EMOJI, escapeHtml, formatDuration, formatAge, formatLastEventLines
     test/
-      replay-l10.ts               # detection acceptance (pinned L10 fixture)
-      replay-l10-dedup.ts         # DB dedup acceptance
-      health.ts                   # staleness state machine + /health server acceptance
+      replay-l10.ts               # detection acceptance (pinned L10 fixture, 12 assertions)
+      replay-l10-dedup.ts         # DB dedup acceptance (11 assertions)
+      commands.ts                 # parseMuteDuration, formatDuration, formatAge, listActiveCandidates (41 assertions)
+      candidate-actions.ts        # whitelist/reject transitions + ignore_list wiring (22 assertions)
+      health.ts                   # staleness state machine + /health HTTP server (15 assertions)
+      selfcheck-synthetic.ts      # /health synthetic-detection probe
+      smoke-alert.ts              # manual: push a synthetic candidate alert end-to-end
       capture-l10-fixture.ts      # one-off fixture capture via getTransaction
       fixtures/                   # pinned tx payloads
     data/
       l11.db                      # gitignored
-      wallets.json                # committed
+      wallets.json                # committed (23 wallets)
     systemd/
       l11-monitor.service         # systemd unit for VPS
     tsconfig.json                 # monitor-scoped compile config (src -> dist)
     dist/                         # tsc output; gitignored
 ```
 
-Originally the monitor was planned as a self-contained package with its own `package.json`/`.env`. Consolidated 2026-04-17 after realizing the audit side has no runtime deps worth separating, so duplicating the dep tree and `.env` was pure overhead for a one-developer project.
-
 ---
 
 ## systemd unit
 
-Place at `/etc/systemd/system/l11-monitor.service` on the VPS:
+Deployed at `/etc/systemd/system/l11-monitor.service` on the VPS:
 
 ```ini
 [Unit]
@@ -495,113 +518,183 @@ WantedBy=multi-user.target
 
 ---
 
-## Deployment to VPS
+## Deployment to VPS ✅ complete 2026-04-18
 
-### Completed 2026-04-18
+**Droplet:** DigitalOcean Premium (Intel 2 vCPU / 4GB / 120GB NVMe), NYC3, Ubuntu 24.04.3 LTS, `143.198.12.56`.
 
-- DigitalOcean Premium Droplet provisioned (Intel 2 vCPU / 4GB / 120GB NVMe, NYC3, Ubuntu 24.04.3 LTS, IPv4 `143.198.12.56`)
-- Base packages installed: `ufw`, `fail2ban`, `git`, `build-essential`, `curl`, `ca-certificates`, `gnupg`
-- Node.js 20.20.2 LTS installed via NodeSource
-- `l11` system user created (uid 997, `/bin/bash`, sudo group, passwordless sudo via `/etc/sudoers.d/l11`)
-- Mac SSH key installed in `/root/.ssh/authorized_keys` and `/home/l11/.ssh/authorized_keys` (chmod 600, 700 dirs)
-- `/opt/l11-monitor` directory created, owned by `l11:l11`
-- `ufw`: default deny incoming, default allow outgoing, `22/tcp` allow (v4+v6), enabled
-- `fail2ban`: enabled, sshd jail active
-- SSH password auth disabled (DO cloud-init default: `passwordauthentication no`, `permitemptypasswords no`, `kbdinteractiveauthentication no`)
-- Weekly DO backups: user-deferred (see session 2026-04-18 decision — daemon self-recovers from l11.db loss via forward-only bootstrap)
+**Base packages + Node 20.20.2 LTS installed. `l11` system user created (uid 997, sudo group, passwordless sudo). Mac SSH key installed. `/opt/l11-monitor` owned by `l11:l11`. ufw enabled (deny in / allow out + 22/tcp), fail2ban enabled with sshd jail, SSH password auth disabled.**
 
-### Remaining increments
+**Weekly DO backups: user-deferred.** Rationale: daemon self-recovers from `l11.db` loss via forward-only bootstrap (monitored wallets get NULL cursor on new DB and skip backfill). For PH3, pre-migration DB backup is done manually via `scp` before each schema change that touches existing rows.
 
-Each increment is runnable + verifiable on its own. Stop and confirm output matches expectation before continuing.
+### Deploy sequence (for re-use on PH updates)
 
-#### V1 — Repo clone + deps + build
+From Mac (after local verification). **Stage explicit paths** — do not use `git add -A` (risks committing `.env` or untracked backups):
+```bash
+git add monitor/ package.json package-lock.json MONITOR_BUILD_PLAN.md
+git commit
+git push
+```
 
-As `l11`:
-
+On VPS:
 ```bash
 ssh l11@143.198.12.56
 cd /opt/l11-monitor
-# Repo must be empty; if anything is there, double-check before proceeding
-git clone git@github.com:Afterthoughtt/deployer-investigation.git .
+git pull
 npm ci
 npm run monitor:build
+sudo systemctl restart l11-monitor
+sudo systemctl status l11-monitor
+journalctl -u l11-monitor -n 100 --no-pager
+curl -s http://127.0.0.1:9479/health
 ```
 
-GitHub clone over SSH requires the l11 account's key to be authorized on the GitHub repo (add `~/.ssh/id_ed25519.pub` as a deploy key with read access, or generate a new key on the droplet). HTTPS + personal-access-token also works.
-
-**Verify**:
-- `ls monitor/dist/index.js` exists
-- `node -e "import('./monitor/dist/db.js').then(() => console.log('loads'))"` prints `loads`
-- `git log --oneline -3` shows the most recent commits
-
-#### V2 — .env install
-
-From Mac (repo root):
-
+For schema-changing deploys (e.g. PH3), first pull a backup:
 ```bash
-scp ./.env l11@143.198.12.56:/opt/l11-monitor/.env
-ssh l11@143.198.12.56 'chmod 600 /opt/l11-monitor/.env && stat -c "%a %U:%G %n" /opt/l11-monitor/.env'
+# from Mac
+mkdir -p backups
+scp l11@143.198.12.56:/opt/l11-monitor/monitor/data/l11.db ./backups/l11-pre-<change>-<date>.db
 ```
 
-Should print `600 l11:l11 /opt/l11-monitor/.env`.
+---
 
-**Verify** (as `l11` on droplet, dry-run that does NOT start WS):
+## Production hardening
 
-```bash
-cd /opt/l11-monitor
-node -e "import('./monitor/dist/config.js').then(m => m.loadConfig()).then(() => console.log('config ok'))"
+These are the remaining increments before L11. Each is runnable and verifiable on its own. Stop and confirm after each.
+
+The theme: **a candidate alert is the daemon's one job.** Dropping one at T-12h loses L11. Every MUST item below eliminates a silent-drop path.
+
+### PH1a — Install `@grammyjs/auto-retry` [MUST]
+
+**Why:** Today every Telegram send is one-shot. `sendCandidateAlert` in `monitor/src/index.ts` is fire-and-forget with `.catch(console.error)`. A 429 from Telegram (which can happen during API maintenance, not just from bot abuse), a transient 5xx, or a network blip **silently drops the alert**. Prior plan claim "grammy handles this" is wrong — grammy does not retry by default.
+
+**What:**
+- Add `@grammyjs/auto-retry@^2.0.2` to root `package.json`.
+- In `monitor/src/telegram/bot.ts`, after `const bot = new Bot(token)`: `bot.api.config.use(autoRetry({ maxRetryAttempts: 3, maxDelaySeconds: 30 }))`. The `maxDelaySeconds: 30` absorbs normal flood-wait values (1–5s typical) while avoiding the 460–490s lockout windows seen in real 2026 incidents.
+
+**Verify:** monitor builds clean; daemon boots; existing alerts still round-trip; `bot.catch` still fires on retries-exhausted failures.
+
+### PH1b — Install `@grammyjs/transformer-throttler` [SHOULD]
+
+**Why:** Proactive pacing on multi-alert bursts (e.g., PH3 startup replay of N pending candidates). Telegram's own guidance is "don't pre-throttle, handle 429s" so this is not a correctness fix — auto-retry alone is sufficient. The throttler is a latency/cleanliness improvement: bursts send at ~1 msg/sec without producing 429s at all.
+
+**What:**
+- Add `@grammyjs/transformer-throttler@^1.2.1`.
+- Install throttler **first**, autoRetry **second**: `bot.api.config.use(apiThrottler())` then `bot.api.config.use(autoRetry(...))`. In grammy, first-registered transformers run innermost (closest to the actual API call), so throttler-first means autoRetry wraps the throttled call. When autoRetry handles a 429 and retries, the retry re-enters the throttler's queue — so retry attempts are themselves rate-limited. Throttler defaults align with Telegram's documented limits.
+
+**Verify:** synthetic 10× burst in `smoke-alert.ts` — all 10 arrive in order, no 429 attempts logged by auto-retry.
+
+### PH2 — `/candidates` 4096-char truncation guard [MUST]
+
+**Why:** `monitor/src/telegram/bot.ts` `bot.command("candidates", …)` concatenates all rows with no body-length guard. Each row is ~170 chars; ~24 rows overflow and Telegram rejects the entire reply. Unlikely at 5 active, but a growing backlog silently breaks the command.
+
+**What:** Each candidate renders as a **4-line block** in the current loop (blank separator, `<tier-emoji> C<id> …` header, `<code>addr</code>`, Solscan link — see `bot.ts:213-220`). After the for-loop, check `lines.join("\n").length`. If > ~3900 (leaving room for HTML tags), drop trailing rows **in whole 4-line chunks** to avoid dangling fragments, and append:
+
+```
+… and N more (use /whitelist <id> or /reject <id> directly)
 ```
 
-Should print `config ok` and the config-loaded banner. Any missing env var → fail loudly.
+Cleanest refactor: build `rowChunks: string[][]` (each inner array is the 4 lines for one row), then slice whole chunks off the end while the joined size is over limit, then flatten. Reuse `escapeHtml`, `TIER_EMOJI`, `formatAge` from `format.ts`.
 
-#### V3 — systemd unit install + service start
+**Verify:** extend `monitor/test/commands.ts` with a truncation case — seed enough rows to overflow, assert result ≤ 4096 chars, contains the "N more" footer, and every included row is complete (4 lines, ending with a Solscan link, no truncated `<code>` tag).
 
-As `l11` with sudo:
+### PH3 — Startup replay of un-alerted candidates + schema migration [MUST]
 
-```bash
-sudo cp /opt/l11-monitor/monitor/systemd/l11-monitor.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable --now l11-monitor
-```
+**Why:** SQLite persist and Telegram send are not atomic. A crash, OOM, VPS reboot, or systemd restart between them leaves an orphan `detected` row with no alert ever attempted. Today there's no replay.
 
-**Verify**:
-- `systemctl status l11-monitor` → `active (running)`
-- `journalctl -u l11-monitor -n 50 --no-pager` → shows config banner, `wallets synced (0 new, 23 existing)` (wallets.json already committed), WS subscribe confirmation, live events flowing
-- `curl -s http://127.0.0.1:9479/health` → HTTP 200, `{"healthy":true,"wsConnected":true,…}`
-- Telegram: startup message received in the configured chat (`@l11_monitor_bot` → chat id from `.env`)
-- After ~24h idle the first heartbeat message should arrive (or dial down via `HEARTBEAT_INTERVAL_MS` in `.env` for a faster confirmation)
+**Ordering constraint: PH3 MUST ship after PH1a.** Replay is fire-and-forget; without `@grammyjs/auto-retry` a single 429 on replay silently drops the alert again, defeating the purpose.
 
-#### V4 — Final SSH hardening
+**Schema + migration (inside `openDb`, before any prepared statement):**
+- Add columns to `candidates`: `alert_sent_at INTEGER`, `prior_sig_count INTEGER` (both nullable). New DBs get them via CREATE TABLE (update `SCHEMA_DDL`).
+- For existing DBs: query `pragma_table_info('candidates')`; for each missing column, run `ALTER TABLE candidates ADD COLUMN <col> INTEGER`. Log each action.
+- Backfill existing rows **after** ALTER: `UPDATE candidates SET prior_sig_count = 1 WHERE prior_sig_count IS NULL` (all historical detections had priorSigCount=1). No-op on a fresh DB.
+- Migration must run before `makePersistCandidate(db)` in `index.ts:69` prepares its INSERT against the new schema.
 
-As root (last time root SSH is used):
+**Persist update:** `makePersistCandidate` in `db.ts:133` currently uses **9 placeholders** in its INSERT (see `db.ts:139`). Adding `prior_sig_count` makes it **10**. Update the column list, placeholder count, and `insertCandidate.run(...)` arg order in lockstep.
 
-```bash
-cat > /etc/ssh/sshd_config.d/99-l11-hardening.conf <<'EOF'
-PermitRootLogin no
-PasswordAuthentication no
-KbdInteractiveAuthentication no
-PubkeyAuthentication yes
-EOF
-sshd -t        # config check — must return no output
-systemctl reload ssh
-```
+**Mark helper:** `makeMarkAlertSent(db): (id: number) => void` → prepared `UPDATE candidates SET alert_sent_at = ? WHERE id = ?`.
 
-**Verify** (from Mac):
-- `ssh -o ConnectTimeout=5 root@143.198.12.56 'echo test' 2>&1 | grep -i 'permission denied'` → root is denied
-- `ssh l11@143.198.12.56 'echo works'` → `works`
-- `ssh l11@143.198.12.56 'sudo sshd -T | grep -E "permitrootlogin|passwordauthentication"'` → `permitrootlogin no`, `passwordauthentication no`
+**Call-site wiring:** after `sendCandidateAlert` resolves in `index.ts` (around L275), call `markAlertSent(id)` in the `.then()`. If send throws, do nothing — the `.catch` logs and the next restart replays.
 
-Daemon should still be running through all this (`systemctl is-active l11-monitor` → `active`).
+**Startup replay:**
+- **Timing:** must run **after** `bot.start()` (`index.ts:158`) because it uses the bot, and **before** `connectHeliusWs()` (~`index.ts:324`) so a concurrent re-detection of the same address can't race. Place the replay block between the two — roughly after the startup-message push around L160-168.
+- Query: `SELECT id, address, funded_amount_sol, funding_source, funding_source_label, funding_signature, funding_slot, funding_timestamp, confidence, prior_sig_count FROM candidates WHERE status='detected' AND alert_sent_at IS NULL ORDER BY detected_at ASC`.
+- For each row, reconstruct a `Candidate` (most fields from DB columns; `fundingSourceCategory` via `monitoredMap.get(fundingSourceAddress)?.category ?? "intermediary"` — fallback covers addresses since removed from wallets.json; `fundedAmountLamports = Math.round(fundedAmountSol * 1e9)`).
+- **Caveat:** the reconstructed `fundedAmountLamports` is lossy vs. the original (REAL SOL has ~1-lamport rounding error). Safe for `sendCandidateAlert` which only reads `fundedAmountSol`. **Do not** pass the reconstructed `Candidate` through `persistCandidate` or `detectCandidates` — those paths assume authoritative lamports. Document this in the replay function's header comment.
+- Fire-and-forget `sendCandidateAlert(bot, c, row.id).then(() => markAlertSent(row.id)).catch(err => console.error(...))`. **Do not await the loop.** With PH1b installed the throttler paces them ~1/sec; without PH1b, auto-retry absorbs any 429s on concurrent sends. WS connect is not blocked.
+- Log `replay: queued N candidates` before dispatch.
+
+**Compatibility with existing prod rows:** the 5 live `detected` candidates get `alert_sent_at=NULL` after migration. On first restart post-deploy they re-alert once, then are marked sent.
+
+**Pre-deploy:** `scp` the VPS `l11.db` to `./backups/l11-pre-ph3-<date>.db` before systemd restart. Rollback is `scp` back + `git reset`.
+
+**Verify:**
+- Extend `monitor/test/candidate-actions.ts`: insert a detected row with `alert_sent_at=NULL`, run the replay query → returned; call `markAlertSent` → no longer returned; terminal-status rows never appear.
+- Extend to cover idempotent migration: running `openDb` twice on the same file does not error and does not duplicate columns (second `pragma_table_info` check returns no missing columns).
+- **Crash-recovery end-to-end:** run the daemon against a fresh DB, simulate a persist-but-no-alert state by inserting a row with `status='detected'` and `alert_sent_at=NULL` directly via `sqlite3`, restart the daemon, confirm Telegram receives one replay alert and `alert_sent_at` becomes non-NULL after.
+- Local dry run against a copy of the VPS DB — confirm migration logs, replay logs, 5 replay alerts delivered.
+
+### PH4 — Heartbeat includes WS state line [SHOULD]
+
+**Why:** `sendHeartbeat` omits WS state. If a heartbeat arrives while WS is disconnected, the operator wouldn't see that from the heartbeat alone (per-category ages will be stale but don't explicitly flag "WS down").
+
+**What:** Add `wsConnected: boolean` to `sendHeartbeat` meta. Insert `WS: connected|disconnected` after the uptime line. Source from `status.wsConnected`.
+
+**Verify:** local run with `HEARTBEAT_INTERVAL_MS=60000` — observe one heartbeat, confirm the line renders.
+
+### PH5 — Startup message gets an emoji prefix [SHOULD]
+
+**Why:** Every other push starts with an emoji (⚠️/✅/💓/🟢🟡🔴). `sendStartupMessage` begins with plain `l11-monitor: online`. Inconsistent for at-a-glance triage in chat history.
+
+**What:** Prepend `🟢 ` to the first line of `sendStartupMessage`.
+
+### PH6 — `/unreject <id>` and `/unwhitelist <id>` undo commands [SHOULD]
+
+**Why:** Reject and Whitelist are one-tap terminal decisions; the buttons sit adjacent in the alert so a misfire is plausible during a fast triage. Today the only way back is manual SQL.
+
+**What:**
+- `monitor/src/db.ts`: `makeUnwhitelistCandidate(db)` and `makeUnrejectCandidate(db)` alongside the existing transitions. Reuse `makeStatusTransition` — the source-status filter is inside the passed-in UPDATE's WHERE clause, so no helper change needed. For unreject, use the existing `afterUpdate` hook to `DELETE FROM ignore_list WHERE address=?` (symmetric with how reject uses it to insert).
+- `monitor/src/telegram/bot.ts`: register `/unwhitelist` and `/unreject` in `COMMANDS`; reuse `runIdCommand` pattern.
+- `monitor/src/index.ts`: wrap `unrejectCandidate` so that on `statusChanged=true` it also runs `ignoreSet.delete(result.address)` (mirror of the `/reject` wrapper).
+
+**Replies:**
+- Success: `↩️ C<id> moved back to detected\n\n<code>addr</code>`
+- Wrong source status: `C<id> not in <expected> state (currently <actual>)`
+- Not found: `C<id> not found`
+
+**Note:** `/unwhitelist` only changes DB state. It does not undo a Bloom paste.
+
+**Verify:** extend `monitor/test/candidate-actions.ts` — whitelist → unwhitelist round-trip; reject → unreject round-trip including ignore_list row check; no-op on a detected row.
+
+### PH7 — `/wallets` command [OPTIONAL]
+
+**Why:** Self-documenting; avoids opening `monitor/data/wallets.json` for ad-hoc lookups.
+
+**What:** `makeListMonitoredWallets(db)` reader, plus a command that renders grouped by category, addresses in `<code>` blocks, prefix-truncated in visible text. Apply the same 4096-char guard as `/candidates`.
+
+### PH8 — `/stats` command [OPTIONAL]
+
+**Why:** Context for "is the daemon seeing enough?" at a glance.
+
+**What:** Pure SQL against existing tables. Returns candidates total + by tier + by status + last 24h/7d; events total + last 24h/7d.
+
+### Sources (PH1 web-verified 2026-04-19)
+
+- https://grammy.dev/plugins/auto-retry
+- https://www.npmjs.com/package/@grammyjs/auto-retry
+- https://grammy.dev/plugins/transformer-throttler
+- https://www.npmjs.com/package/@grammyjs/transformer-throttler
+- https://core.telegram.org/bots/faq
 
 ---
 
 ## Glossary of non-obvious terms
 
-- **On-ramp sieve**: the core detection pattern — watching fiat on-ramp hot wallets for outflows in deployer funding range to fresh wallets
-- **Fresh wallet**: a Solana address with no prior on-chain history before the funding tx (which appears as ≤ 1 prior signature once the funding tx itself is on-chain)
-- **Deployer wallet**: the wallet that will execute the pump.fun create instruction
-- **Hub wallet**: an internally-controlled wallet that funds fresh deployer wallets; primary example `v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5`
-- **Intermediary wallet**: a Vector B watch wallet that has historically been involved in deployer funding chains (RXRP repump cluster, prior deployers, side funders)
+- **On-ramp sieve**: the core detection pattern — watching fiat on-ramp hot wallets for outflows in deployer funding range to fresh wallets.
+- **Fresh wallet**: a Solana address with no prior on-chain history before the funding tx (which appears as ≤ 1 prior signature once the funding tx itself is on-chain).
+- **Deployer wallet**: the wallet that will execute the pump.fun create instruction.
+- **Hub wallet**: an internally-controlled wallet that funds fresh deployer wallets; primary example `v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5`.
+- **Intermediary wallet**: a Vector B watch wallet historically involved in deployer funding chains (RXRP repump cluster, prior deployers, side funders).
 - **Bloom bot**: Telegram-based snipe bot that executes block-0 purchases on whitelisted deployer wallets. Whitelisting is currently manual via address paste.
 - **L10, L11**: launch number. L10 (XAIC, March 2026) was missed because no monitor was running. L11 is the next launch (window April 20–30, 2026).
 - **Block 0**: the same Solana slot as the deploy tx. Bloom's goal.
+- **PH1..PH8**: production-hardening increments planned before L11 (see §Production hardening).
