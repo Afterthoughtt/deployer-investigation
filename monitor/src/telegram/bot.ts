@@ -5,6 +5,7 @@ import type {
   CandidateAction,
   ListActiveCandidates,
 } from "../db.js";
+import type { HealthCheckResult } from "../selfcheck.js";
 import { errMessage, type Logger } from "../util.js";
 import type { Category } from "../wallets.js";
 import {
@@ -36,6 +37,8 @@ export interface CreateTelegramBotArgs {
   activeCandidateCount: ActiveCandidateCount;
   /** Snapshot of daemon uptime/ws/last-event state for /status. */
   getStatus: () => DaemonStatus;
+  /** End-to-end probe triggered by /health. */
+  runHealthChecks: () => Promise<HealthCheckResult[]>;
 }
 
 export interface TelegramBotHandle {
@@ -54,6 +57,7 @@ export interface TelegramBotHandle {
 
 const COMMANDS = [
   { command: "status", description: "daemon + WS + candidate summary" },
+  { command: "health", description: "end-to-end probe (DB + RPC + WS + detection + alert)" },
   { command: "candidates", description: "list active candidates" },
   { command: "whitelist", description: "mark candidate whitelisted: /whitelist <id>" },
   { command: "reject", description: "reject candidate + add to ignore list: /reject <id>" },
@@ -74,6 +78,7 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     listActiveCandidates,
     activeCandidateCount,
     getStatus,
+    runHealthChecks,
   } = args;
   const bot = new Bot(token);
 
@@ -174,6 +179,21 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
       `Mute: ${muteLine}`,
     ];
     await reply(ctx, lines.join("\n"));
+  });
+
+  bot.command("health", async (ctx) => {
+    const results = await runHealthChecks();
+    const allPassed = results.every((r) => r.passed);
+    const header = allPassed
+      ? "\u2705 /health — all checks passed"
+      : "\u26A0\uFE0F /health — some checks failed";
+    const body = results
+      .map((r) => {
+        const mark = r.passed ? "\u2705" : "\u274C";
+        return `${mark} ${r.name} (${r.durationMs}ms) — ${r.detail}`;
+      })
+      .join("\n");
+    await reply(ctx, `${header}\n\n${body}`);
   });
 
   bot.command("candidates", async (ctx) => {

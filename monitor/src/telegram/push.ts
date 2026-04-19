@@ -72,6 +72,47 @@ export async function sendStaleRecovery(
   );
 }
 
+export async function sendWsDownWarning(
+  bot: TelegramBotHandle,
+  meta: { downForMs: number },
+): Promise<void> {
+  const lines = [
+    "\u26A0\uFE0F l11-monitor: WebSocket down",
+    `reconnect has been failing for ${formatDuration(meta.downForMs)}`,
+    "check journalctl -u l11-monitor -f",
+  ];
+  await bot.sendText(lines.join("\n"));
+}
+
+export async function sendWsRecovery(
+  bot: TelegramBotHandle,
+  meta: { downMs: number },
+): Promise<void> {
+  await bot.sendText(
+    `\u2705 l11-monitor: WebSocket back (was down for ${formatDuration(meta.downMs)})`,
+  );
+}
+
+export async function sendRpcFailureWarning(
+  bot: TelegramBotHandle,
+  meta: { consecutive: number },
+): Promise<void> {
+  const lines = [
+    "\u26A0\uFE0F l11-monitor: freshness RPC failing",
+    `${meta.consecutive} consecutive getSignaturesForAddress errors`,
+    "candidates may be silently dropped — check Helius credits + network",
+  ];
+  await bot.sendText(lines.join("\n"));
+}
+
+export async function sendRpcFailureRecovery(
+  bot: TelegramBotHandle,
+): Promise<void> {
+  await bot.sendText(
+    "\u2705 l11-monitor: freshness RPC recovered",
+  );
+}
+
 export async function sendHeartbeat(
   bot: TelegramBotHandle,
   meta: {

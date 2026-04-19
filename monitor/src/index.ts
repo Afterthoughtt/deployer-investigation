@@ -23,12 +23,17 @@ import {
   sendStaleWarning,
   sendStaleRecovery,
   sendHeartbeat,
+  sendWsDownWarning,
+  sendWsRecovery,
+  sendRpcFailureWarning,
+  sendRpcFailureRecovery,
 } from "./telegram/push.js";
 import {
   createStalenessMonitor,
   startHealthServer,
   createHeartbeat,
 } from "./health.js";
+import { runHealthChecks } from "./selfcheck.js";
 import { errMessage, sleep, type Logger } from "./util.js";
 
 const consoleLog: Logger = {
@@ -38,6 +43,8 @@ const consoleLog: Logger = {
 };
 
 const BOT_STOP_TIMEOUT_MS = 2000;
+const WS_DOWN_WARN_MS = 60_000;
+const RPC_FAILURE_WARN_THRESHOLD = 5;
 
 let shuttingDown = false;
 
@@ -112,6 +119,13 @@ try {
     } as Record<Category, number | null>,
   };
 
+  // Pre-applied "no events yet" floor: until an on-ramp event has arrived,
+  // age is measured from boot so the daemon doesn't alarm in its own grace
+  // window. Shared between the staleness monitor, /health server, and
+  // the /health Telegram command.
+  const onrampLastOrBoot = () =>
+    status.lastEventByCategory.onramp ?? status.startedAt;
+
   const bot = createTelegramBot({
     token: config.telegramBotToken,
     chatId: config.telegramChatId,
@@ -128,6 +142,18 @@ try {
     listActiveCandidates,
     activeCandidateCount,
     getStatus: () => status,
+    runHealthChecks: () =>
+      runHealthChecks({
+        db,
+        bot,
+        heliusApiKey: config.heliusApiKey,
+        monitored: monitoredMap,
+        getOnrampLastEventAt: onrampLastOrBoot,
+        getWsConnected: () => status.wsConnected,
+        // Tighter than the automated staleness threshold: an interactive probe
+        // should flag minutes-scale silence, not hours.
+        wsFreshnessMaxAgeMs: 5 * 60 * 1000,
+      }),
   });
   await bot.start();
   try {
@@ -152,10 +178,49 @@ try {
   let candidateCount = 0;
   let backfillPromise: Promise<unknown> | null = null;
   const abortController = new AbortController();
-  const freshness = makeFreshnessChecker(
+  const innerFreshness = makeFreshnessChecker(
     config.heliusApiKey,
     abortController.signal,
   );
+
+  // Wrap the freshness checker with a consecutive-failure counter. A silently
+  // failing freshness call drops candidates into /dev/null (detection.ts:74
+  // logs + skips), so we want a Telegram ping once failures pile up. Threshold
+  // is low enough to catch sustained outages quickly, high enough that a
+  // single flaky retry-exhausted call doesn't page.
+  let rpcConsecutiveFailures = 0;
+  let rpcWarned = false;
+  const freshness: typeof innerFreshness = async (addr) => {
+    try {
+      const result = await innerFreshness(addr);
+      rpcConsecutiveFailures = 0;
+      if (rpcWarned) {
+        rpcWarned = false;
+        sendRpcFailureRecovery(bot).catch((err) =>
+          console.error(
+            `telegram: rpc-recovery push failed ${errMessage(err)}`,
+          ),
+        );
+      }
+      return result;
+    } catch (err) {
+      rpcConsecutiveFailures++;
+      if (
+        !rpcWarned &&
+        rpcConsecutiveFailures >= RPC_FAILURE_WARN_THRESHOLD
+      ) {
+        rpcWarned = true;
+        sendRpcFailureWarning(bot, {
+          consecutive: rpcConsecutiveFailures,
+        }).catch((err2) =>
+          console.error(
+            `telegram: rpc-warn push failed ${errMessage(err2)}`,
+          ),
+        );
+      }
+      throw err;
+    }
+  };
 
   const handleEvent = (source: "ws" | "backfill") => (ev: TransactionEvent) => {
     if (shuttingDown) return;
@@ -249,12 +314,34 @@ try {
       });
   };
 
+  // WS down-warn timer: if reconnect fails to reopen within WS_DOWN_WARN_MS,
+  // push a Telegram warning. Push a recovery when it comes back. Both edges
+  // are single-fire per down→up cycle; rapid flaps (<threshold) are silent.
+  let wsDownSince: number | null = null;
+  let wsWarnTimer: NodeJS.Timeout | null = null;
+  let wsWarned = false;
+
   const wsHandle = connectHeliusWs({
     apiKey: config.heliusApiKey,
     accounts,
     onOpen: () => {
       status.wsConnected = true;
       console.log("helius-ws: open");
+      if (wsWarnTimer) {
+        clearTimeout(wsWarnTimer);
+        wsWarnTimer = null;
+      }
+      if (wsWarned) {
+        const downMs =
+          wsDownSince !== null ? Date.now() - wsDownSince : 0;
+        wsWarned = false;
+        sendWsRecovery(bot, { downMs }).catch((err) =>
+          console.error(
+            `telegram: ws-recovery push failed ${errMessage(err)}`,
+          ),
+        );
+      }
+      wsDownSince = null;
     },
     onSubscribed: (id) => {
       status.subscribeCount++;
@@ -270,6 +357,20 @@ try {
       console.log(
         `helius-ws: close code=${code} reason=${reason || "(none)"}`,
       );
+      if (shuttingDown) return;
+      if (wsDownSince === null) wsDownSince = Date.now();
+      if (wsWarnTimer === null && !wsWarned) {
+        wsWarnTimer = setTimeout(() => {
+          wsWarnTimer = null;
+          wsWarned = true;
+          sendWsDownWarning(bot, { downForMs: WS_DOWN_WARN_MS }).catch(
+            (err) =>
+              console.error(
+                `telegram: ws-down push failed ${errMessage(err)}`,
+              ),
+          );
+        }, WS_DOWN_WARN_MS);
+      }
     },
     onReconnecting: (attempt, delayMs) => {
       console.log(
@@ -277,12 +378,6 @@ try {
       );
     },
   });
-
-  // Pre-applied "no events yet" floor: until an on-ramp event has arrived,
-  // age is measured from boot so the daemon doesn't alarm in its own grace
-  // window. Shared between the staleness monitor and /health.
-  const onrampLastOrBoot = () =>
-    status.lastEventByCategory.onramp ?? status.startedAt;
 
   const stalenessMonitor = createStalenessMonitor({
     thresholdMs: config.staleThresholdMs,
@@ -344,6 +439,10 @@ try {
     );
     heartbeat.stop();
     stalenessMonitor.stop();
+    if (wsWarnTimer) {
+      clearTimeout(wsWarnTimer);
+      wsWarnTimer = null;
+    }
     try {
       await healthServer.close();
     } catch (err) {
