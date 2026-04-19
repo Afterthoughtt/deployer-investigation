@@ -281,7 +281,8 @@ Single chat, hardcoded chat ID in env. Bot responds only to that chat.
 
 ### Commands (registered via `bot.api.setMyCommands` on startup)
 
-- `/status` — daemon uptime, WebSocket state, active candidates count, last event received timestamp
+- `/status` — daemon uptime, WebSocket state, active candidates count, last event received timestamp (cheap in-memory + one SQL COUNT; no external calls)
+- `/health` — end-to-end liveness probe. Runs five checks and replies with per-line pass/fail + ms timings: SQLite read, Helius RPC (`getBalance` on MP1 — 1 credit), WS connected + on-ramp freshness < 5 min, detection code path against a synthetic MP1→fresh-address payload (no DB write), Telegram alert pipe via `bot.sendHtml` with an inline keyboard (labeled `🧪 TEST` so tapping replies "C0 not found" — proves the callback round-trip). Burns ~1 credit per invocation; do not script in a tight loop.
 - `/candidates` — list active candidates with confidence, source, amount, age
 - `/whitelist <id>` — mark candidate whitelisted
 - `/reject <id>` — mark candidate rejected, add to ignore list
@@ -379,6 +380,8 @@ If the replay produces the correct alert, the system is ready. If not, fix and r
 ## Failure modes to handle explicitly
 
 - Helius WebSocket drops silently — detected by stale on-ramp event timer, triggers reconnect + backfill
+- Helius WebSocket stays closed > 60s — push Telegram warning (`sendWsDownWarning`); recovery message (`sendWsRecovery`) when it reopens. Flaps < 60s are silent. Complements the slower on-ramp staleness alarm so operators see sustained disconnects within a minute instead of waiting for the 15m–2h on-ramp threshold.
+- Freshness RPC (`getSignaturesForAddress`) fails 5 consecutive times — push Telegram warning (`sendRpcFailureWarning`); recovery message on next successful call. A silently failing freshness check drops candidates without alerting, so this alarm is the last line before missed detections during an outage. `rpcCall` itself retries up to 5 times per call (honoring `Retry-After`), so 5 consecutive freshness failures = 25 raw HTTP attempts.
 - Helius RPC 429 — exponential backoff, never hammer
 - Helius credit exhaustion — track manually via dashboard, not programmatically in v1
 - SQLite WAL grows large — checkpoint manually if > 100MB (unlikely at our write volume)
