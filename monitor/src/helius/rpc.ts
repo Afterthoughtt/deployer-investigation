@@ -60,13 +60,31 @@ export async function rpcCall<T>(
 
   for (let attempt = 1; ; attempt++) {
     let res: Response;
+    // Per-attempt controller that mirrors the parent's abort, so the listener
+    // we add to the parent signal is removed as soon as the fetch settles.
+    // Without this, Node's fetch leaves its own abort listener on the parent
+    // signal, and under heavy backfill load these accumulate past the default
+    // MaxListeners threshold and spam the journal.
+    const localController = new AbortController();
+    const onParentAbort = () => localController.abort(signal?.reason);
+    if (signal) {
+      if (signal.aborted) {
+        localController.abort(signal.reason);
+      } else {
+        signal.addEventListener("abort", onParentAbort, { once: true });
+      }
+    }
     try {
-      res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body,
-        signal,
-      });
+      try {
+        res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body,
+          signal: localController.signal,
+        });
+      } finally {
+        signal?.removeEventListener("abort", onParentAbort);
+      }
     } catch (err) {
       if (attempt >= MAX_ATTEMPTS || signal?.aborted) {
         throw new RpcError(
