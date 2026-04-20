@@ -382,7 +382,9 @@ STALENESS_CHECK_INTERVAL_MS=300000    # 5m — how often the staleness loop eval
 HEARTBEAT_INTERVAL_MS=86400000        # 24h — daily Telegram heartbeat cadence
 ```
 
-The staleness/heartbeat overrides exist so the timers can be dialed down (e.g. `STALE_THRESHOLD_MS=30000`) for local acceptance; production always uses the defaults.
+The staleness/heartbeat overrides exist so the timers can be dialed down (e.g. `STALE_THRESHOLD_MS=30000`) for local acceptance.
+
+**VPS override in effect during L11 window (2026-04-19 → post-launch revisit):** `/opt/l11-monitor/.env` sets `STALE_THRESHOLD_MS=900000` (15 min) instead of the documented 2h default. Rationale: during the L11 funding window (Apr 20–30), a broken Helius subscription at T-6h is catastrophic — a 15-min page on true silence buys 105 extra minutes of response time vs. the 2h default. Cost: occasional false-positive pages during genuinely quiet MoonPay/Coinbase windows (US overnight + weekend lulls). Accept the noise for the launch window, then revert to `7200000` after L11 launches. `STALENESS_CHECK_INTERVAL_MS` stays at its 5m default.
 
 The audit scripts also read this same `.env` for `NANSEN_API_KEY` and `ARKAN_API_KEY`. Those are NOT required for the monitor runtime.
 
