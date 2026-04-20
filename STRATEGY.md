@@ -135,8 +135,9 @@ If the deployer abandons MoonPay for a different on-ramp, the observable on-chai
 ## Timing
 
 - **Cadence:** ~Monthly. L10 was March 15.
-- **L11 expected:** April 20-30, 2026 (community intel, 2026-04-11)
-- **Monitor must be armed-capable by:** April 19, 2026
+- **L11 CONFIRMED (operator intel, 2026-04-20):** Token name **Nukex**, Saturday **April 25, 2026**, **14:00–18:00 EST** (as stated; April 25 is within US DST so treat as 18:00–22:00 UTC if EDT, 19:00–23:00 UTC if strict EST — both fall inside the historical 18:00–23:43 UTC L5+ deploy window).
+- **Funding-window inference:** with the 12–17h funding-to-deploy gap, expect the funding event between **April 25 01:00 UTC and April 25 11:00 UTC** (envelope across both EST/EDT interpretations). With the 26h max-observed gap, earliest plausible funding is **April 24 16:00 UTC**.
+- **Monitor must be fully armed by:** **April 24 16:00 UTC** at the latest.
 - **Funding-to-deploy gap:** 12-17h (max observed: 26h)
 - **Deploy window:** 18:00-23:43 UTC (L5+ pattern)
 

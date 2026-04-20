@@ -6,7 +6,7 @@ Build a persistent daemon that detects the deployer wallet funding event before 
 
 **The daemon's only job is pre-launch wallet identification.** Once the candidate is whitelisted in Bloom, the daemon's role is done. It does not detect deploys, track launches, or do post-launch reporting. Those are too late to be useful.
 
-L10 was missed because no monitor was running at the time. We built this from scratch ahead of L11 (window: April 20–30, 2026, per community intel), designed source-agnostic across fiat on-ramps so the deployer can't dodge us by switching providers (as they did from Coinbase → MoonPay between L9 and L10).
+L10 was missed because no monitor was running at the time. We built this from scratch ahead of L11. **L11 confirmed 2026-04-20 (operator intel): token name Nukex, Saturday April 25 2026, 14:00–18:00 EST deploy window.** Earlier community estimate of April 20–30 now narrowed to this date. Designed source-agnostic across fiat on-ramps so the deployer can't dodge us by switching providers (as they did from Coinbase → MoonPay between L9 and L10).
 
 Wallet map, deployer history, insider networks, and API docs are all in this repo. Read them before writing code. Do not re-derive what is already documented.
 
@@ -384,7 +384,7 @@ HEARTBEAT_INTERVAL_MS=86400000        # 24h — daily Telegram heartbeat cadence
 
 The staleness/heartbeat overrides exist so the timers can be dialed down (e.g. `STALE_THRESHOLD_MS=30000`) for local acceptance.
 
-**VPS override in effect during L11 window (2026-04-19 → post-launch revisit):** `/opt/l11-monitor/.env` sets `STALE_THRESHOLD_MS=900000` (15 min) instead of the documented 2h default. Rationale: during the L11 funding window (Apr 20–30), a broken Helius subscription at T-6h is catastrophic — a 15-min page on true silence buys 105 extra minutes of response time vs. the 2h default. Cost: occasional false-positive pages during genuinely quiet MoonPay/Coinbase windows (US overnight + weekend lulls). Accept the noise for the launch window, then revert to `7200000` after L11 launches. `STALENESS_CHECK_INTERVAL_MS` stays at its 5m default.
+**VPS override in effect during L11 window (2026-04-19 → post-launch revisit):** `/opt/l11-monitor/.env` sets `STALE_THRESHOLD_MS=900000` (15 min) instead of the documented 2h default. Rationale: with L11 (Nukex) confirmed for Saturday April 25 2026 14:00–18:00 EST, the funding event is expected somewhere in the window April 24 16:00 UTC (26h max-gap floor) → April 25 11:00 UTC. A broken Helius subscription at T-6h is catastrophic — a 15-min page on true silence buys 105 extra minutes of response time vs. the 2h default. Cost: occasional false-positive pages during genuinely quiet MoonPay/Coinbase windows (US overnight + weekend lulls). Accept the noise through April 25, then revert to `7200000` after Nukex launches. `STALENESS_CHECK_INTERVAL_MS` stays at its 5m default.
 
 The audit scripts also read this same `.env` for `NANSEN_API_KEY` and `ARKAN_API_KEY`. Those are NOT required for the monitor runtime.
 
@@ -719,6 +719,6 @@ Cleanest refactor: build `rowChunks: string[][]` (each inner array is the 4 line
 - **Hub wallet**: an internally-controlled wallet that funds fresh deployer wallets; primary example `v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5`.
 - **Intermediary wallet**: a Vector B watch wallet historically involved in deployer funding chains (RXRP repump cluster, prior deployers, side funders).
 - **Bloom bot**: Telegram-based snipe bot that executes block-0 purchases on whitelisted deployer wallets. Whitelisting is currently manual via address paste.
-- **L10, L11**: launch number. L10 (XAIC, March 2026) was missed because no monitor was running. L11 is the next launch (window April 20–30, 2026).
+- **L10, L11**: launch number. L10 (XAIC, March 2026) was missed because no monitor was running. L11 is the next launch — **Nukex, Saturday April 25 2026, 14:00–18:00 EST** (confirmed via operator intel 2026-04-20).
 - **Block 0**: the same Solana slot as the deploy tx. Bloom's goal.
 - **PH1..PH8**: production-hardening increments planned before L11 (see §Production hardening).

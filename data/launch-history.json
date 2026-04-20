@@ -1,7 +1,25 @@
 {
   "metadata": {
     "description": "Complete launch history and behavioral profile for serial pump.fun deployer",
-    "updated": "2026-03-28"
+    "updated": "2026-04-20"
+  },
+  "upcoming_launch": {
+    "id": "L11",
+    "token_name": "Nukex",
+    "ticker": null,
+    "ca": null,
+    "date": "2026-04-25",
+    "deploy_window_local": "14:00-18:00 EST (Saturday)",
+    "deploy_window_utc_if_est": "19:00-23:00 UTC",
+    "deploy_window_utc_if_edt": "18:00-22:00 UTC",
+    "source": "operator intel, 2026-04-20",
+    "funding_window_utc_expected": {
+      "earliest_12_17h_gap": "2026-04-25T01:00:00Z",
+      "latest_12_17h_gap": "2026-04-25T11:00:00Z",
+      "earliest_26h_max_gap": "2026-04-24T16:00:00Z"
+    },
+    "monitor_armed_deadline_utc": "2026-04-24T16:00:00Z",
+    "notes": "User stated 'EST' verbatim. April 25 2026 is inside US DST so the locally-correct zone is EDT (UTC-4); if user intended clock-local time the UTC window is 18:00-22:00 UTC. Both EST and EDT interpretations fall inside the historical L5+ deploy window (18:00-23:43 UTC)."
   },
   "behavioral_profile": {
     "launch_cadence": "Approximately once per month",
