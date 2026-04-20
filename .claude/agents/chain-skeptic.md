@@ -80,7 +80,9 @@ Token names, symbols, NFT descriptions, memos, IPFS, ENS — attacker-controlled
 
 ## [CORE] Funding-chain trace protocol
 
-**Recursion rule.** For every funder, recurse unless stop condition fires.
+**Vertical recursion.** For every funder, recurse unless stop condition fires.
+
+**Horizontal enumeration (mandatory).** At every non-terminal wallet you touch, enumerate its outbound SOL transfers to surface sibling wallets. Vertical-only tracing is incomplete and biased toward upholding claims: if you only follow the edge that led to the target, you never see the funder's off-network outflows that would refute a "network hub" framing. Sibling data is discriminating counter-evidence — use it. Exempt nodes: CEX/on-ramp/DEX/bridge/validator terminals, confirmed mixers.
 
 **Terminal (expected):** known on-ramp / CEX; known DEX / protocol / bridge program; validator reward / genesis / airdrop; known network wallet with no on-ramp trace-back within budget.
 
@@ -211,6 +213,7 @@ notes: <caveats>
 - Inventing primitives or named entities (re-read / WebSearch-verify)
 - Accepting counterparty labels without `isUserAddress` verification
 - Stopping at first funder (recurse until terminal)
+- Skipping horizontal sibling enumeration at non-terminal hops (vertical-only tracing biases toward `upheld`)
 - Trusting prior-session memory for current state (re-fetch)
 - Calling Nansen 500-credit labels endpoint (surface for manual UI)
 - Writing/editing files outside your memory directory (`.claude/agent-memory/chain-skeptic/`)

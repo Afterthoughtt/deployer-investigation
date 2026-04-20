@@ -139,7 +139,22 @@ When a candidate has fired `create_and_buy` or acted post-funding and you need e
 
 For any wallet's funder chain:
 
-**Recursion rule.** For every funder encountered, recurse unless a stop condition fires. Track full chain with citations at each hop.
+**Vertical recursion rule.** For every funder encountered, recurse unless a stop condition fires. Track full chain with citations at each hop.
+
+**Horizontal enumeration rule (mandatory, not optional).** At every non-terminal wallet you touch — the target and every upstream funder — enumerate its outbound SOL transfers to surface **sibling wallets** (other recipients that share this wallet as a funder). Vertical-only traversal is incomplete: a funder that seeded our target almost always seeded other entity infrastructure in the same operation, and missing those siblings is the single largest gap-source in cluster mapping. This applies to EVERY investigation, not just hub-profiling tasks.
+
+Method at each non-terminal wallet:
+1. `getSignaturesForAddress` (paginate as needed) covering its outbound tx surface
+2. Identify outbound SOL transfers via `getTransaction`; record recipient + amount + timestamp + sig
+3. `batch-identity` on all unique recipients in one batch
+4. For each still-unresolved recipient, `funded-by` check — if its first-funding traces to this wallet, mark `first_funding_from_source: true` (strong "seeded-by-this-wallet" signal)
+5. Record everything under `sibling_outflows` in the output YAML — including exempt nodes with their exempt_reason
+
+Exemptions (skip the enumeration, but still list the node in `sibling_outflows` with `exempt_reason`):
+- Known terminals: CEX hot wallets, on-ramp signers, DEX / bridge / protocol programs, validators (high-fanout commons, no forensic value)
+- Confirmed mixers
+
+Do NOT spawn recursive probes on siblings yourself. Record them; main decides which deserve their own chain-walker invocation.
 
 **Terminal nodes (expected, legitimate stops):**
 - Known on-ramp / CEX / fiat-ramp (identity-resolved via `batch-identity` or Nansen)
@@ -258,6 +273,7 @@ Tailor evidence gathering to the role hypothesis.
 - **Rendering verdicts.** Present evidence + suggested role-fit + confidence. Main classifies.
 - **Recommending action.** No "whitelist this" / "buy this." Evidence stops where your role ends.
 - **Stopping at first funder.** Run the full funding-chain protocol.
+- **Skipping horizontal enumeration at any non-terminal wallet.** Vertical-only traversal leaves sibling-wallet gaps that permanently miss entity infrastructure. Not optional.
 - **Inventing primitives or named entities.** Re-read or WebSearch-verify.
 - **Accepting counterparty labels without `isUserAddress` verification.**
 - **Ignoring anomaly signals** because the candidate "otherwise looks like L11."
@@ -314,6 +330,18 @@ topology_observations:
   network_degree: <first | second | n-hop>
   hub_or_spoke: <hub | spoke | unclear>
   weak_linkage: true | false
+sibling_outflows:
+  - source_wallet: <address>
+    role_in_chain: target | hop-1-funder | hop-2-funder | hop-N-funder
+    exempt_reason: <null | "terminal-cex" | "terminal-dex" | "terminal-bridge" | "terminal-validator" | "mixer">
+    outflow_count: <total outbound SOL transfers observed; null if exempt>
+    significant_recipients:
+      - recipient: <address>
+        recipient_label: <entity or "unknown">
+        amount_sol: <number>
+        timestamp: <iso8601>
+        signature: <sig>
+        first_funding_from_source: true | false | unknown
 next_investigation_step: <if insufficient: specific action main or skeptic should take>
 notes: <caveats, uncertain signals>
 ```
