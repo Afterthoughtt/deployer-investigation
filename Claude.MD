@@ -21,9 +21,9 @@ The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spe
 
 - **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Developer plan ($24.50/mo, was $49). Docs: @docs/helius_docs.md
 - **Nansen**: Entity labeling, counterparties, transactions. POST to `https://api.nansen.ai/api/v1`. Auth: `apiKey` header. Docs: @docs/nansen_docs.md
-- **Arkham**: Address intel, transfer scanning, entity search. GET from `https://api.arkm.com`. Auth: `API-Key` header. 30-day trial. Docs: @docs/arkham_docs.md
+- **Arkham**: Address intel, transfer scanning, entity search. GET from `https://api.arkm.com`. Auth: `API-Key` header. **Trial expired 2026-04-19 — returns HTTP 402 on all endpoints. Not usable this session.** Docs: @docs/arkham_docs.md
 
-Cross-reference entity labels between all three APIs. They have different coverage gaps (Nansen labeled MoonPay on Solana, Arkham did not).
+Cross-reference entity labels between the available APIs. They have different coverage gaps (Nansen labeled MoonPay on Solana, Arkham did not — last known state before Arkham trial expiry).
 
 ## Environment
 
@@ -98,3 +98,17 @@ Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.
 - **MoonPay on-chain fingerprint** (validated 2026-04-19): every MoonPay-routed Solana transfer has `ComputeBudget.SetComputeUnitLimit = 14548` exactly + an `spl-memo` with 32-char hex data + fee-payer-is-sender. Consistent across MP1 and MP2, across $20–$2,100 amount range, 10/10 true positives, 0/159 false positives in sampled non-MoonPay outbound (Coinbase + Binance) and retail traffic. Use for confirmation checks and MP3+ rotation discovery; not wired into runtime monitor filters. See `STRATEGY.md` Vector A for details.
 - Be credit-conscious: getBalance is 1 credit, getSignaturesForAddress is 10, all Wallet API calls are 100. Screen cheap first, investigate expensive only on confirmed targets.
 - Nansen `tgm/dex-trades` does NOT support filtering by `trader_address` — it silently returns empty. To check a specific wallet's trades on a token, pull ALL trades for the token and filter client-side, or use Helius.
+
+## Subagents
+
+Two specialized subagents live at `.claude/agents/`. Both use `claude-opus-4-7` with `effort: xhigh`. Full design and prompt text: `/Users/error/.claude/plans/before-we-continue-further-immutable-turing.md`.
+
+- **`chain-walker`** — stateless on-chain evidence gatherer. Invoke proactively when investigating any candidate wallet, funder, or counterparty. Full contextual brief from main (wallet + why + role hypothesis). Returns structured evidence keyed to the six-role taxonomy (`fresh-deploy-wallet-candidate`, `fresh-side-wallet-candidate`, `established-side-wallet-candidate`, `intermediary`, `unrelated`, `insufficient-evidence`). Never renders verdicts — main classifies.
+
+- **`chain-skeptic`** — adversarial reviewer with `memory: project`. **Mandatory gate before any `data/network-map.json` write with `verdict: network` OR any Bloom whitelist promotion.** Receives a minimal brief ONLY (wallet + one-sentence role claim) — independence preserves the separate-context advantage. Renders a structured verdict: `upheld` / `overturned` / `insufficient`. `insufficient` → escalate to user (Nansen UI, Solscan, off-chain OSINT) rather than forcing a guess.
+
+- **Never call Nansen's 500-credit labels endpoint from either agent.** Surface the wallet for manual Nansen UI lookup instead (same data, free). Same rule for other manual-lookup fallbacks when evidence is exhausted.
+
+- **Never install `sendaifun/solana-mcp` or any MCP that exposes transaction-signing tools.** This investigation is strictly read-only. Signing-capable MCPs create an accidental-execution risk if the agent is ever prompt-injected via on-chain metadata (token names, memos, IPFS content) or adversarial web content. Approved Solana MCPs (read-only): official `helius-mcp`, `solana-docs`, `flipside`, `bitquery`, `nansen`, `duckdb` (MotherDuck).
+
+- Mixer detection (PrivacyCash, Umbra, Vanish) stays in the agents' vocabulary but flags as ANOMALY, not a valid terminal — this adversary's M.O. does not include mixers.
