@@ -95,5 +95,6 @@ Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.
 - Bundle wallets don't need SOL gas. Deployer pays ATA rent. Monitor SPL changes, not SOL.
 - Closed Solana accounts lose RPC history. Zero sigs does not mean wallet never existed.
 - The deployer WILL change on-ramp sources. Source-agnostic detection is mandatory.
+- **MoonPay on-chain fingerprint** (validated 2026-04-19): every MoonPay-routed Solana transfer has `ComputeBudget.SetComputeUnitLimit = 14548` exactly + an `spl-memo` with 32-char hex data + fee-payer-is-sender. Consistent across MP1 and MP2, across $20–$2,100 amount range, 10/10 true positives, 0/159 false positives in sampled non-MoonPay outbound (Coinbase + Binance) and retail traffic. Use for confirmation checks and MP3+ rotation discovery; not wired into runtime monitor filters. See `STRATEGY.md` Vector A for details.
 - Be credit-conscious: getBalance is 1 credit, getSignaturesForAddress is 10, all Wallet API calls are 100. Screen cheap first, investigate expensive only on confirmed targets.
 - Nansen `tgm/dex-trades` does NOT support filtering by `trader_address` — it silently returns empty. To check a specific wallet's trades on a token, pull ALL trades for the token and filter client-side, or use Helius.

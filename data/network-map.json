@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Known wallet addresses in the deployer network",
-    "updated": "2026-04-03"
+    "updated": "2026-04-19"
   },
   "deployers": {
     "L4": {
@@ -437,7 +437,7 @@
       }
     },
     "moonpay": {
-      "notes": "UPDATED 2026-04-03. TWO customer-facing MoonPay SOL wallets confirmed: MP1 (Cc3bpPzU, fed by MP4 treasury) and MP2 (5F1seMKU, fed by Binance 8 — separate supply chain). MP2 discovered via RXRP repump funder chain tracing: MP2 → FiggKseF → 6zZAKeF5/fUtfBAoj/Dj9WL4Nh. Vector A MUST monitor both MP1 and MP2. Arkham-labeled 'Hot Wallets' 4FoRA1uL and CYAziJxf are MP1's USDC and xoUSD token accounts (ATAs), NOT independent wallets.",
+      "notes": "UPDATED 2026-04-19. TWO customer-facing MoonPay SOL wallets confirmed: MP1 (Cc3bpPzU, fed by MP4 treasury) and MP2 (5F1seMKU, fed by Binance 8 — separate supply chain). MP2 discovered 2026-04-03 via RXRP repump funder chain tracing: MP2 → FiggKseF → 6zZAKeF5/fUtfBAoj/Dj9WL4Nh. Vector A MUST monitor both MP1 and MP2. Arkham-labeled 'Hot Wallets' 4FoRA1uL and CYAziJxf are MP1's USDC and xoUSD token accounts (ATAs), NOT independent wallets. FINGERPRINT (2026-04-19, 10/10 true positives / 0/159 false positives): every MP1 and MP2 outbound Solana transfer carries ComputeBudget.SetComputeUnitLimit=14548 exactly + spl-memo with 32-char hex data + fee-payer-is-sender. Same fingerprint on both MP1 and MP2 — unified infrastructure. Coinbase (10 hot wallets) and Binance sampled: neither emits memos, neither uses 14548 CU. See STRATEGY.md Vector A for scripts and empirical base.",
       "MP1": {
         "address": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
         "label": "MoonPay Hot Wallet 1",

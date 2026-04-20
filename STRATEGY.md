@@ -38,6 +38,44 @@ MP2 has a completely separate supply chain from MP1: funded by Binance 8, not by
 
 **Credit cost:** Polling MP1 + MP2 + MP1 USDC ATA via `getSignaturesForAddress` (10 credits each) + `getTransaction` for each new sig (10 credits each). At reasonable polling intervals (every 5-10 min), this is well within Helius Developer plan limits.
 
+#### MoonPay on-chain fingerprint (validated 2026-04-19)
+
+Every MoonPay-routed system.transfer on Solana, across MP1 **and** MP2, carries a distinctive transaction shape:
+
+1. **`ComputeBudget.SetComputeUnitLimit = 14548`** (exact value, across all observations)
+2. **`ComputeBudget.SetComputeUnitPrice`** varies 15,000–29,386 µlam/CU (network-congestion-dependent; not a fingerprint dimension)
+3. **`system.transfer`** from MoonPay wallet → recipient
+4. **`spl-memo`** instruction with data matching `/^[0-9a-f]{32}$/` — a 128-bit UUID (MoonPay's internal transaction ID), unique per tx
+5. **Fee payer = transfer source** (MoonPay pays the network fee; the `SetComputeUnitLimit = ceil(consumed × 1.10)` implementation detail is what produces 14,548 on this specific instruction set)
+
+**Empirical validation:**
+- **10/10 matches** on confirmed MoonPay transfers: L10 deployer funding ($1,186), 2 user control buys ($25 each), 2 friend control buys ($25 each), 5 live candidates from 2026-04-17 (C1-C5, spanning both MP1 and MP2, $680–$2,110).
+- **0/33 matches** on sampled outbound transfers from 10 Coinbase hot wallets (CB1-CB10) and 1 Binance hot wallet (`5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9`). Coinbase never sets `SetComputeUnitLimit` at all and never emits memos. Binance sets CU Limit at 10,000–30,000 (not 14,548) and also never emits memos.
+- **0/126 matches** across miscellaneous non-MoonPay incoming transfers on two random wallets. Total non-MoonPay sample: 159 transactions, 0 collisions.
+
+**NOT tested against:** Transak, Ramp Network, Simplex, Banxa (the four on-ramps still in `onramp_hot_wallets.unmapped`). If the deployer pivots to one of those, our `accountInclude` filter misses it regardless of fingerprint — this is an orthogonal gap.
+
+**Operational uses:**
+- **Confirmation** on existing MP1/MP2-triggered alerts — redundant for detection, but catches the "MoonPay updated their signer program" edge case (value would drift away from 14,548). If a MoonPay-sender event ever fails the fingerprint, that's a signal we need to re-verify MoonPay's current infrastructure.
+- **Discovery of MP3+ rotation.** Any new Solana address producing the fingerprint to a fresh recipient is a MoonPay-hot-wallet candidate. Discovery requires broader chain scanning (not part of the WSS subscription) — implement only if we have reason to believe MoonPay rotated.
+
+**NOT recommended as a runtime filter in the monitor.** Existing `accountInclude` on MP1+MP2 is already precise. Adding the fingerprint as a pre-alert gate adds code risk during a time-sensitive window with near-zero detection improvement.
+
+**On-ramp pivot signatures to watch for (future L11+ cases):**
+
+If the deployer abandons MoonPay for a different on-ramp, the observable on-chain shape changes per provider:
+
+- **Transak** uses per-user persistent "Stream Wallets" after L2 KYC. A Transak-funded wallet is NOT funded from a rotating pool — the user's Stream Wallet is their persistent fulfillment address. Detection: if the same unlabeled wallet repeatedly funds the same end-user wallet over multiple purchases, that upstream wallet is a Transak Stream Wallet. Different pattern from MoonPay's static-pool model.
+- **Ramp Network / Banxa / Simplex / Mercuryo** rotate per-transaction with no single public label. Detection requires Arkham entity clustering or a Nansen UI lookup — not readily fingerprintable from chain alone.
+- **Coinbase Onramp** (distinct from Coinbase CEX withdrawals, but on-chain they look identical): fulfillment routes through the standard Coinbase Solana hot wallet pool already mapped in `data/network-map.json` under `onramp_hot_wallets.coinbase`. If the deployer reverts to Coinbase (L1–L9 history), we'd see CB1–CB10 as the funder — no fingerprint needed, `accountInclude` catches it.
+- **Stripe crypto onramp** reportedly uses Coinbase or Fireblocks custody — expect Coinbase-cluster attribution or an unlabeled Fireblocks omnibus wallet.
+
+**Verification scripts** (for re-running if we need to re-verify later):
+- `src/audit/verify-l10-moonpay.ts` — re-extracts L10 baseline
+- `src/audit/verify-control-moonpay.ts` — runs against arbitrary wallet addresses passed as CLI args
+- `src/audit/fingerprint-candidates.ts` — checks the 5 live candidates in `l11.db`
+- `src/audit/fingerprint-other-onramps.ts` — stress-tests against Coinbase + Binance outbound
+
 ---
 
 ### Vector B: Network Intermediary Watch (SECONDARY)
@@ -110,7 +148,8 @@ MP2 has a completely separate supply chain from MP1: funded by Binance 8, not by
 | Instruction | `create_and_buy` |
 | Supply purchased | 30-35% |
 | SOL spent (fresh wallet era) | 8.09-14.81 SOL |
-| Bundle wallets | 6 (receive tokens within seconds of deploy) |
+| Supply-distribution wallets | 6 (receive SPL transfers from deploy wallet within seconds of deploy, to obscure on-chain supply concentration — NOT Jito bundle members) |
+| Deploy mechanic | pump.fun UI "dev buy" (in-mint-tx instruction, not a Jito bundle); sometimes a second wallet self-snipes additional supply at block 0-1 |
 | On-ramp history | Coinbase (L1-L9), MoonPay (L10), RXRP repump: Coinbase/MoonPay MP1+MP2/Bybit/Binance/Kraken/ChangeNOW/MEXC/Robinhood/FTX US |
 | Token naming | XRP-themed memecoins |
 
