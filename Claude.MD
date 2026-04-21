@@ -19,9 +19,9 @@ The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spe
 
 ## APIs
 
-- **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Developer plan ($24.50/mo, was $49). Docs: @docs/helius_docs.md
-- **Nansen**: Entity labeling, counterparties, transactions. POST to `https://api.nansen.ai/api/v1`. Auth: `apiKey` header. Docs: @docs/nansen_docs.md
-- **Arkham**: Address intel, transfer scanning, entity search. GET from `https://api.arkm.com`. Auth: `API-Key` header. **Trial expired 2026-04-19 — returns HTTP 402 on all endpoints. Not usable this session.** Docs: @docs/arkham_docs.md
+- **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Developer plan ($24.50/mo, was $49). Docs: `docs/helius_docs.md` (read on demand)
+- **Nansen**: Entity labeling, counterparties, transactions. POST to `https://api.nansen.ai/api/v1`. Auth: `apiKey` header. Docs: `docs/nansen_docs.md` (read on demand)
+- **Arkham**: Address intel, transfer scanning, entity search. GET from `https://api.arkm.com`. Auth: `API-Key` header. **Trial expired 2026-04-19 — returns HTTP 402 on all endpoints. Not usable this session.** Docs: `docs/arkham_docs.md` (read on demand)
 
 Cross-reference entity labels between the available APIs. They have different coverage gaps (Nansen labeled MoonPay on Solana, Arkham did not — last known state before Arkham trial expiry).
 
@@ -109,6 +109,4 @@ Two specialized subagents live at `.claude/agents/`. Both use `claude-opus-4-7` 
 
 - **Never call Nansen's 500-credit labels endpoint from either agent.** Surface the wallet for manual Nansen UI lookup instead (same data, free). Same rule for other manual-lookup fallbacks when evidence is exhausted.
 
-- **Never install `sendaifun/solana-mcp` or any MCP that exposes transaction-signing tools.** This investigation is strictly read-only. Signing-capable MCPs create an accidental-execution risk if the agent is ever prompt-injected via on-chain metadata (token names, memos, IPFS content) or adversarial web content. Approved Solana MCPs (read-only): official `helius-mcp`, `solana-docs`, `flipside`, `bitquery`, `nansen`, `duckdb` (MotherDuck).
-
-- Mixer detection (PrivacyCash, Umbra, Vanish) stays in the agents' vocabulary but flags as ANOMALY, not a valid terminal — this adversary's M.O. does not include mixers.
+- **Never install `sendaifun/solana-mcp` or any MCP that exposes transaction-signing tools.** 

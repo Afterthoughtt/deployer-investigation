@@ -1,0 +1,257 @@
+{
+  "finding_type": "asset_trace",
+  "token": {
+    "mint": "KfByHk48ecitUq8gXji2vr9smmRJKtqJwGAh2E9pump",
+    "symbol": "XAIC",
+    "decimals": 6
+  },
+  "source_wallet": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+  "source_ata": "3zqKqT8Ngw8MHZi9pCVre8QzrKqk1KjDyM4F2E9ZwgPX",
+  "source_ata_program": "Token-2022 (TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb)",
+  "starting_position": {
+    "amount_xaic": "326752146.517271",
+    "received_slot": 406658827,
+    "received_time_utc": "2026-03-15T21:41:28Z",
+    "received_signature": "AWcVaoy3se9i3WBtVoBtGa4qkyfPjKcVeX5T5pGTfwdQShFmoDF5tm74fgunapAxjHPq9e1xQBgHjjp9wLctAhj",
+    "funder": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+    "funder_label": "unlabeled PDA/account (custom launcher program 'DeJBGdMFa1uynnnKiwrVioatTuHmNLpyFKnmB5kaFdzQ'). Not pump.fun standard (which is 6EF8...)."
+  },
+  "cutoff_time_utc": "2026-04-20T15:00Z (approx; last queried slot 414590xxx)",
+  "trace_summary": {
+    "total_xaic_out_of_source_ata_as_spl_transfer": "315605821.091",
+    "total_xaic_net_sold_via_amm_on_source_ata": "11146325.426",
+    "distinct_hop1_recipients": 11,
+    "distinct_hop2_recipients_new": 12,
+    "distinct_hop3_recipients": 1,
+    "max_depth_reached": 3,
+    "branches_still_splitting_at_depth_10": 0,
+    "all_branches_terminated": true,
+    "terminal_states": {
+      "sold_via_amm (pumpswap 'pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')": "326747363.064 XAIC (99.9985%)",
+      "still_held_at_cutoff": "4783.453 XAIC (0.0015%)"
+    },
+    "time_window_of_disposition": {
+      "first_outbound": "2026-03-15T21:42:22Z (54s after allocation landed)",
+      "last_sale": "2026-03-21T17:09:27Z",
+      "elapsed": "~5 days 19.5h"
+    }
+  },
+  "hop1_recipients": [
+    {
+      "wallet": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "received_xaic": "34060353.307",
+      "received_time": "2026-03-15T21:42:22Z",
+      "sig": "4iBrWkW7zbtgqPktQ76sirdt6uH4mKZabFMMKjv8Vw1NQznFnQ7gyaHoeYUPnDsUH4tdyfheFBPFVcR5UC7bHp8y",
+      "disposition": "partially sold via pumpswap (~15.8M net-sold), forwarded 15M to G4Qye... and 4M to 784bxhz...",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "received_xaic": "43269826.250",
+      "received_time": "2026-03-15T21:42:22Z",
+      "sig": "5Yi1CpXNzYsd86Zcf6U5uAreDfiaxu1bsCxZ31Us763F1SnNoCmLAN88wCFvZMsdZjiAhQkjxuDZF7GybXJDuiZ3",
+      "disposition": "sold ~13.3M net via pumpswap; forwarded 20M to FFvb..., 4M to DZc1..., 6M to J5GL...",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "received_xaic": "32957677.221",
+      "received_time": "2026-03-15T21:42:22Z",
+      "sig": "4DmqnBzFrEJoMcrVdXYScxM2CJoVfd2b5wwWXDupv1zUqWfxfBqBbaHPaGAE7tV42BAgSkZwCftNRZ7DhZZjQDzy",
+      "disposition": "sold ~13.8M net via pumpswap; forwarded 10M to EDDC..., 1.5M to 6M2P..., 4.6M to 91Cu...",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "received_xaic": "39184117.410",
+      "received_time": "2026-03-15T21:42:22Z",
+      "sig": "34XdXQ2KcfxEZQ69ahxkdgJ7K8AcA6GwHguBg7ptAQRmeBxU21ffsfctkoWsKdpLHS9mtjYuBvVZA3hJsgfzNN4K",
+      "disposition": "heavy trader (89 txs, gross-sold 49.2M after repeated round-trips); forwarded 12.5M to 4916Nkd...",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "received_xaic": "40929845.212",
+      "received_time": "2026-03-15T21:42:22Z",
+      "sig": "4EJSq2jper1f4BPQUyC1ReBuNKuXZgVcCHigoHLqEoWBkY43WRtqn8qfT4tJG8DF5YybUFCjsBo6g1JoiWKiJbqh",
+      "disposition": "sold ~3.4M net via pumpswap; forwarded 20M to CzE9..., 4M to 6JJr4Rnp..., 4M to 7VokUK4W...",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "received_xaic": "33042629.288",
+      "received_time": "2026-03-15T21:42:22Z",
+      "sig": "4qxWEQxoQSSvHcnhot7sjXKKJgVkRbgitLTxGqXsJbwmVnQFrAd2KM5tPQvdMNT1QU46U542Cb45ucaSPcWQac3v",
+      "disposition": "sold ~21.8M net; forwarded 2.5M to 4916Nkd..., 2.97M to 6M2P...",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+      "received_xaic": "32846429.285",
+      "received_time": "2026-03-15T21:42:22Z",
+      "sig": "42remaWjc54nM61GATiD7K53aBUgaG3hvGiMWsntzaReNzzsShk91zjjxEqjmzpxHmamGbjFhEPDsaD6N5cNcviY",
+      "disposition": "sold ~16.5M net via pumpswap; forwarded 10M to 3E7o..., 625K+640K to DZc1/J5GL",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8",
+      "received_xaic": "36314943.118",
+      "received_time": "2026-03-15T21:42:22Z",
+      "sig": "4rNGmHZqb8QzWF2y4P8NwK65ypH8Zmj3xB8z9ByPoNWrguwLYw7vTsucrfTFPysscoFEENobvcJWn1jHWXXu7T2y",
+      "disposition": "heaviest trader (86 txs, gross-sold 74.7M after buy-back cycles); NO forwards",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "8fCxXEEqdv8a8CZ5QvLm6xzE45qYGZ3iCcRqmLLhDPms",
+      "received_xaic": "20000000.000",
+      "received_time": "2026-03-15T22:04:59Z",
+      "sig": "51LjKkYTiopoH4aAroimNh5HcXA9g6izpruRdiQT1L4xD6SpTKzzcHz1bWtpQMmHpHGk4Hbs6w653E8gDNyK1M95",
+      "disposition": "sold 20M (full) via pumpswap; NO forwards",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "784bxhz6xUA88Rk6jb1aTU7FjjkoxAmASsrSDEry2Zvw",
+      "received_xaic": "1000000.000 (from source)",
+      "received_time": "2026-03-16T02:54:05Z",
+      "sig": "2pB2CoutPH3bYQ5sm7ztSwopTNzfnc6U72tRFjkVWn8NZGhiKJb5T9Jjwn1ZDNS1btwRLYrk3m4pix9GxrJmxKpc",
+      "disposition": "also received 4M from 6M2P (intra-hop1); sold 7.13M gross via pumpswap; NO forwards",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
+      "received_xaic": "2000000.000",
+      "received_time": "2026-03-16T03:18:56Z",
+      "sig": "rA4DD8RfwqBWnLaitbghxL3Rk2HoZgfZYK7h9b2YDj3xzAKwx3sk6a1sLtphgBiPvuMYTbKSRtCRJAtbmB1FF3k",
+      "disposition": "forwarded 2M to 6kWEJTi7... (which then forwarded 755K to 311mKBYR); forwarded 1000 dust to EAcUbdoi...; residual ~68K sold",
+      "final_balance": "0"
+    }
+  ],
+  "hop2_new_recipients": [
+    {
+      "wallet": "G4Qye6NsWYaCYCs1eozfcrTfzw2PkXKuyYzL3kQtdtJs",
+      "parent": "6M2Pp...",
+      "received_xaic": "15000000",
+      "disposition": "all 15M sold via pumpswap (9 txs)",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed",
+      "parent": "v49jg...",
+      "received_xaic": "20000000",
+      "disposition": "all 20M sold in 2 pumpswap txs",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "DZc1evNLyaufVzUATwy7eZjURbjeESRKkN5nvdcFESZC",
+      "parent": "v49jg+91Cu",
+      "received_xaic": "4625000",
+      "disposition": "active trader, gross-sold 11.5M after buy-backs; no forwards",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "J5GLMu33utKgRK87MJxuDLrCGbgawmJUj7AbvVC12VeC",
+      "parent": "v49jg+91Cu",
+      "received_xaic": "6640000",
+      "disposition": "all 6.64M sold in 5 pumpswap txs",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "EDDCQrFrEDuRiD8eRyqFLAqZchQwikepgqJFWx1THAdj",
+      "parent": "D7Ms...",
+      "received_xaic": "10000000",
+      "disposition": "all 10M sold in 4 pumpswap txs",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh",
+      "parent": "B8aW+9dda",
+      "received_xaic": "15000000",
+      "disposition": "gross-sold 15.01M; currently still holds 4,783.453 XAIC dust",
+      "final_balance": "4783.453091"
+    },
+    {
+      "wallet": "CzE9nLiaapgJgNtxi5gWddBfQRHipnqx5S9vuLBaWwap",
+      "parent": "EvcW...",
+      "received_xaic": "20000000",
+      "disposition": "all 20M sold in 2 pumpswap txs; SOL proceeds routed to YAh1vvZPnuCjZ354LF8ria76cJaSEPvPyPYuRoxVkuH (beneficiary wallet, delegate pattern)",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "6JJr4RnpmpRVwwM12MSR9mZJTu3n6qPKPtQU9514TvhR",
+      "parent": "EvcW...",
+      "received_xaic": "4000000",
+      "disposition": "active wallet (835 total sigs, not a burner), gross-sold 6.8M XAIC across round-trips; ATA now closed",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "7VokUK4WfBTTsoDDmrSQ1x8vLERUWiPfg7vTehTA1f8B",
+      "parent": "EvcW...",
+      "received_xaic": "4000000",
+      "disposition": "active wallet (251 total sigs), sold all 4M, ATA now closed",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "3E7o196grf3ZqaVPTV1escwMHTHTAWZqXgpt18QQk7sh",
+      "parent": "91Cu...",
+      "received_xaic": "10000000",
+      "disposition": "all 10M sold in 3 pumpswap txs",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "6kWEJTi7Pn8hYEXocufRZj3AV5FXQoDbHXWdfKDUbU7X",
+      "parent": "52eC...",
+      "received_xaic": "2000000",
+      "disposition": "sold 1.24M, forwarded 755,393 to 311mKBYR at 2026-03-16T05:11:17Z",
+      "final_balance": "0"
+    },
+    {
+      "wallet": "EAcUbdoiY8aCwJKdSo17fhU4uqMopW27K4oLqpstqfHe",
+      "parent": "52eC...",
+      "received_xaic": "1000",
+      "disposition": "1000 dust, actively round-trip traded to 67K gross-sold",
+      "final_balance": "0"
+    }
+  ],
+  "hop3_recipients": [
+    {
+      "wallet": "311mKBYRBYSqjEiMWaAvvyEZ99X4vhZrD2GSmTj4uqDY",
+      "parent": "6kWEJTi7...",
+      "received_xaic": "755393.033",
+      "received_time": "2026-03-16T05:11:17Z",
+      "received_sig": "5zGpPN7RQFwkSSwjHzPQoBMbQ52qKvGxqDpjhGF2BjKPDf8SVFMLZyJpGQ1B4X2W1SGxG85znA4qVuu7EowhQCeD",
+      "disposition": "all 755,393 sold via Jupiter-v6 -> pumpswap 2m 12s later (2026-03-16T05:13:29Z, sig 5jN7x6A3bbPfjMRe9PYXwvnMJfXuQSaV7yRzLnPTJ21KjBT4iKCTxSBgWTsnLpp4UnwBFczdcg6XaMdv6v6H4EQ1 approx)",
+      "final_balance": "0"
+    }
+  ],
+  "realized_sol_proceeds": {
+    "caveat": "Many hop-1 and hop-2 wallets had their XAIC sold by third-party signers under a delegate/authority pattern, with SOL landing in beneficiary wallets different from the XAIC-holder. The native-SOL delta on the XAIC-holding owner accounts therefore UNDERSTATES actual realized proceeds.",
+    "target_ata_self_trade_net_sol": "+30.1382 SOL",
+    "hop1_on_owner_accounts_net_sol_combined": "+348.59 SOL (owner-account native SOL deltas only; excludes delegated beneficiary proceeds)",
+    "hop2_on_owner_accounts_net_sol_combined": "+83.06 SOL (same caveat; several hop-2 wallets show ~0 owner-SOL because proceeds went entirely to beneficiaries like YAh1vvZPnu... (+38.35 from CzE9), 8ncU5YW1... (+21.01 from FFvb), CdeigPnaYw... (+12.18 from EDDC), 51FQwjrvo8... (+10.85 from J5GL))",
+    "lower_bound_total_realized_sol": "~462 SOL (sum of above on owner accounts; ignores delegate beneficiaries)",
+    "beneficiary_wallets_observed_receiving_sol_from_sells": [
+      "YAh1vvZPnuCjZ354LF8ria76cJaSEPvPyPYuRoxVkuH (+38.35 SOL across CzE9 sells)",
+      "8ncU5YW1CQwvr4gs7buH57bW58e86TDau4STrCJBuz8z (+21.01 from FFvb, +15.59 from 3E7o)",
+      "GMCJvYGf5Ex2ARiMquaBDqU6iKM8uiEQkB8jCnoNfHpC (paired with above, +21.01, +15.59)",
+      "86DHdQfRpghMCmXYKDg93bXtmi3doBL5NeY9DYwAj6rz / 5dhYayH9... (+11.16 each, CzE9)",
+      "CdeigPnaYwWLqqmZ9u4Spxk8nPaDFyFQwjNuGzuJjJP6 (+12.18 from EDDC)",
+      "4rJggoVMajEUtipev1XhSMjESYk8Zibz6CDHPtUe1mem / 5gTazA5CPKrPZ1vSxXpbmLdmVZrvPYJ9CMnXUfNYoMJZ (+3.75 each EDDC; +1.05 each J5GL)",
+      "51FQwjrvo8J8zXUaKyAznJ5NYpoiTCuqAqCu3HAMB9NZ / FxGiN5NkigicwrnFshZEAUH9C13yrBALmgYxA9x8sfnQ (+10.85 each J5GL; +0.84 each 6kWEJTi)",
+      "CDxKWsQbe2HWLzvUZ7hAPvhk7381WjFGYMXYVG8Ahdim / 6oFWm7KPLfxnwMb3z5xwBoXNSPP3JJyirAPqPSiVcnsp (+1.42 each, 6kWEJTi)"
+    ],
+    "note": "Paired-symmetric amounts (e.g. two wallets each receiving +21.01 for 42.02 total) are a pumpswap signature where the paired counter-account captures half. Interpret totals as the sum of the pair, not double-counting."
+  },
+  "labeling": {
+    "helius_batch_identity_result": "all 37 addresses queried (hop1 + hop2 + hop3 + SOL-beneficiaries + source + launcher) returned type=unknown",
+    "conclusion": "No traced wallet is a Helius-labeled entity (no CEX deposit, no labeled protocol destination). Everything terminal is the pumpswap AMM pool EDrEnp4twH2Bjzp28hdrrWPdN9sMyRCCMWCkXfnPc8yH."
+  },
+  "terminal_infrastructure": {
+    "primary": {
+      "pool": "EDrEnp4twH2Bjzp28hdrrWPdN9sMyRCCMWCkXfnPc8yH",
+      "program": "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA (pumpswap AMM)",
+      "role": "Receives 99.9985% of the 326.75M XAIC via swap-in (sold by holders in exchange for SOL)"
+    },
+    "launcher_program_observed_at_allocation_moment": "DeJBGdMFa1uynnnKiwrVioatTuHmNLpyFKnmB5kaFdzQ (used in tx 0 to land allocation, also invoked later for ATA-creation+transfer to 8fCxXEEqdv8a... at tx 10 and to 311mKBYR at hop-3 inbound). Not the pump.fun deploy program (which is 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P). This is a non-standard/custom launcher distinct from the pump.fun main deploy program. WebSearch-verify if XAIC was launched on a pump.fun variant platform."
+  },
+  "cex_deposit_or_bridge_routing_detected": false
+}

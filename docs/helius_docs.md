@@ -169,6 +169,11 @@ Connect: `wss://atlas-mainnet.helius-rpc.com/?api-key=KEY`
 `{ "jsonrpc":"2.0", "id":1, "method":"transactionSubscribe", "params":[{ "accountInclude":["addr1","addr2"], "vote":false, "failed":false }, { "commitment":"confirmed", "encoding":"jsonParsed", "transactionDetails":"full", "maxSupportedTransactionVersion":0 }] }`
 Up to 50,000 addresses in accountInclude filter. 3 credits per 0.1 MB. Returns full parsed transaction payloads on each event — no follow-up `getTransaction` call needed.
 
+**Payload shape (empirically confirmed 2026-04-17 against `wss://atlas-mainnet.helius-rpc.com`):**
+- Subscription confirmation: `{jsonrpc:"2.0", id:<our req id>, result:<subscription_id:number>}`
+- Live notifications: `{jsonrpc:"2.0", method:"transactionNotification", params:{subscription:<id>, result:{signature, slot, transaction}}}`
+- `signature` and `slot` live at `params.result` level, NOT nested inside `transaction`. Notification parsing must reach for `params.result.signature`, not `params.result.transaction.signature`.
+
 ---
 
 ## LaserStream gRPC (Devnet on Developer, Devnet+Mainnet on Business+)
