@@ -1,0 +1,317 @@
+{
+  "generatedAt": "2026-04-23T06:24:56.336Z",
+  "results": [
+    {
+      "target": "9Qf2E4Ct8vwpxJRrAoMuLLQEvVYTJ3ytSi1Fb3GtUGPm",
+      "reason": "Sniper #2 drain (152 SOL in, closed, 121 recipients)",
+      "owner": null,
+      "balance": 0,
+      "topOut": [
+        {
+          "address": "AAsHJ23xDKqzoXfntck4u4eCqDU5x9vXf1VVskqyFNbQ",
+          "txCount": 6,
+          "solOut": 14.553,
+          "usdOut": 1921.54,
+          "splSummary": ""
+        },
+        {
+          "address": "3MxeQVLjt5YfBe1HKVu62pAQ5b9a6Q6zrWeWkyhPAtrE",
+          "txCount": 2,
+          "solOut": 20.7015,
+          "usdOut": 1708.32,
+          "splSummary": ""
+        },
+        {
+          "address": "De3gKSmR45Aiheeo4mtMc2htqmQ7adM1GFm5tRsBkijz",
+          "txCount": 3,
+          "solOut": 19.2661,
+          "usdOut": 1619.85,
+          "splSummary": ""
+        },
+        {
+          "address": "6cr2F1DvjwYfhTUTW4kPa5bAaLBz9hi5hSm7jEse6z5R",
+          "txCount": 3,
+          "solOut": 7.8573,
+          "usdOut": 1094.45,
+          "splSummary": ""
+        },
+        {
+          "address": "6x6Sv4tjVRjDEP51kRr8WN4uxKSwRQntwpsQpkwgszA5",
+          "txCount": 2,
+          "solOut": 12.8572,
+          "usdOut": 1072.27,
+          "splSummary": ""
+        },
+        {
+          "address": "FG4Hses7vmvW17D9PjBpBC3CfGVh4cXtKhd55PtGAjAH",
+          "txCount": 3,
+          "solOut": 6.8644,
+          "usdOut": 992.85,
+          "splSummary": ""
+        },
+        {
+          "address": "MBh1zejqrBy8q3mVtYBL5W18wTjbWRzwN5eoZNgVbm4",
+          "txCount": 3,
+          "solOut": 2.9416,
+          "usdOut": 432.38,
+          "splSummary": ""
+        },
+        {
+          "address": "DjFyhvDjHDQFvnHV2m53Tb23dY34zCQaEY12WpftqGKn",
+          "txCount": 2,
+          "solOut": 2.9407,
+          "usdOut": 425.98,
+          "splSummary": ""
+        },
+        {
+          "address": "FkL4fszrWh9fGWhU5vhQgBF85DrQmKrDLj4bUApSbUmK",
+          "txCount": 3,
+          "solOut": 2.9421,
+          "usdOut": 421.6,
+          "splSummary": ""
+        },
+        {
+          "address": "2QJRpU2bjFBLBbVMuCqcmWBbGvnRrXnJQskHChGwwK6w",
+          "txCount": 5,
+          "solOut": 4.9016,
+          "usdOut": 411.37,
+          "splSummary": ""
+        }
+      ]
+    },
+    {
+      "target": "9cDDJ5g2wPqVZUZwpPuwqzxN7ouvc6QFauFwrX2TTTAX",
+      "reason": "L7 deployer next hop (647 SOL out of 9exPdTUV)",
+      "owner": "11111111111111111111111111111111",
+      "balance": 31166.04154428,
+      "topOut": [
+        {
+          "address": "3PEUyMXWeZHddYBwtd21S3WYK9AeoCEp9KkUTVX8smer",
+          "txCount": 66,
+          "solOut": 0,
+          "usdOut": 31043635.58,
+          "splSummary": "31042865.38USDC"
+        },
+        {
+          "address": "FHEprhHtHPES6XVcmW7eBRbZAvASQRJcvEB7DFiuW7co",
+          "txCount": 38,
+          "solOut": 224499.1829,
+          "usdOut": 26622914.44,
+          "splSummary": ""
+        },
+        {
+          "address": "FH9tJjXfkhi6zAgPTnkmccnhGdCYtyLX9psyYuRMXSij",
+          "txCount": 26,
+          "solOut": 0,
+          "usdOut": 20186772.34,
+          "splSummary": "20186772.34USDC"
+        },
+        {
+          "address": "C74G2Bn4WPuc9h5gWEingUkAusvnWVc2s2YRHWwAV9yB",
+          "txCount": 14,
+          "solOut": 212280.7354,
+          "usdOut": 18665578.72,
+          "splSummary": ""
+        },
+        {
+          "address": "DmNv9S8iGbHkS8oGzx6BdsrQTLUsUQhESLSFs77zQ2n7",
+          "txCount": 22,
+          "solOut": 111046.851,
+          "usdOut": 13734258,
+          "splSummary": ""
+        },
+        {
+          "address": "AfrBFp4uAzuCro9msmKbiMySwP7j4jDRrH3ceno8tGKV",
+          "txCount": 59,
+          "solOut": 90832.7315,
+          "usdOut": 9908690.07,
+          "splSummary": ""
+        },
+        {
+          "address": "6ftz4tJpqQUheVPCW4TqDY4kCCJB8UDrVQangqC7qYM6",
+          "txCount": 60,
+          "solOut": 0,
+          "usdOut": 7320644.9,
+          "splSummary": "7320644.90USDT"
+        },
+        {
+          "address": "DqPMbMEEpaxz3gcX92TEzbdpMmUkYT8Q8KfoJyDM8nxd",
+          "txCount": 10,
+          "solOut": 0,
+          "usdOut": 7030559.32,
+          "splSummary": "7030559.32USDT"
+        },
+        {
+          "address": "8LAwLjq5yPRJkFoTbPfXNp3puhPCwrxFaf188KK1daei",
+          "txCount": 18,
+          "solOut": 0,
+          "usdOut": 5221417.38,
+          "splSummary": "5220740.65USDC"
+        },
+        {
+          "address": "DFZTyH5jjyaE4irRCJ8W4p74uKkX6JZNYVBC4gXGxiFM",
+          "txCount": 8,
+          "solOut": 46121.3826,
+          "usdOut": 5213146.06,
+          "splSummary": ""
+        }
+      ]
+    },
+    {
+      "target": "49mvMufixEbUMzZEUVAnbQ8hLLuEWy789XfKUNTz7wCv",
+      "reason": "Bra1HUNK drain (496 SOL, deployer network consolidation)",
+      "owner": "11111111111111111111111111111111",
+      "balance": 56452.198730919,
+      "topOut": [
+        {
+          "address": "HVRcXaCFyUFG7iZLm3T1Qn8ZGDMHj3P3BpezUfWfRf2x",
+          "txCount": 103,
+          "solOut": 347335.7436,
+          "usdOut": 47263774.73,
+          "splSummary": ""
+        },
+        {
+          "address": "Aj7DZzFjbLBeebmejY3E97xVRWjGj6DL71ujLU66aG4C",
+          "txCount": 108,
+          "solOut": 106176.2006,
+          "usdOut": 16847639.44,
+          "splSummary": ""
+        },
+        {
+          "address": "J1fZsT4CZyx3vt4DMz1Do3JA5VYo5uMRj6LAprN6dTSN",
+          "txCount": 17,
+          "solOut": 65391.4424,
+          "usdOut": 11843029.74,
+          "splSummary": ""
+        },
+        {
+          "address": "3h6bq574Bb9u8hT6FcqnDRVi5BV6X3whMrYuzoDV1Vu4",
+          "txCount": 66,
+          "solOut": 59096.9857,
+          "usdOut": 10293573.51,
+          "splSummary": ""
+        },
+        {
+          "address": "7DzTx21BHGFvEbpin36THmLfNxLzj1zHKbZUesRYNi7F",
+          "txCount": 46,
+          "solOut": 56526.6187,
+          "usdOut": 9458433.36,
+          "splSummary": ""
+        },
+        {
+          "address": "6CAhC9XsPofT9vtJkkT8stNyWfmipnVPbG9v2wwKKdJF",
+          "txCount": 78,
+          "solOut": 54306.3541,
+          "usdOut": 7441539.73,
+          "splSummary": ""
+        },
+        {
+          "address": "E1VTKNRnb2nJnAyAXb6nvnWf9qzWEubdxo1jxjfUkACx",
+          "txCount": 27,
+          "solOut": 0.002,
+          "usdOut": 2269128.63,
+          "splSummary": "99868179.46PENGU"
+        },
+        {
+          "address": "7G4B4vThSxmk9NGDNiLMeCNxDE3q2cfq4Gso4CRF5ALe",
+          "txCount": 43,
+          "solOut": 0,
+          "usdOut": 2228038.26,
+          "splSummary": "715716597.94PUMP"
+        },
+        {
+          "address": "4H6NJ8BL8H6Mc5xufdTACTru6R4USytp6GX6BVveTWAH",
+          "txCount": 64,
+          "solOut": 0,
+          "usdOut": 2153499.52,
+          "splSummary": "6000285.94Fartcoin"
+        },
+        {
+          "address": "9pYY7JmT2cJK21eYHV7fQagtxGu5T1wbqquKdNwuxwd4",
+          "txCount": 46,
+          "solOut": 0,
+          "usdOut": 1504288.18,
+          "splSummary": "212565.70TRUMP"
+        }
+      ]
+    },
+    {
+      "target": "Ed4UGBWK4UpwBKiGFkM2uQMTPpahPwxgxEWjJTRXuAJv",
+      "reason": "Bra1HUNK top sender (245 SOL) — check if Figg-linked",
+      "owner": "11111111111111111111111111111111",
+      "balance": 4363.566268151,
+      "topOut": [
+        {
+          "address": "CN25Ggn2NocbGcsrYhKc7f5ijg3XjRkSndy2jASJSDXx",
+          "txCount": 17,
+          "solOut": 22882.9756,
+          "usdOut": 1924121.39,
+          "splSummary": ""
+        },
+        {
+          "address": "7vgKkPpidAXXGifcrc4gBEV4TN6bmX9GrByTxXrvW92H",
+          "txCount": 31,
+          "solOut": 3816.2061,
+          "usdOut": 531602.34,
+          "splSummary": ""
+        },
+        {
+          "address": "4N3t3Vnu6ykXaxg53fB7AsdJfa3BrtAxBgCkHjFw2Jq2",
+          "txCount": 72,
+          "solOut": 4383.2599,
+          "usdOut": 432043.36,
+          "splSummary": ""
+        },
+        {
+          "address": "3LCJy4zLxXPrwBUj4f2SKmb6BmPE2nhTt4mds7o2Yenq",
+          "txCount": 18,
+          "solOut": 2761.5196,
+          "usdOut": 347226.54,
+          "splSummary": ""
+        },
+        {
+          "address": "FhRyEvDt4BFLdi4zvJK1MqEveiTAaSXUKLPxeXBJr3Sa",
+          "txCount": 16,
+          "solOut": 3378.09,
+          "usdOut": 290840.22,
+          "splSummary": ""
+        },
+        {
+          "address": "GnXpwrGJB5Sc9Saf6mPATRGL7wDHhNQNYBDNALugZ4B5",
+          "txCount": 6,
+          "solOut": 2037.3721,
+          "usdOut": 288680.35,
+          "splSummary": ""
+        },
+        {
+          "address": "8LRUqCvEWBwG7yNaBAzv7RNUonbqf3QpYsbVXScEfz8n",
+          "txCount": 45,
+          "solOut": 2528.1529,
+          "usdOut": 217758.68,
+          "splSummary": ""
+        },
+        {
+          "address": "DEEUz4zFbDs6Y4rWiSV3sLw3LWa3rsxy6VfFYoGB4dUh",
+          "txCount": 20,
+          "solOut": 2382.791,
+          "usdOut": 199248.41,
+          "splSummary": ""
+        },
+        {
+          "address": "52btD9v2mGXfuBtBtArPnsZkqLFBtmL4nDnHGDQ5bJw2",
+          "txCount": 21,
+          "solOut": 1137.7643,
+          "usdOut": 143996.97,
+          "splSummary": ""
+        },
+        {
+          "address": "H4tLz4MSQ684KvMAMrmwUcFHMyZqKieYnc4W2b3W7gHo",
+          "txCount": 15,
+          "solOut": 1194.4767,
+          "usdOut": 116859.22,
+          "splSummary": ""
+        }
+      ]
+    }
+  ]
+}

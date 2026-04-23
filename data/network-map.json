@@ -700,7 +700,7 @@
         "label": "Sniper-cluster treasury + active trader (MP2-seeded)",
         "role": "treasury_hub",
         "verdict": "network",
-        "notes": "UPDATED 2026-04-22 via L10 6zZAKeF5 deep-dive. FiggKseF is NOT a passive intermediary — it is the treasury AND active trading wallet for a multi-sniper cluster. Seeded 2025-07-08 with 1.321 SOL from MP2 (sig NLkdmST51Yw8omYDpwSsSAQjwHikCgjcCpfN5SEPwucjxAMgVa5VpWA4yroYTbDkAgB1GvDVVLH3WUCNJ4FyXGh, CU=496 not 14548 — fingerprint predates our MP fingerprint calibration window). Current balance 16.62 SOL + 110.26 mɔ token. Operates 9+ months on self-sustaining snipe-profit cycle (no recent MP2 top-ups in last month's 93 transfers). CONFIRMED DOWNSTREAM SNIPERS: (1) 6zZAKeF5 (Sniper #1, activated 2026-02-18 via dust, L10 XAIC snipe verified), (2) 7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7 (Sniper #2, activated 2025-07-19 via dust — 11 days after Figg seeded, 7 months before 6zZ; balance currently 0 SOL). Additional outflow targets: 2NSGR9SMDei1BHS9XmgygbNcGfrfdfHe4QUAgtaeWyev (0.61 SOL cycle, possible Sniper #3), HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG (4.56 SOL out on L10 day, possible sniper or payout), 2eVVdqWN4t7umzXGxJ21uTpB5WrUyyQMYnkq6UHtg3ba (0.123 + 0.618 SOL — small cycle). CONTRADICTION WITH PRIOR CLASSIFICATION: Figg was marked isUserAddress=false but it actively signs trade tx (bought+sold CGEDT9QZ...pump on Apr 11-13 for net ~1 SOL profit, sold 4DPhcyAf...pump on Mar 11 for 0.62 SOL). Re-verify isUserAddress. Also feeds 73Y9DZAx → Gad9RgHw → Dj9WL4Nh chain (MP2 downstream, RXRP repump layer). HIGHEST L11-PREDICTIVE-VALUE WALLET IN NETWORK: any Figg → fresh wallet SOL transfer in 4-15 SOL range is a direct L11 sniper pre-signal."
+        "notes": "UPDATED 2026-04-23 via full Figg outflow trace (481 outbound tx, 178 recipients). Figg is the treasury of an 11+ sniper cluster on a ~10-month self-sustaining loop seeded by MP2 (1.321 SOL on 2025-07-08). Current balance 16.62 SOL + 110 mɔ token. Total cluster inflow to Figg (sniper profit returns): ~200 SOL across known members; plus active trading Figg does on its own signer. CONFIRMED CLUSTER MEMBERS AND EXIT CHANNELS: (a) main recycle — 6zZAKeF5 (93 SOL back), C8CKhhsB (20 back), ALnatwuT (9.7 back), FP914D1z (3.6 back), 5bzSspdA (3.4 back), 4Fr3XAVs (5 back), 8AcMsuX4, 8rxR4jbR; (b) separate exit to 9Qf2E4Ct accumulator — 7ciGXut2 (130 SOL in, drains 152 SOL), HdTrWmLM (14.5 in, drains to 8MrJKdu); (c) Rainbet (casino) exit — 2eVVdqWN (13 SOL), 83Nf4kNb relay; (d) Coinbase HW4 exit — 43PcTMd3 (2.3 in from Figg + 6 from ALnatwuT); (e) Kraken exit via 2wGZCehk — H9mM8gtf, FRPAaWAj; (f) RXRP-chain branch — 73Y9DZAx → Gad9RgHw → Dj9WL4Nh + fUtfBAoj (trading-loop terminus, not CEX); (g) cross-cluster bridge — pNdKKMjG (0.74 in) → L9 Deployer (3VmNQ8For) → Bra1HUNK deployer-network hub (single verified link between Figg cluster and main deployer-network profit routes). One-off dual role: HYMtCcfQ is L7 Deployer, received 4.56 SOL single-tx from Figg but runs its own independent 516-SOL drain route to 9cDDJ5g2 institutional wallet. ATTRIBUTION: Figg itself signs trade tx (pump.fun bonding-curve activity) despite prior isUserAddress=false — the flag marks bot-signing but not human absence. L11 PREDICTIVE VALUE: any Figg → fresh wallet SOL transfer in 1-15 SOL range is a cluster sniper being loaded; monitor Figg outflows as the single highest-value L11 pre-signal. Cluster snipers rotate — each launch may use a fresh wallet, but the Figg → fresh pattern is invariant."
       },
       "C5ivCCvG": {
         "address": "C5ivCCvG4erHaxE4ijXm1CtdZEccE5PRD7Ak7EJSn8kD",
@@ -1085,13 +1085,6 @@
       "verdict": "not_network",
       "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 2AwaeZXE. 0.002 SOL balance. No network counterparty overlaps."
     },
-    "7ciGXut2_resolved": {
-      "address": "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
-      "label": "Independent Trader",
-      "role": "resolved",
-      "verdict": "not_network",
-      "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by FiggKseF. 0.192 SOL balance. No network counterparty overlaps."
-    },
     "Hqf4TZxp_resolved": {
       "address": "Hqf4TZxph6H4P2uC3qdR1RjT6iiJA999VtvpBSU48EbT",
       "label": "Independent Trader",
@@ -1164,31 +1157,31 @@
     },
     "7ciGXut2_sniper2": {
       "address": "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
-      "label": "FiggKseF Sniper #2 (dormant/unverified trades)",
+      "label": "FiggKseF Sniper #2 — primary cluster sniper, separate exit channel",
       "role": "sniper",
       "verdict": "network",
-      "notes": "DISCOVERED 2026-04-22 during 6zZAKeF5 deep-dive. Funded 2025-07-19T12:07:20Z by FiggKseF (dust activation — 11 days after Figg itself was seeded by MP2). Current balance: 0 SOL. Bidirectional SOL flow with Figg matches the same treasury pattern as 6zZ: Figg → 7ciG (4.2, 6, 6, 9.1 SOL loads across late Mar – Apr 2026); 7ciG → Figg (3.33, 3.92, 0.017 SOL returns — plus the 0.614 SOL recycle via 2NSGR9SM relay). 7 months older than 6zZAKeF5; likely longer snipe history. OPEN ITEMS: confirm BloomBot/pump.fun snipe tx, cross-ref trades against L1-L9 CAs, enumerate profit route over full history. High priority for L11 monitoring — outflow from Figg to this wallet = active sniper re-loading."
+      "notes": "UPDATED 2026-04-22 via Figg outflow enumeration. Activated 2025-07-19 by Figg dust. Received 130.36 SOL from Figg over 71 tx (largest cluster inflow — more than 6zZ). Currently 0 SOL. UNLIKE 6zZ, does NOT drain back to Figg — drains 152.18 SOL across 272 tx to 9Qf2E4Ct (closed). This is a SEPARATE profit-exit channel from the main cluster cycle. Stale _resolved entry (Apr 2) marking this 'not_network' was wrong; this is the cluster's most-loaded sniper."
     },
-    "2NSGR9SM_candidate": {
+    "2NSGR9SM_relay": {
       "address": "2NSGR9SMDei1BHS9XmgygbNcGfrfdfHe4QUAgtaeWyev",
-      "label": "FiggKseF cluster — possible Sniper #3 or relay",
-      "role": "candidate_sniper",
+      "label": "FiggKseF cluster — small relay wallet",
+      "role": "relay",
       "verdict": "network",
-      "notes": "DISCOVERED 2026-04-22 during Figg fan-out. Small bidirectional cycle with Figg: Figg → 2NSGR9SM 0.61471 SOL (2026-04-09), 2NSGR9SM → Figg 0.614705 SOL (2026-04-08) — essentially round-trip. Tiny size suggests relay/test wallet or very small sniper. OPEN ITEMS: getBalance, tx history, funded-by, Nansen profile, launch cross-ref."
+      "notes": "UPDATED 2026-04-22. 0.61 SOL round-trip with Figg, drains to EB8wPe1j (0.66 SOL). Low-value relay, not a primary sniper. Currently 0 SOL."
     },
-    "HYMtCcfQ_candidate": {
+    "HYMtCcfQ_bridge": {
       "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
-      "label": "FiggKseF cluster — one-off L10-day recipient",
-      "role": "candidate",
+      "label": "L7 Deployer — bridges Figg cluster to deployer network",
+      "role": "bridge",
       "verdict": "network",
-      "notes": "DISCOVERED 2026-04-22. Received 4.557478555 SOL from Figg on 2026-03-15T22:38:28Z — 58 minutes after 6zZ's L10 snipe, 30 minutes after 6zZ's 40.8 SOL profit drain to Figg. Timing suggests Figg re-distributing snipe profits to a downstream wallet. Current balance: 0.0356 SOL (mostly drained). OPEN ITEMS: identify role (sniper for next launch? payout to coordinator? unrelated trader?), check funded-by chain, enumerate outflow."
+      "notes": "UPDATED 2026-04-22. Same address as L7 Deployer in deployers.L7. Received 4.56 SOL from Figg on L10 day (single tx) — a dual-role node. Independently drains 516 SOL (89 tx) to 9exPdTUV (own consolidation wallet, 2 outbound destinations). 9exPdTUV → 9cDDJ5g2 (647 SOL, 122 tx), a 31k-SOL institutional wallet (unlabeled). The L7 deployer profit route is independent of the Figg cluster despite this one-tx bridge. Balance: 0.04 SOL."
     },
-    "2eVVdqWN_candidate": {
+    "2eVVdqWN_sniper": {
       "address": "2eVVdqWN4t7umzXGxJ21uTpB5WrUyyQMYnkq6UHtg3ba",
-      "label": "FiggKseF cluster — small recurring counterparty",
-      "role": "candidate",
+      "label": "FiggKseF cluster sniper — Rainbet cashout channel",
+      "role": "sniper",
       "verdict": "network",
-      "notes": "DISCOVERED 2026-04-22. Two small Figg outflows: 0.618 SOL on 2026-03-11, 0.123445 SOL on 2026-04-04. Possibly a small sniper, a utility wallet, or fee recipient. Low immediate priority. OPEN ITEM: investigate role."
+      "notes": "UPDATED 2026-04-22. Prior 'small counterparty' label was wrong — received 13.31 SOL from Figg over 23 tx. Drains 19.63 SOL to 5HQZd9ov (Rainbet casino protocol). Confirms one of the cluster's cashout channels is on-chain gambling, not CEX. Currently 0 SOL."
     },
     "59KMRTZa_candidate": {
       "address": "59KMRTZavCsFo5vbZSHWS1HeuLLXx9g3aUAdp8eyLEXv",
@@ -1196,6 +1189,181 @@
       "role": "candidate",
       "verdict": "unknown",
       "notes": "DISCOVERED 2026-04-22. On 2026-04-13T17:09:40Z sent 110.258868 of token 2f85jQ3ZA5L4c9YFxfYBXYkmCBmfnwnBVznETJuCcxYG to Figg (sig 3xy41z2ZuX28KkdRm3v6VEhfkdhd1ckXpnPPAvjzVHVKS9c4CjVJedVi2yvXf51QmSMzhNhdmYVv6VyTvYguZQko). Figg now holds this as 'mɔ' token. OPEN ITEM: identify token + sender — may be a launchpad airdrop, a settlement payment, or a sniper-cluster asset transfer."
+    },
+    "C8CKhhsB_sniper": {
+      "address": "C8CKhhsBxnvwwsL2skGvJss2wPvdVrdFRnbAZACJgJpb",
+      "label": "FiggKseF cluster sniper — single round-trip",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22 via Figg outflow enumeration. Received 20.40 SOL from Figg (2 tx, 2026-01-01), returned 20.40 SOL to Figg (1 tx). Balance 0 SOL, closed. Classic single-use sniper."
+    },
+    "4Fr3XAVs_sniper": {
+      "address": "4Fr3XAVsabRf51JbwddjWerPuUzccH5iaPjShTLNgf39",
+      "label": "FiggKseF cluster sniper — single round-trip",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 4.95 SOL from Figg (4 tx Feb 16–17), returned 4.97 SOL to Figg + dust-sprayed to 9 other cluster wallets (0.0014 SOL each). Currently 0.0015 SOL. Typical cluster sniper cycle."
+    },
+    "5bzSspdA_sniper": {
+      "address": "5bzSspdASDZ9DRCdjhWVTCgkMuk2Mzfyvq2L9zRvCCbv",
+      "label": "FiggKseF cluster sniper — round-trip + internal relay",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 1.41 SOL from Figg (3 tx), returned 3.36 SOL to Figg + fed 73Y9DZAx (0.24 SOL) and 2eVVdqWN (0.08 SOL). Internal relay to both main cycle and Rainbet exit. Currently 0.001 SOL."
+    },
+    "ALnatwuT_sniper": {
+      "address": "ALnatwuTNqEMk5yGqtP6mYeeoqr3WwrxHjSLR6UDqCyg",
+      "label": "FiggKseF cluster sniper — multi-snipe round-trip",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 1.25 SOL from Figg (1 tx), returned 9.66 SOL to Figg over 8 tx — indicates multiple snipe cycles netting profit before drain. Also fed 43PcTMd3 (6.04 SOL) which cashed to Coinbase. Closed."
+    },
+    "8AcMsuX4_sniper": {
+      "address": "8AcMsuX4gifDAMZP3csVDyhyWztueLYrjFeVerodVjvv",
+      "label": "FiggKseF cluster sniper — Rainbet-chain feeder",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 0.31 SOL from Figg + 167 outbound tx total. Small return to Figg (0.17 SOL) but primary flow goes 83Nf4kNb → 5HQZd9ov (Rainbet). Also feeds 5kVLahEb (3.09 SOL relay). Closed."
+    },
+    "8rxR4jbR_sniper": {
+      "address": "8rxR4jbRp9A81TA144C5pSTdvizqtADTBJRpz5CcBbyj",
+      "label": "FiggKseF cluster sniper — smallest observed",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 0.10 SOL from Figg, returned 0.07 SOL — smallest cluster member, possibly a test wallet or fee relay. 0.001 SOL balance."
+    },
+    "FP914D1z_sniper": {
+      "address": "FP914D1z5dPrZQMK5dGmSLrfokSQQ82tZayWvkztqQFm",
+      "label": "FiggKseF cluster sniper — split exit (Figg + Fqcp4enM)",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 5 SOL from Figg (5 tx Jan 31–Feb 3), split drain: 3.56 SOL back to Figg + 7.83 SOL to Fqcp4enM (closed accumulator wallet that further distributes). Closed."
+    },
+    "HdTrWmLM_sniper": {
+      "address": "HdTrWmLMhGciMMXETPG8DfL7Mhg6t4qU7sWVxAK2nsEN",
+      "label": "FiggKseF cluster sniper — separate-channel drain",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 14.50 SOL from Figg (5 tx Jan 5–19). Does NOT return to Figg — drains 10 SOL to 8MrJKdu → 9ZiKkHBW (closed). Second independent exit channel alongside 7ciGXut2 → 9Qf2E4Ct. 0.006 SOL balance."
+    },
+    "CKJSPbaj_sniper": {
+      "address": "CKJSPbaj8bo2gg2FaUxzMPXwVQNYd8ApVBDbRNnwTZ9S",
+      "label": "FiggKseF cluster sniper — token-dump pattern",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 11.92 SOL from Figg (21 tx Jan 11–Mar 11). Outflows primarily to SPL ATAs (token swaps consumed in bonding curves). Closed."
+    },
+    "Cyc5VPTx_sniper": {
+      "address": "Cyc5VPTxHbaZzMYDKFrxyBtBJ5KdzLP6qdx2bLz9eoTD",
+      "label": "FiggKseF cluster sniper — one-shot",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 4.80 SOL from Figg (single tx Jul 26 2025). Drained 7.02 SOL to 3m2n7mAy → HAcNXjF (closed). Small independent exit. Closed."
+    },
+    "43PcTMd3_cex_deposit": {
+      "address": "43PcTMd37rBVECXqPjqSHBaM2JMPbiFvpF2Eei8u3LyU",
+      "label": "FiggKseF cluster — Coinbase deposit wallet",
+      "role": "cex_deposit",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. Received 2.33 SOL from Figg + 6.04 SOL from ALnatwuT. Drains 6.04 SOL to Coinbase Hot Wallet 4 (DPqsobysNf5iA9w7zrQM8HLzCKZEDMkZsWbiidsAt1xo). Confirmed CEX cashout channel."
+    },
+    "H9mM8gtf_sniper": {
+      "address": "H9mM8gtfX9mk8iaKH6CxXcxj6c3VVrBmwdamp3FrXjSi",
+      "label": "FiggKseF cluster sniper — Kraken-chain feeder",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 1 SOL from Figg. Routes through 2wGZCehk consolidation wallet which cashes to Kraken Hot Wallet + Kraken Hot Wallet 1. Closed."
+    },
+    "FRPAaWAj_sniper": {
+      "address": "FRPAaWAjw5Rot1xhzZFb5wa4keLDHy6DmKtiAW5WMPEf",
+      "label": "FiggKseF cluster sniper — Kraken-chain feeder",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 1 SOL from Figg. Same exit path as H9mM8gtf: → 2wGZCehk → Kraken. Closed."
+    },
+    "CStC72i3_sniper": {
+      "address": "CStC72i3nsSRMYnMP1ueoZ1dLtX1mxPPC8KnQyAJca8t",
+      "label": "FiggKseF cluster sniper — fUtfBAoj feeder",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 0.49 SOL from Figg but feeds 16.27 SOL to fUtfBAoj (RXRP-chain cluster member) — a much larger internal flow than what Figg directly sent. Indicates this wallet collects from other cluster sources too."
+    },
+    "pNdKKMjG_bridge": {
+      "address": "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+      "label": "Cross-cluster bridge — Figg → L9 Deployer",
+      "role": "bridge",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 0.74 SOL from Figg. Sends 4.11 SOL to L9 Deployer (3VmNQ8For) — first observed link from Figg cluster into the main deployer-network wallet set. L9 deployer then drains to Bra1HUNK (deployer-network consolidation hub). Closed."
+    },
+    "83Nf4kNb_relay": {
+      "address": "83Nf4kNbeaRSGwjYyStK4F3ctmH3v5Yar2GmWv9fJqf6",
+      "label": "FiggKseF cluster relay — Rainbet path",
+      "role": "relay",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. 0.29 SOL from Figg + 7.28 SOL from 8AcMsuX4. Drains 9.70 SOL (121 tx, single destination) to 5HQZd9ov (Rainbet). Pure relay. Closed."
+    },
+    "9Qf2E4Ct_sniper2_accumulator": {
+      "address": "9Qf2E4Ct8vwpxJRrAoMuLLQEvVYTJ3ytSi1Fb3GtUGPm",
+      "label": "Sniper #2 drain accumulator — closed",
+      "role": "accumulator",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. Received 152.18 SOL from 7ciGXut2 (272 tx). Splits to 121 counterparties — bidirectional with many (AAsHJ23x, 3MxeQVL, De3gKSmR, etc.), consistent with trading-loop activity where SOL is consumed in pump.fun swaps rather than exfiltrated to a CEX. Closed."
+    },
+    "5HQZd9ov_rainbet": {
+      "address": "5HQZd9ovzAF1TLnHRAq1zcSnXC9HAp3EwhoxMHvo8rxB",
+      "label": "Rainbet (casino/gambling protocol) — terminal cashout",
+      "role": "terminal_gambling",
+      "verdict": "not_network",
+      "notes": "Helius identity: Rainbet (protocol, Casino & Gambling). Terminal exit for cluster profits via 2eVVdqWN and 83Nf4kNb relay chain. 95,598 SOL balance, $B-scale volume across many users — cluster deposits are tiny fraction. Not a cluster wallet, but a verified cashout terminus."
+    },
+    "DPqsobysN_coinbase_hw4": {
+      "address": "DPqsobysNf5iA9w7zrQM8HLzCKZEDMkZsWbiidsAt1xo",
+      "label": "Coinbase Hot Wallet 4 — terminal cashout",
+      "role": "terminal_cex",
+      "verdict": "not_network",
+      "notes": "Helius identity: Coinbase Hot Wallet 4 (exchange, Centralized Exchange). Terminal CEX exit for cluster profits via 43PcTMd3. 29,330 SOL balance, $3B+ USD volume (all Coinbase traffic). Not cluster infra — the shared deposit address."
+    },
+    "2wGZCehk_kraken_pre": {
+      "address": "2wGZCehkDBMDPLMNXJjFf7kjAm46MJV3t3htmGVa4S16",
+      "label": "Pre-Kraken consolidation (closed) — routes to Kraken Hot Wallets",
+      "role": "consolidation",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. Aggregates from H9mM8gtf + FRPAaWAj + many others (325 inbound). Routes 230 SOL to Kraken Hot Wallet (FWznbcNX) + 53 SOL to Kraken Hot Wallet 1 (6LY1JzAF) + $1,200 USDC to DD7nZPcg. Only 3 outbound destinations — pure consolidation before CEX deposit. Closed."
+    },
+    "FWznbcNX_kraken": {
+      "address": "FWznbcNXWQuHTawe9RxvQ2LdCENssh12dsznf4RiouN5",
+      "label": "Kraken Hot Wallet — terminal cashout",
+      "role": "terminal_cex",
+      "verdict": "not_network",
+      "notes": "Helius identity: Kraken Hot Wallet. Terminal CEX exit via 2wGZCehk consolidation. Not cluster infra."
+    },
+    "6LY1JzAF_kraken1": {
+      "address": "6LY1JzAFVZsP2a2xKrtU6znQMQ5h4i7tocWdgrkZzkzF",
+      "label": "Kraken Hot Wallet 1 — terminal cashout",
+      "role": "terminal_cex",
+      "verdict": "not_network",
+      "notes": "Helius identity: Kraken Hot Wallet 1. Secondary Kraken deposit via 2wGZCehk."
+    },
+    "Bra1HUNK_deployer_hub": {
+      "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34",
+      "label": "Deployer network consolidation hub",
+      "role": "consolidation",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. NOT Figg-cluster primary — but receives from L7 (HYMtCcfQ, 73 SOL), L8 (75YFxMtMi, 65 SOL), L9 (3VmNQ8For, 40 SOL), plus Ed4UGBWK (245 SOL) and 37Xxihfst (52 SOL). Drains 496 SOL to 49mvMufix (56k-SOL institutional wallet, $B volume). 69 SOL current balance. Figg cluster reaches this hub via pNdKKMjG → L9 Deployer → Bra1HUNK. First observed convergence point between Figg cluster and main deployer-network profit routes."
+    },
+    "49mvMufix_institutional": {
+      "address": "49mvMufixEbUMzZEUVAnbQ8hLLuEWy789XfKUNTz7wCv",
+      "label": "Unlabeled institutional wallet (downstream of Bra1HUNK)",
+      "role": "terminal_institutional",
+      "verdict": "unknown",
+      "notes": "DISCOVERED 2026-04-22. 56,452 SOL balance. Outflows span $billions across PENGU/PUMP/Fartcoin/TRUMP token traffic plus hundreds of thousands of SOL to unlabeled institutional counterparties. Helius: Unknown. Effective terminus — cluster profit leaves into larger liquidity pool. Not useful to recurse further."
+    },
+    "9cDDJ5g2_institutional": {
+      "address": "9cDDJ5g2wPqVZUZwpPuwqzxN7ouvc6QFauFwrX2TTTAX",
+      "label": "Unlabeled institutional wallet (downstream of 9exPdTUV / L7 drain)",
+      "role": "terminal_institutional",
+      "verdict": "unknown",
+      "notes": "DISCOVERED 2026-04-22. 31,166 SOL balance. Receives 647 SOL from 9exPdTUV (L7 deployer's consolidation wallet). Outflows $billions in USDC/USDT/SOL to 3PEUyMXWe, FHEprhHtH, FH9tJjXf, C74G2Bn4, DmNv9S8i, AfrBFp4u, etc. Likely an OTC/market-maker desk or unattributed CEX. Effective terminus."
     }
   },
   "known_programs": {

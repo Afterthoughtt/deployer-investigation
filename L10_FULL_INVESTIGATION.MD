@@ -94,5 +94,60 @@ Figg currently holds **16.62 SOL** liquid + 110.26 `mɔ` tokens. Self-sustaining
 - **FiggKseF — highest L11 predictive value in the current network-map.** Live treasury with 16.6 SOL liquid, 9 months of uninterrupted operation, proven pattern of funding fresh sniper wallets via dust-then-load. Monitoring its outflows is the single most valuable L11 signal.
 - **BloomBot router ID (`b1oomGGqPKGD6errbyfbVMBuzSC8WtAAYo8MwNafWW1`) — high value.** Enables enumerating any wallet's block-0 snipe history programmatically — lets us proactively flag new Figg-funded wallets as snipers the moment they execute their first BloomBot tx.
 
+---
+
+# Appendix Phase 2 — Figg outflow trace to terminus (2026-04-23)
+
+Full enumeration of Figg's outbound transfers: 481 tx, 178 distinct recipients. After removing 26 SPL ATAs (token-transfer destinations, not wallets) and 126 dust/spoof recipients, 19 genuine non-terminal wallets required forward tracing plus the 7 known-cluster members. Recursed each branch until terminal (CEX, casino, program consumption, or institutional wallet beyond investigative scope).
+
+## Cluster composition: bigger than two snipers
+
+The cluster is at minimum **11 sniper wallets** feeding Figg, not the 2 previously identified. New confirmed cluster snipers (Figg-loaded, drained-back or drained-to-exit):
+
+- **`C8CKhhsBxnvwwsL2skGvJss2wPvdVrdFRnbAZACJgJpb`** — 20.4 SOL in, 20.4 SOL returned. Closed. Single-use.
+- **`ALnatwuTNqEMk5yGqtP6mYeeoqr3WwrxHjSLR6UDqCyg`** — 1.25 SOL in, 9.66 SOL returned (multiple snipe profits). Closed.
+- **`FP914D1z5dPrZQMK5dGmSLrfokSQQ82tZayWvkztqQFm`** — 5 SOL in, 3.56 SOL back + 7.83 SOL to a separate accumulator. Closed.
+- **`5bzSspdASDZ9DRCdjhWVTCgkMuk2Mzfyvq2L9zRvCCbv`** — 1.41 SOL in, 3.36 SOL returned; also relays to 73Y9DZAx and 2eVVdqWN.
+- **`4Fr3XAVsabRf51JbwddjWerPuUzccH5iaPjShTLNgf39`** — 4.95 SOL in, 4.97 SOL returned. Classic round-trip.
+- **`8AcMsuX4gifDAMZP3csVDyhyWztueLYrjFeVerodVjvv`** — 0.31 SOL in; most flow goes through 83Nf4kNb → Rainbet.
+- **`HdTrWmLMhGciMMXETPG8DfL7Mhg6t4qU7sWVxAK2nsEN`** — 14.5 SOL in, drains 10 SOL to a separate accumulator (8MrJKdu → 9ZiKkHBW). Does not return to Figg.
+- **`CKJSPbaj8bo2gg2FaUxzMPXwVQNYd8ApVBDbRNnwTZ9S`** — 11.92 SOL in, outflows primarily to SPL ATAs (swap consumption). Closed.
+- **`Cyc5VPTxHbaZzMYDKFrxyBtBJ5KdzLP6qdx2bLz9eoTD`** — 4.8 SOL in (single tx Jul 2025), drains 7 SOL to 3m2n7mAy → HAcNXjF. Closed.
+- **`8rxR4jbRp9A81TA144C5pSTdvizqtADTBJRpz5CcBbyj`** — 0.1 SOL in, 0.07 SOL back. Smallest, probably a test.
+
+Plus smaller relays: `83Nf4kNb` (Rainbet relay, 9.7 SOL), `H9mM8gtf` and `FRPAaWAj` (Kraken-chain feeders), `CStC72i3` (fUtfBAoj feeder), `pNdKKMjG` (L9 bridge).
+
+## Exit channels (terminal ledger)
+
+Four distinct exit channels for cluster profits, each a different class:
+
+1. **Internal recycle to Figg** (dominant). Most snipers drain back: 6zZ 93 SOL, C8CKhhsB 20, ALnatwuT 9.7, FP914D1z 3.6, 5bzSspdA 3.4, 4Fr3XAVs 5, 8AcMsuX4+8rxR4jbR small. Figg accumulates ~150+ SOL of sniper profit over 9 months.
+2. **`9Qf2E4Ct` accumulator** (separate closed wallet). Sniper #2 (`7ciGXut2`) drains 152 SOL here; HdTrWmLM similarly drains to 8MrJKdu. These snipers do *not* return to Figg — they route through a closed accumulator that then trades those funds across 121 counterparties (looks like pump.fun swap-consumption, not CEX exfil).
+3. **Rainbet (on-chain casino)** — terminal. Via `2eVVdqWN` (13 SOL) and `83Nf4kNb` relay (9.7 SOL) into `5HQZd9ovzAF1TLnHRAq1zcSnXC9HAp3EwhoxMHvo8rxB`, which Helius identifies as Rainbet (Casino & Gambling protocol). This is the cluster's gambling-cashout channel — novel vs. prior assumption that only CEXes serve as exits.
+4. **CEX deposits** — terminal. Coinbase Hot Wallet 4 (`DPqsobysNf5iA9w7zrQM8HLzCKZEDMkZsWbiidsAt1xo`) via `43PcTMd3` (~6 SOL). Kraken Hot Wallet (`FWznbcNXWQuHTawe9RxvQ2LdCENssh12dsznf4RiouN5`) and Kraken Hot Wallet 1 (`6LY1JzAFVZsP2a2xKrtU6znQMQ5h4i7tocWdgrkZzkzF`) via the `2wGZCehk` consolidation wallet that aggregates H9mM8gtf + FRPAaWAj and dumps 230+53 SOL to the two Kraken hot wallets.
+5. **Institutional-wallet sink** (effective terminal). L7 Deployer's independent 516-SOL drain to `9exPdTUV` → `9cDDJ5g2` (31,166 SOL balance, $B-scale USDC/USDT/SOL volume). Unlabeled by Helius but structurally a market-maker or OTC desk — further recursion gives diminishing returns.
+
+## Cross-cluster bridge (new)
+
+`pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU` received 0.74 SOL from Figg and forwarded 4.11 SOL to **L9 Deployer** (`3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot`). L9 Deployer in turn feeds `Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34`, a consolidation hub that aggregates profits from L7/L8/L9 deployers (HYMtCcfQ 73 SOL, 75YFxMtMi 65 SOL, 3VmNQ8For 40 SOL) and drains 496 SOL to `49mvMufix` (56k-SOL institutional wallet). **First observed link between the Figg sniper cluster and the main deployer-network profit-routing layer.** A single small bridge, but it demonstrates the two operations are not independent.
+
+## Correction to prior screening
+
+The `7ciGXut2_resolved` entry (screened 2026-04-02 as "Independent Trader, 0.192 SOL, not network") was wrong — the wallet is the cluster's largest sniper (130 SOL received from Figg over 71 tx). The screening pass used a zero-counterparty-overlap heuristic that missed this because 7ciGXut2's drain goes to `9Qf2E4Ct` rather than back to Figg. The stale entry has been removed from `data/network-map.json`. Same class of error is why `2eVVdqWN` was labeled "small counterparty" — it actually received 13 SOL and cashes out to Rainbet.
+
+## Open items (not closed)
+
+1. **Figg signing verification.** Prior appendix noted `isUserAddress=false` contradicts Figg signing trade tx. Still unresolved — needs direct tx-signer check, not an Arkham flag.
+2. **`9Qf2E4Ct` accumulator profile.** 121 counterparties, closed, $16k USD flow. The activity pattern is bot-like swap loops, but a small fraction could still route to a CEX deposit. Low L11-predictive value — worth a targeted pass only if the main monitor misses L11.
+3. **Cross-cluster bridge scope.** `pNdKKMjG` → L9 is a single hop. Whether this is an operational mistake or a pattern (Figg cluster occasionally profit-shares with the deployer network) requires enumerating any other Figg outflow that lands in a known deployer wallet. Quick check; not done.
+4. **`mɔ` token sender** (`59KMRTZa...LEXv`). Still unidentified. Carried over from prior appendix.
+5. **Monitor wiring.** Figg-outflow alerting is the single highest-value L11 pre-signal derived from this trace. Monitor currently has Figg in `wallets.json` but not as an explicit "watch for outflow 1-15 SOL to fresh wallet" trigger. Worth formalizing.
+
+## Predictive-value summary (updated)
+
+- **Figg remains the highest L11-predictive wallet.** The cluster uses fresh-wallet rotation per launch — the Figg → fresh wallet SOL transfer is the invariant pre-signal across all 11+ observed sniper wallets.
+- **Sniper-cluster size was underestimated by ~5x.** Earlier view had 2 snipers + 3 candidates; actual count is 11+ confirmed, with ongoing rotation. The monitor alert for "Figg → fresh wallet" must NOT try to identify the sniper wallet (it rotates); it must treat any such transfer as positive.
+- **Multi-exit channel structure means the cluster is well-resourced.** Separate CEX, casino, and accumulator exits indicate operator diversification and suggest a non-trivial operation volume. Consistent with the scale of the on-ramp source (MP2) and the 9-month runway without re-seeding.
+
 
  
