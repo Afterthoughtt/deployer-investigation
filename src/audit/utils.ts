@@ -123,54 +123,125 @@ export async function nansen(
 
 // ---------------------------------------------------------------------------
 // 5. arkham — GET from Arkham API (1s delay for slow endpoints)
+//    Internal request helper handles: 429/Retry-After + exponential-backoff w/
+//    jitter (max 4 attempts), datapoints-header capture, POST body support.
 // ---------------------------------------------------------------------------
+
+export interface ArkhamMeta {
+  datapoints: {
+    usage: number | null;
+    limit: number | null;
+    remaining: number | null;
+  };
+  status: number;
+}
+
+function readDatapoints(res: Response): ArkhamMeta {
+  const num = (v: string | null): number | null => (v === null ? null : Number(v));
+  return {
+    datapoints: {
+      usage: num(res.headers.get('x-intel-datapoints-usage')),
+      limit: num(res.headers.get('x-intel-datapoints-limit')),
+      remaining: num(res.headers.get('x-intel-datapoints-remaining')),
+    },
+    status: res.status,
+  };
+}
+
+async function arkhamRequest(
+  method: 'GET' | 'POST',
+  path: string,
+  opts: { params?: Record<string, string>; body?: unknown; slowEndpoint?: boolean } = {},
+): Promise<{ body: unknown; meta: ArkhamMeta }> {
+  if (opts.slowEndpoint) await sleep(1000);
+
+  const url = new URL(`https://api.arkm.com${path}`);
+  if (opts.params) {
+    for (const [k, v] of Object.entries(opts.params)) url.searchParams.set(k, v);
+  }
+
+  const maxAttempts = 4;
+  let lastErr: Error | null = null;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const headers: Record<string, string> = { 'API-Key': ARKHAM_API_KEY };
+    if (opts.body !== undefined) headers['Content-Type'] = 'application/json';
+    const fetchOpts: RequestInit = { method, headers };
+    if (opts.body !== undefined) fetchOpts.body = JSON.stringify(opts.body);
+
+    const res = await fetch(url.toString(), fetchOpts);
+
+    if (res.status === 429) {
+      if (attempt === maxAttempts) {
+        const text = await res.text().catch(() => '');
+        throw new Error(`arkham ${path} rate-limited after ${maxAttempts} attempts: ${text}`);
+      }
+      const retryAfterHeader = res.headers.get('retry-after');
+      const retryAfterSec = retryAfterHeader ? Number(retryAfterHeader) : NaN;
+      const base = Number.isFinite(retryAfterSec) && retryAfterSec > 0
+        ? retryAfterSec * 1000
+        : Math.pow(2, attempt - 1) * 1000;
+      const jitter = Math.random() * 500;
+      await sleep(base + jitter);
+      lastErr = new Error(`arkham ${path} 429 attempt ${attempt}`);
+      continue;
+    }
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      throw new Error(`arkham ${path} failed: ${res.status} ${text}`);
+    }
+
+    const body = await res.json();
+    const meta = readDatapoints(res);
+    return { body, meta };
+  }
+  throw lastErr ?? new Error(`arkham ${path} exhausted retries`);
+}
+
 export async function arkham(
   endpoint: string,
   params?: Record<string, string>,
   slowEndpoint = false,
 ): Promise<unknown> {
-  if (slowEndpoint) await sleep(1000);
-  const url = new URL(`https://api.arkm.com${endpoint}`);
-  if (params) {
-    for (const [k, v] of Object.entries(params)) {
-      url.searchParams.set(k, v);
-    }
-  }
-  const res = await fetch(url.toString(), {
-    method: 'GET',
-    headers: { 'API-Key': ARKHAM_API_KEY },
-  });
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(`arkham ${endpoint} failed: ${res.status} ${text}`);
-  }
-  return res.json();
+  const { body } = await arkhamRequest('GET', endpoint, { params, slowEndpoint });
+  return body;
+}
+
+export async function arkhamMeta(
+  endpoint: string,
+  params?: Record<string, string>,
+  slowEndpoint = false,
+): Promise<{ body: unknown; meta: ArkhamMeta }> {
+  return arkhamRequest('GET', endpoint, { params, slowEndpoint });
 }
 
 // ---------------------------------------------------------------------------
 // 6. arkhamBatchIntel — Batch address intelligence (up to 1000 addresses)
+//    POST /intelligence/address/batch/all (500 credits). Basic variant — no
+//    clusters, tags, or entity predictions. Use arkhamEnrichedBatch for those.
 // ---------------------------------------------------------------------------
-export async function arkhamBatchIntel(
-  addresses: string[],
-): Promise<unknown> {
-  const url = 'https://api.arkm.com/intelligence/address/batch/all';
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'API-Key': ARKHAM_API_KEY,
-    },
-    body: JSON.stringify({ addresses: addresses.slice(0, 1000) }),
+export async function arkhamBatchIntel(addresses: string[]): Promise<unknown> {
+  const { body } = await arkhamRequest('POST', '/intelligence/address/batch/all', {
+    body: { addresses: addresses.slice(0, 1000) },
   });
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(`arkhamBatchIntel failed: ${res.status} ${text}`);
-  }
-  return res.json();
+  return body;
 }
 
 // ---------------------------------------------------------------------------
-// 7. loadAddressesFromCrossRef — Filter recurring_wallets by tag
+// 7. arkhamEnrichedBatch — Enriched batch (up to 1000 addresses, 1000 credits)
+//    POST /intelligence/address_enriched/batch/all. Includes tags, clusters,
+//    entity predictions. Returns meta so callers can observe datapoints burn.
+// ---------------------------------------------------------------------------
+export async function arkhamEnrichedBatch(
+  addresses: string[],
+): Promise<{ body: unknown; meta: ArkhamMeta }> {
+  return arkhamRequest('POST', '/intelligence/address_enriched/batch/all', {
+    body: { addresses: addresses.slice(0, 1000) },
+  });
+}
+
+// ---------------------------------------------------------------------------
+// 8. loadAddressesFromCrossRef — Filter recurring_wallets by tag
 // ---------------------------------------------------------------------------
 export function loadAddressesFromCrossRef(tag: string): string[] {
   const filePath = join(process.cwd(), 'data/results/cross-reference-report.json');
@@ -183,7 +254,7 @@ export function loadAddressesFromCrossRef(tag: string): string[] {
 }
 
 // ---------------------------------------------------------------------------
-// 8. loadAddressFromNetworkMap — Navigate to data[section][key].address
+// 9. loadAddressFromNetworkMap — Navigate to data[section][key].address
 // ---------------------------------------------------------------------------
 export function loadAddressFromNetworkMap(section: string, key: string): string {
   const filePath = join(process.cwd(), 'data/network-map.json');

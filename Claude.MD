@@ -19,11 +19,11 @@ The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spe
 
 ## APIs
 
-- **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Developer plan ($24.50/mo, was $49). Docs: `docs/helius_docs.md` (read on demand)
+- **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Tool access and docs are provided via the Helius MCP, skills, and agents — use those rather than a local docs file.
 - **Nansen**: Entity labeling, counterparties, transactions. POST to `https://api.nansen.ai/api/v1`. Auth: `apiKey` header. Docs: `docs/nansen_docs.md` (read on demand)
-- **Arkham**: Address intel, transfer scanning, entity search. GET from `https://api.arkm.com`. Auth: `API-Key` header. **Trial expired 2026-04-19 — returns HTTP 402 on all endpoints. Not usable this session.** Docs: `docs/arkham_docs.md` (read on demand)
+- **Arkham**: Address intel, transfer scanning, entity search, clusters. GET/POST from `https://api.arkm.com`. Auth: `API-Key` header (env var `ARKAN_API_KEY`). **Trial extended 2026-04-21 with unlimited credits. Datapoints cap verified 2026-04-21 P0: `X-Intel-Datapoints-Limit: 10000` per period, separate from credits — monitor `X-Intel-Datapoints-Remaining` before batch calls (a full 147-wallet enriched batch could consume meaningful share).** Full API: `docs/arkham_docs.md` (read on demand — complete API, not a summary reference)
 
-Cross-reference entity labels between the available APIs. They have different coverage gaps (Nansen labeled MoonPay on Solana, Arkham did not — last known state before Arkham trial expiry).
+Cross-reference entity labels between the available APIs. They have different coverage gaps — current Arkham gaps observed 2026-04-21 P0.5: Hub Wallet (`v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5`) and CSEncqtq (`CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs`) returned null entity/label on Arkham while our notes (from prior Nansen work) say Fireblocks Custody and CoinSpot respectively. MoonPay-on-Solana attribution gap that existed pre-trial-expiry has closed — Arkham now labels MP1, MP2, MP4 correctly as MoonPay entity.
 
 ## Environment
 
@@ -38,38 +38,6 @@ Single root `.env` (never commit; see `.env.example`):
 
 Monitor loads the root `.env` via `import.meta.url`-resolved path; in production, systemd's `EnvironmentFile=` preloads `process.env` before launch.
 
-## Directory Structure
-
-```
-data/
-  network-map.json       — Canonical wallet registry (147 catalogued wallets: 118 network, 28 not_network, 1 possible_associate; uniform schema: address, label, role, verdict, notes)
-  launch-history.json    — 10-launch behavioral profile + timeline
-  launch-details.json    — Per-launch deployer flows + early buyer lists (L1-L10)
-  results/
-    investigation-notes.json   — Profit extraction routes (7 routes, $400K+ total)
-    cross-reference-report.json — Cross-launch wallet analysis (zero unknowns as of 2026-04-02)
-    batch-screen-results.json  — Batch screen raw API results (24 wallets, 2026-04-02)
-    deep-dive-results.json     — Deep dive raw API results (11 wallets, 2026-04-02)
-    rxrp-repump-screen-results.json — RXRP repump screening (19 wallets, 2026-04-03)
-  rxrp-repump-buyers.json — RXRP repump 22 buyer wallets with buy sequence (2026-04-03)
-src/
-  audit/                 — Audit scripts (utils.ts, batch-screen.ts, deep-dive.ts, moonpay-search.ts, rxrp-repump-screen.ts)
-monitor/                 — L11 operational monitor (detects funded fresh wallets before create_and_buy fires). Runtime deps in root package.json; run via `npm run monitor:dev` / `monitor:build` / `monitor:start`. See MONITOR_BUILD_PLAN.md.
-  src/                   — config.ts, db.ts, wallets.ts, paths.ts, backfill.ts, util.ts, selfcheck.ts, health.ts, index.ts
-    helius/              — ws.ts (Enhanced WSS subscription with auto-reconnect), rpc.ts (getSignaturesForAddress + getTransaction for backfill)
-    detection/           — candidate.ts (SOL transfer parsing + tiering + persist), fresh.ts (freshness check via getSignaturesForAddress)
-    telegram/            — bot.ts (commands + callback handlers incl. /health), push.ts (alert + alarm formatters), format.ts
-  data/                  — wallets.json (committed), l11.db (gitignored)
-  test/                  — replay-l10.ts (detection acceptance), replay-l10-dedup.ts (DB dedup acceptance), selfcheck-synthetic.ts (/health synthetic detection), fixtures/ (pinned tx payloads)
-  tsconfig.json          — monitor-only compile config
-docs/                    — API documentation (nansen_docs.md, arkham_docs.md, helius_docs.md)
-archive/
-  scripts/               — Completed investigation scripts (37 files, served their purpose)
-  raw-results/           — Raw API response dumps (28 files, ground truth for addresses)
-STRATEGY.md              — L11 detection strategy (three vectors: MoonPay sieve [MP1+MP2], network intermediary watch, copy-trade backup)
-MONITOR_BUILD_PLAN.md    — L11 monitor build plan (Enhanced WSS transactionSubscribe, SQLite, Telegram bot, systemd; finalized 2026-04-16)
-```
-
 Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit extraction route details.
 
 ## Code Conventions
@@ -78,7 +46,7 @@ Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.
 - Helius standard RPC: 50 req/sec, no delays needed
 - Helius Wallet API / Enhanced APIs: 10 req/sec, add 100ms delays for bulk calls
 - Nansen API: 1.5-2s delays between calls. Max 3-4 day date range on `/profiler/address/transactions`. Labels endpoint costs 500 credits — use only when critical.
-- Arkham API: 20 req/sec standard, 1 req/sec on transfers endpoint. Counterparties endpoint returns empty for most Solana wallets — use Nansen counterparties instead.
+- Arkham API: 20 req/sec standard, 1 req/sec on transfers endpoint. `/counterparties/entity` DOES work on Solana (verified 2026-04-21 P1-prime, returns `flow=in/out` aggregated counterparties — MoonPay entity returned 9 Solana upstream liquidity sources). `/counterparties/address` still unverified for Solana on the current trial. Default limit on `/transfers` is 100 even when `limit=100` is set; use multiple sort orders (time DESC, time ASC, usd DESC) to widen coverage when the `body.count` exceeds returned rows. Arkham clustering is not populated on Solana.
 - Never use public Solana RPC (`api.mainnet-beta.solana.com`). Use Helius.
 
 ## Rules
@@ -98,15 +66,5 @@ Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.
 - **MoonPay on-chain fingerprint** (validated 2026-04-19): every MoonPay-routed Solana transfer has `ComputeBudget.SetComputeUnitLimit = 14548` exactly + an `spl-memo` with 32-char hex data + fee-payer-is-sender. Consistent across MP1 and MP2, across $20–$2,100 amount range, 10/10 true positives, 0/159 false positives in sampled non-MoonPay outbound (Coinbase + Binance) and retail traffic. Use for confirmation checks and MP3+ rotation discovery; not wired into runtime monitor filters. See `STRATEGY.md` Vector A for details.
 - Be credit-conscious: getBalance is 1 credit, getSignaturesForAddress is 10, all Wallet API calls are 100. Screen cheap first, investigate expensive only on confirmed targets.
 - Nansen `tgm/dex-trades` does NOT support filtering by `trader_address` — it silently returns empty. To check a specific wallet's trades on a token, pull ALL trades for the token and filter client-side, or use Helius.
-
-## Subagents
-
-Two specialized subagents live at `.claude/agents/`. Both use `claude-opus-4-7` with `effort: xhigh`. Full design and prompt text: `/Users/error/.claude/plans/before-we-continue-further-immutable-turing.md`.
-
-- **`chain-walker`** — stateless on-chain evidence gatherer. Invoke proactively when investigating any candidate wallet, funder, or counterparty. Full contextual brief from main (wallet + why + role hypothesis). Returns structured evidence keyed to the six-role taxonomy (`fresh-deploy-wallet-candidate`, `fresh-side-wallet-candidate`, `established-side-wallet-candidate`, `intermediary`, `unrelated`, `insufficient-evidence`). Never renders verdicts — main classifies.
-
-- **`chain-skeptic`** — adversarial reviewer with `memory: project`. **Mandatory gate before any `data/network-map.json` write with `verdict: network` OR any Bloom whitelist promotion.** Receives a minimal brief ONLY (wallet + one-sentence role claim) — independence preserves the separate-context advantage. Renders a structured verdict: `upheld` / `overturned` / `insufficient`. `insufficient` → escalate to user (Nansen UI, Solscan, off-chain OSINT) rather than forcing a guess.
-
-- **Never call Nansen's 500-credit labels endpoint from either agent.** Surface the wallet for manual Nansen UI lookup instead (same data, free). Same rule for other manual-lookup fallbacks when evidence is exhausted.
-
-- **Never install `sendaifun/solana-mcp` or any MCP that exposes transaction-signing tools.** 
+- **Never call Nansen's 500-credit labels endpoint.** Surface the wallet for manual Nansen UI lookup instead (same data, free). Same rule for other manual-lookup fallbacks when evidence is exhausted.
+- **Never install `sendaifun/solana-mcp` or any MCP that exposes transaction-signing tools.**

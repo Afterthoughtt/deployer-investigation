@@ -22,8 +22,9 @@ The deployer varies the funding path every launch. Could revert to intermediarie
 |--------|---------|--------|
 | MP1 | `Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6` | Confirmed — customer-facing, funded L10 deployer + RXRP wallet 2Nzwpdro |
 | MP2 | `5F1seMKUqSNhv45f6FhB2cFmgJbk8U1avJw7M6TexUq1` | Confirmed — customer-facing, 1,952 SOL balance, separate supply chain (Binance 8). Funded RXRP intermediary FiggKseF |
-| MP4 | `AFKxebx96mnt1yn1ek6mcxeGDHmfrAWzo2h1fVdrrvWE` | Treasury only — funds MP1 only, do NOT monitor |
-| MP3 | Unknown | Still not found on Solana |
+| MP4 | `AFKxebx96mnt1yn1ek6mcxeGDHmfrAWzo2h1fVdrrvWE` | Treasury only — funds MP1/MP2 refills, do NOT monitor |
+| MP3 | — | **CONFIRMED NON-EXISTENT** on Solana per Arkham 90d `/transfers?from=moonpay` enum 2026-04-21. MP1 + MP2 are the complete customer-facing SOL set. |
+| MP5 candidate | `EGnQqe6MPvvNYWLPHtk9mKpbtEQkv4nA7nTeENtViM4z` | Arkham "Cold Wallet" (distinct from Hot Wallet label). 518.81 SOL + $240K USDC. One 2,000 SOL outflow in 90d = treasury-class movement. Pending verification. **Do NOT monitor** until verified customer-facing. |
 
 MP2 has a completely separate supply chain from MP1: funded by Binance 8, not by MP4 (Bitstamp/FalconX). This is why two prior searches failed — MP2 doesn't appear in MP4's outflows. Only found by tracing the deployer's RXRP repump wallet funding chains backward. **Both MP1 and MP2 must be monitored for L11.**
 
@@ -53,7 +54,7 @@ Every MoonPay-routed system.transfer on Solana, across MP1 **and** MP2, carries 
 - **0/33 matches** on sampled outbound transfers from 10 Coinbase hot wallets (CB1-CB10) and 1 Binance hot wallet (`5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9`). Coinbase never sets `SetComputeUnitLimit` at all and never emits memos. Binance sets CU Limit at 10,000–30,000 (not 14,548) and also never emits memos.
 - **0/126 matches** across miscellaneous non-MoonPay incoming transfers on two random wallets. Total non-MoonPay sample: 159 transactions, 0 collisions.
 
-**NOT tested against:** Transak, Ramp Network, Simplex, Banxa (the four on-ramps still in `onramp_hot_wallets.unmapped`). If the deployer pivots to one of those, our `accountInclude` filter misses it regardless of fingerprint — this is an orthogonal gap.
+**NOT tested against:** Topper, Banxa, Transak (the three Phantom-available on-ramps deprioritized per project scope). If the deployer pivots to one of those, our `accountInclude` filter misses it regardless of fingerprint — this is an orthogonal gap. Prior list included Ramp Network + Simplex + Mercuryo; those are NOT Phantom providers and were dropped from scope 2026-04-21.
 
 **Operational uses:**
 - **Confirmation** on existing MP1/MP2-triggered alerts — redundant for detection, but catches the "MoonPay updated their signer program" edge case (value would drift away from 14,548). If a MoonPay-sender event ever fails the fingerprint, that's a signal we need to re-verify MoonPay's current infrastructure.
@@ -66,7 +67,7 @@ Every MoonPay-routed system.transfer on Solana, across MP1 **and** MP2, carries 
 If the deployer abandons MoonPay for a different on-ramp, the observable on-chain shape changes per provider:
 
 - **Transak** uses per-user persistent "Stream Wallets" after L2 KYC. A Transak-funded wallet is NOT funded from a rotating pool — the user's Stream Wallet is their persistent fulfillment address. Detection: if the same unlabeled wallet repeatedly funds the same end-user wallet over multiple purchases, that upstream wallet is a Transak Stream Wallet. Different pattern from MoonPay's static-pool model.
-- **Ramp Network / Banxa / Simplex / Mercuryo** rotate per-transaction with no single public label. Detection requires Arkham entity clustering or a Nansen UI lookup — not readily fingerprintable from chain alone.
+- **Topper / Banxa** rotate per-transaction with no single public label. Detection requires Arkham entity clustering or a Nansen UI lookup — not readily fingerprintable from chain alone.
 - **Coinbase Onramp** (distinct from Coinbase CEX withdrawals, but on-chain they look identical): fulfillment routes through the standard Coinbase Solana hot wallet pool already mapped in `data/network-map.json` under `onramp_hot_wallets.coinbase`. If the deployer reverts to Coinbase (L1–L9 history), we'd see CB1–CB10 as the funder — no fingerprint needed, `accountInclude` catches it.
 - **Stripe crypto onramp** reportedly uses Coinbase or Fireblocks custody — expect Coinbase-cluster attribution or an unlabeled Fireblocks omnibus wallet.
 

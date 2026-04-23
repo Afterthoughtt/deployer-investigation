@@ -1,0 +1,220 @@
+{
+  "probe": "P1-prime MoonPay Solana wide enumeration",
+  "date": "2026-04-21",
+  "queries": [
+    {
+      "tag": "newest-500-90d",
+      "status": 200,
+      "dp_remaining": "9849",
+      "body_count": 10000,
+      "rows_returned": 500
+    },
+    {
+      "tag": "oldest-500-90d",
+      "status": 200,
+      "dp_remaining": "9803",
+      "body_count": 10000,
+      "rows_returned": 500
+    },
+    {
+      "tag": "largest-500-90d",
+      "status": 200,
+      "dp_remaining": "9751",
+      "body_count": 10000,
+      "rows_returned": 500
+    }
+  ],
+  "senders": [
+    {
+      "address": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
+      "known": "MP1",
+      "transfers": 472,
+      "symbols": {
+        "SOL": 472
+      },
+      "sol_total": 763.187982,
+      "usd_total": 83940.5903940382,
+      "label": "Hot Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-01-21T18:22:04Z",
+      "last_ts": "2026-04-21T18:21:40Z",
+      "seen_in_queries": [
+        "newest-500-90d",
+        "oldest-500-90d"
+      ]
+    },
+    {
+      "address": "AFKxebx96mnt1yn1ek6mcxeGDHmfrAWzo2h1fVdrrvWE",
+      "known": "MP4",
+      "transfers": 394,
+      "symbols": {
+        "SOL": 394
+      },
+      "sol_total": 749150,
+      "usd_total": 67851018,
+      "label": "Hot Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-01-21T19:36:54Z",
+      "last_ts": "2026-04-21T18:06:40Z",
+      "seen_in_queries": [
+        "newest-500-90d",
+        "largest-500-90d"
+      ]
+    },
+    {
+      "address": "5F1seMKUqSNhv45f6FhB2cFmgJbk8U1avJw7M6TexUq1",
+      "known": "MP2",
+      "transfers": 387,
+      "symbols": {
+        "SOL": 387
+      },
+      "sol_total": 392.54147136000023,
+      "usd_total": 39634.74300709517,
+      "label": "Hot Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-01-21T18:22:15Z",
+      "last_ts": "2026-04-21T18:21:18Z",
+      "seen_in_queries": [
+        "newest-500-90d",
+        "oldest-500-90d"
+      ]
+    },
+    {
+      "address": "4FoRA1uLBcE31TC799djhLt3rqpGuh2gV9C5KdvLgUPg",
+      "known": "MP1.USDC-ATA",
+      "transfers": 97,
+      "symbols": {
+        "USDC": 97
+      },
+      "sol_total": 0,
+      "usd_total": 19382.129999999997,
+      "label": "Hot Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-01-21T18:22:57Z",
+      "last_ts": "2026-04-21T18:21:41Z",
+      "seen_in_queries": [
+        "newest-500-90d",
+        "oldest-500-90d"
+      ]
+    },
+    {
+      "address": "GMZ2VsLhERJ5rzRmFyAJXg9QyhgX5jom8XhibY4sCqiG",
+      "known": null,
+      "transfers": 72,
+      "symbols": {
+        "USDC": 72
+      },
+      "sol_total": 0,
+      "usd_total": 14450000,
+      "label": "Hot Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-01-22T01:07:08Z",
+      "last_ts": "2026-04-20T22:05:40Z",
+      "seen_in_queries": [
+        "largest-500-90d"
+      ]
+    },
+    {
+      "address": "7v7Rsgp42EBcLkmKGUP7WfkPQrrTaabKKdAF2sfWSTY7",
+      "known": null,
+      "transfers": 39,
+      "symbols": {
+        "USDC": 39
+      },
+      "sol_total": 0,
+      "usd_total": 4259.829999999999,
+      "label": "Hot Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-01-21T18:27:25Z",
+      "last_ts": "2026-04-21T18:20:35Z",
+      "seen_in_queries": [
+        "newest-500-90d",
+        "oldest-500-90d"
+      ]
+    },
+    {
+      "address": "5Mx6gkYkPPit9tBeXCFfiEbAhQrTLp6vZoNgNh51gpBp",
+      "known": null,
+      "transfers": 34,
+      "symbols": {
+        "USDC": 34
+      },
+      "sol_total": 0,
+      "usd_total": 6750000,
+      "isUserAddress": false,
+      "first_ts": "2026-01-22T20:36:34Z",
+      "last_ts": "2026-04-19T15:30:11Z",
+      "seen_in_queries": [
+        "largest-500-90d"
+      ]
+    },
+    {
+      "address": "8LHDmfD1vLk3kEbEXeDHxByKEYbb32KtRcD1E4B4n5RL",
+      "known": null,
+      "transfers": 3,
+      "symbols": {
+        "USDT": 3
+      },
+      "sol_total": 0,
+      "usd_total": 310.72,
+      "label": "Hot Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-01-21T18:56:17Z",
+      "last_ts": "2026-04-21T17:45:03Z",
+      "seen_in_queries": [
+        "newest-500-90d",
+        "oldest-500-90d"
+      ]
+    },
+    {
+      "address": "6od1LGbGax1goUPtAmJkFVuecJSpKXUFHqEfbsyQjwXR",
+      "known": null,
+      "transfers": 1,
+      "symbols": {
+        "USDT": 1
+      },
+      "sol_total": 0,
+      "usd_total": 97.39,
+      "label": "Hot Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-04-21T17:47:49Z",
+      "last_ts": "2026-04-21T17:47:49Z",
+      "seen_in_queries": [
+        "newest-500-90d"
+      ]
+    },
+    {
+      "address": "EGnQqe6MPvvNYWLPHtk9mKpbtEQkv4nA7nTeENtViM4z",
+      "known": null,
+      "transfers": 1,
+      "symbols": {
+        "SOL": 1
+      },
+      "sol_total": 2000,
+      "usd_total": 253880,
+      "label": "Cold Wallet",
+      "isUserAddress": false,
+      "first_ts": "2026-01-24T12:45:54Z",
+      "last_ts": "2026-01-24T12:45:54Z",
+      "seen_in_queries": [
+        "largest-500-90d"
+      ]
+    }
+  ],
+  "novel": [
+    "GMZ2VsLhERJ5rzRmFyAJXg9QyhgX5jom8XhibY4sCqiG",
+    "7v7Rsgp42EBcLkmKGUP7WfkPQrrTaabKKdAF2sfWSTY7",
+    "5Mx6gkYkPPit9tBeXCFfiEbAhQrTLp6vZoNgNh51gpBp",
+    "8LHDmfD1vLk3kEbEXeDHxByKEYbb32KtRcD1E4B4n5RL",
+    "6od1LGbGax1goUPtAmJkFVuecJSpKXUFHqEfbsyQjwXR",
+    "EGnQqe6MPvvNYWLPHtk9mKpbtEQkv4nA7nTeENtViM4z"
+  ],
+  "novel_with_sol_outflow": [
+    {
+      "address": "EGnQqe6MPvvNYWLPHtk9mKpbtEQkv4nA7nTeENtViM4z",
+      "sol_outflows": 1,
+      "usd": 253880,
+      "label": "Cold Wallet"
+    }
+  ]
+}

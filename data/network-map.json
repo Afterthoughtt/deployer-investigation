@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Known wallet addresses in the deployer network",
-    "updated": "2026-04-19"
+    "updated": "2026-04-21"
   },
   "deployers": {
     "L4": {
@@ -437,16 +437,17 @@
       }
     },
     "moonpay": {
-      "notes": "UPDATED 2026-04-19. TWO customer-facing MoonPay SOL wallets confirmed: MP1 (Cc3bpPzU, fed by MP4 treasury) and MP2 (5F1seMKU, fed by Binance 8 — separate supply chain). MP2 discovered 2026-04-03 via RXRP repump funder chain tracing: MP2 → FiggKseF → 6zZAKeF5/fUtfBAoj/Dj9WL4Nh. Vector A MUST monitor both MP1 and MP2. Arkham-labeled 'Hot Wallets' 4FoRA1uL and CYAziJxf are MP1's USDC and xoUSD token accounts (ATAs), NOT independent wallets. FINGERPRINT (2026-04-19, 10/10 true positives / 0/159 false positives): every MP1 and MP2 outbound Solana transfer carries ComputeBudget.SetComputeUnitLimit=14548 exactly + spl-memo with 32-char hex data + fee-payer-is-sender. Same fingerprint on both MP1 and MP2 — unified infrastructure. Coinbase (10 hot wallets) and Binance sampled: neither emits memos, neither uses 14548 CU. See STRATEGY.md Vector A for scripts and empirical base.",
+      "notes": "UPDATED 2026-04-21 (P1-prime MoonPay enumeration via Arkham). TWO customer-facing MoonPay SOL wallets confirmed: MP1 (Cc3bpPzU, fed by MP4 treasury) and MP2 (5F1seMKU, fed by Binance 8 — separate supply chain). MP3 CONFIRMED NON-EXISTENT on Solana via Arkham 90d /transfers enumeration 2026-04-21 — the only SOL senders from MoonPay entity in 90d are MP1, MP2, MP4 (treasury internal), and one new treasury-class wallet (see MP5_candidate below). USDC/USDT activity on Solana all routes through ATAs owned by MP1/MP2/MP4/MP5 — no additional customer-facing base wallets hiding in stablecoin traffic. MP2 discovered 2026-04-03 via RXRP repump funder chain tracing: MP2 → FiggKseF → 6zZAKeF5/fUtfBAoj/Dj9WL4Nh. Vector A MUST monitor both MP1 and MP2. FINGERPRINT (2026-04-19, 10/10 true positives / 0/159 false positives): every MP1 and MP2 outbound Solana transfer carries ComputeBudget.SetComputeUnitLimit=14548 exactly + spl-memo with 32-char hex data + fee-payer-is-sender. Same fingerprint on both MP1 and MP2 — unified infrastructure. Coinbase (10 hot wallets) and Binance sampled: neither emits memos, neither uses 14548 CU. Arkham-labeled 'Hot Wallets' 4FoRA1uL and CYAziJxf are MP1's USDC and xoUSD token accounts (ATAs), NOT independent wallets. See STRATEGY.md Vector A for scripts and empirical base.",
       "MP1": {
         "address": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
         "label": "MoonPay Hot Wallet 1",
         "role": "onramp",
         "verdict": "network",
-        "notes": "Helius: MoonPay Hot Wallet 1. Arkham: MoonPay entity, 'Hot Wallet' label. Customer-facing SOL + stablecoin distribution. Sends SOL to end-user wallets, USDC via ATA 4FoRA1uL ($352K balance), xoUSD via ATA CYAziJxf. Used for L10 (13.443 SOL to deployer) and RXRP repump wallet 2Nzwpdro. Funded by MP4.",
+        "notes": "Helius: MoonPay Hot Wallet 1. Arkham: MoonPay entity, 'Hot Wallet' label (verified 2026-04-21 P0.5). Customer-facing SOL + stablecoin distribution. Sends SOL to end-user wallets, USDC via ATA 4FoRA1uL ($352K balance), xoUSD via ATA CYAziJxf, USDT via ATA 6od1LGbG ($53K). Used for L10 (13.443 SOL to deployer) and RXRP repump wallet 2Nzwpdro. Funded by MP4.",
         "token_accounts": {
           "USDC": "4FoRA1uLBcE31TC799djhLt3rqpGuh2gV9C5KdvLgUPg",
-          "xoUSD": "CYAziJxfTbh3qhavSQdAHeSfXJt6NPkQYzLf1yBmATRc"
+          "xoUSD": "CYAziJxfTbh3qhavSQdAHeSfXJt6NPkQYzLf1yBmATRc",
+          "USDT": "6od1LGbGax1goUPtAmJkFVuecJSpKXUFHqEfbsyQjwXR"
         }
       },
       "MP4": {
@@ -454,14 +455,31 @@
         "label": "MoonPay Hot Wallet 4",
         "role": "treasury",
         "verdict": "network",
-        "notes": "Helius: MoonPay Hot Wallet 4. Arkham: MoonPay entity, 'Hot Wallet' label. Treasury wallet. Funded by Bitstamp Exchange 2 (HBxZShcE, confirmed) + FalconX Hot Wallet (9CKnC2kmqG9ZBtQXDfxR5H7Av7X878geV367DdYtybT4, confirmed). SOL outflows go ONLY to MP1 — confirmed via Helius transfers (all pages exhausted, 11 txs, 27,500 SOL, sole recipient). Also receives from Coinbase Hot Wallets (8+), OKX, Circle Treasury. Not customer-facing — do NOT monitor for L11."
+        "notes": "Helius: MoonPay Hot Wallet 4. Arkham: MoonPay entity, 'Hot Wallet' label (verified 2026-04-21 P0.5). Treasury wallet. Funded by Bitstamp Exchange 2 (HBxZShcE, confirmed) + FalconX Hot Wallet (9CKnC2kmqG9ZBtQXDfxR5H7Av7X878geV367DdYtybT4, confirmed). USDC via ATA GMZ2VsLh ($404K balance). Prior note claimed SOL outflows ONLY to MP1, 11 txs / 27,500 SOL total — SCALE DISCREPANCY flagged 2026-04-21: Arkham /transfers shows 394 SOL outflows / 749,150 SOL in 90d ALONE. Destinations not yet re-verified. Also receives from Coinbase Hot Wallets (8+), OKX, Circle Treasury, and Coinbase Prime (3vxheE5C, newly seen as upstream liquidity source 2026-04-21). Not customer-facing — do NOT monitor for L11.",
+        "token_accounts": {
+          "USDC": "GMZ2VsLhERJ5rzRmFyAJXg9QyhgX5jom8XhibY4sCqiG"
+        }
       },
       "MP2": {
         "address": "5F1seMKUqSNhv45f6FhB2cFmgJbk8U1avJw7M6TexUq1",
         "label": "MoonPay Hot Wallet 2",
         "role": "onramp",
         "verdict": "network",
-        "notes": "Helius: MoonPay Hot Wallet 2. Arkham: MoonPay entity, 'Hot Wallet' label. Customer-facing SOL distribution — SEPARATE supply chain from MP1. Funded by Binance 8 (5tzFkiKs, not MP4). 1,952 SOL balance. Discovered 2026-04-03 via RXRP repump funder tracing: MP2 funded FiggKseF which funded 6zZAKeF5, fUtfBAoj, and Dj9WL4Nh chain. Previously searched for twice (2026-03-25, 2026-04-02) and not found because it has a separate supply chain from MP4. MUST monitor for L11 alongside MP1."
+        "notes": "Helius: MoonPay Hot Wallet 2. Arkham: MoonPay entity, 'Hot Wallet' label (verified 2026-04-21 P0.5). Customer-facing SOL distribution — SEPARATE supply chain from MP1. Funded by Binance 8 (5tzFkiKs, not MP4). 1,952 SOL balance. USDC via ATA 7v7Rsgp4 ($205K), USDT via ATA 8LHDmfD1 ($22K). Discovered 2026-04-03 via RXRP repump funder tracing: MP2 funded FiggKseF which funded 6zZAKeF5, fUtfBAoj, and Dj9WL4Nh chain. Previously searched for twice (2026-03-25, 2026-04-02) and not found because it has a separate supply chain from MP4. MUST monitor for L11 alongside MP1.",
+        "token_accounts": {
+          "USDC": "7v7Rsgp42EBcLkmKGUP7WfkPQrrTaabKKdAF2sfWSTY7",
+          "USDT": "8LHDmfD1vLk3kEbEXeDHxByKEYbb32KtRcD1E4B4n5RL"
+        }
+      },
+      "MP5_candidate": {
+        "address": "EGnQqe6MPvvNYWLPHtk9mKpbtEQkv4nA7nTeENtViM4z",
+        "label": "MoonPay Cold Wallet (candidate)",
+        "role": "treasury_candidate",
+        "verdict": "pending_verification",
+        "notes": "DISCOVERED 2026-04-21 via P1-prime Arkham /transfers 90d enum. Arkham entity=MoonPay, label='Cold Wallet' (distinct from MP1/MP2/MP4 which are 'Hot Wallet'). 518.81 SOL balance. 1 SOL outflow in 90d (2,000 SOL, $254K) — treasury-class movement, not customer fulfillment. Owns USDC ATA 5Mx6gkYk ($240K). NOT PROMOTED to verdict=network — pending verification of the 2,000 SOL outflow destination. NOT customer-facing — do NOT monitor for L11 without verification. Treat as the rough analog of MP4 (treasury) rather than MP1/MP2 (customer-facing).",
+        "token_accounts": {
+          "USDC": "5Mx6gkYkPPit9tBeXCFfiEbAhQrTLp6vZoNgNh51gpBp"
+        }
       },
       "upstream": {
         "bitstamp": {
@@ -480,12 +498,14 @@
         }
       }
     },
-    "unmapped": [
-      "Ramp Network",
-      "Transak",
-      "Simplex",
-      "Banxa"
-    ]
+    "unmapped": {
+      "notes": "UPDATED 2026-04-21. Phantom wallet's on-ramp picker offers 5 providers: Topper, MoonPay, Coinbase, Banxa, Transak. MoonPay + Coinbase are fully mapped above. The remaining three (Topper, Banxa, Transak) are deprioritized pending MoonPay-side exhaustion per project scope decision — user is 99% confident Phantom defaults to MoonPay when the deployer's entity funds the wallet. Prior entries for Ramp Network and Simplex removed 2026-04-21 — those are NOT Phantom providers and were incorrectly listed.",
+      "phantom_deprioritized": [
+        "Topper",
+        "Banxa",
+        "Transak"
+      ]
+    }
   },
   "profit_cashout": {
     "token_millionaire": {
