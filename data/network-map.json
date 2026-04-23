@@ -96,6 +96,27 @@
       "role": "infrastructure",
       "verdict": "network",
       "notes": "Funded L9 deployer. Different from JETNUT deployer (52eC8Uy5CDSJhR...). Similar prefix — verify these are distinct wallets."
+    },
+    "bloombot_program": {
+      "address": "b1oomGGqPKGD6errbyfbVMBuzSC8WtAAYo8MwNafWW1",
+      "label": "Bloom Bot Program",
+      "role": "external_infrastructure",
+      "verdict": "external",
+      "notes": "Bloom Bot on-chain program ID (third-party trading bot, not deployer-controlled). Observed in every DmA9Jab snipe + exit (L9 CUPID, L10 XAIC). Presence in a tx's programs list is a strong fingerprint for Bloom Bot-routed swaps."
+    },
+    "bloombot_fee_wallet": {
+      "address": "7HeD6sLLqAnKVRuSfc1Ko3BSPMNKWgGTiWLKXJF31vKM",
+      "label": "Bloombot.app Fees",
+      "role": "external_infrastructure",
+      "verdict": "external",
+      "notes": "Arkham-labeled entity=Bloombot.app, label=Fees. Receives Bloom Bot service fees on every routed trade. DmA9Jab tipped this wallet in all 3 L9/L10 snipe+exit transactions (0.0424, 0.06, 0.001 SOL)."
+    },
+    "pumpfun_fee_account": {
+      "address": "CebN5WGQ4jvEPvsVU4EoHEpgzq1VV7AbicfhtW4xC9iM",
+      "label": "pump.fun Fee Account",
+      "role": "external_infrastructure",
+      "verdict": "external",
+      "notes": "Arkham-labeled entity=pump.fun, label=Fee Account. Protocol-level fee destination for pump.fun curve trades."
     }
   },
   "bundle_wallets": {
@@ -281,13 +302,13 @@
   },
   "insiders": {
     "coinspot_insider": {
-      "notes": "Profiled 2026-03-25. Likely deployer insider/family (user assessment). Active since L9. L10 activity UNVERIFIED — not found in first 405 XAIC dex-trades (20 min window). May receive tokens via bundle (4916Nkdu from Bundle 1). Uses BloomBot. Funded by CoinSpot exchange (sigmurzkferog.sol, funded by Binance 6, 12657 SOL balance). SUSYE deployer funded by Coinbase CB7 (deployer's exchange). 98KvdqZJ is SUSYE's trading wallet. F7oLGB1U is cashout passthrough (4916Nkdu → F7oLGB1U → CoinSpot). All profits cycle through CoinSpot ($17.6K+).",
+      "notes": "Profiled 2026-03-25. Likely deployer insider/family (user assessment). Active since L9. L10 activity VERIFIED 2026-04-22 — direct Bloom Bot block-0 snipe of XAIC (66M tokens, 4.18765432 SOL to curve, ~37 SOL profit cycled via 9a22FhBe → CoinSpot). Uses BloomBot. Also receives tokens via bundle (4916Nkdu from Bundle 1). Funded by CoinSpot exchange (sigmurzkferog.sol, funded by Binance 6, 12657 SOL balance). SUSYE deployer funded by Coinbase CB7 (deployer's exchange). 98KvdqZJ is SUSYE's trading wallet. F7oLGB1U is cashout passthrough (4916Nkdu → F7oLGB1U → CoinSpot). All profits cycle through CoinSpot ($17.6K+). L11 pre-arm detected 2026-04-22 (3 days pre-predicted-launch): funding flipped from CoinSpot exchange to internal SUSYE deployer (1.972 SOL) + simultaneous dust-signal pings from 2Zi* vanity cluster.",
       "trading_wallet": {
         "address": "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
         "label": "CoinSpot Insider Trading Wallet",
         "role": "insider",
         "verdict": "network",
-        "notes": ""
+        "notes": "PROFILED 2026-04-22. Current balance 1.999568723 SOL (re-armed for L11). Arkham: isUserAddress=false, no entity. Helius: unknown. 157 Arkham transfers total. Activation history: (1) First funded 2025-11-22 by CoinSpot (CSEncqtq) 1.20814136 SOL, followed by retail trades (WWIII, RizzmasCTO) — dormant wallet warming up. (2) L9 snipe 2026-02-13: funded by SUSYE deployer (2Zizao3x, 6.59 SOL), block-0 Bloom Bot buy of L9 CUPID (83.96M tokens, 5.925925925 SOL to curve, 0.10 SOL priority). (3) L10 snipe 2026-03-15: funded by CoinSpot (CSEncqtq) 4.64 SOL at 12:09:57 UTC (9h 31m pre-deploy), Bloom Bot block-0 buy of XAIC at 21:40:45 UTC (T+1s after create) — 66,035,498.225478 tokens, 4.18765432 SOL to curve, 0.08 SOL priority fee (555,760,118 μlamports × 143,938 CUs), total outflow 4.37447408 SOL. Exit 2026-03-15 23:07:47 UTC on PumpSwap AMM (token already graduated, 1h 27m hold) — full 66M bag sold for 41.575282972 SOL net. Profit 41.840798806 SOL + 0.1 SOL routed to collection 9a22FhBe at 23:18-23:19 UTC. Per existing map, 100% of collection outflows → CoinSpot. (4) L11 pre-arm 2026-04-22 12:59:11 UTC: funded by SUSYE deployer (2Zizao3x) 1.972 SOL — first internal-network (non-CoinSpot) funding — bracketed by dust pings from 2Zi* vanity cluster (see onramps.2Zi_vanity_cluster). Bloom Bot program confirmed: b1oomGGqPKGD6errbyfbVMBuzSC8WtAAYo8MwNafWW1. Arkham-labeled Bloombot.app fee wallet 7HeD6sLL tipped in every snipe + exit."
       },
       "token_trading_wallet": {
         "address": "4916NkdubkfRyHkxkCR7rpVGz5dvzVdK161mg4jXDwRh",
@@ -323,11 +344,37 @@
         "label": "Connected SUSYE Deployer",
         "role": "insider",
         "verdict": "network",
-        "notes": "Profiled 2026-03-25. Funded by Coinbase CB7 (deployer's exchange!). 0 SOL, active through Mar 20. Nansen: deployed 'Kanye's Cousin' token. Uses CoinSpot (primary), MEXC ($955/$848), Bybit ($755/$419). Intermediary 98KvdqZJ for profit cycling. CB7 funding is notable overlap with deployer network."
+        "notes": "Profiled 2026-03-25. Funded by Coinbase CB7 (deployer's exchange!). 0 SOL, active through Mar 20. Nansen: deployed 'Kanye's Cousin' token. Uses CoinSpot (primary), MEXC ($955/$848), Bybit ($755/$419). Intermediary 98KvdqZJ for profit cycling. CB7 funding is notable overlap with deployer network. Funded DmA9Jab (trading_wallet) with 6.59 SOL on 2026-02-13 pre-L9 snipe and 1.972 SOL on 2026-04-22 pre-L11 (3 days before predicted launch). Arkham-visible as the primary operator of the 2Zi* vanity cluster (see signal_wallets_2zi_cluster)."
+      },
+      "signal_wallets_2zi_cluster": {
+        "notes": "DISCOVERED 2026-04-22. Cluster of 2Zi*-prefixed vanity wallets that dust-ping DmA9Jab immediately before/after legitimate funding events from the SUSYE Deployer. On 2026-02-13 pre-L9: one dust ping followed real 6.59 SOL funding by 34s. On 2026-04-22 pre-L11: two dust pings bracketed the real 1.972 SOL funding within ~1 min. Appears to be an operator control-channel signal — likely same human as SUSYE deployer operating multiple vanity-generated sibling wallets. All isUserAddress=false on Arkham, no entity labels.",
+        "2ZiEjmKA": {
+          "address": "2ZiEjmKAuDuX29BXNEs2DsVvjmoXAKXm4Fvj4jM1JVsz",
+          "label": "2Zi* Signal Wallet A (pre-L9)",
+          "role": "insider",
+          "verdict": "network",
+          "notes": "Dust 0.0001 SOL → DmA9Jab at 2026-02-13T13:28:23Z, 34s after SUSYE deployer funded DmA9Jab with 6.59 SOL. Sig 4gUuYF657Ds2R7gKhLMQDq2HedEzianbMYrmWVnUwfEiaiSqiVsuJPSn7AR9frLBXFBZ4qRK9zuPg8Boa8DXNPPJ. Vanity shares 2Zi prefix and JVsz suffix with SUSYE deployer."
+        },
+        "2Ziz3B9r": {
+          "address": "2Ziz3B9rt8dbS1QanWQLqmTa5Erw4r7q79MR3UCgJVSz",
+          "label": "2Zi* Signal Wallet B (pre-L11)",
+          "role": "insider",
+          "verdict": "network",
+          "notes": "Dust 0.00001 SOL → DmA9Jab at 2026-04-22T13:00:02Z, 51s after SUSYE deployer funded DmA9Jab with 1.972 SOL. Sig 5PVywj1DjCSjTWP5sJWDaX6u53gFWbReqE6WRmDZijZ4DrcjLq4feM5HgTW7rSzZU2Rzz4d1AixYXMmx6DM6h6ST. Vanity shares 2Zi prefix and JVSz suffix with SUSYE deployer."
+        },
+        "2Zi1apkS": {
+          "address": "2Zi1apkSiDqArmrAwJdHwkVUn2BiqyiVV1ffG1tT3wSz",
+          "label": "2Zi* Signal Wallet C (pre-L11)",
+          "role": "insider",
+          "verdict": "network",
+          "notes": "Dust 0.000010033 SOL → DmA9Jab at 2026-04-22T13:00:15Z, 13s after 2Ziz3B9r ping. Part of the same pre-L11 signal cluster, delivered via aggregate dust-spray tx fee-paid by QVtWcAX3R7Cr51VhAxFSYntoCAmTQzK8Hf4R1TrKNQ4 (sig 3XCcCSPDgWz4zR9MMSgUzaXgHn3RRHXqk7JCcvuocgftFsSxXZeLWXrAeQd8YmgJeoiroT5KXkVU2owqnvvWoLLj). 2Zi prefix shared with cluster."
+        }
       },
       "volume": {
         "L9": 11070,
-        "L10": "UNVERIFIED — not found in dex-trades. Prior claim of $11,815 has no raw data source."
+        "L9_snipe_verified": "CUPID block-0 via Bloom Bot — 83,965,122 tokens, 5.925925925 SOL to curve + 0.10 SOL priority + 0.133 SOL tips = ~6.17 SOL total. Sig 4pNoEQaSDxLWZRtWYkWVqiUzsHKB8Ka9vshgNSScE9Gp6CwicuerfQekGQaXVd45XzFDEZKAfAJ16hjRRYSrA1UG at 2026-02-13T21:46:20Z.",
+        "L10_snipe_verified": "XAIC block-0 via Bloom Bot — 66,035,498.225478 tokens, 4.18765432 SOL to curve + 0.08 SOL priority + 0.104 SOL tips = 4.37447408 SOL total outflow. Sig 5XB4ui8aM37FmmdJJQpaKtNFtKkMPBa9A5DGJ5BxnkakiDAppJzvFcXJMDne7XijAPVW2eaFTwaiL25zpKkkqBW3 at 2026-03-15T21:40:45Z (T+1s after L10 create). Exit via PumpSwap AMM at 2026-03-15T23:07:47Z for 41.575282972 SOL net, sig BJDRmbZdMkijSPLeu1y99cFKVkEeqV7stuZtauSWygxkdVXGmtAK1DGgKoVYCFDFCCHqVKvmnLerYYwHXp8BXc6. ~37 SOL net profit (~$3.5K at historical $93/SOL). Prior 'UNVERIFIED' cleared 2026-04-22 — DmA9Jab was NOT visible in first 405 dex-trades because its snipe was at T+1s i.e. index 0 or 1, routed via Bloom Bot program obscuring trader-address filtering.",
+        "L11_prearm_signal": "2026-04-22T12:59:11Z: SUSYE deployer 2Zizao3x → DmA9Jab 1.972 SOL. First internal-network funding (prior all CoinSpot). 3 days before predicted L11 (2026-04-25). Dust-signal bracketing from 2Zi* vanity cluster immediately after. Behavioral fingerprint matches L9 pre-snipe funding timing (SUSYE deployer → trading wallet)."
       }
     },
     "blofin_insider": {
@@ -650,10 +697,10 @@
     "intermediaries": {
       "FiggKseF": {
         "address": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
-        "label": "MoonPay MP2 Intermediary",
-        "role": "intermediary",
+        "label": "Sniper-cluster treasury + active trader (MP2-seeded)",
+        "role": "treasury_hub",
         "verdict": "network",
-        "notes": "Funded by MoonPay Hot Wallet 2 (5F1seMKU). Feeds 6zZAKeF5, fUtfBAoj, and 73Y9DZAx chain (→ Gad9RgHw → Dj9WL4Nh). isUserAddress=false. Critical hub in MP2 funding chain."
+        "notes": "UPDATED 2026-04-22 via L10 6zZAKeF5 deep-dive. FiggKseF is NOT a passive intermediary — it is the treasury AND active trading wallet for a multi-sniper cluster. Seeded 2025-07-08 with 1.321 SOL from MP2 (sig NLkdmST51Yw8omYDpwSsSAQjwHikCgjcCpfN5SEPwucjxAMgVa5VpWA4yroYTbDkAgB1GvDVVLH3WUCNJ4FyXGh, CU=496 not 14548 — fingerprint predates our MP fingerprint calibration window). Current balance 16.62 SOL + 110.26 mɔ token. Operates 9+ months on self-sustaining snipe-profit cycle (no recent MP2 top-ups in last month's 93 transfers). CONFIRMED DOWNSTREAM SNIPERS: (1) 6zZAKeF5 (Sniper #1, activated 2026-02-18 via dust, L10 XAIC snipe verified), (2) 7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7 (Sniper #2, activated 2025-07-19 via dust — 11 days after Figg seeded, 7 months before 6zZ; balance currently 0 SOL). Additional outflow targets: 2NSGR9SMDei1BHS9XmgygbNcGfrfdfHe4QUAgtaeWyev (0.61 SOL cycle, possible Sniper #3), HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG (4.56 SOL out on L10 day, possible sniper or payout), 2eVVdqWN4t7umzXGxJ21uTpB5WrUyyQMYnkq6UHtg3ba (0.123 + 0.618 SOL — small cycle). CONTRADICTION WITH PRIOR CLASSIFICATION: Figg was marked isUserAddress=false but it actively signs trade tx (bought+sold CGEDT9QZ...pump on Apr 11-13 for net ~1 SOL profit, sold 4DPhcyAf...pump on Mar 11 for 0.62 SOL). Re-verify isUserAddress. Also feeds 73Y9DZAx → Gad9RgHw → Dj9WL4Nh chain (MP2 downstream, RXRP repump layer). HIGHEST L11-PREDICTIVE-VALUE WALLET IN NETWORK: any Figg → fresh wallet SOL transfer in 4-15 SOL range is a direct L11 sniper pre-signal."
       },
       "C5ivCCvG": {
         "address": "C5ivCCvG4erHaxE4ijXm1CtdZEccE5PRD7Ak7EJSn8kD",
@@ -792,10 +839,10 @@
       },
       "6zZAKeF5": {
         "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
-        "label": "RXRP Buyer — MoonPay MP2 cluster + OG fee payer",
-        "role": "network_connected",
+        "label": "FiggKseF Sniper #1 — L10 XAIC block-0 BloomBot snipe (verified)",
+        "role": "sniper",
         "verdict": "network",
-        "notes": "Buys #17,20. Funded by FiggKseF (MoonPay MP2 chain). 10.08 SOL active. Previously seen as fee payer on OG Deployer WSOL ATA trades. isUserAddress=false. RECLASSIFIED from incidental to network."
+        "notes": "FULL INVESTIGATION 2026-04-22. Activated 2026-02-18T14:16:38Z via 5-lamport dust from FiggKseF. Real SOL funding came later through repeated fund/drain cycles with Figg (Figg → 6zZ: 3.2, 10, 6, 4, 10.06 SOL; 6zZ → Figg profit returns: 40.81, 19.15, 1.5, 6, 10.06 SOL — bidirectional treasury pattern). Current balance: 0.013 SOL (essentially drained; 10.08 SOL record in prior snapshot is stale). Previously labeled RXRP buyer #17,#20 — role re-scoped: it is an ACTIVE SNIPER, not a passive buyer. L10 XAIC snipe VERIFIED: tx cK1gTcho2hP4fUad3xCEUNqT7cCbYeT1EdmUUJyJC9yuGnyKHNDwMJw3D5bt2HcSJvtCa9ua1yk7XvKVK5AzK9t at 2026-03-15T21:40:45Z, fee 0.50 SOL priority, bought 117,450,117.443767 XAIC for 9.876543209 SOL via BloomBot router b1oomGGqPKGD6errbyfbVMBuzSC8WtAAYo8MwNafWW1 wrapping pump.fun 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P. CU limit 131938, CU price 3,789,620,882 µlamports. 5min13s later sold full bag for 42.22 WSOL via FlashTrade+PumpSwap+Axiom (sell tx 63jvNYFTaLe4FBGzFjAwcQP3vTa8g2KxizqRroPKw4gnZGm8sK9u3CpFJ3yk82B39S8p1rcQ9WUTGaWJhpqatV2S) — ~31 SOL net profit; drained 40.81 SOL back to Figg (tx tzzSANuAc9JFjCaBkU5yfyD8KMQ7XfTX3QWGGcdd9q5J489WTgdk5RBjTAiNsa52hcXuHSKnh2eKjC6DP3YB2jT). Cross-ref with launch-history.json: ONLY L10 of our deployer's 10 launches sniped — L1-L9 predate activation. Also sniped many non-deployer pump.fun tokens at 0.50 SOL priority (HkY2n1zF...pump 2026-03-12, DEPTJe2R... 2026-03-07, AEC9hbJk... 2026-03-05). Ignore `Fig*`, `6zZ*`, `7ci*`, `odin*`, `2NS*` dust senders on its transfer list — those are address-poisoning spoofs of cluster members, not network. isUserAddress=false confirmed (bot-signed tx are still bot tx)."
       },
       "AZ57WTNM": {
         "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
@@ -1114,6 +1161,53 @@
       "role": "resolved",
       "verdict": "not_network",
       "notes": "Screened 2026-04-02. isUserAddress=false (bot). Funded by 7ph615bZ. 0.000 SOL balance. No network counterparty overlaps."
+    },
+    "7ciGXut2_sniper2": {
+      "address": "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+      "label": "FiggKseF Sniper #2 (dormant/unverified trades)",
+      "role": "sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22 during 6zZAKeF5 deep-dive. Funded 2025-07-19T12:07:20Z by FiggKseF (dust activation — 11 days after Figg itself was seeded by MP2). Current balance: 0 SOL. Bidirectional SOL flow with Figg matches the same treasury pattern as 6zZ: Figg → 7ciG (4.2, 6, 6, 9.1 SOL loads across late Mar – Apr 2026); 7ciG → Figg (3.33, 3.92, 0.017 SOL returns — plus the 0.614 SOL recycle via 2NSGR9SM relay). 7 months older than 6zZAKeF5; likely longer snipe history. OPEN ITEMS: confirm BloomBot/pump.fun snipe tx, cross-ref trades against L1-L9 CAs, enumerate profit route over full history. High priority for L11 monitoring — outflow from Figg to this wallet = active sniper re-loading."
+    },
+    "2NSGR9SM_candidate": {
+      "address": "2NSGR9SMDei1BHS9XmgygbNcGfrfdfHe4QUAgtaeWyev",
+      "label": "FiggKseF cluster — possible Sniper #3 or relay",
+      "role": "candidate_sniper",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22 during Figg fan-out. Small bidirectional cycle with Figg: Figg → 2NSGR9SM 0.61471 SOL (2026-04-09), 2NSGR9SM → Figg 0.614705 SOL (2026-04-08) — essentially round-trip. Tiny size suggests relay/test wallet or very small sniper. OPEN ITEMS: getBalance, tx history, funded-by, Nansen profile, launch cross-ref."
+    },
+    "HYMtCcfQ_candidate": {
+      "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+      "label": "FiggKseF cluster — one-off L10-day recipient",
+      "role": "candidate",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. Received 4.557478555 SOL from Figg on 2026-03-15T22:38:28Z — 58 minutes after 6zZ's L10 snipe, 30 minutes after 6zZ's 40.8 SOL profit drain to Figg. Timing suggests Figg re-distributing snipe profits to a downstream wallet. Current balance: 0.0356 SOL (mostly drained). OPEN ITEMS: identify role (sniper for next launch? payout to coordinator? unrelated trader?), check funded-by chain, enumerate outflow."
+    },
+    "2eVVdqWN_candidate": {
+      "address": "2eVVdqWN4t7umzXGxJ21uTpB5WrUyyQMYnkq6UHtg3ba",
+      "label": "FiggKseF cluster — small recurring counterparty",
+      "role": "candidate",
+      "verdict": "network",
+      "notes": "DISCOVERED 2026-04-22. Two small Figg outflows: 0.618 SOL on 2026-03-11, 0.123445 SOL on 2026-04-04. Possibly a small sniper, a utility wallet, or fee recipient. Low immediate priority. OPEN ITEM: investigate role."
+    },
+    "59KMRTZa_candidate": {
+      "address": "59KMRTZavCsFo5vbZSHWS1HeuLLXx9g3aUAdp8eyLEXv",
+      "label": "Sent 110.26 mɔ token to Figg (Apr 13)",
+      "role": "candidate",
+      "verdict": "unknown",
+      "notes": "DISCOVERED 2026-04-22. On 2026-04-13T17:09:40Z sent 110.258868 of token 2f85jQ3ZA5L4c9YFxfYBXYkmCBmfnwnBVznETJuCcxYG to Figg (sig 3xy41z2ZuX28KkdRm3v6VEhfkdhd1ckXpnPPAvjzVHVKS9c4CjVJedVi2yvXf51QmSMzhNhdmYVv6VyTvYguZQko). Figg now holds this as 'mɔ' token. OPEN ITEM: identify token + sender — may be a launchpad airdrop, a settlement payment, or a sniper-cluster asset transfer."
+    }
+  },
+  "known_programs": {
+    "BloomBot_router": {
+      "program_id": "b1oomGGqPKGD6errbyfbVMBuzSC8WtAAYo8MwNafWW1",
+      "label": "BloomBot Solana router",
+      "notes": "CONFIRMED 2026-04-22 via raw-instruction parse of 6zZAKeF5's L10 XAIC snipe (tx cK1gTcho2hP4fUad3xCEUNqT7cCbYeT1EdmUUJyJC9yuGnyKHNDwMJw3D5bt2HcSJvtCa9ua1yk7XvKVK5AzK9t). Wraps pump.fun program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P for block-0 snipes. Fee recipient observed: 7HeD6sLLqAnKVRuSfc1Ko3BSPMNKWgGTiWLKXJF31vKM (0.10 SOL for 9.876 SOL buy = ~1% fee). Use this program ID to enumerate BloomBot usage on any wallet."
+    },
+    "Axiom_sell_router": {
+      "program_id": "FLASHX8DrLbgeR8FcfNV1F5krxYcYMUdBkrP1EPBtxB9",
+      "label": "Axiom.trade FlashX sell router (wraps PumpSwap AMM)",
+      "notes": "OBSERVED 2026-04-22 on 6zZAKeF5's L10 XAIC sell (tx 63jvNYFTaLe4FBGzFjAwcQP3vTa8g2KxizqRroPKw4gnZGm8sK9u3CpFJ3yk82B39S8p1rcQ9WUTGaWJhpqatV2S). Sentinel pubkey 'jitodontfront71111111TradeWithAxiomDotTrade' appears as instruction[0] account — Axiom.trade branding. Wraps PumpSwap AMM pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA. The cluster uses BloomBot for buys and Axiom for sells."
     }
   }
 }
