@@ -314,7 +314,7 @@ async function main() {
         wallets: [],
       });
     }
-    clusters.get(funder)!.wallets.push(r.address.slice(0, 8));
+    clusters.get(funder)!.wallets.push(r.address);
   }
   for (const [funder, info] of clusters) {
     if (info.wallets.length > 1) {

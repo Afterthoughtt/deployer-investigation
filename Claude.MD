@@ -22,6 +22,7 @@ The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spe
 - **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Tool access and docs are provided via the Helius MCP, skills, and agents — use those rather than a local docs file.
 - **Nansen**: Entity labeling, counterparties, transactions. POST to `https://api.nansen.ai/api/v1`. Auth: `apiKey` header. Docs: `docs/nansen_docs.md` (read on demand)
 - **Arkham**: Address intel, transfer scanning, entity search, clusters. GET/POST from `https://api.arkm.com`. Auth: `API-Key` header (env var `ARKAN_API_KEY`). **Trial extended 2026-04-21 with unlimited credits. Datapoints cap verified 2026-04-21 P0: `X-Intel-Datapoints-Limit: 10000` per period, separate from credits — monitor `X-Intel-Datapoints-Remaining` before batch calls (a full 147-wallet enriched batch could consume meaningful share).** Full API: `docs/arkham_docs.md` (read on demand — complete API, not a summary reference)
+  - **Current Arkham posture (2026-04-23): treat intel datapoints as red-zone. User-reported remaining label/intel lookups are below 2000. Do not run broad or batch Arkham intelligence by default.** Credits may be unlimited, but datapoints are not.
 
 Cross-reference entity labels between the available APIs. They have different coverage gaps — current Arkham gaps observed 2026-04-21 P0.5: Hub Wallet (`v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5`) and CSEncqtq (`CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs`) returned null entity/label on Arkham while our notes (from prior Nansen work) say Fireblocks Custody and CoinSpot respectively. MoonPay-on-Solana attribution gap that existed pre-trial-expiry has closed — Arkham now labels MP1, MP2, MP4 correctly as MoonPay entity.
 
@@ -31,6 +32,9 @@ Single root `.env` (never commit; see `.env.example`):
 - `HELIUS_API_KEY` — Helius RPC + Wallet API (audit + monitor)
 - `NANSEN_API_KEY` — Nansen API (audit only)
 - `ARKAN_API_KEY` — Arkham API (audit only; note: ARKAN, not ARKHAM)
+- `ARKHAM_DATAPOINT_RESERVE` — audit guardrail, optional, default `2000`; blocks Arkham intel once observed remaining datapoints would fall below reserve.
+- `ARKHAM_LABEL_LOOKUP_RUN_BUDGET` — audit guardrail, optional, default `25`; max estimated Arkham label/intel lookups per process. Set to `0` to block all Arkham intel calls.
+- `ARKHAM_ALLOW_BATCH_INTEL` — audit guardrail, optional, default unset/false; set to `1` only for an explicitly approved bounded batch.
 - `TELEGRAM_BOT_TOKEN` — Monitor Telegram bot (required at monitor startup)
 - `TELEGRAM_CHAT_ID` — Monitor destination chat, integer; negative for supergroups (required)
 - `DB_PATH` — Monitor SQLite path, optional, default `./data/l11.db` (relative to `monitor/`)
@@ -40,6 +44,23 @@ Monitor loads the root `.env` via `import.meta.url`-resolved path; in production
 
 Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.json` (canonical wallet registry), then `data/launch-history.json` (behavioral profile). Consult `data/results/investigation-notes.json` only for profit extraction route details.
 
+## Wallet Investigation Framework
+
+- `data/network-map.json` is the single source of truth for known wallets, roles, verdicts, token accounts, program accounts, and notes. Keep the framework modular around this file rather than introducing a second canonical registry.
+- Treat derived artifacts as evidence outputs, not canonical truth. They may support a proposed network-map update, but they should not silently replace or mutate the registry.
+- Partial API coverage must never produce a final `not_network` verdict. If a provider page limit, datapoint cap, 422, timeout, or bounded transfer sample affects coverage, the wallet needs further review.
+- `src/audit/deep-dive.ts` records `evidence_limits`, `network_overlap_details`, and `review_notes`. Read those fields before acting on a verdict.
+- Network overlap only counts usable wallet evidence. Token accounts, program accounts, resolved/non-network entries, and unverified aggregate counterparties are not wallet overlap by themselves.
+- Plan remaining investigations in wallet-space: upstream terminus, downstream SOL terminus, downstream SPL terminus, sibling enumeration, and final review state. API names are implementation details.
+- If API budget or guardrails stop an investigation, surface the exact wallet-space question still open. Do not silently narrow the scope or convert "not enough coverage" into "not connected."
+
+## Helius MCP Operating Policy
+
+- Standalone Helius MCP is allowed for bounded read-only wallet investigation and Helius documentation checks.
+- Allowed uses: inspect specific wallets, parse specific transactions, verify token-account ownership, check balances/assets, and validate Helius API/WebSocket behavior.
+- Do not use transaction sending, keygen/signup/onboarding, webhook mutation, API-key-setting, or any signing-capable tool unless the user explicitly approves a separate bounded task.
+- Live Helius work must name the wallet list, investigation question, and rough call budget before execution.
+
 ## Code Conventions
 
 - Distill findings into `data/network-map.json` (wallet registry) after each investigation. Only add to `investigation-notes.json` if the finding doesn't fit in network-map (e.g., profit route analysis)
@@ -47,7 +68,9 @@ Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.
 - Helius Wallet API / Enhanced APIs: 10 req/sec, add 100ms delays for bulk calls
 - Nansen API: 1.5-2s delays between calls. Max 3-4 day date range on `/profiler/address/transactions`. Labels endpoint costs 500 credits — use only when critical.
 - Arkham API: 20 req/sec standard, 1 req/sec on transfers endpoint. `/counterparties/entity` DOES work on Solana (verified 2026-04-21 P1-prime, returns `flow=in/out` aggregated counterparties — MoonPay entity returned 9 Solana upstream liquidity sources). `/counterparties/address` still unverified for Solana on the current trial. Default limit on `/transfers` is 100 even when `limit=100` is set; use multiple sort orders (time DESC, time ASC, usd DESC) to widen coverage when the `body.count` exceeds returned rows. Arkham clustering is not populated on Solana.
+- Arkham intel guardrails live in `src/audit/utils.ts`. Single-address intelligence calls are budgeted, batch intelligence is blocked unless `ARKHAM_ALLOW_BATCH_INTEL=1`, and observed datapoint headers are used to preserve the reserve. For maximum safety before deploy, run with `ARKHAM_LABEL_LOOKUP_RUN_BUDGET=0`.
 - Never use public Solana RPC (`api.mainnet-beta.solana.com`). Use Helius.
+- Useful offline checks: `npm run audit:check`, `npm run monitor:build`, and `npm run monitor:test`.
 
 ## Rules
 

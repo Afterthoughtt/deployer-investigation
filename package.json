@@ -4,9 +4,11 @@
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
+    "audit:check": "tsc -p tsconfig.json --noEmit",
     "monitor:dev": "tsx monitor/src/index.ts",
     "monitor:build": "tsc -p monitor",
-    "monitor:start": "node monitor/dist/index.js"
+    "monitor:start": "node monitor/dist/index.js",
+    "monitor:test": "tsx monitor/test/replay-l10.ts && tsx monitor/test/replay-l10-dedup.ts && tsx monitor/test/commands.ts && tsx monitor/test/candidate-actions.ts && tsx monitor/test/health.ts && tsx monitor/test/selfcheck-synthetic.ts"
   },
   "dependencies": {
     "@grammyjs/auto-retry": "2.0.2",

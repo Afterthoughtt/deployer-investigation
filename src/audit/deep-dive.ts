@@ -50,6 +50,9 @@ interface DeepDiveResult {
   nansen_counterparties: unknown[] | { error: string };
   arkham_transfers: unknown[];
   network_overlaps: string[];
+  network_overlap_details: NetworkOverlapDetail[];
+  evidence_limits: string[];
+  review_notes: string[];
   verdict_recommendation: 'network' | 'not_network' | 'needs_further';
 }
 
@@ -62,34 +65,115 @@ interface DeepDiveOutput {
 // ---------------------------------------------------------------------------
 // Collect ALL addresses from network-map.json (for cross-referencing)
 // ---------------------------------------------------------------------------
-function collectNetworkAddresses(): Set<string> {
+interface NetworkMapEntry {
+  address: string;
+  section: string;
+  key: string;
+  label: string | null;
+  role: string | null;
+  verdict: string | null;
+}
+
+interface NetworkOverlapDetail extends NetworkMapEntry {
+  source: 'nansen_counterparty';
+  usable_for_verdict: boolean;
+  reason: string;
+}
+
+function loadNetworkIndex(): Map<string, NetworkMapEntry[]> {
   const root = process.cwd();
   const networkMap = JSON.parse(
     readFileSync(join(root, 'data/network-map.json'), 'utf8'),
   ) as Record<string, unknown>;
 
-  const addresses = new Set<string>();
+  const entries = new Map<string, NetworkMapEntry[]>();
 
-  function walk(obj: unknown): void {
+  function add(entry: NetworkMapEntry): void {
+    const list = entries.get(entry.address) ?? [];
+    list.push(entry);
+    entries.set(entry.address, list);
+  }
+
+  const primitiveLike = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+  const roleFromPath = (path: string[]): string | null => {
+    if (path.includes('token_accounts')) return 'token_account';
+    if (path[path.length - 1] === 'program_id') return 'program';
+    return null;
+  };
+
+  function walk(obj: unknown, path: string[]): void {
     if (obj === null || obj === undefined) return;
-    if (typeof obj === 'string') return;
+    if (typeof obj === 'string') {
+      if (primitiveLike.test(obj)) {
+        add({
+          address: obj,
+          section: path[0] ?? 'unknown',
+          key: path.slice(1).join('.') || path[path.length - 1] || obj,
+          label: null,
+          role: roleFromPath(path),
+          verdict: null,
+        });
+      }
+      return;
+    }
     if (Array.isArray(obj)) {
-      for (const item of obj) walk(item);
+      for (const item of obj) walk(item, path);
       return;
     }
     if (typeof obj === 'object') {
       const record = obj as Record<string, unknown>;
       if (typeof record.address === 'string') {
-        addresses.add(record.address);
+        add({
+          address: record.address,
+          section: path[0] ?? 'unknown',
+          key: path[path.length - 1] ?? record.address,
+          label: typeof record.label === 'string' ? record.label : null,
+          role: typeof record.role === 'string' ? record.role : null,
+          verdict: typeof record.verdict === 'string' ? record.verdict : null,
+        });
       }
-      for (const val of Object.values(record)) {
-        walk(val);
+      for (const [key, val] of Object.entries(record)) {
+        if (key === 'address') continue;
+        walk(val, [...path, key]);
       }
     }
   }
 
-  walk(networkMap);
-  return addresses;
+  for (const [section, val] of Object.entries(networkMap)) {
+    if (section === 'metadata') continue;
+    walk(val, [section]);
+  }
+  return entries;
+}
+
+function collectNetworkAddresses(index: Map<string, NetworkMapEntry[]>): Set<string> {
+  return new Set(index.keys());
+}
+
+function isUsableWalletOverlap(entry: NetworkMapEntry): boolean {
+  if (entry.section === 'not_network') return false;
+  if (entry.verdict === 'not_network') return false;
+  if (entry.role === 'token_account') return false;
+  if (entry.role === 'program') return false;
+  if (entry.role === 'resolved') return false;
+  return true;
+}
+
+function overlapDetailsFor(
+  address: string,
+  index: Map<string, NetworkMapEntry[]>,
+): NetworkOverlapDetail[] {
+  return (index.get(address) ?? []).map((entry) => {
+    const usable = isUsableWalletOverlap(entry);
+    return {
+      ...entry,
+      source: 'nansen_counterparty',
+      usable_for_verdict: usable,
+      reason: usable
+        ? 'network-map wallet-like entry; still requires tx-level signer verification before promotion'
+        : 'not usable for wallet verdict without separate signer/user-wallet proof',
+    };
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -223,12 +307,15 @@ function selectTargets(
 // Determine verdict based on network overlaps and funding
 // ---------------------------------------------------------------------------
 function determineVerdict(
-  networkOverlaps: string[],
+  networkOverlapDetails: NetworkOverlapDetail[],
   target: { address: string; source: string },
   batchTargets: BatchScreenTarget[],
   networkAddresses: Set<string>,
+  evidenceLimits: string[],
 ): 'network' | 'not_network' | 'needs_further' {
-  const overlapCount = networkOverlaps.length;
+  const usableOverlapCount = networkOverlapDetails.filter((o) => o.usable_for_verdict).length;
+  const hasOnlyUnusableOverlaps =
+    networkOverlapDetails.length > 0 && usableOverlapCount === 0;
 
   // Find the batch screen entry for this address to check funding
   const batchEntry = batchTargets.find((t) => t.address === target.address);
@@ -236,13 +323,19 @@ function determineVerdict(
     batchEntry?.funded_by?.funder !== undefined &&
     networkAddresses.has(batchEntry.funded_by.funder);
 
-  if (overlapCount >= 3) {
+  if (hasOnlyUnusableOverlaps) {
+    return 'needs_further';
+  }
+  if (usableOverlapCount >= 3) {
     return 'network';
   }
-  if (overlapCount >= 1 && overlapCount <= 2 && isFundedByNetwork) {
+  if (usableOverlapCount >= 1 && usableOverlapCount <= 2 && isFundedByNetwork) {
     return 'network';
   }
-  if (overlapCount >= 1 && overlapCount <= 2 && !isFundedByNetwork) {
+  if (usableOverlapCount >= 1 && usableOverlapCount <= 2 && !isFundedByNetwork) {
+    return 'needs_further';
+  }
+  if (evidenceLimits.length > 0) {
     return 'needs_further';
   }
   return 'not_network';
@@ -253,7 +346,8 @@ function determineVerdict(
 // ---------------------------------------------------------------------------
 async function main() {
   const root = process.cwd();
-  const networkAddresses = collectNetworkAddresses();
+  const networkIndex = loadNetworkIndex();
+  const networkAddresses = collectNetworkAddresses(networkIndex);
   console.log(`[init] ${networkAddresses.size} addresses in network-map.json\n`);
 
   console.log('=== Selecting targets for deep dive ===');
@@ -278,6 +372,9 @@ async function main() {
     console.log(`[${i + 1}/${targets.length}] Investigating ${target.address.slice(0, 8)}... (${target.source})`);
     console.log('='.repeat(60));
 
+    const evidenceLimits: string[] = [];
+    const reviewNotes: string[] = [];
+
     // -------------------------------------------------------------------
     // 1. Nansen counterparties
     // -------------------------------------------------------------------
@@ -297,11 +394,21 @@ async function main() {
       if (nansenRes.error === 'unprocessable' || nansenRes.status === 422) {
         console.log('  [nansen] 422 — too much activity, skipping');
         nansenCounterparties = { error: '422' };
+        evidenceLimits.push('nansen_counterparties_422_unprocessable');
       } else {
         // Nansen returns { data: [...] } or just array
         const data = (nansenRes.data ?? nansenRes) as unknown[];
         nansenCounterparties = Array.isArray(data) ? data : [];
         console.log(`  [nansen] ${nansenCounterparties.length} counterparties returned`);
+
+        const pagination = (nansenRes.pagination ?? {}) as Record<string, unknown>;
+        const isLastPage = nansenRes.is_last_page ?? pagination.is_last_page;
+        if (isLastPage === false) {
+          evidenceLimits.push('nansen_counterparties_page_1_only');
+        }
+        if (nansenCounterparties.length === 20 && isLastPage !== true) {
+          evidenceLimits.push('nansen_counterparties_hit_page_limit_20');
+        }
 
         // Print top 5
         const top5 = (nansenCounterparties as Array<Record<string, unknown>>).slice(0, 5);
@@ -318,6 +425,7 @@ async function main() {
     } catch (err) {
       console.error(`  [nansen] ERROR: ${(err as Error).message}`);
       nansenCounterparties = { error: (err as Error).message };
+      evidenceLimits.push('nansen_counterparties_error');
     }
 
     // -------------------------------------------------------------------
@@ -342,6 +450,12 @@ async function main() {
       const transfers = (arkhamRes.transfers ?? arkhamRes.data ?? arkhamRes) as unknown[];
       arkhamTransfers = Array.isArray(transfers) ? transfers : [];
       console.log(`  [arkham] ${arkhamTransfers.length} transfers returned`);
+      const arkhamCount = typeof arkhamRes.count === 'number' ? arkhamRes.count : null;
+      if (arkhamCount !== null && arkhamCount > arkhamTransfers.length) {
+        evidenceLimits.push(`arkham_transfers_partial_${arkhamTransfers.length}_of_${arkhamCount}`);
+      } else if (arkhamTransfers.length === 50) {
+        evidenceLimits.push('arkham_transfers_hit_limit_50');
+      }
 
       // Print summary of recent transfers
       const recent = (arkhamTransfers as Array<Record<string, unknown>>).slice(0, 5);
@@ -351,40 +465,52 @@ async function main() {
         const val = (tx.unitValue as number) ?? (tx.historicalUSD as number) ?? 0;
         const token = ((tx.token as Record<string, unknown>)?.symbol as string) ?? (tx.tokenSymbol as string) ?? 'SOL';
         const time = (tx.blockTimestamp as string) ?? (tx.timestamp as string) ?? '';
-        const direction = from.startsWith(target.address.slice(0, 8)) ? 'OUT' : 'IN';
+        const direction = from === target.address ? 'OUT' : 'IN';
         console.log(
           `    ${direction} ${val.toFixed(2)} ${token} ${direction === 'OUT' ? `-> ${to.slice(0, 8)}...` : `<- ${from.slice(0, 8)}...`} ${time}`,
         );
       }
     } catch (err) {
       console.error(`  [arkham] ERROR: ${(err as Error).message}`);
+      evidenceLimits.push('arkham_transfers_error');
     }
 
     // -------------------------------------------------------------------
     // 3. Cross-reference counterparties against network-map
     // -------------------------------------------------------------------
     const networkOverlaps: string[] = [];
+    const networkOverlapDetails: NetworkOverlapDetail[] = [];
     if (Array.isArray(nansenCounterparties)) {
       for (const cp of nansenCounterparties as Array<Record<string, unknown>>) {
         const cpAddr = cp.counterparty_address as string;
         if (cpAddr && networkAddresses.has(cpAddr)) {
           networkOverlaps.push(cpAddr);
+          networkOverlapDetails.push(...overlapDetailsFor(cpAddr, networkIndex));
         }
       }
     }
     console.log(`  [cross-ref] ${networkOverlaps.length} counterparties found in network-map`);
-    for (const overlap of networkOverlaps) {
-      console.log(`    -> ${overlap.slice(0, 8)}...`);
+    for (const overlap of networkOverlapDetails) {
+      console.log(
+        `    -> ${overlap.address.slice(0, 8)}... ${overlap.section}.${overlap.key} role=${overlap.role ?? '?'} usable=${overlap.usable_for_verdict}`,
+      );
+      if (!overlap.usable_for_verdict) {
+        reviewNotes.push(`Counterparty ${overlap.address} is ${overlap.section}.${overlap.key}; do not treat as wallet evidence without signer/user-address verification.`);
+      }
+    }
+    if (evidenceLimits.length > 0) {
+      console.log(`  [limits] ${evidenceLimits.join(', ')}`);
     }
 
     // -------------------------------------------------------------------
     // 4. Verdict
     // -------------------------------------------------------------------
     const verdict = determineVerdict(
-      networkOverlaps,
+      networkOverlapDetails,
       target,
       batchFile.targets,
       networkAddresses,
+      evidenceLimits,
     );
     console.log(`  [verdict] ${verdict}`);
 
@@ -394,6 +520,9 @@ async function main() {
       nansen_counterparties: nansenCounterparties,
       arkham_transfers: arkhamTransfers,
       network_overlaps: networkOverlaps,
+      network_overlap_details: networkOverlapDetails,
+      evidence_limits: evidenceLimits,
+      review_notes: reviewNotes,
       verdict_recommendation: verdict,
     });
   }
@@ -423,11 +552,12 @@ async function main() {
       r.network_overlaps.length > 0
         ? `overlaps=[${r.network_overlaps.map((a) => a.slice(0, 8) + '...').join(', ')}]`
         : 'no overlaps';
+    const limitStr = r.evidence_limits.length > 0 ? `, limits=${r.evidence_limits.length}` : '';
     const cpCount = Array.isArray(r.nansen_counterparties)
       ? `${r.nansen_counterparties.length} CPs`
       : 'nansen error';
     console.log(
-      `  ${r.address.slice(0, 8)}... [${r.source}] -> ${r.verdict_recommendation} (${cpCount}, ${overlapStr})`,
+      `  ${r.address.slice(0, 8)}... [${r.source}] -> ${r.verdict_recommendation} (${cpCount}, ${overlapStr}${limitStr})`,
     );
   }
 

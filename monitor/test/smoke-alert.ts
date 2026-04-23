@@ -19,6 +19,8 @@ import {
   makePersistCandidate,
   makeWhitelistCandidate,
   makeRejectCandidate,
+  makeUnwhitelistCandidate,
+  makeUnrejectCandidate,
   makeListActiveCandidates,
   makeActiveCandidateCount,
 } from "../src/db.js";
@@ -35,6 +37,8 @@ const db = openDb(dbPath);
 const persist = makePersistCandidate(db);
 const whitelist = makeWhitelistCandidate(db);
 const reject = makeRejectCandidate(db);
+const unwhitelist = makeUnwhitelistCandidate(db);
+const unreject = makeUnrejectCandidate(db);
 const listActiveCandidates = makeListActiveCandidates(db);
 const activeCandidateCount = makeActiveCandidateCount(db);
 const startedAt = Date.now();
@@ -94,6 +98,14 @@ const bot = createTelegramBot({
     console.log(`smoke: onReject id=${id}`);
     return reject(id);
   },
+  onUnwhitelist: (id) => {
+    console.log(`smoke: onUnwhitelist id=${id}`);
+    return unwhitelist(id);
+  },
+  onUnreject: (id) => {
+    console.log(`smoke: onUnreject id=${id}`);
+    return unreject(id);
+  },
   listActiveCandidates,
   activeCandidateCount,
   getStatus: () => ({
@@ -102,6 +114,14 @@ const bot = createTelegramBot({
     subscribeCount: 0,
     lastEventByCategory: { onramp: null, hub: null, intermediary: null },
   }),
+  runHealthChecks: async () => [
+    {
+      name: "Smoke stub",
+      passed: true,
+      detail: "interactive smoke test does not run live /health probes",
+      durationMs: 0,
+    },
+  ],
 });
 
 await bot.start();
