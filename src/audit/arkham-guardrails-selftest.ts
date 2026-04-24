@@ -25,7 +25,7 @@ function expectThrow(name: string, fn: () => void, includes: string): void {
 
 const cfg = makeArkhamGuardrailConfig({
   ARKHAM_DATAPOINT_RESERVE: '2000',
-  ARKHAM_LABEL_LOOKUP_RUN_BUDGET: '2',
+  ARKHAM_LABEL_LOOKUP_RUN_BUDGET: '60',
   ARKHAM_ROW_LIMIT_MAX: '25',
   ARKHAM_ROW_CREDIT_RUN_BUDGET: '60',
 });
@@ -139,6 +139,7 @@ expectThrow(
   const state = makeArkhamGuardrailState();
   assertArkhamSpendAllowed('GET', '/transfers', { params: goodTransferParams }, state, cfg);
   check('bounded transfer call reserves estimated row credits', state.rowCreditsPlanned === 50, String(state.rowCreditsPlanned));
+  check('bounded transfer call reserves estimated label burn (limit-as-worst-case)', state.labelLookupsPlanned === 25, String(state.labelLookupsPlanned));
   expectThrow(
     'row credit run budget blocks cumulative overspend',
     () =>
@@ -155,19 +156,25 @@ expectThrow(
 
 {
   const state = makeArkhamGuardrailState();
+  const intelCfg = makeArkhamGuardrailConfig({
+    ARKHAM_DATAPOINT_RESERVE: '2000',
+    ARKHAM_LABEL_LOOKUP_RUN_BUDGET: '2',
+    ARKHAM_ROW_LIMIT_MAX: '25',
+    ARKHAM_ROW_CREDIT_RUN_BUDGET: '60',
+  });
   assertArkhamSpendAllowed(
     'GET',
     '/intelligence/address/Wallet111111111111111111111111111111111111',
     {},
     state,
-    cfg,
+    intelCfg,
   );
   assertArkhamSpendAllowed(
     'GET',
     '/intelligence/address_enriched/Wallet222222222222222222222222222222222',
     {},
     state,
-    cfg,
+    intelCfg,
   );
   expectThrow(
     'label lookup run budget blocks third single-address lookup',
@@ -177,7 +184,7 @@ expectThrow(
         '/intelligence/address/Wallet333333333333333333333333333333333333',
         {},
         state,
-        cfg,
+        intelCfg,
       ),
     'planned label lookups 3 exceed run budget 2',
   );
@@ -223,25 +230,27 @@ expectThrow(
     batchCfg,
   );
   check(
-    'allowed enriched batch/all reserves fixed 1000 lookup cost',
-    state.labelLookupsPlanned === 1000,
+    'enriched batch/all reserves one label slot per submitted address',
+    state.labelLookupsPlanned === 2,
     String(state.labelLookupsPlanned),
   );
 }
 
 expectThrow(
-  'enabled batch intelligence still respects fixed endpoint cost',
-  () =>
+  'batch intelligence respects per-address label budget',
+  () => {
+    const addresses = Array.from({ length: 1000 }, (_, i) => `Addr${i}`);
     assertArkhamSpendAllowed(
       'POST',
       '/intelligence/address_enriched/batch/all',
-      { body: { addresses: ['A'] } },
+      { body: { addresses } },
       makeArkhamGuardrailState(),
       makeArkhamGuardrailConfig({
         ARKHAM_ALLOW_BATCH_INTEL: '1',
         ARKHAM_LABEL_LOOKUP_RUN_BUDGET: '999',
       }),
-    ),
+    );
+  },
   'planned label lookups 1000 exceed run budget 999',
 );
 

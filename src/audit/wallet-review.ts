@@ -6,7 +6,7 @@
  * calls still pass through utils.ts guardrails before any network request.
  */
 
-import { writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
 type Check =
@@ -25,6 +25,7 @@ const CHECKS = new Set<Check>([
 
 interface CliArgs {
   wallets: string[];
+  walletFile: string | null;
   question: string | null;
   checks: Check[];
   execute: boolean;
@@ -91,6 +92,7 @@ function loadAuditUtils(): Promise<AuditUtils> {
 function parseArgs(argv: string[]): CliArgs {
   const args: CliArgs = {
     wallets: [],
+    walletFile: null,
     question: null,
     checks: DEFAULT_CHECKS,
     execute: false,
@@ -115,6 +117,9 @@ function parseArgs(argv: string[]): CliArgs {
           .map((w) => w.trim())
           .filter(Boolean),
       );
+    } else if (arg === '--wallet-file') {
+      args.walletFile = requireValue(argv, ++i, arg);
+      args.wallets.push(...loadWalletsFromFile(args.walletFile));
     } else if (arg === '--question') {
       args.question = requireValue(argv, ++i, arg);
     } else if (arg === '--checks') {
@@ -142,6 +147,40 @@ function parseArgs(argv: string[]): CliArgs {
   args.wallets = Array.from(new Set(args.wallets));
   validateArgs(args);
   return args;
+}
+
+function loadWalletsFromFile(path: string): string[] {
+  const file = resolve(path);
+  const parsed = JSON.parse(readFileSync(file, 'utf8')) as unknown;
+  const wallets = extractWallets(parsed);
+  if (wallets.length === 0) {
+    throw new Error(
+      `${path}: no wallets found; expected an array, { "wallets": [...] }, or { "unique_wallets": [...] }`,
+    );
+  }
+  return wallets;
+}
+
+function extractWallets(parsed: unknown): string[] {
+  if (Array.isArray(parsed)) {
+    return parsed.flatMap((entry) => walletFromEntry(entry));
+  }
+  if (!parsed || typeof parsed !== 'object') return [];
+  const record = parsed as Record<string, unknown>;
+  if (Array.isArray(record.wallets)) {
+    return record.wallets.flatMap((entry) => walletFromEntry(entry));
+  }
+  if (Array.isArray(record.unique_wallets)) {
+    return record.unique_wallets.flatMap((entry) => walletFromEntry(entry));
+  }
+  return [];
+}
+
+function walletFromEntry(entry: unknown): string[] {
+  if (typeof entry === 'string') return [entry];
+  if (!entry || typeof entry !== 'object') return [];
+  const address = (entry as Record<string, unknown>).address;
+  return typeof address === 'string' ? [address] : [];
 }
 
 function requireValue(argv: string[], i: number, flag: string): string {
@@ -318,6 +357,7 @@ function errMessage(err: unknown): string {
 function printPlan(args: CliArgs, plan: BudgetPlan): void {
   console.log('Bounded wallet review');
   console.log(`  Wallets: ${plan.walletCount}`);
+  if (args.walletFile) console.log(`  Wallet file: ${args.walletFile}`);
   console.log(`  Checks: ${plan.checks.join(', ')}`);
   console.log(`  Question: ${args.question ?? '(dry-run only; not provided)'}`);
   console.log(`  Execute: ${args.execute ? 'yes' : 'no'}`);
@@ -349,6 +389,8 @@ function printUsage(): void {
 Options:
   --wallet <address>                 Add one wallet. May repeat.
   --wallets <a,b,c>                  Add comma-separated wallets.
+  --wallet-file <path>               Load wallets from JSON array, { "wallets": [...] },
+                                     or { "unique_wallets": [...] }. May repeat.
   --question <text>                  Required with --execute.
   --checks <list>                    Default: ${DEFAULT_CHECKS.join(',')}
                                      Valid: ${Array.from(CHECKS).join(',')}

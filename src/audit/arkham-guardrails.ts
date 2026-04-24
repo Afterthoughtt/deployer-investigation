@@ -25,12 +25,13 @@ const ROW_BILLED_ENDPOINTS: Record<string, number> = {
   '/swaps': 2,
 };
 
-const BATCH_INTEL_COSTS: Record<string, number> = {
-  '/intelligence/address/batch': 250,
-  '/intelligence/address/batch/all': 500,
-  '/intelligence/address_enriched/batch': 500,
-  '/intelligence/address_enriched/batch/all': 1000,
-};
+// Intel label lookups vs credits are independent buckets. Credits are weighted
+// per-call or per-row; label lookups count UNIQUE labeled addresses surfaced in
+// the response (deduplicated per billing period). Empirically verified
+// 2026-04-24: /transfers responses also emit X-Intel-Datapoints-* headers and
+// advance the label bucket — the docs' "intelligence endpoints only" framing
+// is incomplete. We estimate label-bucket burn defensively (worst case) per
+// endpoint shape.
 
 const ROW_PAGINATION_KEYS = new Set([
   'before',
@@ -110,11 +111,21 @@ export function makeArkhamGuardrailState(): ArkhamGuardrailState {
   };
 }
 
-export function estimateArkhamLabelLookups(path: string, _body: unknown): number {
-  const batchCost = BATCH_INTEL_COSTS[path];
-  if (batchCost !== undefined) return batchCost;
+export function estimateArkhamLabelBucketBurn(
+  path: string,
+  params: Record<string, string>,
+  body: unknown,
+): number {
+  if (path.startsWith('/intelligence/') && path.includes('/batch')) {
+    const addresses = (body as { addresses?: unknown[] } | null | undefined)?.addresses;
+    return Array.isArray(addresses) ? addresses.length : 0;
+  }
   if (/^\/intelligence\/address(?:_enriched)?\/[^/]+(?:\/all)?$/.test(path)) {
     return 1;
+  }
+  if (ROW_BILLED_ENDPOINTS[path] !== undefined) {
+    const n = Number(params.limit);
+    return Number.isFinite(n) && n > 0 ? n : 0;
   }
   return 0;
 }
@@ -127,8 +138,12 @@ export function assertArkhamSpendAllowed(
   config: ArkhamGuardrailConfig,
 ): void {
   assertForbiddenArkhamEndpoint(path);
-  assertArkhamDatapointBudget(path, opts.body, state, config);
+  // Row-budget validates parameter shape (chain, subject, limit, time,
+  // pagination) before bumping state, so its shape failures fire early and
+  // clearly. Label-bucket runs after so its estimate uses already-validated
+  // limits.
   assertArkhamRowBudget(method, path, opts.params ?? {}, state, config);
+  assertArkhamLabelBucketBudget(path, opts.params ?? {}, opts.body, state, config);
 }
 
 export function observeArkhamDatapoints(
@@ -154,13 +169,14 @@ function assertForbiddenArkhamEndpoint(path: string): void {
   }
 }
 
-function assertArkhamDatapointBudget(
+function assertArkhamLabelBucketBudget(
   path: string,
+  params: Record<string, string>,
   body: unknown,
   state: ArkhamGuardrailState,
   config: ArkhamGuardrailConfig,
 ): void {
-  const estimate = estimateArkhamLabelLookups(path, body);
+  const estimate = estimateArkhamLabelBucketBurn(path, params, body);
   if (estimate === 0) return;
 
   if (path.includes('/batch') && !config.allowBatchIntel) {
@@ -180,7 +196,7 @@ function assertArkhamDatapointBudget(
     state.datapointsRemainingSeen - estimate < config.datapointReserve
   ) {
     throw new Error(
-      `arkham ${path} blocked: last seen datapoints remaining ${state.datapointsRemainingSeen}, reserve ${config.datapointReserve}, estimated lookup burn ${estimate}`,
+      `arkham ${path} blocked: last seen datapoints remaining ${state.datapointsRemainingSeen}, reserve ${config.datapointReserve}, estimated label burn ${estimate}`,
     );
   }
 

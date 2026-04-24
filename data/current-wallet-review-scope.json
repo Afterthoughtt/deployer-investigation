@@ -1,0 +1,481 @@
+{
+  "metadata": {
+    "artifact_type": "current_wallet_review_scope",
+    "status": "non_canonical_operational_scope",
+    "created": "2026-04-24",
+    "canonical_source": "data/network-map.json",
+    "purpose": "Narrow the current wallet-review workload to launch-window-relevant wallets without treating the full historical registry as the active review queue.",
+    "policy": [
+      "Do not treat this file as a replacement for data/network-map.json.",
+      "Use this file to choose review batches and live-call budgets.",
+      "Promote findings back to data/network-map.json only through an explicit reviewed registry patch.",
+      "Run npm run audit:primitive-integrity -- data/current-wallet-review-scope.json after edits.",
+      "Run npm run audit:claim-integrity -- data/current-wallet-review-scope.json after edits when the edit changes wallet conclusions or monitor-candidate classifications."
+    ],
+    "selection_rules": {
+      "include": [
+        "wallets with prior-session pre-deploy signal or copy-trade classification",
+        "recent coordinated on-chain campaign wallets since the L10 launch",
+        "known re-arm source wallets",
+        "current-balance hubs or consolidation wallets that could fund fresh wallets",
+        "highest-value sniper or trading wallets that matter only if re-armed"
+      ],
+      "exclude": [
+        "monitor-owned onramp watches unless the monitor coverage itself is under review",
+        "terminal exchange deposit wallets",
+        "terminal protocol or gambling wallets",
+        "token accounts and program accounts",
+        "resolved not-network traders",
+        "historical one-off relays with no current launch-window action"
+      ]
+    }
+  },
+  "wallets": [
+    {
+      "address": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+      "label": "Figg wallet",
+      "tier": "A",
+      "review_priority": 1,
+      "review_reason": "pre_deploy_outflow_hub",
+      "control_confidence": "high",
+      "operational_usefulness": "pre_deploy_signal",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 699
+        },
+        {
+          "path": "NEXT_SESSION_HANDOFF.md",
+          "line": 101
+        }
+      ]
+    },
+    {
+      "address": "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+      "label": "SUSYE-linked copy-trade wallet",
+      "tier": "A",
+      "review_priority": 2,
+      "review_reason": "copy_trade_candidate_if_rearmed",
+      "control_confidence": "high",
+      "operational_usefulness": "copy_trade_candidate",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 307
+        },
+        {
+          "path": "NEXT_SESSION_HANDOFF.md",
+          "line": 233
+        }
+      ]
+    },
+    {
+      "address": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "label": "SUSYE deployer wallet",
+      "tier": "A",
+      "review_priority": 3,
+      "review_reason": "known_rearm_source_for_copy_trade_wallet",
+      "operational_usefulness": "pre_deploy_signal",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 343
+        },
+        {
+          "path": "NEXT_SESSION_HANDOFF.md",
+          "line": 235
+        }
+      ]
+    },
+    {
+      "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
+      "label": "MoonPay-chain sniper wallet",
+      "tier": "A",
+      "review_priority": 4,
+      "review_reason": "copy_trade_candidate_if_rearmed",
+      "control_confidence": "medium",
+      "operational_usefulness": "copy_trade_candidate",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 841
+        },
+        {
+          "path": "NEXT_SESSION_HANDOFF.md",
+          "line": 192
+        }
+      ]
+    },
+    {
+      "address": "BqP79WmkKFRytsrWCqY2ra4n5XzUxQjTf45rHy7rkgtC",
+      "label": "deployer personal trading wallet",
+      "tier": "A",
+      "review_priority": 5,
+      "review_reason": "high_value_copy_trade_candidate_if_refunded",
+      "operational_usefulness": "copy_trade_candidate",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 652
+        }
+      ]
+    },
+    {
+      "address": "GgFVQNY5hck2WMFtpVeWi37yQKepyHLqLD8eZ3nmLvKH",
+      "label": "relay convergence wallet",
+      "tier": "A",
+      "review_priority": 6,
+      "review_reason": "current_balance_intermediary_watch",
+      "operational_usefulness": "pre_deploy_signal",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 645
+        }
+      ]
+    },
+    {
+      "address": "Bra1HUNKj1tcM3iKnL3pHc2m1rXkXZ9JELq4ceivag34",
+      "label": "deployer-network consolidation hub",
+      "tier": "A",
+      "review_priority": 7,
+      "review_reason": "current_balance_consolidation_hub",
+      "operational_usefulness": "pre_deploy_signal",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 73
+        },
+        {
+          "path": "data/network-map.json",
+          "line": 1348
+        }
+      ]
+    },
+    {
+      "address": "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+      "label": "largest observed Figg-cluster sniper",
+      "tier": "A",
+      "review_priority": 8,
+      "review_reason": "highest_loaded_sniper_if_rearmed",
+      "operational_usefulness": "copy_trade_candidate",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 1159
+        }
+      ]
+    }
+  ],
+  "monitor_owned_out_of_scope": [
+    {
+      "address": "Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6",
+      "label": "MoonPay customer-facing SOL wallet 1",
+      "reason": "handled by live monitor; revisit during monitor coverage review",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 489
+        },
+        {
+          "path": "NEXT_SESSION_HANDOFF.md",
+          "line": 261
+        }
+      ]
+    },
+    {
+      "address": "5F1seMKUqSNhv45f6FhB2cFmgJbk8U1avJw7M6TexUq1",
+      "label": "MoonPay customer-facing SOL wallet 2",
+      "reason": "handled by live monitor; revisit during monitor coverage review",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 511
+        },
+        {
+          "path": "NEXT_SESSION_HANDOFF.md",
+          "line": 262
+        }
+      ]
+    }
+  ],
+  "recent_activity_batches": [
+    {
+      "id": "rxrp_repump_pre_announcement_buyers",
+      "source_file": "data/rxrp-repump-buyers.json",
+      "source_refs": [
+        {
+          "path": "data/rxrp-repump-buyers.json",
+          "lines": "1-221"
+        },
+        {
+          "path": "data/network-map.json",
+          "line": 696
+        },
+        {
+          "path": "STRATEGY.md",
+          "line": 86
+        }
+      ],
+      "tier": "A-recent",
+      "wallet_count": 22,
+      "buy_order_count": 29,
+      "first_activity_utc": "2026-03-22T02:38:03Z",
+      "review_reason": "most_recent_known_coordinated_on_chain_activity_since_l10",
+      "operational_usefulness": "copy_trade_candidate_and_rearm_surface",
+      "scope_policy": "Review as a recent-activity batch. Do not promote every buyer to core control evidence without transaction-level proof and post-review classification.",
+      "recommended_first_pass": [
+        "helius-balance",
+        "helius-signatures"
+      ],
+      "recommended_command": "npm run audit:wallet-review -- --wallet-file data/rxrp-repump-buyers.json --checks helius-balance,helius-signatures --signature-limit 5 --question <bounded RXRP recent-activity review question> --execute --out data/results/wallet-review-rxrp-repump-2026-04-24.json",
+      "dry_run_command": "npm run audit:wallet-review -- --wallet-file data/rxrp-repump-buyers.json --checks helius-balance,helius-signatures --signature-limit 5 --question <bounded RXRP recent-activity review question>"
+    }
+  ],
+  "monitor_candidate_batches": [
+    {
+      "id": "rxrp_repump_high_balance_follow_up",
+      "status": "non_canonical_monitor_candidate_batch",
+      "source_summary": "data/results/rxrp-full-investigation-summary-2026-04-24.json",
+      "reviewed_utc": "2026-04-24T07:10:00Z",
+      "scope_policy": "Use as a monitor-candidate shortlist only. Do not promote to data/network-map.json without a separate reviewed registry patch.",
+      "trigger_policy": [
+        "material SOL balance drop",
+        "fresh-wallet funding",
+        "direct contact with reviewed control wallets",
+        "repeat RXRP or L10 route recurrence",
+        "reload before a new launch window"
+      ],
+      "wallets": [
+        {
+          "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi",
+          "priority": 1,
+          "control_confidence": "medium",
+          "operational_usefulness": "pre_deploy_signal",
+          "secondary_operational_usefulness": ["copy_trade_candidate"],
+          "reason": "canonical network-map RXRP buyer, high current balance, Coinbase-funded, and prior project minor mention"
+        },
+        {
+          "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k",
+          "priority": 2,
+          "control_confidence": "medium",
+          "operational_usefulness": "pre_deploy_signal",
+          "secondary_operational_usefulness": ["copy_trade_candidate"],
+          "reason": "canonical network-map RXRP buyer, high current balance, Coinbase-funded, and prior project minor mention"
+        },
+        {
+          "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy",
+          "priority": 3,
+          "control_confidence": "high",
+          "operational_usefulness": "pre_deploy_signal",
+          "secondary_operational_usefulness": ["copy_trade_candidate"],
+          "reason": "canonical network-map insider, high current balance, FTX US chain, and RXRP buyer"
+        },
+        {
+          "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh",
+          "priority": 4,
+          "control_confidence": "medium",
+          "operational_usefulness": "pre_deploy_signal",
+          "secondary_operational_usefulness": ["copy_trade_candidate"],
+          "reason": "canonical network-map RXRP buyer, early buy order, ChangeNOW-funded, and high current balance"
+        },
+        {
+          "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+          "priority": 5,
+          "control_confidence": "high",
+          "operational_usefulness": "pre_deploy_signal",
+          "secondary_operational_usefulness": ["copy_trade_candidate", "post_deploy_attribution"],
+          "reason": "canonical network-map RXRP buyer, repeated RXRP buys, Robinhood-funded, and prior OG deployer overlap"
+        },
+        {
+          "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+          "priority": 6,
+          "control_confidence": "high",
+          "operational_usefulness": "pre_deploy_signal",
+          "secondary_operational_usefulness": ["copy_trade_candidate", "post_deploy_attribution"],
+          "reason": "canonical network-map RXRP buyer, Binance 8 chain, and L10 early-buyer overlap"
+        }
+      ]
+    }
+  ],
+  "deferred_context_wallets": [
+    {
+      "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+      "label": "L7 deployer wallet",
+      "tier": "B",
+      "review_reason": "bridge_context_and_known_deployer_baseline",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 29
+        },
+        {
+          "path": "data/network-map.json",
+          "line": 1173
+        }
+      ]
+    },
+    {
+      "address": "3VmNQ8ForGkoBpvyHyfS31VQuQqWn4NuxTTsvf7bGGot",
+      "label": "L9 deployer wallet",
+      "tier": "B",
+      "review_reason": "bridge_context_and_known_deployer_baseline",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "address": "2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB",
+      "label": "L10 deployer wallet",
+      "tier": "B",
+      "review_reason": "known_moonpay_funded_deployer_baseline",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "address": "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+      "label": "cross-cluster bridge wallet",
+      "tier": "B",
+      "review_reason": "post_deploy_attribution_bridge_context",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 1292
+        },
+        {
+          "path": "NEXT_SESSION_HANDOFF.md",
+          "line": 143
+        }
+      ]
+    },
+    {
+      "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "label": "OG deployer wallet",
+      "tier": "B",
+      "review_reason": "known_profit_receiver_baseline",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 66
+        }
+      ]
+    },
+    {
+      "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "label": "historical hub wallet",
+      "tier": "B",
+      "review_reason": "known_hub_baseline",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "address": "231fshU82vSSeyytyCZJUEUG8Ti3UAgnDSoNFGTETCuK",
+      "label": "trading-wallet funder",
+      "tier": "B",
+      "review_reason": "funding_pipeline_context",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 658
+        }
+      ]
+    },
+    {
+      "address": "2eVVdqWN4t7umzXGxJ21uTpB5WrUyyQMYnkq6UHtg3ba",
+      "label": "Figg-cluster sniper with gambling exit path",
+      "tier": "B",
+      "review_reason": "secondary_copy_trade_candidate_if_rearmed",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 1180
+        }
+      ]
+    },
+    {
+      "address": "HdTrWmLMhGciMMXETPG8DfL7Mhg6t4qU7sWVxAK2nsEN",
+      "label": "Figg-cluster sniper with separate exit channel",
+      "tier": "B",
+      "review_reason": "secondary_copy_trade_candidate_if_rearmed",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 1243
+        }
+      ]
+    },
+    {
+      "address": "CKJSPbaj8bo2gg2FaUxzMPXwVQNYd8ApVBDbRNnwTZ9S",
+      "label": "Figg-cluster sniper with token-dump pattern",
+      "tier": "B",
+      "review_reason": "secondary_copy_trade_candidate_if_rearmed",
+      "source_refs": [
+        {
+          "path": "data/network-map.json",
+          "line": 1250
+        }
+      ]
+    }
+  ],
+  "excluded_for_current_review": [
+    {
+      "category": "terminal_cex_or_protocol",
+      "reason": "useful as attribution terminus, not useful for pre-deploy wallet review"
+    },
+    {
+      "category": "token_or_program_accounts",
+      "reason": "not wallet-control evidence by themselves"
+    },
+    {
+      "category": "resolved_not_network",
+      "reason": "do not spend review budget unless new evidence reopens them"
+    },
+    {
+      "category": "historical_low_value_relays",
+      "reason": "post-deploy attribution archive unless re-funded or linked to a new launch-window event"
+    }
+  ]
+}

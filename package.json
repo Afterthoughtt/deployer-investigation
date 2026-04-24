@@ -4,8 +4,10 @@
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
-    "audit:check": "tsc -p tsconfig.json --noEmit && tsx src/audit/arkham-guardrails-selftest.ts",
+    "audit:check": "tsc -p tsconfig.json --noEmit && tsx src/audit/arkham-guardrails-selftest.ts && tsx src/audit/claim-integrity-selftest.ts",
     "audit:guardrails": "tsx src/audit/arkham-guardrails-selftest.ts",
+    "audit:primitive-integrity": "tsx src/audit/primitive-integrity-scan.ts",
+    "audit:claim-integrity": "tsx src/audit/claim-integrity-scan.ts",
     "audit:wallet-review": "tsx src/audit/wallet-review.ts",
     "monitor:dev": "tsx monitor/src/index.ts",
     "monitor:build": "tsc -p monitor",

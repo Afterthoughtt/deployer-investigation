@@ -6,6 +6,25 @@
 - **Auth Header:** `apiKey: YOUR_API_KEY`
 - **Get API Key:** https://app.nansen.ai/api
 
+**Changelog**
+## 31-03-2026: TGM Endpoints - Premium Labels Flag
+**Affected endpoints: tgm/holders, tgm/pnl-leaderboard, tgm/perp-pnl-leaderboard, perp-leaderboard**
+
+## A new premium_labels parameter has been added to these endpoints to control wallet label tier.
+`Value`
+`Behavior`
+`Credits Used`
+`true`
+
+**Returns dbt-sourced premium labels (Smart Money, Fund, etc.)**
+`150`
+`false`
+`Returns free-tier labels only`
+`5`
+
+Plan enforcement: Free plan users sending premium_labels=true will receive a 403 Forbidden response. Paid plan users may use either value.
+**Default behavior: The default is currently true. A change on April 1st will flip the default to false and start consuming 150 credits.**
+
 ## Rate Limits & Pricing
 | Metric | Value |
 |--------|-------|
