@@ -1,0 +1,427 @@
+{
+  "metadata": {
+    "artifact_type": "rxrp_full_investigation_summary",
+    "status": "non_canonical_review_artifact",
+    "created_utc": "2026-04-24T07:10:00Z",
+    "source_artifact": "data/results/rxrp-full-investigation-2026-04-24.json",
+    "source_review_artifact": "data/results/wallet-review-rxrp-repump-2026-04-24.json",
+    "source_summary_artifact": "data/results/wallet-review-rxrp-repump-summary-2026-04-24.json",
+    "source_batch": "data/rxrp-repump-buyers.json",
+    "canonical_registry": "data/network-map.json",
+    "question": "Full bounded investigation for six high-balance RXRP repump wallets: classify recent activity, repeated counterparties, transfer samples, and whether any wallet shows re-arm, deployer preparation, consolidation, or unrelated trading churn.",
+    "provider_budget": {
+      "helius_get_transaction_calls": 30,
+      "nansen_counterparty_calls": 6,
+      "nansen_estimated_credits": 30,
+      "arkham_transfer_calls": 6,
+      "arkham_transfer_limit_per_wallet": 10,
+      "arkham_estimated_row_credits": 120,
+      "arkham_intelligence_label_lookups": 0
+    },
+    "provider_limits": [
+      "Helius parsed only five already-selected recent signatures per wallet.",
+      "Nansen counterparties are aggregate triage only and do not prove wallet control.",
+      "Nansen returned 422 for the three highest-balance wallets, so those wallets still need another counterparty source if counterparty ranking is required.",
+      "Arkham transfer queries were Solana-only, subject-filtered, time-bounded from 2026-03-22T00:00:00Z, limit-capped at 10 rows, and not paginated.",
+      "Arkham returned only bounded samples; transfer counts show the samples are not exhaustive.",
+      "No Arkham intelligence or label endpoint was used in this run."
+    ]
+  },
+  "overall_assessment": {
+    "finding": "The six reviewed wallets are canonical network-map RXRP buyer wallets with meaningful current balances. The bounded live run only checked the latest selected activity and should not be read as disproving or downshifting the canonical network-map verdicts.",
+    "operational_takeaway": "Treat these as pre-deploy monitor surfaces first, with copy-trade value second. The live run did not show an immediate fresh-wallet funding event in the parsed five-transaction windows, but that is a narrow time-window observation only.",
+    "registry_action": "Do not patch data/network-map.json from this artifact alone.",
+    "monitor_action": "If added to monitor config later, alert on material SOL balance drops, fresh-wallet funding, repeated RXRP/L10 route recurrence, or direct contact with already-reviewed control wallets."
+  },
+  "wallets": [
+    {
+      "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi",
+      "priority": 1,
+      "balance_sol_at_review": 300.814318277,
+      "rxrp_buy_orders": [
+        26
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Nansen Trading Bot, counterparty to OG WSOL ATA",
+      "registry_verdict": "network",
+      "registry_role": "network_connected",
+      "registry_label": "RXRP Buyer — Coinbase cluster",
+      "control_confidence": "medium",
+      "operational_usefulness": "pre_deploy_signal",
+      "secondary_operational_usefulness": [
+        "copy_trade_candidate"
+      ],
+      "evidence_basis": [
+        "canonical_network_map_verdict_network",
+        "coinbase_funded_rxrp_buyer",
+        "recent_rxrp_repurchase_activity",
+        "high_current_sol_balance",
+        "prior_project_minor_mention_as_trading_bot_counterparty",
+        "active_recent_trading_window",
+        "arkham_bounded_transfer_sample"
+      ],
+      "recent_activity": {
+        "parsed_transaction_count": 5,
+        "latest_parsed_utc": "2026-04-24T06:40:29Z",
+        "oldest_parsed_utc": "2026-04-24T06:38:47Z",
+        "fee_payer_is_subject_count": 5,
+        "wallet_lamport_deltas": [
+          -1010237,
+          -1010238,
+          -1005192,
+          -1005173,
+          -1005000
+        ],
+        "total_lamport_delta": -5035840,
+        "interpretation": "Recent parsed transactions look like high-frequency trading or setup churn, not a fresh load, simple consolidation, or deployer-preparation transfer."
+      },
+      "nansen": {
+        "status": 422,
+        "result": "unprocessable",
+        "usable_counterparties": 0
+      },
+      "arkham": {
+        "status": 200,
+        "transfer_count_reported": 10000,
+        "transfers_returned": 10,
+        "datapoints_remaining_after_call": 1923,
+        "sample_assessment": "partial_only"
+      },
+      "evidence_limits": [
+        "recent_helius_window_only",
+        "nansen_unprocessable_for_this_wallet",
+        "arkham_transfer_sample_not_exhaustive",
+        "direct_control_evidence_not_revalidated_in_latest_five_transaction_window",
+        "no_private_key_or_signer_identity_proof"
+      ],
+      "recommended_action": "Monitor as a high-priority pre-deploy signal wallet; investigate any material balance drop, fresh-wallet funding, or direct contact with reviewed control wallets."
+    },
+    {
+      "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k",
+      "priority": 2,
+      "balance_sol_at_review": 282.255045818,
+      "rxrp_buy_orders": [
+        24
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Nansen Trading Bot, counterparty to OG WSOL ATA",
+      "registry_verdict": "network",
+      "registry_role": "network_connected",
+      "registry_label": "RXRP Buyer — Coinbase cluster",
+      "control_confidence": "medium",
+      "operational_usefulness": "pre_deploy_signal",
+      "secondary_operational_usefulness": [
+        "copy_trade_candidate"
+      ],
+      "evidence_basis": [
+        "canonical_network_map_verdict_network",
+        "coinbase_funded_rxrp_buyer",
+        "recent_rxrp_repurchase_activity",
+        "high_current_sol_balance",
+        "prior_project_minor_mention_as_trading_bot_counterparty",
+        "active_recent_trading_window",
+        "arkham_bounded_transfer_sample"
+      ],
+      "recent_activity": {
+        "parsed_transaction_count": 5,
+        "latest_parsed_utc": "2026-04-24T06:40:46Z",
+        "oldest_parsed_utc": "2026-04-24T06:38:25Z",
+        "fee_payer_is_subject_count": 5,
+        "wallet_lamport_deltas": [
+          -1005204,
+          -1122538,
+          -1005823,
+          -1005000,
+          -3044280
+        ],
+        "total_lamport_delta": -7182845,
+        "interpretation": "Recent parsed transactions look like high-frequency trading or setup churn, not a fresh load, simple consolidation, or deployer-preparation transfer."
+      },
+      "nansen": {
+        "status": 422,
+        "result": "unprocessable",
+        "usable_counterparties": 0
+      },
+      "arkham": {
+        "status": 200,
+        "transfer_count_reported": 10000,
+        "transfers_returned": 10,
+        "datapoints_remaining_after_call": 1923,
+        "sample_assessment": "partial_only"
+      },
+      "evidence_limits": [
+        "recent_helius_window_only",
+        "nansen_unprocessable_for_this_wallet",
+        "arkham_transfer_sample_not_exhaustive",
+        "direct_control_evidence_not_revalidated_in_latest_five_transaction_window",
+        "no_private_key_or_signer_identity_proof"
+      ],
+      "recommended_action": "Monitor as a high-priority pre-deploy signal wallet; investigate any material balance drop, fresh-wallet funding, or direct contact with reviewed control wallets."
+    },
+    {
+      "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy",
+      "priority": 3,
+      "balance_sol_at_review": 83.226201759,
+      "rxrp_buy_orders": [
+        27
+      ],
+      "prior_status": "new",
+      "prior_label": "User-labelled insider",
+      "registry_verdict": "network",
+      "registry_role": "insider",
+      "registry_label": "RXRP Buyer — FTX US chain (user-labelled insider)",
+      "control_confidence": "high",
+      "operational_usefulness": "pre_deploy_signal",
+      "secondary_operational_usefulness": [
+        "copy_trade_candidate"
+      ],
+      "evidence_basis": [
+        "canonical_network_map_verdict_network",
+        "canonical_network_map_role_insider",
+        "ftx_us_chain_rxrp_buyer",
+        "recent_rxrp_repurchase_activity",
+        "high_current_sol_balance",
+        "user_labelled_insider",
+        "active_recent_trading_window",
+        "arkham_bounded_transfer_sample"
+      ],
+      "recent_activity": {
+        "parsed_transaction_count": 5,
+        "latest_parsed_utc": "2026-04-24T06:41:00Z",
+        "oldest_parsed_utc": "2026-04-24T06:40:50Z",
+        "fee_payer_is_subject_count": 5,
+        "wallet_lamport_deltas": [
+          -2124080,
+          -50000,
+          -50000,
+          -85001,
+          -50000
+        ],
+        "total_lamport_delta": -2359081,
+        "interpretation": "Recent parsed transactions are extremely compressed active trading or routing activity; no direct fresh funding, consolidation, or deployer-preparation transfer was observed in the five-transaction window."
+      },
+      "nansen": {
+        "status": 422,
+        "result": "unprocessable",
+        "usable_counterparties": 0
+      },
+      "arkham": {
+        "status": 200,
+        "transfer_count_reported": 10000,
+        "transfers_returned": 10,
+        "datapoints_remaining_after_call": 1918,
+        "sample_assessment": "partial_only"
+      },
+      "evidence_limits": [
+        "recent_helius_window_only",
+        "nansen_unprocessable_for_this_wallet",
+        "arkham_transfer_sample_not_exhaustive",
+        "user_label_requires_transaction_level_revalidation_before_registry_promotion",
+        "direct_control_evidence_not_revalidated_in_latest_five_transaction_window",
+        "no_private_key_or_signer_identity_proof"
+      ],
+      "recommended_action": "Monitor as a high-priority pre-deploy signal wallet; separately revalidate the insider label before any new registry promotion."
+    },
+    {
+      "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh",
+      "priority": 4,
+      "balance_sol_at_review": 64.00442182,
+      "rxrp_buy_orders": [
+        3
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "registry_verdict": "network",
+      "registry_role": "network_connected",
+      "registry_label": "RXRP Buyer — ChangeNOW",
+      "control_confidence": "medium",
+      "operational_usefulness": "pre_deploy_signal",
+      "secondary_operational_usefulness": [
+        "copy_trade_candidate"
+      ],
+      "evidence_basis": [
+        "canonical_network_map_verdict_network",
+        "changenow_funded_rxrp_buyer",
+        "early_rxrp_buy_order",
+        "recent_rxrp_repurchase_activity",
+        "high_current_sol_balance",
+        "large_recent_sol_swings",
+        "nansen_aggregate_counterparty_sample",
+        "arkham_bounded_transfer_sample"
+      ],
+      "recent_activity": {
+        "parsed_transaction_count": 5,
+        "latest_parsed_utc": "2026-04-24T02:43:53Z",
+        "oldest_parsed_utc": "2026-04-24T02:08:29Z",
+        "fee_payer_is_subject_count": 4,
+        "wallet_lamport_deltas": [
+          1082289633,
+          1,
+          -1010643528,
+          -1002005000,
+          -1502005000
+        ],
+        "total_lamport_delta": -2432363894,
+        "interpretation": "Recent parsed transactions show volatile trading or settlement flows. This is monitor-relevant, but not control proof by itself."
+      },
+      "nansen": {
+        "status": 200,
+        "usable_counterparties": 10,
+        "aggregate_assessment": "top sampled counterparties are pool, router, or trading-style counterparties; no wallet-control evidence was established from aggregate output alone"
+      },
+      "arkham": {
+        "status": 200,
+        "transfer_count_reported": 10000,
+        "transfers_returned": 10,
+        "datapoints_remaining_after_call": 1916,
+        "sample_assessment": "partial_only"
+      },
+      "evidence_limits": [
+        "recent_helius_window_only",
+        "nansen_aggregate_only",
+        "arkham_transfer_sample_not_exhaustive",
+        "direct_control_evidence_not_revalidated_in_latest_five_transaction_window",
+        "no_private_key_or_signer_identity_proof"
+      ],
+      "recommended_action": "Monitor for material SOL swings and fresh-wallet funding; treat as canonical network-connected until a separate registry review says otherwise."
+    },
+    {
+      "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+      "priority": 5,
+      "balance_sol_at_review": 15.598396524,
+      "rxrp_buy_orders": [
+        18,
+        23
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Token account owner, sent to OG Deployer WSOL ATA",
+      "registry_verdict": "network",
+      "registry_role": "network_connected",
+      "registry_label": "RXRP Buyer — Robinhood",
+      "control_confidence": "high",
+      "operational_usefulness": "pre_deploy_signal",
+      "secondary_operational_usefulness": [
+        "copy_trade_candidate",
+        "post_deploy_attribution"
+      ],
+      "evidence_basis": [
+        "canonical_network_map_verdict_network",
+        "robinhood_funded_rxrp_buyer",
+        "repeated_rxrp_buy_orders",
+        "recent_rxrp_repurchase_activity",
+        "prior_project_minor_mention_with_og_deployer_overlap",
+        "large_recent_sol_swings",
+        "nansen_aggregate_counterparty_sample",
+        "arkham_bounded_transfer_sample"
+      ],
+      "recent_activity": {
+        "parsed_transaction_count": 5,
+        "latest_parsed_utc": "2026-04-24T02:21:53Z",
+        "oldest_parsed_utc": "2026-04-24T01:23:59Z",
+        "fee_payer_is_subject_count": 3,
+        "wallet_lamport_deltas": [
+          0,
+          -4061159875,
+          19577988391,
+          -3492306202,
+          0
+        ],
+        "total_lamport_delta": 12024522314,
+        "interpretation": "Recent parsed transactions show active token and SOL movement with large positive and negative deltas. The prior overlap keeps this wallet in scope, but the bounded run did not prove deployer control."
+      },
+      "nansen": {
+        "status": 200,
+        "usable_counterparties": 10,
+        "aggregate_assessment": "top sampled counterparties are pool, router, or trading-style counterparties; no wallet-control evidence was established from aggregate output alone"
+      },
+      "arkham": {
+        "status": 200,
+        "transfer_count_reported": 2282,
+        "transfers_returned": 10,
+        "datapoints_remaining_after_call": 1916,
+        "sample_assessment": "partial_only"
+      },
+      "evidence_limits": [
+        "recent_helius_window_only",
+        "nansen_aggregate_only",
+        "arkham_transfer_sample_not_exhaustive",
+        "prior_og_deployer_overlap_not_revalidated_in_this_summary",
+        "direct_control_evidence_not_revalidated_in_latest_five_transaction_window",
+        "no_private_key_or_signer_identity_proof"
+      ],
+      "recommended_action": "Monitor as a prior-overlap pre-deploy signal wallet; prioritize investigation if it repeats OG deployer contact or funds a fresh wallet."
+    },
+    {
+      "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+      "priority": 6,
+      "balance_sol_at_review": 8.030025452,
+      "rxrp_buy_orders": [
+        21
+      ],
+      "prior_status": "l10_early_buyer",
+      "prior_label": "Unlabeled, L10 early buyer",
+      "registry_verdict": "network",
+      "registry_role": "network_connected",
+      "registry_label": "RXRP Buyer — Binance 8 cluster + L10 buyer",
+      "control_confidence": "high",
+      "operational_usefulness": "pre_deploy_signal",
+      "secondary_operational_usefulness": [
+        "copy_trade_candidate",
+        "post_deploy_attribution"
+      ],
+      "evidence_basis": [
+        "canonical_network_map_verdict_network",
+        "binance_8_chain_rxrp_buyer",
+        "recent_rxrp_repurchase_activity",
+        "l10_early_buyer_overlap",
+        "active_recent_trading_window",
+        "nansen_aggregate_counterparty_sample",
+        "arkham_bounded_transfer_sample"
+      ],
+      "recent_activity": {
+        "parsed_transaction_count": 5,
+        "latest_parsed_utc": "2026-04-24T05:12:41Z",
+        "oldest_parsed_utc": "2026-04-24T05:05:54Z",
+        "fee_payer_is_subject_count": 3,
+        "wallet_lamport_deltas": [
+          772333025,
+          0,
+          -3005000,
+          -1015005000,
+          0
+        ],
+        "total_lamport_delta": -245676975,
+        "interpretation": "Recent parsed transactions show active trading with positive and negative SOL deltas. The L10 overlap keeps this wallet operationally useful, but the bounded run did not prove deployer control."
+      },
+      "nansen": {
+        "status": 200,
+        "usable_counterparties": 10,
+        "aggregate_assessment": "top sampled counterparties are pool, router, or trading-style counterparties; no wallet-control evidence was established from aggregate output alone"
+      },
+      "arkham": {
+        "status": 200,
+        "transfer_count_reported": 7728,
+        "transfers_returned": 10,
+        "datapoints_remaining_after_call": 1913,
+        "sample_assessment": "partial_only"
+      },
+      "evidence_limits": [
+        "recent_helius_window_only",
+        "nansen_aggregate_only",
+        "arkham_transfer_sample_not_exhaustive",
+        "l10_overlap_not_revalidated_in_this_summary",
+        "direct_control_evidence_not_revalidated_in_latest_five_transaction_window",
+        "no_private_key_or_signer_identity_proof"
+      ],
+      "recommended_action": "Monitor as an L10/RXRP overlap pre-deploy signal wallet; prioritize investigation if it is reloaded or funds a fresh wallet before a new launch."
+    }
+  ],
+  "recommended_monitor_candidates": [
+    "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi",
+    "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k",
+    "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy",
+    "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh",
+    "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+    "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J"
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "artifact_type": "rxrp_priority_counterparties_review_summary",
+  "status": "non_canonical_review_artifact",
+  "created_utc": "2026-04-24T00:00:00Z",
+  "source_artifacts": [
+    "data/results/rxrp-counterparty-reconstruction-2026-04-24.json",
+    "data/results/rxrp-priority-counterparties-helius-2026-04-24.json",
+    "data/results/rxrp-priority-counterparties-live-2026-04-24.json",
+    "data/results/rxrp-priority-odin-recipient-helius-2026-04-24.json",
+    "data/results/rxrp-priority-odin-recipient-parsed-2026-04-24.json",
+    "data/results/rxrp-priority-odin-source-helius-2026-04-24.json",
+    "data/results/rxrp-priority-odin-source-parsed-2026-04-24.json"
+  ],
+  "budget_observed": {
+    "arkham_label_lookups": 0,
+    "arkham_transfer_calls": 8,
+    "arkham_transfer_limit_per_call": 5,
+    "arkham_estimated_row_credits": 80,
+    "arkham_datapoints_remaining_warning_lowest_seen": 1903,
+    "helius_wallet_review_calls": 10,
+    "helius_get_transaction_calls": 50,
+    "nansen_counterparty_calls": 8
+  },
+  "summary": {
+    "priority_counterparties_reviewed": 8,
+    "follow_on_odin_wallets_reviewed": 2,
+    "monitor_ready_wallets": 0,
+    "watchlist_candidates": 2,
+    "external_or_plumbing_accounts": 8,
+    "registry_patch_recommended_now": false,
+    "network_map_mutated": false
+  },
+  "findings": [
+    {
+      "address": "HJdb87XzJNsiyzvFHoBk2knf7a769DRPPDzskR5LZpyA",
+      "classification": "dust_fanout_sender",
+      "control_confidence": "low",
+      "operational_usefulness": "do_not_use",
+      "balance_sol": 0.246546345,
+      "evidence_basis": [
+        "signer_and_fee_payer_in_5_of_5_recent_parsed_transactions",
+        "100_one_lamport_outbound_system_transfers_in_5_recent_parsed_transactions",
+        "arkham_bounded_rows_are_one_lamport_outbound_SOL_transfers"
+      ],
+      "evidence_limits": [
+        "nansen_counterparties_are_aggregate_only",
+        "arkham_transfer_rows_limit_5_non_paginated",
+        "not_revalidated_against_full_history"
+      ],
+      "recommended_action": "do_not_monitor_as_network_wallet"
+    },
+    {
+      "address": "nozrwQtWhEdrA6W8dkbt9gnUaMs52PdAv5byipnadq3",
+      "classification": "temporal_tip_account",
+      "provider_labels": [
+        "Helius: Temporal Tip Account 16",
+        "Arkham: Temporal Tip"
+      ],
+      "control_confidence": "low",
+      "operational_usefulness": "external_infra",
+      "balance_sol": 0.095015115,
+      "evidence_basis": [
+        "not_signer_in_5_recent_parsed_transactions",
+        "inbound_only_in_5_recent_parsed_transactions",
+        "arkham_bounded_rows_label_to_address_as_Temporal_Tip",
+        "nansen_counterparties_returned_422"
+      ],
+      "evidence_limits": [
+        "provider_label_not_canonical_identity",
+        "arkham_transfer_rows_limit_5_non_paginated"
+      ],
+      "recommended_action": "exclude_from_control_wallet_scope"
+    },
+    {
+      "address": "noz3jAjPiHuBPqiSPkkugaJDkJscPuRhYnSpbi8UvC4",
+      "classification": "temporal_tip_account",
+      "provider_labels": [
+        "Helius: Temporal Tip Account 2",
+        "Arkham: Temporal Tip"
+      ],
+      "control_confidence": "low",
+      "operational_usefulness": "external_infra",
+      "balance_sol": 0.065982359,
+      "evidence_basis": [
+        "not_signer_in_5_recent_parsed_transactions",
+        "inbound_only_in_5_recent_parsed_transactions",
+        "arkham_bounded_rows_label_to_address_as_Temporal_Tip",
+        "nansen_counterparties_returned_422"
+      ],
+      "evidence_limits": [
+        "provider_label_not_canonical_identity",
+        "arkham_transfer_rows_limit_5_non_paginated"
+      ],
+      "recommended_action": "exclude_from_control_wallet_scope"
+    },
+    {
+      "address": "CciU8bjLd64ZXkDxHxoqf5ntymbKEoRCmxohc7NJA11G",
+      "classification": "subject_owned_wsol_swap_account",
+      "owner_wallet": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+      "control_confidence": "confirmed_subject_owned_account",
+      "operational_usefulness": "post_deploy_attribution",
+      "balance_sol": 0,
+      "evidence_basis": [
+        "arkham_ownerAddress_points_to_canonical_RXRP_wallet",
+        "not_signer_in_5_recent_parsed_transactions",
+        "zero_SOL_balance",
+        "bounded_rows_show_SOL_or_WSOL_swap_plumbing_with_Jupiter_and_Phantom"
+      ],
+      "evidence_limits": [
+        "account_type_inferred_from_ownerAddress_and_transfer_shape",
+        "arkham_transfer_rows_limit_5_non_paginated"
+      ],
+      "recommended_action": "do_not_monitor_as_independent_wallet"
+    },
+    {
+      "address": "CrpgWUb2FmEVxDPXL5cNYva4aNCqGQM76x4shj9gotuV",
+      "classification": "subject_owned_wsol_swap_account",
+      "owner_wallet": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+      "control_confidence": "confirmed_subject_owned_account",
+      "operational_usefulness": "post_deploy_attribution",
+      "balance_sol": 0,
+      "evidence_basis": [
+        "arkham_ownerAddress_points_to_canonical_RXRP_wallet",
+        "not_signer_in_5_recent_parsed_transactions",
+        "zero_SOL_balance",
+        "bounded_rows_show_SOL_or_WSOL_swap_plumbing_with_pump_fun"
+      ],
+      "evidence_limits": [
+        "account_type_inferred_from_ownerAddress_and_transfer_shape",
+        "arkham_transfer_rows_limit_5_non_paginated"
+      ],
+      "recommended_action": "do_not_monitor_as_independent_wallet"
+    },
+    {
+      "address": "J5XGHmzrRmnYWbmw45DbYkdZAU2bwERFZ11qCDXPvFB5",
+      "classification": "terminal_fees_account",
+      "provider_labels": [
+        "Helius: Terminal (formerly Padre) Fees"
+      ],
+      "control_confidence": "low",
+      "operational_usefulness": "external_infra",
+      "balance_sol": 317.909892263,
+      "evidence_basis": [
+        "helius_identity_labels_account_as_fees",
+        "not_signer_in_5_recent_parsed_transactions",
+        "bounded_rows_are_inbound_fee_like_SOL_transfers",
+        "nansen_counterparties_returned_422"
+      ],
+      "evidence_limits": [
+        "provider_label_not_canonical_identity",
+        "arkham_transfer_rows_limit_5_non_paginated"
+      ],
+      "recommended_action": "do_not_monitor_as_network_wallet_despite_large_balance"
+    },
+    {
+      "address": "odin8eaAmRDqTwtYBxvPnQ8hHpi8Rxaybg6xVjWbRTb",
+      "classification": "active_signer_fee_payer_with_material_settlement",
+      "control_confidence": "medium",
+      "operational_usefulness": "copy_trade_candidate",
+      "balance_sol": 0,
+      "evidence_basis": [
+        "signer_in_5_of_5_recent_parsed_transactions",
+        "fee_payer_in_4_of_5_recent_parsed_transactions",
+        "direct_counterparty_to_canonical_RXRP_wallet",
+        "bounded_arkham_rows_show_8_709278417_SOL_to_odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s",
+        "nansen_aggregate_top_counterparty_is_odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s"
+      ],
+      "evidence_limits": [
+        "nansen_counterparties_are_aggregate_only",
+        "wallet_currently_zero_balance",
+        "direct_control_over_RXRP_subject_not_proven"
+      ],
+      "recommended_action": "watch_for_rearm_if_refunded"
+    },
+    {
+      "address": "TriQKRfbS1v63hvHpLWNnb51VL9GvVeotTYYXSfUDHb",
+      "classification": "dust_fanout_sender",
+      "control_confidence": "low",
+      "operational_usefulness": "do_not_use",
+      "balance_sol": 0.09096373,
+      "evidence_basis": [
+        "signer_and_fee_payer_in_5_of_5_recent_parsed_transactions",
+        "101_one_lamport_outbound_system_transfers_in_5_recent_parsed_transactions",
+        "arkham_bounded_rows_are_one_lamport_outbound_SOL_transfers",
+        "nansen_counterparties_returned_422"
+      ],
+      "evidence_limits": [
+        "arkham_transfer_rows_limit_5_non_paginated",
+        "not_revalidated_against_full_history"
+      ],
+      "recommended_action": "do_not_monitor_as_network_wallet"
+    },
+    {
+      "address": "odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s",
+      "classification": "material_odin_recipient",
+      "provider_labels": [
+        "Nansen: valhalla.sol"
+      ],
+      "control_confidence": "medium",
+      "operational_usefulness": "copy_trade_candidate",
+      "balance_sol": 3.231653,
+      "evidence_basis": [
+        "received_8_709278417_SOL_from_odin8eaAmRDqTwtYBxvPnQ8hHpi8Rxaybg6xVjWbRTb_in_bounded_rows",
+        "not_signer_in_5_recent_parsed_transactions",
+        "funded_by_odinFqDRznBzUHSGdZzkY78AgaCxFRoHe7GTvrvo4Dn_in_recent_parsed_transactions"
+      ],
+      "evidence_limits": [
+        "one_hop_removed_from_canonical_RXRP_wallet",
+        "direct_control_over_RXRP_subject_not_proven",
+        "nansen_label_is_provider_label"
+      ],
+      "recommended_action": "track_as_odin_cluster_follow_up_not_monitor_primary"
+    },
+    {
+      "address": "odinFqDRznBzUHSGdZzkY78AgaCxFRoHe7GTvrvo4Dn",
+      "classification": "active_odin_source_and_fee_payer",
+      "control_confidence": "medium",
+      "operational_usefulness": "pre_deploy_signal",
+      "balance_sol": 10.868749,
+      "evidence_basis": [
+        "signer_and_fee_payer_in_5_of_5_recent_parsed_transactions",
+        "recent_repeated_funding_to_odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s_in_roughly_0_4_SOL_chunks",
+        "uses_compute_budget_and_token_program_routes_in_recent_parsed_transactions"
+      ],
+      "evidence_limits": [
+        "two_hops_removed_from_canonical_RXRP_wallet",
+        "direct_control_over_RXRP_subject_not_proven",
+        "no_arkham_or_nansen_follow_up_run_for_this_wallet_in_this_pass"
+      ],
+      "recommended_action": "add_to_scoped_follow_up_queue_before_monitor_promotion"
+    }
+  ]
+}

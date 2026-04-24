@@ -1,0 +1,17 @@
+{
+  "artifact_type": "rxrp_priority_odin_recipient_live_followup_scope",
+  "status": "non_canonical_review_scope",
+  "created_utc": "2026-04-24T00:00:00Z",
+  "source_artifacts": [
+    "data/results/rxrp-priority-counterparties-live-2026-04-24.json",
+    "data/results/rxrp-priority-odin-recipient-helius-2026-04-24.json"
+  ],
+  "question": "Resolve material recipient from odin8 priority RXRP counterparty: balance, recent signatures, monitor relevance.",
+  "manual_follow_up_queue": [
+    {
+      "address": "odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s",
+      "follow_up_priority": 1,
+      "reason": "Received 8.709278417 SOL from odin8eaAmRDqTwtYBxvPnQ8hHpi8Rxaybg6xVjWbRTb in bounded Arkham transfer rows and appears as the top Nansen aggregate counterparty for that wallet."
+    }
+  ]
+}
