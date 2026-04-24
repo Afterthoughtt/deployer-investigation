@@ -31,6 +31,15 @@ type Tx = {
     };
   };
 };
+type PurchaseSummary = {
+  wallet: string;
+  sender: string;
+  lamports: number;
+  blockTime: number;
+  memo?: string;
+  cuLimit?: number;
+  cuPrice?: bigint;
+};
 
 function b58decode(s: string): Uint8Array {
   const alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
@@ -223,8 +232,8 @@ async function main() {
 
   // ═══ Fingerprint consistency across all purchases ═══
   console.log('═══ Fingerprint consistency across ALL purchases (incl. L10) ═══\n');
-  const L10 = { wallet: 'L10 deployer', sender: 'Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6', lamports: 13_443_000_000, blockTime: 1773550293, memo: '7c61e6fde07f70c202784ed4c9884939', cuLimit: 14548, cuPrice: 29386n };
-  const rows = [{ wallet: 'L10 deployer', ...L10 }];
+  const L10: PurchaseSummary = { wallet: 'L10 deployer', sender: 'Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6', lamports: 13_443_000_000, blockTime: 1773550293, memo: '7c61e6fde07f70c202784ed4c9884939', cuLimit: 14548, cuPrice: 29386n };
+  const rows: PurchaseSummary[] = [L10];
   for (const w of all) {
     for (const p of w.purchases) rows.push({ wallet: w.wallet, ...p });
   }

@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "artifact_type": "wallet_review_summary",
+    "status": "non_canonical_review_artifact",
+    "created": "2026-04-24",
+    "source_raw_artifact": "data/results/wallet-review-rxrp-repump-2026-04-24.json",
+    "source_raw_sha256": "2529d8a07149657e8624826064ccb889252b7ec432e329b2a499256414a2baa8",
+    "source_wallet_list": "data/rxrp-repump-buyers.json",
+    "question": "RXRP repump recent-activity review: identify current balances, recent activity, re-arm signals, and wallets worth manual follow-up from the post-L10 coordinated buyer set.",
+    "provider_checks": [
+      "helius-balance",
+      "helius-signatures"
+    ],
+    "signature_limit": 5,
+    "api_budget_actual": {
+      "helius_estimated_credits": 242,
+      "arkham_label_lookups": 0,
+      "arkham_row_credits": 0,
+      "nansen_credits": 0
+    },
+    "evidence_limits": [
+      "balance_and_recent_signature_screen_only",
+      "no_transaction_parse_yet",
+      "no_counterparty_or_funder_validation_in_this_pass",
+      "high_balance_or_recent_activity_is_not_control_evidence_by_itself"
+    ]
+  },
+  "summary": {
+    "wallets_reviewed": 22,
+    "wallets_with_errors": 0,
+    "wallets_with_balance_at_least_1_sol": 6,
+    "highest_priority_result": "Six RXRP buyer wallets still have material SOL balances and recent signatures; these are the manual follow-up queue before spending Arkham or Nansen budget."
+  },
+  "manual_follow_up_queue": [
+    {
+      "address": "7iVCXQn4u6tiTEfNVqbWSEsRdEi69E9oYsSMiepuECwi",
+      "balance_sol": 300.814318277,
+      "latest_signature_time_utc": "2026-04-24T06:40:29Z",
+      "rxrp_buy_orders": [
+        26
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Nansen Trading Bot, counterparty to OG WSOL ATA",
+      "follow_up_priority": 1,
+      "recommended_action": "parse_latest_signatures_and_check_recent_counterparties"
+    },
+    {
+      "address": "7JCe3GHwkEr3feHgtLXnmuJ1yB3A7coSeyynxTBgdG8k",
+      "balance_sol": 282.255045818,
+      "latest_signature_time_utc": "2026-04-24T06:40:46Z",
+      "rxrp_buy_orders": [
+        24
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Nansen Trading Bot, counterparty to OG WSOL ATA",
+      "follow_up_priority": 2,
+      "recommended_action": "parse_latest_signatures_and_check_recent_counterparties"
+    },
+    {
+      "address": "54Pz1e35z9uoFdnxtzjp7xZQoFiofqhdayQWBMN7dsuy",
+      "balance_sol": 83.226201759,
+      "latest_signature_time_utc": "2026-04-24T06:41:00Z",
+      "rxrp_buy_orders": [
+        27
+      ],
+      "prior_status": "new",
+      "prior_label": "User-labelled insider",
+      "follow_up_priority": 3,
+      "recommended_action": "parse_latest_signatures_and_verify_inbound_or_outbound_flow"
+    },
+    {
+      "address": "7cthuERBfeNaXrK3vhuKFVdg93X7wuT89MNyNaKgFoYh",
+      "balance_sol": 64.00442182,
+      "latest_signature_time_utc": "2026-04-24T02:43:53Z",
+      "rxrp_buy_orders": [
+        3
+      ],
+      "prior_status": "new",
+      "prior_label": null,
+      "follow_up_priority": 4,
+      "recommended_action": "parse_latest_signatures_and_verify_change_now_funding_or_rearm_path"
+    },
+    {
+      "address": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+      "balance_sol": 15.598396524,
+      "latest_signature_time_utc": "2026-04-24T02:21:53Z",
+      "rxrp_buy_orders": [
+        18,
+        23
+      ],
+      "prior_status": "minor_mention",
+      "prior_label": "Token account owner, sent to OG Deployer WSOL ATA",
+      "follow_up_priority": 5,
+      "recommended_action": "parse_latest_signatures_and_compare_to_rxrp_setup_behavior"
+    },
+    {
+      "address": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+      "balance_sol": 8.030025452,
+      "latest_signature_time_utc": "2026-04-24T05:12:41Z",
+      "rxrp_buy_orders": [
+        21
+      ],
+      "prior_status": "l10_early_buyer",
+      "prior_label": "Unlabeled, L10 early buyer",
+      "follow_up_priority": 6,
+      "recommended_action": "parse_latest_signatures_and_check_l10_overlap_behavior"
+    }
+  ],
+  "low_balance_recent_context": [
+    {
+      "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "balance_sol": 0.046097119,
+      "latest_signature_time_utc": "2026-04-24T04:03:22Z",
+      "note": "known core wallet with recent activity but low direct balance"
+    },
+    {
+      "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
+      "balance_sol": 0.01307939,
+      "latest_signature_time_utc": "2026-04-22T17:21:18Z",
+      "note": "known Figg-adjacent sniper remains drained in this screen"
+    },
+    {
+      "address": "GHNyLNAssb8bT78myUeud1HN7jnF41m7KjXpCqKod56c",
+      "balance_sol": 0,
+      "latest_signature_time_utc": "2026-04-22T02:31:58Z",
+      "note": "recent signatures but no SOL balance in this screen"
+    }
+  ],
+  "next_recommended_live_step": {
+    "provider": "Helius",
+    "scope": "manual_follow_up_queue only",
+    "question": "For the six high-balance RXRP buyer wallets, parse the latest one to five signatures per wallet and identify whether recent activity is re-arm, trading, consolidation, or unrelated churn.",
+    "estimated_budget_note": "Parsing selected signatures is more expensive than signature listing; inspect raw signature list first and cap the parse set before execution."
+  }
+}

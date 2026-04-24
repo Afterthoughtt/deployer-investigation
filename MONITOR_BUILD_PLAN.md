@@ -12,55 +12,23 @@ Wallet map, deployer history, insider networks, and API docs are all in this rep
 
 ---
 
-## Implementation status (2026-04-19)
+## Implementation status (2026-04-24)
 
-**Shipped to VPS and running live:**
+**Live on VPS** (`l11@143.198.12.56:/opt/l11-monitor`, systemd-managed, 4.4-day uptime, 0 crashes since last deploy):
 
-- ✅ **Increment 1** — Config loader + env validation (`monitor/src/config.ts`)
-- ✅ **Increment 2** — SQLite schema + WAL mode (`monitor/src/db.ts`)
-- ✅ **Increment 3** — Wallets.json loader + idempotent DB sync (`monitor/src/wallets.ts`)
-- ✅ **Increment 4** — Helius Enhanced WSS subscription (`monitor/src/helius/ws.ts`)
-- ✅ **Increment 5** — Reconnect + backfill with exponential backoff (`monitor/src/helius/rpc.ts`, `monitor/src/backfill.ts`)
-- ✅ **Increment 6** — Candidate detection + tiering (`monitor/src/detection/`)
-- ✅ **Increment 7** — SQLite candidate persistence + dedup (`makePersistCandidate` in `db.ts`)
-- ✅ **Increment 8** — Telegram bot skeleton (`monitor/src/telegram/bot.ts`)
-- ✅ **Increment 9** — Candidate alert push + inline-button callbacks (`monitor/src/telegram/push.ts`)
-- ✅ **Increment 10** — Command bodies: /status, /candidates, /whitelist, /reject, /mute, /unmute
-- ✅ **Increment 11** — Staleness monitor, /health HTTP endpoint, daily heartbeat (`monitor/src/health.ts`)
-- ✅ **/health command** + end-to-end selfcheck (`monitor/src/selfcheck.ts`)
-- ✅ **Proactive alarms** — WS-down warning + recovery, RPC-failure warning + recovery
-- ✅ **wallets.json reviewed set** committed (23 wallets: MP1, MP2, v49 hub, 20 intermediaries)
-- ✅ **VPS deployment V1–V4** — DO droplet provisioned, repo cloned, systemd unit installed and active, SSH hardened
+- Increments 1–11: config loader, SQLite schema + WAL, wallets.json sync, Helius Enhanced WSS, reconnect + backfill, candidate detection + tiering, DB persistence + dedup, Grammy bot, commands, candidate alerts, staleness monitor + `/health` HTTP + heartbeat
+- `/health` Telegram command + end-to-end selfcheck; proactive WS-down + RPC-failure alarms with recovery
+- Production hardening PH1a–PH6 (commit `5335ae2`, deployed 2026-04-19): Telegram auto-retry + throttler, `/candidates` truncation guard, startup replay + schema migration for un-alerted candidates, heartbeat WS-state line, startup `🟢` prefix, `/unreject` + `/unwhitelist`
+- 23 monitored wallets (reviewed 2026-04-18): MP1, MP2, v49 hub, 20 intermediaries
 
-**Production state as of 2026-04-18:**
-- Daemon running under systemd on `143.198.12.56`.
-- 5 real candidates detected (all `status='detected'`, MoonPay origin, awaiting manual whitelist).
-- 10.5-minute soak: 488 WS events + 3 backfill events processed, 0 new candidates during soak, `/health` 200 throughout, clean exit.
+**Current operational state (2026-04-24):** 133 `status='detected'` candidates awaiting triage; all have `alert_sent_at` populated; `ignore_list` empty. DB clean: no NULL violations, no duplicate addresses or signatures. `/health` green.
 
-**Implemented locally 2026-04-19 — tests green, pending VPS deploy:**
-
-- 🟢 PH1a — `@grammyjs/auto-retry` plugin (MUST) — wired in `monitor/src/telegram/bot.ts` after `new Bot(token)`.
-- 🟢 PH1b — `@grammyjs/transformer-throttler` plugin (SHOULD) — throttler registered before autoRetry so retries re-enter the throttled queue.
-- 🟢 PH2 — `/candidates` 4096-char truncation guard (MUST) — `formatCandidatesBody` in `monitor/src/telegram/format.ts`, covered by 13 new assertions in `monitor/test/commands.ts`.
-- 🟢 PH3 — Startup replay + schema migration for `alert_sent_at` + `prior_sig_count` (MUST) — idempotent `ALTER TABLE` in `openDb`, `makeMarkAlertSent` + `makeListUnalertedCandidates` readers, replay block in `index.ts` between startup push and WS connect. Covered by 13 new assertions in `monitor/test/candidate-actions.ts` including legacy-DB migration + crash-recovery simulation.
-- 🟢 PH4 — Heartbeat includes WS state line (SHOULD) — `wsConnected` added to `sendHeartbeat` meta + wired from `status.wsConnected` in `index.ts`.
-- 🟢 PH5 — Startup message emoji prefix (SHOULD) — 🟢 prefix on `sendStartupMessage`'s first line.
-- 🟢 PH6 — `/unreject <id>` + `/unwhitelist <id>` undo commands (SHOULD) — `makeUnwhitelistCandidate` + `makeUnrejectCandidate` in `db.ts` (unreject removes from `ignore_list`, mirrored in-memory via `ignoreSet.delete` in `index.ts`), new `ActionConfig` dispatcher in `bot.ts` (replaces the prior boolean-flag dispatcher). Covered by 18 new assertions in `monitor/test/candidate-actions.ts`.
-- ⏸️ PH7 — `/wallets` command (OPTIONAL)
-- ⏸️ PH8 — `/stats` command (OPTIONAL)
-
-**Test totals after this session:** `commands.ts` 54 assertions, `candidate-actions.ts` 53 assertions. Full suite (`replay-l10`, `replay-l10-dedup`, `commands`, `candidate-actions`, `health`, `selfcheck-synthetic`) green via `tsx`; `npm run monitor:build` clean.
-
-**Internal refactor landed in same diff:** `makeStatusTransition(db, runUpdate, afterUpdate?)` in `db.ts` changed from taking a prepared `Statement` to taking a `(id, now) => RunResult` callback. Needed because undo transitions null-out a timestamp column and can't bind `(now, id)` like the forward transitions. Callers updated in lockstep; helper is not exported.
-
-**Audit findings (from `/audit` 2026-04-19) — follow-ups, not ship-blockers:**
-- 🔸 MEDIUM: no unit test locks the "`sendCandidateAlert` rejection → `markAlertSent` NOT called" contract that PH3 replay depends on. ~10 lines in `candidate-actions.ts` would cover it.
-- 🔸 MEDIUM: PH3 replay loop at `index.ts:203-228` has no burst cap. Throttler serializes, but a long outage could pile up dozens of rows. Slicing to first 50 with a warn log is cheap hardening.
-- 🔹 LOW (pre-existing + PH6): `monitor/test/smoke-alert.ts:85` `createTelegramBot({…})` call is missing `onUnwhitelist`, `onUnreject` (added by PH6), and `runHealthChecks` (missing since increment 11). Hidden by `tsconfig.json`'s `include: ["src/**/*"]` — tsx runs transpile-only so the smoke script still runs, but type-soundness of test/ is broken. Fix when convenient.
-
-**VPS deploy outstanding.** Pre-deploy step for PH3: `scp` the VPS `l11.db` to `./backups/l11-pre-ph3-2026-04-19.db` before `systemctl restart`, since PH3 runs `ALTER TABLE` + a `UPDATE` over existing rows. Post-deploy, the 5 live `status='detected'` candidates will each get one replay alert on first boot (their `alert_sent_at` is NULL by definition).
-
-See §Production hardening below for details on each.
+**Post-L11 backlog:**
+- PH7 (`/wallets`) and PH8 (`/stats`) — OPTIONAL commands, not started.
+- Two open `/audit` findings (2026-04-19) deferred as launch-week risk:
+  - Unit test locking the `sendCandidateAlert` rejection → `markAlertSent` NOT called contract that PH3 replay depends on.
+  - Burst cap on PH3 startup replay (`index.ts:200-229`). Throttler already paces, but a `.slice(0, 50)` + warn log is cheap hardening.
+- Revert `STALE_THRESHOLD_MS=900000` on `/opt/l11-monitor/.env` to the documented 2h default after L11 launches.
 
 ---
 
@@ -121,7 +89,7 @@ Never reconstruct a wallet address from a truncated prefix. Copy full addresses 
 - tsx for dev execution
 - TypeScript, strict mode
 - better-sqlite3 with WAL mode
-- grammy for Telegram (1.42.0) — `@grammyjs/auto-retry` 2.0.2 + `@grammyjs/transformer-throttler` 1.2.1 installed via PH1a/PH1b (local as of 2026-04-19, pending VPS deploy)
+- grammy for Telegram (1.42.0) + `@grammyjs/auto-retry` 2.0.2 + `@grammyjs/transformer-throttler` 1.2.1
 - Helius Developer plan ($24.50/mo): Enhanced WSS `transactionSubscribe` with `accountInclude` filter, plus RPC for backfill
 - dotenv for config (reads the single root `.env`)
 - systemd for process management (no pm2)
@@ -301,23 +269,17 @@ Single chat, hardcoded chat ID in env. Bot responds only to that chat (chat guar
 
 ### Commands (registered via `bot.api.setMyCommands` on startup)
 
-**Shipped to VPS:**
+**Shipped:**
 - `/status` — daemon uptime, WebSocket state + subscribe count, per-category last-event ages, active candidate count, mute state. In-memory + one SQL COUNT; no external calls.
 - `/health` — end-to-end 5-probe liveness probe (SQLite read, Helius `getBalance` on MP1, WS connected + on-ramp freshness < 5min, detection synthetic payload, Telegram alert pipe). Burns ~1 Helius credit per invocation; do not loop.
-- `/candidates` — list active candidates with tier emoji, id, confidence, amount, source label, age, address in `<code>` block, Solscan link per row.
-- `/whitelist <id>` — mark candidate whitelisted.
-- `/reject <id>` — mark candidate rejected + add address to ignore_list.
-- `/mute <duration>` — parses `Ns`/`Nm`/`Nh`/`Nd` up to 7d cap; sets in-memory `muteUntil` that adds `disable_notification: true` to every outbound push. (In-memory only — restart clears.)
-- `/unmute` — cancel active mute.
+- `/candidates` — list active candidates with tier emoji, id, confidence, amount, source label, age, address in `<code>` block, Solscan link per row. 4096-char truncation guard drops trailing rows in whole 4-line chunks and appends a `… and N more` footer.
+- `/whitelist <id>` / `/unwhitelist <id>` — mark candidate whitelisted / undo. Unwhitelist is DB-only; does not unwind a Bloom paste.
+- `/reject <id>` / `/unreject <id>` — mark candidate rejected + add to ignore_list / undo and remove from ignore_list.
+- `/mute <duration>` / `/unmute` — parses `Ns`/`Nm`/`Nh`/`Nd` up to 7d cap; sets in-memory `muteUntil` that adds `disable_notification: true` to outbound pushes. In-memory only — restart clears.
 
-**Implemented locally 2026-04-19, pending VPS deploy:**
-- `/candidates` now applies a 4096-char truncation guard with a `… and N more` footer (PH2).
-- `/unwhitelist <id>` — undo a misfire on a whitelisted candidate (DB-only; does not unwind a Bloom paste).
-- `/unreject <id>` — undo a misfire on a rejected candidate; also removes the address from `ignore_list` so it can be re-detected.
-
-**Pending implementation:**
-- PH7: `/wallets` — list monitored wallets grouped by category (OPTIONAL).
-- PH8: `/stats` — candidate / event rollup counts (OPTIONAL).
+**Post-L11 backlog (OPTIONAL):**
+- PH7: `/wallets` — list monitored wallets grouped by category.
+- PH8: `/stats` — candidate / event rollup counts.
 
 ### Candidate alert format
 
@@ -352,12 +314,12 @@ Callback handlers on `wl:*` and `rj:*`. Acknowledge via `ctx.answerCallbackQuery
 - **Stale on-ramp warning + recovery:** triggers when no on-ramp event received in `STALE_THRESHOLD_MS` (default 2h); recovery reports staleness duration.
 - **WS-down warning + recovery:** sustained WS disconnect (>60s) pushes `⚠️ sendWsDownWarning`; `✅ sendWsRecovery` on next open. Flaps < 60s are silent.
 - **RPC failure warning + recovery:** 5 consecutive `getSignaturesForAddress` failures (after `rpcCall`'s own 5-attempt retry with `Retry-After`) triggers `⚠️ sendRpcFailureWarning`; next successful call triggers `✅ sendRpcFailureRecovery`.
-- **Daily heartbeat (`💓`):** uptime, WS state (`connected`/`disconnected`), active candidate count, per-category last-event ages. Cadence `HEARTBEAT_INTERVAL_MS` (default 24h). WS-state line added by PH4 2026-04-19 (local, pending VPS deploy).
-- **Startup message:** `🟢` prefix + monitored-wallet count + existing-candidate count. 🟢 prefix added by PH5 2026-04-19 (local, pending VPS deploy).
+- **Daily heartbeat (`💓`):** uptime, WS state (`connected`/`disconnected`), active candidate count, per-category last-event ages. Cadence `HEARTBEAT_INTERVAL_MS` (default 24h).
+- **Startup message:** `🟢` prefix + monitored-wallet count + existing-candidate count.
 
 ### Telegram 429 handling
 
-**Original plan claimed "grammy handles this" — this is wrong.** grammy does NOT retry 429s by default; the official solution is `@grammyjs/auto-retry`. Installed locally 2026-04-19 via PH1a (pending VPS deploy); PH1b adds `@grammyjs/transformer-throttler` in front of it so retries themselves are rate-limited.
+`@grammyjs/auto-retry` retries 429s honoring `retry_after` (max 3 attempts, 30s cap). `@grammyjs/transformer-throttler` in front paces outbound sends so bursts (e.g., PH3 startup replay) don't produce 429s to begin with. Throttler-first, auto-retry-second ordering means retry attempts are themselves rate-limited.
 
 ---
 
@@ -421,9 +383,9 @@ npx tsx monitor/test/replay-l10.ts
 - **Helius RPC 429** — `rpcCall` honors `Retry-After`, exponential backoff, never hammers.
 - **Helius credit exhaustion** — track manually via dashboard, not programmatically in v1.
 - **SQLite WAL grows large** — checkpoint manually if > 100MB (unlikely at our write volume).
-- **Telegram 429** — `@grammyjs/auto-retry` (installed locally via PH1a 2026-04-19; pending VPS deploy) retries honoring `retry_after` up to 3 attempts within a 30s cap. Before this lands on the VPS, a 429 silently drops the alert.
-- **Telegram 5xx / network blip at send time** — same: auto-retry (PH1a) covers it. On final failure, the candidate row's `alert_sent_at` stays NULL → PH3 startup replay covers the gap on next boot.
-- **Daemon crash between SQLite persist and Telegram send** — PH3 startup replay (local 2026-04-19, pending VPS deploy) covers it: un-alerted rows surface via `SELECT … WHERE status='detected' AND alert_sent_at IS NULL` and the push is fired-and-forgotten after `bot.start()` but before WS connect. Before PH3 lands on the VPS, such a candidate is orphaned with no operator notification.
+- **Telegram 429** — `@grammyjs/auto-retry` retries honoring `retry_after` up to 3 attempts within a 30s cap.
+- **Telegram 5xx / network blip at send time** — same: auto-retry covers it. On final failure, the candidate row's `alert_sent_at` stays NULL → PH3 startup replay covers the gap on next boot.
+- **Daemon crash between SQLite persist and Telegram send** — PH3 startup replay covers it: un-alerted rows surface via `SELECT … WHERE status='detected' AND alert_sent_at IS NULL` and the push is fired-and-forgotten after `bot.start()` but before WS connect.
 - **Daemon crash in general** — systemd restarts (`Restart=always`, `RestartSec=5`), startup backfill covers the gap for WS events.
 - **VPS reboot** — systemd starts daemon at boot, backfill covers the gap.
 - **Deployer funds from an on-ramp we're not monitoring** — cannot detect. Known gap.
@@ -541,7 +503,7 @@ WantedBy=multi-user.target
 
 **Base packages + Node 20.20.2 LTS installed. `l11` system user created (uid 997, sudo group, passwordless sudo). Mac SSH key installed. `/opt/l11-monitor` owned by `l11:l11`. ufw enabled (deny in / allow out + 22/tcp), fail2ban enabled with sshd jail, SSH password auth disabled.**
 
-**Weekly DO backups: user-deferred.** Rationale: daemon self-recovers from `l11.db` loss via forward-only bootstrap (monitored wallets get NULL cursor on new DB and skip backfill). For PH3, pre-migration DB backup is done manually via `scp` before each schema change that touches existing rows.
+**DB backup strategy.** DigitalOcean automated backups are not enabled (weekly cadence is too coarse for launch-window use). Daemon self-recovers from `l11.db` loss via forward-only bootstrap (monitored wallets get NULL cursor on new DB and skip backfill), but candidate history + ignore_list would be lost. Manual timestamped snapshots via `~/Desktop/db-backup/backup-db.sh` on the operator's Mac (`scp` with atomic `.partial` staging, saves to `~/Desktop/db-backup/l11-manual-YYYYMMDD-HHMM.db`). Recommended cadence during the L11 window: every 1–3 hours. For schema-changing deploys, take a pre-deploy snapshot before `systemctl restart`.
 
 ### Deploy sequence (for re-use on PH updates)
 
@@ -572,142 +534,26 @@ mkdir -p backups
 scp l11@143.198.12.56:/opt/l11-monitor/monitor/data/l11.db ./backups/l11-pre-<change>-<date>.db
 ```
 
-**Next deploy (PH1a/PH1b/PH2/PH3/PH4/PH5/PH6 bundle, 2026-04-19):**
-1. Pre-deploy: `scp l11@143.198.12.56:/opt/l11-monitor/monitor/data/l11.db ./backups/l11-pre-ph3-2026-04-19.db` (PH3 runs ALTER + UPDATE on existing rows).
-2. Deploy via standard sequence above. `npm ci` picks up the two new grammy plugins from `package-lock.json`.
-3. Expect on first boot: `db-migrate: candidates +alert_sent_at` + `db-migrate: candidates +prior_sig_count` + `db-migrate: candidates.prior_sig_count backfilled N row(s)` log lines, then `replay: queued 5 un-alerted candidate(s)` and 5 alert messages in the Telegram chat for the pre-existing `detected` candidates. Subsequent boots: migration is a no-op and replay returns 0 (those rows will have been marked `alert_sent_at`).
-4. Post-deploy sanity: `/status` reports expected uptime, `/candidates` renders with Solscan links, `/health` returns all checks passed. The new commands (`/unwhitelist`, `/unreject`) are registered via `setMyCommands` — visible in the Telegram command menu.
-5. Rollback: `scp ./backups/l11-pre-ph3-2026-04-19.db l11@143.198.12.56:/opt/l11-monitor/monitor/data/l11.db` + `git reset --hard <prev-sha>` on VPS + `npm ci && npm run monitor:build && sudo systemctl restart l11-monitor`. Migration is idempotent so the DB restore is the primary reversal mechanism.
-
 ---
 
-## Production hardening
+## Production hardening (shipped 2026-04-19)
 
-These are the remaining increments before L11. Each is runnable and verifiable on its own. Stop and confirm after each.
+PH1a through PH6 shipped as commit `5335ae2` ("PH1a-PH6: close silent-drop paths before L11 window"). Theme: close every silent-drop path for candidate alerts — a dropped alert at T-12h loses L11.
 
-The theme: **a candidate alert is the daemon's one job.** Dropping one at T-12h loses L11. Every MUST item below eliminates a silent-drop path.
+- **PH1a** — `@grammyjs/auto-retry` on Telegram sends (3 retries, 30s max delay). Before: a single 429 or 5xx silently dropped the alert.
+- **PH1b** — `@grammyjs/transformer-throttler` in front of auto-retry (throttler-first, auto-retry-second). Paces outbound bursts at ~1/sec so retry attempts are themselves throttled.
+- **PH2** — `/candidates` 4096-char truncation guard. Drops trailing rows in whole 4-line chunks, appends `… and N more` footer. Prevents Telegram rejecting the whole reply as the queue grows.
+- **PH3** — Startup replay of un-alerted candidates (`status='detected' AND alert_sent_at IS NULL`) + idempotent `ALTER TABLE` migration adding `alert_sent_at` and `prior_sig_count`. Closes the "crash between SQLite persist and Telegram send" silent-drop path. Replay runs between `bot.start()` and `connectHeliusWs()` so it can't race with live re-detection.
+- **PH4** — Heartbeat gains a `WS: connected|disconnected` line. At-a-glance WS state without needing `/status`.
+- **PH5** — Startup message gets the `🟢` prefix for consistency with other pushes.
+- **PH6** — `/unreject` and `/unwhitelist` undo commands. Recovery from a misfire on the reject/whitelist buttons without manual SQL. Unreject also removes the address from `ignore_list`.
 
-### PH1a — Install `@grammyjs/auto-retry` [MUST]
+Per-increment spec (Why / What / Verify) lives in the commit message and diff. See `git show 5335ae2`.
 
-**Why:** Today every Telegram send is one-shot. `sendCandidateAlert` in `monitor/src/index.ts` is fire-and-forget with `.catch(console.error)`. A 429 from Telegram (which can happen during API maintenance, not just from bot abuse), a transient 5xx, or a network blip **silently drops the alert**. Prior plan claim "grammy handles this" is wrong — grammy does not retry by default.
+### Pending (OPTIONAL, post-L11)
 
-**What:**
-- Add `@grammyjs/auto-retry@^2.0.2` to root `package.json`.
-- In `monitor/src/telegram/bot.ts`, after `const bot = new Bot(token)`: `bot.api.config.use(autoRetry({ maxRetryAttempts: 3, maxDelaySeconds: 30 }))`. The `maxDelaySeconds: 30` absorbs normal flood-wait values (1–5s typical) while avoiding the 460–490s lockout windows seen in real 2026 incidents.
-
-**Verify:** monitor builds clean; daemon boots; existing alerts still round-trip; `bot.catch` still fires on retries-exhausted failures.
-
-### PH1b — Install `@grammyjs/transformer-throttler` [SHOULD]
-
-**Why:** Proactive pacing on multi-alert bursts (e.g., PH3 startup replay of N pending candidates). Telegram's own guidance is "don't pre-throttle, handle 429s" so this is not a correctness fix — auto-retry alone is sufficient. The throttler is a latency/cleanliness improvement: bursts send at ~1 msg/sec without producing 429s at all.
-
-**What:**
-- Add `@grammyjs/transformer-throttler@^1.2.1`.
-- Install throttler **first**, autoRetry **second**: `bot.api.config.use(apiThrottler())` then `bot.api.config.use(autoRetry(...))`. In grammy, first-registered transformers run innermost (closest to the actual API call), so throttler-first means autoRetry wraps the throttled call. When autoRetry handles a 429 and retries, the retry re-enters the throttler's queue — so retry attempts are themselves rate-limited. Throttler defaults align with Telegram's documented limits.
-
-**Verify:** synthetic 10× burst in `smoke-alert.ts` — all 10 arrive in order, no 429 attempts logged by auto-retry.
-
-### PH2 — `/candidates` 4096-char truncation guard [MUST]
-
-**Why:** `monitor/src/telegram/bot.ts` `bot.command("candidates", …)` concatenates all rows with no body-length guard. Each row is ~170 chars; ~24 rows overflow and Telegram rejects the entire reply. Unlikely at 5 active, but a growing backlog silently breaks the command.
-
-**What:** Each candidate renders as a **4-line block** in the current loop (blank separator, `<tier-emoji> C<id> …` header, `<code>addr</code>`, Solscan link — see `bot.ts:213-220`). After the for-loop, check `lines.join("\n").length`. If > ~3900 (leaving room for HTML tags), drop trailing rows **in whole 4-line chunks** to avoid dangling fragments, and append:
-
-```
-… and N more (use /whitelist <id> or /reject <id> directly)
-```
-
-Cleanest refactor: build `rowChunks: string[][]` (each inner array is the 4 lines for one row), then slice whole chunks off the end while the joined size is over limit, then flatten. Reuse `escapeHtml`, `TIER_EMOJI`, `formatAge` from `format.ts`.
-
-**Verify:** extend `monitor/test/commands.ts` with a truncation case — seed enough rows to overflow, assert result ≤ 4096 chars, contains the "N more" footer, and every included row is complete (4 lines, ending with a Solscan link, no truncated `<code>` tag).
-
-### PH3 — Startup replay of un-alerted candidates + schema migration [MUST]
-
-**Why:** SQLite persist and Telegram send are not atomic. A crash, OOM, VPS reboot, or systemd restart between them leaves an orphan `detected` row with no alert ever attempted. Today there's no replay.
-
-**Ordering constraint: PH3 MUST ship after PH1a.** Replay is fire-and-forget; without `@grammyjs/auto-retry` a single 429 on replay silently drops the alert again, defeating the purpose.
-
-**Schema + migration (inside `openDb`, before any prepared statement):**
-- Add columns to `candidates`: `alert_sent_at INTEGER`, `prior_sig_count INTEGER` (both nullable). New DBs get them via CREATE TABLE (update `SCHEMA_DDL`).
-- For existing DBs: query `pragma_table_info('candidates')`; for each missing column, run `ALTER TABLE candidates ADD COLUMN <col> INTEGER`. Log each action.
-- Backfill existing rows **after** ALTER: `UPDATE candidates SET prior_sig_count = 1 WHERE prior_sig_count IS NULL` (all historical detections had priorSigCount=1). No-op on a fresh DB.
-- Migration must run before `makePersistCandidate(db)` in `index.ts:69` prepares its INSERT against the new schema.
-
-**Persist update:** `makePersistCandidate` in `db.ts:133` currently uses **9 placeholders** in its INSERT (see `db.ts:139`). Adding `prior_sig_count` makes it **10**. Update the column list, placeholder count, and `insertCandidate.run(...)` arg order in lockstep.
-
-**Mark helper:** `makeMarkAlertSent(db): (id: number) => void` → prepared `UPDATE candidates SET alert_sent_at = ? WHERE id = ?`.
-
-**Call-site wiring:** after `sendCandidateAlert` resolves in `index.ts` (around L275), call `markAlertSent(id)` in the `.then()`. If send throws, do nothing — the `.catch` logs and the next restart replays.
-
-**Startup replay:**
-- **Timing:** must run **after** `bot.start()` (`index.ts:158`) because it uses the bot, and **before** `connectHeliusWs()` (~`index.ts:324`) so a concurrent re-detection of the same address can't race. Place the replay block between the two — roughly after the startup-message push around L160-168.
-- Query: `SELECT id, address, funded_amount_sol, funding_source, funding_source_label, funding_signature, funding_slot, funding_timestamp, confidence, prior_sig_count FROM candidates WHERE status='detected' AND alert_sent_at IS NULL ORDER BY detected_at ASC`.
-- For each row, reconstruct a `Candidate` (most fields from DB columns; `fundingSourceCategory` via `monitoredMap.get(fundingSourceAddress)?.category ?? "intermediary"` — fallback covers addresses since removed from wallets.json; `fundedAmountLamports = Math.round(fundedAmountSol * 1e9)`).
-- **Caveat:** the reconstructed `fundedAmountLamports` is lossy vs. the original (REAL SOL has ~1-lamport rounding error). Safe for `sendCandidateAlert` which only reads `fundedAmountSol`. **Do not** pass the reconstructed `Candidate` through `persistCandidate` or `detectCandidates` — those paths assume authoritative lamports. Document this in the replay function's header comment.
-- Fire-and-forget `sendCandidateAlert(bot, c, row.id).then(() => markAlertSent(row.id)).catch(err => console.error(...))`. **Do not await the loop.** With PH1b installed the throttler paces them ~1/sec; without PH1b, auto-retry absorbs any 429s on concurrent sends. WS connect is not blocked.
-- Log `replay: queued N candidates` before dispatch.
-
-**Compatibility with existing prod rows:** the 5 live `detected` candidates get `alert_sent_at=NULL` after migration. On first restart post-deploy they re-alert once, then are marked sent.
-
-**Pre-deploy:** `scp` the VPS `l11.db` to `./backups/l11-pre-ph3-<date>.db` before systemd restart. Rollback is `scp` back + `git reset`.
-
-**Verify:**
-- Extend `monitor/test/candidate-actions.ts`: insert a detected row with `alert_sent_at=NULL`, run the replay query → returned; call `markAlertSent` → no longer returned; terminal-status rows never appear.
-- Extend to cover idempotent migration: running `openDb` twice on the same file does not error and does not duplicate columns (second `pragma_table_info` check returns no missing columns).
-- **Crash-recovery end-to-end:** run the daemon against a fresh DB, simulate a persist-but-no-alert state by inserting a row with `status='detected'` and `alert_sent_at=NULL` directly via `sqlite3`, restart the daemon, confirm Telegram receives one replay alert and `alert_sent_at` becomes non-NULL after.
-- Local dry run against a copy of the VPS DB — confirm migration logs, replay logs, 5 replay alerts delivered.
-
-### PH4 — Heartbeat includes WS state line [SHOULD]
-
-**Why:** `sendHeartbeat` omits WS state. If a heartbeat arrives while WS is disconnected, the operator wouldn't see that from the heartbeat alone (per-category ages will be stale but don't explicitly flag "WS down").
-
-**What:** Add `wsConnected: boolean` to `sendHeartbeat` meta. Insert `WS: connected|disconnected` after the uptime line. Source from `status.wsConnected`.
-
-**Verify:** local run with `HEARTBEAT_INTERVAL_MS=60000` — observe one heartbeat, confirm the line renders.
-
-### PH5 — Startup message gets an emoji prefix [SHOULD]
-
-**Why:** Every other push starts with an emoji (⚠️/✅/💓/🟢🟡🔴). `sendStartupMessage` begins with plain `l11-monitor: online`. Inconsistent for at-a-glance triage in chat history.
-
-**What:** Prepend `🟢 ` to the first line of `sendStartupMessage`.
-
-### PH6 — `/unreject <id>` and `/unwhitelist <id>` undo commands [SHOULD]
-
-**Why:** Reject and Whitelist are one-tap terminal decisions; the buttons sit adjacent in the alert so a misfire is plausible during a fast triage. Today the only way back is manual SQL.
-
-**What:**
-- `monitor/src/db.ts`: `makeUnwhitelistCandidate(db)` and `makeUnrejectCandidate(db)` alongside the existing transitions. Reuse `makeStatusTransition` — the source-status filter is inside the passed-in UPDATE's WHERE clause, so no helper change needed. For unreject, use the existing `afterUpdate` hook to `DELETE FROM ignore_list WHERE address=?` (symmetric with how reject uses it to insert).
-- `monitor/src/telegram/bot.ts`: register `/unwhitelist` and `/unreject` in `COMMANDS`; reuse `runIdCommand` pattern.
-- `monitor/src/index.ts`: wrap `unrejectCandidate` so that on `statusChanged=true` it also runs `ignoreSet.delete(result.address)` (mirror of the `/reject` wrapper).
-
-**Replies:**
-- Success: `↩️ C<id> moved back to detected\n\n<code>addr</code>`
-- Wrong source status: `C<id> not in <expected> state (currently <actual>)`
-- Not found: `C<id> not found`
-
-**Note:** `/unwhitelist` only changes DB state. It does not undo a Bloom paste.
-
-**Verify:** extend `monitor/test/candidate-actions.ts` — whitelist → unwhitelist round-trip; reject → unreject round-trip including ignore_list row check; no-op on a detected row.
-
-### PH7 — `/wallets` command [OPTIONAL]
-
-**Why:** Self-documenting; avoids opening `monitor/data/wallets.json` for ad-hoc lookups.
-
-**What:** `makeListMonitoredWallets(db)` reader, plus a command that renders grouped by category, addresses in `<code>` blocks, prefix-truncated in visible text. Apply the same 4096-char guard as `/candidates`.
-
-### PH8 — `/stats` command [OPTIONAL]
-
-**Why:** Context for "is the daemon seeing enough?" at a glance.
-
-**What:** Pure SQL against existing tables. Returns candidates total + by tier + by status + last 24h/7d; events total + last 24h/7d.
-
-### Sources (PH1 web-verified 2026-04-19)
-
-- https://grammy.dev/plugins/auto-retry
-- https://www.npmjs.com/package/@grammyjs/auto-retry
-- https://grammy.dev/plugins/transformer-throttler
-- https://www.npmjs.com/package/@grammyjs/transformer-throttler
-- https://core.telegram.org/bots/faq
+- **PH7** — `/wallets` command: list monitored wallets grouped by category with the same 4096-char guard.
+- **PH8** — `/stats` command: candidates by tier/status + 24h/7d rollups + events by source.
 
 ---
 
@@ -721,4 +567,4 @@ Cleanest refactor: build `rowChunks: string[][]` (each inner array is the 4 line
 - **Bloom bot**: Telegram-based snipe bot that executes block-0 purchases on whitelisted deployer wallets. Whitelisting is currently manual via address paste.
 - **L10, L11**: launch number. L10 (XAIC, March 2026) was missed because no monitor was running. L11 is the next launch — **Nukex, Saturday April 25 2026, 14:00–18:00 EST** (confirmed via operator intel 2026-04-20).
 - **Block 0**: the same Solana slot as the deploy tx. Bloom's goal.
-- **PH1..PH8**: production-hardening increments planned before L11 (see §Production hardening).
+- **PH1..PH6**: production-hardening increments shipped 2026-04-19 as commit `5335ae2`. PH7 and PH8 remain OPTIONAL post-L11 backlog.

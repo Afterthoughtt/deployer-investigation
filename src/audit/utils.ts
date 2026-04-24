@@ -1,6 +1,12 @@
 import 'dotenv/config';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import {
+  assertArkhamSpendAllowed,
+  makeArkhamGuardrailConfig,
+  makeArkhamGuardrailState,
+  observeArkhamDatapoints,
+} from './arkham-guardrails.js';
 
 // ---------------------------------------------------------------------------
 // API keys from .env
@@ -10,6 +16,24 @@ const NANSEN_API_KEY = process.env.NANSEN_API_KEY!;
 const ARKHAM_API_KEY = process.env.ARKAN_API_KEY!; // Note: env var is ARKAN, not ARKHAM
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const ARKHAM_GUARDRAILS = makeArkhamGuardrailConfig(process.env);
+const arkhamGuardrailState = makeArkhamGuardrailState();
+
+function chunks<T>(items: readonly T[], size: number): T[][] {
+  const out: T[][] = [];
+  for (let i = 0; i < items.length; i += size) {
+    out.push(items.slice(i, i + size));
+  }
+  return out;
+}
+
+function assertBatchLimit(name: string, items: readonly unknown[], limit: number): void {
+  if (items.length > limit) {
+    throw new Error(
+      `${name}: refusing to silently truncate ${items.length} addresses to ${limit}; split into explicit batches`,
+    );
+  }
+}
 
 // ---------------------------------------------------------------------------
 // 1. heliusRpc — Standard Solana JSON-RPC via Helius (50 req/sec, no delay)
@@ -59,23 +83,31 @@ export async function heliusWallet(
 }
 
 // ---------------------------------------------------------------------------
-// 3. heliusBatchIdentity — Batch lookup up to 100 addresses (100ms delay)
+// 3. heliusBatchIdentity — Batch lookup, chunked at 100 addresses (100ms delay)
 // ---------------------------------------------------------------------------
 export async function heliusBatchIdentity(
   addresses: string[],
 ): Promise<unknown> {
-  await sleep(100);
-  const url = `https://api.helius.xyz/v1/wallet/batch-identity?api-key=${HELIUS_API_KEY}`;
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ addresses: addresses.slice(0, 100) }),
-  });
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(`heliusBatchIdentity failed: ${res.status} ${text}`);
+  const results: unknown[] = [];
+  for (const batch of chunks(addresses, 100)) {
+    await sleep(100);
+    const url = `https://api.helius.xyz/v1/wallet/batch-identity?api-key=${HELIUS_API_KEY}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ addresses: batch }),
+    });
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      throw new Error(`heliusBatchIdentity failed: ${res.status} ${text}`);
+    }
+    const body = await res.json();
+    if (!Array.isArray(body)) {
+      throw new Error('heliusBatchIdentity: expected array response');
+    }
+    results.push(...body);
   }
-  return res.json();
+  return results;
 }
 
 // ---------------------------------------------------------------------------
@@ -154,6 +186,13 @@ async function arkhamRequest(
   opts: { params?: Record<string, string>; body?: unknown; slowEndpoint?: boolean } = {},
 ): Promise<{ body: unknown; meta: ArkhamMeta }> {
   if (opts.slowEndpoint) await sleep(1000);
+  assertArkhamSpendAllowed(
+    method,
+    path,
+    { params: opts.params, body: opts.body },
+    arkhamGuardrailState,
+    ARKHAM_GUARDRAILS,
+  );
 
   const url = new URL(`https://api.arkm.com${path}`);
   if (opts.params) {
@@ -193,6 +232,7 @@ async function arkhamRequest(
 
     const body = await res.json();
     const meta = readDatapoints(res);
+    observeArkhamDatapoints(path, meta, arkhamGuardrailState, ARKHAM_GUARDRAILS);
     return { body, meta };
   }
   throw lastErr ?? new Error(`arkham ${path} exhausted retries`);
@@ -221,8 +261,9 @@ export async function arkhamMeta(
 //    clusters, tags, or entity predictions. Use arkhamEnrichedBatch for those.
 // ---------------------------------------------------------------------------
 export async function arkhamBatchIntel(addresses: string[]): Promise<unknown> {
+  assertBatchLimit('arkhamBatchIntel', addresses, 1000);
   const { body } = await arkhamRequest('POST', '/intelligence/address/batch/all', {
-    body: { addresses: addresses.slice(0, 1000) },
+    body: { addresses },
   });
   return body;
 }
@@ -235,8 +276,9 @@ export async function arkhamBatchIntel(addresses: string[]): Promise<unknown> {
 export async function arkhamEnrichedBatch(
   addresses: string[],
 ): Promise<{ body: unknown; meta: ArkhamMeta }> {
+  assertBatchLimit('arkhamEnrichedBatch', addresses, 1000);
   return arkhamRequest('POST', '/intelligence/address_enriched/batch/all', {
-    body: { addresses: addresses.slice(0, 1000) },
+    body: { addresses },
   });
 }
 
