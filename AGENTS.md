@@ -47,13 +47,15 @@ You are reviewing and operating this repository as an independent second-opinion
 - Standalone Helius MCP is approved for bounded read-only wallet investigation and Helius documentation checks.
 - Allowed uses: inspect specific wallets, parse specific transactions, verify token-account ownership, check balances/assets, and validate Helius API/WebSocket behavior.
 - Live Helius work must name the wallet list, investigation question, and rough call budget before execution.
-- Prefer repo scripts for repeatable investigation artifacts; use Helius MCP as a read-only validation layer.
+- Prefer `npm run audit:wallet-review -- ...` for repeatable budgeted wallet reviews. Treat older one-off scripts as legacy helpers until you inspect their query shape and budget impact. Use Helius MCP as a read-only validation layer.
 
 ## API Cost Safety
 
-- Arkham intel datapoints are red-zone as of 2026-04-23. Treat user-reported remaining label/intel lookups below 2000 as scarce.
-- Do not run broad or batch Arkham intelligence by default.
-- `src/audit/utils.ts` enforces Arkham datapoint/run-budget guardrails. For maximum safety before deploy, use `ARKHAM_LABEL_LOOKUP_RUN_BUDGET=0`.
+- Arkham has two different scarce surfaces. General credits may be extended, but the intel label lookup bucket is capped. As of the user-provided 2026-04-24 dashboard, 8,077 / 10,000 intel label lookups were used, leaving 1,923 before the 2026-05-04 trial reset/end.
+- Treat Arkham intel/label lookups as scarce. Do not run broad or batch Arkham intelligence by default.
+- Treat Arkham row-billed endpoints as dangerous unless boxed in. `/transfers` and `/swaps` must have `chain`/`chains=solana`, one of `base`/`from`/`to`, an explicit `limit`, no pagination by default, and a time lower-bound or `timeLast`.
+- `src/audit/utils.ts` enforces Arkham datapoint/run-budget and row-budget guardrails. `ARKHAM_LABEL_LOOKUP_RUN_BUDGET` defaults to `0`, so Arkham intel/label lookups require an explicit per-run budget; row endpoints are separately capped by `ARKHAM_ROW_LIMIT_MAX` and `ARKHAM_ROW_CREDIT_RUN_BUDGET`.
+- `npm run audit:wallet-review -- ...` is dry-run by default and prints a wallet list, investigation question, selected checks, and rough provider budget before any live API call. Live calls require `--execute --question`.
 - Prefer cheap Helius screens and existing cached/project evidence before expensive provider calls.
 - Nansen counterparty volumes are aggregated, not individual transactions. Verify at transaction level before using them as evidence.
 - Nansen counterparties can include token accounts and program accounts. Verify signer/user-wallet status before treating a counterparty as a wallet.
@@ -72,6 +74,7 @@ You are reviewing and operating this repository as an independent second-opinion
 - Monitor correctness priorities: Helius Enhanced WSS behavior, reconnect, backfill, dedup, SQLite durability, Telegram alerts, replay fixtures, and health checks.
 - Useful offline checks:
   - `npm run audit:check`
+  - `npm run audit:wallet-review -- --help`
   - `npm run monitor:build`
   - `npm run monitor:test`
   - `git diff --check`

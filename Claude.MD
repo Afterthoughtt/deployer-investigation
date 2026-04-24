@@ -21,8 +21,8 @@ The deployer buys SOL through a fiat on-ramp into a fresh wallet (historical spe
 
 - **Helius**: Solana RPC + Wallet API (funding analysis, identity resolution, tx history). Tool access and docs are provided via the Helius MCP, skills, and agents — use those rather than a local docs file.
 - **Nansen**: Entity labeling, counterparties, transactions. POST to `https://api.nansen.ai/api/v1`. Auth: `apiKey` header. Docs: `docs/nansen_docs.md` (read on demand)
-- **Arkham**: Address intel, transfer scanning, entity search, clusters. GET/POST from `https://api.arkm.com`. Auth: `API-Key` header (env var `ARKAN_API_KEY`). **Trial extended 2026-04-21 with unlimited credits. Datapoints cap verified 2026-04-21 P0: `X-Intel-Datapoints-Limit: 10000` per period, separate from credits — monitor `X-Intel-Datapoints-Remaining` before batch calls (a full 147-wallet enriched batch could consume meaningful share).** Full API: `docs/arkham_docs.md` (read on demand — complete API, not a summary reference)
-  - **Current Arkham posture (2026-04-23): treat intel datapoints as red-zone. User-reported remaining label/intel lookups are below 2000. Do not run broad or batch Arkham intelligence by default.** Credits may be unlimited, but datapoints are not.
+- **Arkham**: Address intel, transfer scanning, entity search, clusters. GET/POST from `https://api.arkm.com`. Auth: `API-Key` header (env var `ARKAN_API_KEY`). **Trial extended 2026-04-21 with unlimited credits. Intel label lookups remain capped: user dashboard on 2026-04-24 showed 8,077 / 10,000 used, leaving 1,923 before the 2026-05-04 trial reset/end.** Full API: `docs/arkham_docs.md` (read on demand — complete API, not a summary reference)
+  - **Current Arkham posture (2026-04-24): protect the intel label bucket and bound row endpoints.** General credits may be extended, but broad or batch Arkham intelligence is disabled by default, and `/transfers`/`/swaps` must be tightly scoped because they bill by returned row.
 
 Cross-reference entity labels between the available APIs. They have different coverage gaps — current Arkham gaps observed 2026-04-21 P0.5: Hub Wallet (`v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5`) and CSEncqtq (`CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs`) returned null entity/label on Arkham while our notes (from prior Nansen work) say Fireblocks Custody and CoinSpot respectively. MoonPay-on-Solana attribution gap that existed pre-trial-expiry has closed — Arkham now labels MP1, MP2, MP4 correctly as MoonPay entity.
 
@@ -33,8 +33,12 @@ Single root `.env` (never commit; see `.env.example`):
 - `NANSEN_API_KEY` — Nansen API (audit only)
 - `ARKAN_API_KEY` — Arkham API (audit only; note: ARKAN, not ARKHAM)
 - `ARKHAM_DATAPOINT_RESERVE` — audit guardrail, optional, default `2000`; blocks Arkham intel once observed remaining datapoints would fall below reserve.
-- `ARKHAM_LABEL_LOOKUP_RUN_BUDGET` — audit guardrail, optional, default `25`; max estimated Arkham label/intel lookups per process. Set to `0` to block all Arkham intel calls.
+- `ARKHAM_LABEL_LOOKUP_RUN_BUDGET` — audit guardrail, optional, default `0`; max estimated Arkham label/intel lookups per process. Set a small positive value only for an explicitly approved attribution run.
 - `ARKHAM_ALLOW_BATCH_INTEL` — audit guardrail, optional, default unset/false; set to `1` only for an explicitly approved bounded batch.
+- `ARKHAM_ROW_LIMIT_MAX` — audit guardrail, optional, default `25`; max `limit` for row-billed Arkham endpoints such as `/transfers` and `/swaps`.
+- `ARKHAM_ROW_CREDIT_RUN_BUDGET` — audit guardrail, optional, default `200`; max estimated row-billed Arkham credits per process.
+- `ARKHAM_ALLOW_UNBOUNDED_TIME` — audit guardrail, optional, default unset/false; set to `1` only for an explicitly approved row endpoint without `timeLast` or a time lower bound.
+- `ARKHAM_ALLOW_ROW_PAGINATION` — audit guardrail, optional, default unset/false; set to `1` only for an explicitly approved paginated row-endpoint run.
 - `TELEGRAM_BOT_TOKEN` — Monitor Telegram bot (required at monitor startup)
 - `TELEGRAM_CHAT_ID` — Monitor destination chat, integer; negative for supergroups (required)
 - `DB_PATH` — Monitor SQLite path, optional, default `./data/l11.db` (relative to `monitor/`)
@@ -67,10 +71,11 @@ Key files to read first: `STRATEGY.md` (detection plan), then `data/network-map.
 - Helius standard RPC: 50 req/sec, no delays needed
 - Helius Wallet API / Enhanced APIs: 10 req/sec, add 100ms delays for bulk calls
 - Nansen API: 1.5-2s delays between calls. Max 3-4 day date range on `/profiler/address/transactions`. Labels endpoint costs 500 credits — use only when critical.
-- Arkham API: 20 req/sec standard, 1 req/sec on transfers endpoint. `/counterparties/entity` DOES work on Solana (verified 2026-04-21 P1-prime, returns `flow=in/out` aggregated counterparties — MoonPay entity returned 9 Solana upstream liquidity sources). `/counterparties/address` still unverified for Solana on the current trial. Default limit on `/transfers` is 100 even when `limit=100` is set; use multiple sort orders (time DESC, time ASC, usd DESC) to widen coverage when the `body.count` exceeds returned rows. Arkham clustering is not populated on Solana.
-- Arkham intel guardrails live in `src/audit/utils.ts`. Single-address intelligence calls are budgeted, batch intelligence is blocked unless `ARKHAM_ALLOW_BATCH_INTEL=1`, and observed datapoint headers are used to preserve the reserve. For maximum safety before deploy, run with `ARKHAM_LABEL_LOOKUP_RUN_BUDGET=0`.
+- Arkham API: 20 req/sec standard, 1 req/sec on transfers endpoint. `/counterparties/entity` DOES work on Solana (verified 2026-04-21 P1-prime, returns `flow=in/out` aggregated counterparties — MoonPay entity returned 9 Solana upstream liquidity sources). `/counterparties/address` still unverified for Solana on the current trial. Arkham clustering is not populated on Solana. Do not use multiple sort orders or pagination on `/transfers` unless a human approves an explicit row-credit budget.
+- Arkham guardrails live in `src/audit/utils.ts` and `src/audit/arkham-guardrails.ts`. Single-address intelligence calls require an explicit `ARKHAM_LABEL_LOOKUP_RUN_BUDGET`, batch intelligence is blocked unless `ARKHAM_ALLOW_BATCH_INTEL=1`, observed datapoint headers preserve the reserve, and row-billed `/transfers`/`/swaps` require Solana-only subject filters, explicit limits, time bounds, and no pagination by default.
+- Default wallet review entrypoint: `npm run audit:wallet-review -- ...`. It is dry-run by default, prints the wallet list/question/checks/provider budget, and requires `--execute --question` before live calls. Use older one-off audit scripts only after checking their query shape and budget impact.
 - Never use public Solana RPC (`api.mainnet-beta.solana.com`). Use Helius.
-- Useful offline checks: `npm run audit:check`, `npm run monitor:build`, and `npm run monitor:test`.
+- Useful offline checks: `npm run audit:check`, `npm run audit:wallet-review -- --help`, `npm run monitor:build`, and `npm run monitor:test`.
 
 ## Rules
 

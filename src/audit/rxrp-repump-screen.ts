@@ -3,6 +3,8 @@
  *
  * Loads targets from data/rxrp-repump-buyers.json (excludes 3 known core wallets).
  * For each target: getBalance, batch-identity, Arkham batch intel, funded-by.
+ * Arkham batch intel is blocked by default in utils.ts; enable only with
+ * ARKHAM_ALLOW_BATCH_INTEL=1 and a small ARKHAM_LABEL_LOOKUP_RUN_BUDGET.
  * Triage flags: NETWORK_FUNDED, DEPLOYER_EXCHANGE, SHARED_FUNDER, BOT, ACTIVE, LABELED.
  * Saves results to data/results/rxrp-repump-screen-results.json.
  */

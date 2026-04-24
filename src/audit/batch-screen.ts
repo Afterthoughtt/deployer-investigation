@@ -7,6 +7,8 @@
  *   3. 2 unlabeled OG deployer counterparties from launch-details.json
  *
  * For each target: getBalance, batch-identity, Arkham batch intel, funded-by.
+ * Arkham batch intel is blocked by default in utils.ts; enable only with
+ * ARKHAM_ALLOW_BATCH_INTEL=1 and a small ARKHAM_LABEL_LOOKUP_RUN_BUDGET.
  * Saves results to data/results/batch-screen-results.json and prints triage summary.
  */
 

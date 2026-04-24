@@ -9,7 +9,7 @@
  *
  * For each target:
  *   1. Nansen counterparties (5 credits, 2s delay)
- *   2. Arkham transfers (1 req/sec)
+ *   2. Arkham transfers (1 req/sec, guardrailed: limit <= 25 + time window)
  *   3. Cross-reference counterparties against network-map.json
  *   4. Verdict recommendation
  *
@@ -19,6 +19,25 @@
 import { nansen, arkham } from './utils.js';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+
+const ARKHAM_TRANSFER_LIMIT = process.env.ARKHAM_TRANSFER_LIMIT?.trim() || '25';
+const ARKHAM_TRANSFER_TIME_LAST = process.env.ARKHAM_TRANSFER_TIME_LAST?.trim();
+const ARKHAM_TRANSFER_TIME_GTE = process.env.ARKHAM_TRANSFER_TIME_GTE?.trim();
+const ARKHAM_TRANSFER_TIME_LTE = process.env.ARKHAM_TRANSFER_TIME_LTE?.trim();
+
+function arkhamTransferParams(address: string): Record<string, string> {
+  const params: Record<string, string> = {
+    base: address,
+    chains: 'solana',
+    limit: ARKHAM_TRANSFER_LIMIT,
+    sortKey: 'time',
+    sortDir: 'desc',
+  };
+  if (ARKHAM_TRANSFER_TIME_LAST) params.timeLast = ARKHAM_TRANSFER_TIME_LAST;
+  if (ARKHAM_TRANSFER_TIME_GTE) params.timeGte = ARKHAM_TRANSFER_TIME_GTE;
+  if (ARKHAM_TRANSFER_TIME_LTE) params.timeLte = ARKHAM_TRANSFER_TIME_LTE;
+  return params;
+}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -436,13 +455,7 @@ async function main() {
       console.log('  [arkham] Fetching transfers...');
       const arkhamRes = await arkham(
         '/transfers',
-        {
-          base: target.address,
-          chains: 'solana',
-          limit: '50',
-          sortKey: 'time',
-          sortDir: 'desc',
-        },
+        arkhamTransferParams(target.address),
         true, // slowEndpoint = true (1s delay)
       ) as Record<string, unknown>;
 
@@ -453,8 +466,8 @@ async function main() {
       const arkhamCount = typeof arkhamRes.count === 'number' ? arkhamRes.count : null;
       if (arkhamCount !== null && arkhamCount > arkhamTransfers.length) {
         evidenceLimits.push(`arkham_transfers_partial_${arkhamTransfers.length}_of_${arkhamCount}`);
-      } else if (arkhamTransfers.length === 50) {
-        evidenceLimits.push('arkham_transfers_hit_limit_50');
+      } else if (arkhamTransfers.length === Number(ARKHAM_TRANSFER_LIMIT)) {
+        evidenceLimits.push(`arkham_transfers_hit_limit_${ARKHAM_TRANSFER_LIMIT}`);
       }
 
       // Print summary of recent transfers

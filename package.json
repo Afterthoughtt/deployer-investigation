@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
-    "audit:check": "tsc -p tsconfig.json --noEmit",
+    "audit:check": "tsc -p tsconfig.json --noEmit && tsx src/audit/arkham-guardrails-selftest.ts",
+    "audit:guardrails": "tsx src/audit/arkham-guardrails-selftest.ts",
+    "audit:wallet-review": "tsx src/audit/wallet-review.ts",
     "monitor:dev": "tsx monitor/src/index.ts",
     "monitor:build": "tsc -p monitor",
     "monitor:start": "node monitor/dist/index.js",

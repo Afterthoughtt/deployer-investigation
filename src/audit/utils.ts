@@ -1,6 +1,12 @@
 import 'dotenv/config';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import {
+  assertArkhamSpendAllowed,
+  makeArkhamGuardrailConfig,
+  makeArkhamGuardrailState,
+  observeArkhamDatapoints,
+} from './arkham-guardrails.js';
 
 // ---------------------------------------------------------------------------
 // API keys from .env
@@ -10,21 +16,8 @@ const NANSEN_API_KEY = process.env.NANSEN_API_KEY!;
 const ARKHAM_API_KEY = process.env.ARKAN_API_KEY!; // Note: env var is ARKAN, not ARKHAM
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-const ARKHAM_DATAPOINT_RESERVE = readNonNegativeIntEnv('ARKHAM_DATAPOINT_RESERVE', 2000);
-const ARKHAM_LABEL_LOOKUP_RUN_BUDGET = readNonNegativeIntEnv('ARKHAM_LABEL_LOOKUP_RUN_BUDGET', 25);
-const ARKHAM_ALLOW_BATCH_INTEL = process.env.ARKHAM_ALLOW_BATCH_INTEL === '1';
-let arkhamLabelLookupsPlanned = 0;
-let arkhamDatapointsRemainingSeen: number | null = null;
-
-function readNonNegativeIntEnv(name: string, defaultValue: number): number {
-  const raw = process.env[name]?.trim();
-  if (raw === undefined || raw === '') return defaultValue;
-  const n = Number(raw);
-  if (!Number.isInteger(n) || n < 0) {
-    throw new Error(`${name} must be a non-negative integer, got: ${raw}`);
-  }
-  return n;
-}
+const ARKHAM_GUARDRAILS = makeArkhamGuardrailConfig(process.env);
+const arkhamGuardrailState = makeArkhamGuardrailState();
 
 function chunks<T>(items: readonly T[], size: number): T[][] {
   const out: T[][] = [];
@@ -38,59 +31,6 @@ function assertBatchLimit(name: string, items: readonly unknown[], limit: number
   if (items.length > limit) {
     throw new Error(
       `${name}: refusing to silently truncate ${items.length} addresses to ${limit}; split into explicit batches`,
-    );
-  }
-}
-
-function estimateArkhamLabelLookups(path: string, body: unknown): number {
-  if (path === '/intelligence/address/batch/all' ||
-      path === '/intelligence/address/batch' ||
-      path === '/intelligence/address_enriched/batch/all' ||
-      path === '/intelligence/address_enriched/batch') {
-    const addresses = (body as { addresses?: unknown })?.addresses;
-    return Array.isArray(addresses) ? addresses.length : 0;
-  }
-  if (/^\/intelligence\/address(?:_enriched)?\/[^/]+(?:\/all)?$/.test(path)) {
-    return 1;
-  }
-  return 0;
-}
-
-function assertArkhamDatapointBudget(path: string, body: unknown): void {
-  const estimate = estimateArkhamLabelLookups(path, body);
-  if (estimate === 0) return;
-
-  if (path.includes('/batch') && !ARKHAM_ALLOW_BATCH_INTEL) {
-    throw new Error(
-      `arkham ${path} blocked: batch intelligence is disabled by default; set ARKHAM_ALLOW_BATCH_INTEL=1 only for an approved bounded run`,
-    );
-  }
-
-  if (arkhamLabelLookupsPlanned + estimate > ARKHAM_LABEL_LOOKUP_RUN_BUDGET) {
-    throw new Error(
-      `arkham ${path} blocked: planned label lookups ${arkhamLabelLookupsPlanned + estimate} exceed run budget ${ARKHAM_LABEL_LOOKUP_RUN_BUDGET}`,
-    );
-  }
-
-  if (
-    arkhamDatapointsRemainingSeen !== null &&
-    arkhamDatapointsRemainingSeen - estimate < ARKHAM_DATAPOINT_RESERVE
-  ) {
-    throw new Error(
-      `arkham ${path} blocked: last seen datapoints remaining ${arkhamDatapointsRemainingSeen}, reserve ${ARKHAM_DATAPOINT_RESERVE}, estimated lookup burn ${estimate}`,
-    );
-  }
-
-  arkhamLabelLookupsPlanned += estimate;
-}
-
-function observeArkhamDatapoints(path: string, meta: ArkhamMeta): void {
-  const remaining = meta.datapoints.remaining;
-  if (remaining === null) return;
-  arkhamDatapointsRemainingSeen = remaining;
-  if (remaining < ARKHAM_DATAPOINT_RESERVE) {
-    console.warn(
-      `arkham ${path}: datapoints remaining ${remaining} below reserve ${ARKHAM_DATAPOINT_RESERVE}; future intelligence lookups will be blocked`,
     );
   }
 }
@@ -246,7 +186,13 @@ async function arkhamRequest(
   opts: { params?: Record<string, string>; body?: unknown; slowEndpoint?: boolean } = {},
 ): Promise<{ body: unknown; meta: ArkhamMeta }> {
   if (opts.slowEndpoint) await sleep(1000);
-  assertArkhamDatapointBudget(path, opts.body);
+  assertArkhamSpendAllowed(
+    method,
+    path,
+    { params: opts.params, body: opts.body },
+    arkhamGuardrailState,
+    ARKHAM_GUARDRAILS,
+  );
 
   const url = new URL(`https://api.arkm.com${path}`);
   if (opts.params) {
@@ -286,7 +232,7 @@ async function arkhamRequest(
 
     const body = await res.json();
     const meta = readDatapoints(res);
-    observeArkhamDatapoints(path, meta);
+    observeArkhamDatapoints(path, meta, arkhamGuardrailState, ARKHAM_GUARDRAILS);
     return { body, meta };
   }
   throw lastErr ?? new Error(`arkham ${path} exhausted retries`);
