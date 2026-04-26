@@ -69,6 +69,41 @@ export function formatLastEventLines(
 // We leave 196 chars of headroom for last-minute append churn.
 export const MAX_CANDIDATES_BODY_CHARS = 3900;
 
+export interface CandidatesReply {
+  text: string;
+  /** Ids of rows that survived 4096-char truncation, in display order. The
+   *  caller pairs these with inline-keyboard ✅/❌ buttons so each visible row
+   *  has a one-tap whitelist/reject. Truncated trailing rows fall back to the
+   *  textual `/whitelist <id>` / `/reject <id>` instructions in the footer. */
+  visibleIds: number[];
+}
+
+/** /candidates renders 'active', /whitelisted renders 'whitelisted', etc.
+ *  Drives the header label, empty-state text, and the truncation-footer hint
+ *  so each list points at the right action commands. */
+export type CandidatesView = "active" | "whitelisted" | "rejected";
+
+const VIEW_COPY: Record<
+  CandidatesView,
+  { header: (n: number) => string; empty: string; footerHint: string }
+> = {
+  active: {
+    header: (n) => `Active candidates (${n}):`,
+    empty: "No active candidates.",
+    footerHint: "use /whitelist &lt;id&gt; or /reject &lt;id&gt; directly",
+  },
+  whitelisted: {
+    header: (n) => `Whitelisted candidates (${n}):`,
+    empty: "No whitelisted candidates.",
+    footerHint: "use /unwhitelist &lt;id&gt; directly",
+  },
+  rejected: {
+    header: (n) => `Rejected candidates (${n}):`,
+    empty: "No rejected candidates.",
+    footerHint: "use /unreject &lt;id&gt; directly",
+  },
+};
+
 /**
  * Render the /candidates reply body, honoring the 4096-char Telegram hard cap.
  * Each row is a 4-line chunk (blank separator + header + code-block address +
@@ -81,10 +116,12 @@ export const MAX_CANDIDATES_BODY_CHARS = 3900;
 export function formatCandidatesBody(
   rows: ActiveCandidateRow[],
   now: number,
-): string {
-  if (rows.length === 0) return "No active candidates.";
+  view: CandidatesView = "active",
+): CandidatesReply {
+  const copy = VIEW_COPY[view];
+  if (rows.length === 0) return { text: copy.empty, visibleIds: [] };
   const total = rows.length;
-  const header = `Active candidates (${total}):`;
+  const header = copy.header(total);
   const rowChunks: string[][] = rows.map((r) => {
     const emoji = TIER_EMOJI[r.confidence];
     const src = escapeHtml(r.fundingSourceLabel ?? "(unknown)");
@@ -99,16 +136,21 @@ export function formatCandidatesBody(
     ];
   });
 
+  // Footer is rendered with parse_mode=HTML alongside the rest of the body, so
+  // literal `<id>` was being parsed by Telegram as an unknown tag and rejecting
+  // the entire reply with code=400. Escape to entities.
   const footer = (dropped: number): string =>
-    `\n\n\u2026 and ${dropped} more (use /whitelist <id> or /reject <id> directly)`;
+    `\n\n\u2026 and ${dropped} more (${copy.footerHint})`;
 
   for (let n = total; n >= 0; n--) {
     const body = rowChunks.slice(0, n).flat().join("\n");
     const f = n < total ? footer(total - n) : "";
     const text = `${header}${body ? `\n${body}` : ""}${f}`;
-    if (text.length <= MAX_CANDIDATES_BODY_CHARS) return text;
+    if (text.length <= MAX_CANDIDATES_BODY_CHARS) {
+      return { text, visibleIds: rows.slice(0, n).map((r) => r.id) };
+    }
   }
   // Header+footer alone is ~120 chars — always fits. This return is unreachable
   // in practice but makes the function total.
-  return `${header}${footer(total)}`;
+  return { text: `${header}${footer(total)}`, visibleIds: [] };
 }

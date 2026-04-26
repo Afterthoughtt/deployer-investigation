@@ -12,6 +12,7 @@ import { resolve } from 'path';
 type Check =
   | 'helius-balance'
   | 'helius-signatures'
+  | 'launch-history-participation'
   | 'arkham-intel'
   | 'arkham-transfers';
 
@@ -19,6 +20,7 @@ const DEFAULT_CHECKS: Check[] = ['helius-balance', 'helius-signatures'];
 const CHECKS = new Set<Check>([
   'helius-balance',
   'helius-signatures',
+  'launch-history-participation',
   'arkham-intel',
   'arkham-transfers',
 ]);
@@ -70,6 +72,20 @@ interface WalletReviewResult {
     memo: string | null;
     confirmationStatus: string | null;
   }>;
+  launch_history_participation?: {
+    token_accounts_checked: number;
+    matches: Array<{
+      launch_id: string;
+      ca: string;
+      created_utc: string;
+      ata: string;
+      balance_raw: string | null;
+      earliest_signature: string | null;
+      earliest_block_time: number | null;
+      seconds_after_deploy: number | null;
+      note: string | null;
+    }>;
+  };
   arkham_intel?: unknown;
   arkham_transfers?: {
     meta: unknown;
@@ -78,6 +94,13 @@ interface WalletReviewResult {
     body: unknown;
   };
   errors: string[];
+}
+
+interface LaunchRef {
+  launch_id: string;
+  ca: string;
+  created_utc: string;
+  created_epoch: number;
 }
 
 type AuditUtils = typeof import('./utils.js');
@@ -241,9 +264,17 @@ function isSolanaAddress(addr: string): boolean {
 }
 
 function makeBudgetPlan(args: CliArgs): BudgetPlan {
+  const launchHistoryBaseCost = args.checks.includes('launch-history-participation')
+    ? args.wallets.length * 10
+    : 0;
+  const launchHistoryWorstCaseMatchCost = args.checks.includes('launch-history-participation')
+    ? args.wallets.length * 10 * 10 // up to 10 matched CAs × 10 credits each, rare
+    : 0;
   const heliusCredits =
     (args.checks.includes('helius-balance') ? args.wallets.length : 0) +
-    (args.checks.includes('helius-signatures') ? args.wallets.length * 10 : 0);
+    (args.checks.includes('helius-signatures') ? args.wallets.length * 10 : 0) +
+    launchHistoryBaseCost +
+    launchHistoryWorstCaseMatchCost;
   const arkhamLabelLookups = args.checks.includes('arkham-intel')
     ? args.wallets.length
     : 0;
@@ -255,6 +286,9 @@ function makeBudgetPlan(args: CliArgs): BudgetPlan {
     'Arkham transfer row estimate is limit * 2 credits per wallet; guardrails may block tighter.',
     'Dry-run prints only the plan. Use --execute for live calls.',
   ];
+  if (args.checks.includes('launch-history-participation')) {
+    notes.push('Launch-history check: 10 credits per wallet base + 10 credits per matched prior-launch CA (worst case: all 10 launches hit). Typical per-wallet cost is 10-20 credits; matches are rare.');
+  }
   if (args.checks.includes('arkham-intel')) {
     notes.push('Arkham intel consumes scarce label lookups; set ARKHAM_LABEL_LOOKUP_RUN_BUDGET explicitly for live runs.');
   }
@@ -267,6 +301,113 @@ function makeBudgetPlan(args: CliArgs): BudgetPlan {
       arkhamRowCredits,
     },
     notes,
+  };
+}
+
+let cachedLaunchRefs: LaunchRef[] | null = null;
+
+function loadLaunchRefs(): LaunchRef[] {
+  if (cachedLaunchRefs) return cachedLaunchRefs;
+  const path = resolve('data/launch-history.json');
+  const parsed = JSON.parse(readFileSync(path, 'utf8')) as {
+    launches?: Record<string, { ca?: string | null; created_utc?: string | null }>;
+  };
+  const refs: LaunchRef[] = [];
+  for (const [launchId, entry] of Object.entries(parsed.launches ?? {})) {
+    if (!entry || typeof entry.ca !== 'string' || typeof entry.created_utc !== 'string') continue;
+    const epoch = Date.parse(entry.created_utc);
+    if (!Number.isFinite(epoch)) continue;
+    refs.push({
+      launch_id: launchId,
+      ca: entry.ca,
+      created_utc: entry.created_utc,
+      created_epoch: Math.floor(epoch / 1000),
+    });
+  }
+  cachedLaunchRefs = refs;
+  return refs;
+}
+
+async function checkLaunchHistoryParticipation(
+  address: string,
+): Promise<WalletReviewResult['launch_history_participation']> {
+  const { heliusRpc } = await loadAuditUtils();
+  const refs = loadLaunchRefs();
+  const caToRef = new Map(refs.map((ref) => [ref.ca, ref]));
+
+  const tokenProgram = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
+  const tokenResp = (await heliusRpc('getTokenAccountsByOwner', [
+    address,
+    { programId: tokenProgram },
+    { encoding: 'jsonParsed', commitment: 'confirmed' },
+  ])) as { value?: Array<{ pubkey: string; account: { data: { parsed?: { info?: { mint?: string; tokenAmount?: { amount?: string } } } } } }> } | null;
+
+  const tokenAccounts = tokenResp?.value ?? [];
+  const matches: NonNullable<WalletReviewResult['launch_history_participation']>['matches'] = [];
+
+  for (const entry of tokenAccounts) {
+    const info = entry.account?.data?.parsed?.info;
+    const mint = info?.mint;
+    if (typeof mint !== 'string') continue;
+    const ref = caToRef.get(mint);
+    if (!ref) continue;
+    const balanceRaw = info?.tokenAmount?.amount ?? null;
+    const ata = entry.pubkey;
+
+    try {
+      const sigs = (await heliusRpc('getSignaturesForAddress', [
+        ata,
+        { limit: 1000 },
+      ])) as Array<{ signature: string; blockTime: number | null; slot: number }>;
+      if (!Array.isArray(sigs) || sigs.length === 0) {
+        matches.push({
+          launch_id: ref.launch_id,
+          ca: ref.ca,
+          created_utc: ref.created_utc,
+          ata,
+          balance_raw: balanceRaw,
+          earliest_signature: null,
+          earliest_block_time: null,
+          seconds_after_deploy: null,
+          note: 'ATA returned zero signatures; closed-ATA or transient account',
+        });
+        continue;
+      }
+      const earliest = sigs[sigs.length - 1];
+      const blockTime = typeof earliest.blockTime === 'number' ? earliest.blockTime : null;
+      const deltaSec = blockTime !== null ? blockTime - ref.created_epoch : null;
+      const note = sigs.length === 1000
+        ? 'ATA has 1000+ signatures; earliest may require paging (rare for prior-launch tokens).'
+        : null;
+      matches.push({
+        launch_id: ref.launch_id,
+        ca: ref.ca,
+        created_utc: ref.created_utc,
+        ata,
+        balance_raw: balanceRaw,
+        earliest_signature: earliest.signature,
+        earliest_block_time: blockTime,
+        seconds_after_deploy: deltaSec,
+        note,
+      });
+    } catch (err) {
+      matches.push({
+        launch_id: ref.launch_id,
+        ca: ref.ca,
+        created_utc: ref.created_utc,
+        ata,
+        balance_raw: balanceRaw,
+        earliest_signature: null,
+        earliest_block_time: null,
+        seconds_after_deploy: null,
+        note: `getSignaturesForAddress failed: ${err instanceof Error ? err.message : String(err)}`,
+      });
+    }
+  }
+
+  return {
+    token_accounts_checked: tokenAccounts.length,
+    matches,
   };
 }
 
@@ -296,6 +437,14 @@ async function reviewWallet(address: string, args: CliArgs): Promise<WalletRevie
       result.helius_signatures = sigs;
     } catch (err) {
       result.errors.push(`helius-signatures: ${errMessage(err)}`);
+    }
+  }
+
+  if (args.checks.includes('launch-history-participation')) {
+    try {
+      result.launch_history_participation = await checkLaunchHistoryParticipation(address);
+    } catch (err) {
+      result.errors.push(`launch-history-participation: ${errMessage(err)}`);
     }
   }
 
@@ -374,6 +523,22 @@ function printSummary(output: ReviewOutput): void {
     const parts = [r.address];
     if (r.helius_balance) parts.push(`${r.helius_balance.sol.toFixed(6)} SOL`);
     if (r.helius_signatures) parts.push(`${r.helius_signatures.length} sigs`);
+    if (r.launch_history_participation) {
+      const matches = r.launch_history_participation.matches;
+      if (matches.length === 0) {
+        parts.push('0 launch matches');
+      } else {
+        const brief = matches.map((m) => {
+          const delta = m.seconds_after_deploy;
+          if (delta === null) return `${m.launch_id}:?`;
+          if (delta < 60) return `${m.launch_id}@+${delta}s`;
+          if (delta < 3600) return `${m.launch_id}@+${Math.round(delta / 60)}m`;
+          if (delta < 86400) return `${m.launch_id}@+${Math.round(delta / 3600)}h`;
+          return `${m.launch_id}@+${Math.round(delta / 86400)}d`;
+        }).join(', ');
+        parts.push(`launch: ${brief}`);
+      }
+    }
     if (r.arkham_transfers) {
       parts.push(`${r.arkham_transfers.returned} Arkham transfer rows`);
     }
@@ -394,6 +559,9 @@ Options:
   --question <text>                  Required with --execute.
   --checks <list>                    Default: ${DEFAULT_CHECKS.join(',')}
                                      Valid: ${Array.from(CHECKS).join(',')}
+                                     launch-history-participation: cross-checks wallet's SPL holdings against
+                                       the 10 prior-launch CAs in data/launch-history.json and computes
+                                       earliest-sig-to-deploy deltas on each match (Pass A cheap path).
   --signature-limit <n>              Default: 5.
   --transfer-limit <n>               Default: 10. Arkham guardrail default max: 25.
   --transfer-time-last <duration>    Required for arkham-transfers unless --transfer-time-gte is set.

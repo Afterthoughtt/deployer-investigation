@@ -1,6 +1,4 @@
 import 'dotenv/config';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 import {
   assertArkhamSpendAllowed,
   makeArkhamGuardrailConfig,
@@ -18,22 +16,6 @@ const ARKHAM_API_KEY = process.env.ARKAN_API_KEY!; // Note: env var is ARKAN, no
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 const ARKHAM_GUARDRAILS = makeArkhamGuardrailConfig(process.env);
 const arkhamGuardrailState = makeArkhamGuardrailState();
-
-function chunks<T>(items: readonly T[], size: number): T[][] {
-  const out: T[][] = [];
-  for (let i = 0; i < items.length; i += size) {
-    out.push(items.slice(i, i + size));
-  }
-  return out;
-}
-
-function assertBatchLimit(name: string, items: readonly unknown[], limit: number): void {
-  if (items.length > limit) {
-    throw new Error(
-      `${name}: refusing to silently truncate ${items.length} addresses to ${limit}; split into explicit batches`,
-    );
-  }
-}
 
 // ---------------------------------------------------------------------------
 // 1. heliusRpc — Standard Solana JSON-RPC via Helius (50 req/sec, no delay)
@@ -83,35 +65,7 @@ export async function heliusWallet(
 }
 
 // ---------------------------------------------------------------------------
-// 3. heliusBatchIdentity — Batch lookup, chunked at 100 addresses (100ms delay)
-// ---------------------------------------------------------------------------
-export async function heliusBatchIdentity(
-  addresses: string[],
-): Promise<unknown> {
-  const results: unknown[] = [];
-  for (const batch of chunks(addresses, 100)) {
-    await sleep(100);
-    const url = `https://api.helius.xyz/v1/wallet/batch-identity?api-key=${HELIUS_API_KEY}`;
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ addresses: batch }),
-    });
-    if (!res.ok) {
-      const text = await res.text().catch(() => '');
-      throw new Error(`heliusBatchIdentity failed: ${res.status} ${text}`);
-    }
-    const body = await res.json();
-    if (!Array.isArray(body)) {
-      throw new Error('heliusBatchIdentity: expected array response');
-    }
-    results.push(...body);
-  }
-  return results;
-}
-
-// ---------------------------------------------------------------------------
-// 4. nansen — POST to Nansen API (2s delay, retry on 429, return error on 422)
+// 3. nansen — POST to Nansen API (2s delay, retry on 429, return error on 422)
 // ---------------------------------------------------------------------------
 export async function nansen(
   endpoint: string,
@@ -154,9 +108,10 @@ export async function nansen(
 }
 
 // ---------------------------------------------------------------------------
-// 5. arkham — GET from Arkham API (1s delay for slow endpoints)
-//    Internal request helper handles: 429/Retry-After + exponential-backoff w/
-//    jitter (max 4 attempts), datapoints-header capture, POST body support.
+// 4. arkham — GET/POST via Arkham API. Internal request helper handles:
+//    429/Retry-After + exponential-backoff w/ jitter (max 4 attempts),
+//    datapoints-header capture, guardrail enforcement (batch lockout, row
+//    budget, label-bucket reserve).
 // ---------------------------------------------------------------------------
 
 export interface ArkhamMeta {
@@ -253,61 +208,4 @@ export async function arkhamMeta(
   slowEndpoint = false,
 ): Promise<{ body: unknown; meta: ArkhamMeta }> {
   return arkhamRequest('GET', endpoint, { params, slowEndpoint });
-}
-
-// ---------------------------------------------------------------------------
-// 6. arkhamBatchIntel — Batch address intelligence (up to 1000 addresses)
-//    POST /intelligence/address/batch/all (500 credits). Basic variant — no
-//    clusters, tags, or entity predictions. Use arkhamEnrichedBatch for those.
-// ---------------------------------------------------------------------------
-export async function arkhamBatchIntel(addresses: string[]): Promise<unknown> {
-  assertBatchLimit('arkhamBatchIntel', addresses, 1000);
-  const { body } = await arkhamRequest('POST', '/intelligence/address/batch/all', {
-    body: { addresses },
-  });
-  return body;
-}
-
-// ---------------------------------------------------------------------------
-// 7. arkhamEnrichedBatch — Enriched batch (up to 1000 addresses, 1000 credits)
-//    POST /intelligence/address_enriched/batch/all. Includes tags, clusters,
-//    entity predictions. Returns meta so callers can observe datapoints burn.
-// ---------------------------------------------------------------------------
-export async function arkhamEnrichedBatch(
-  addresses: string[],
-): Promise<{ body: unknown; meta: ArkhamMeta }> {
-  assertBatchLimit('arkhamEnrichedBatch', addresses, 1000);
-  return arkhamRequest('POST', '/intelligence/address_enriched/batch/all', {
-    body: { addresses },
-  });
-}
-
-// ---------------------------------------------------------------------------
-// 8. loadAddressesFromCrossRef — Filter recurring_wallets by tag
-// ---------------------------------------------------------------------------
-export function loadAddressesFromCrossRef(tag: string): string[] {
-  const filePath = join(process.cwd(), 'data/results/cross-reference-report.json');
-  const data = JSON.parse(readFileSync(filePath, 'utf8')) as {
-    recurring_wallets: Array<{ address: string; tag: string }>;
-  };
-  return data.recurring_wallets
-    .filter((w) => w.tag === tag)
-    .map((w) => w.address);
-}
-
-// ---------------------------------------------------------------------------
-// 9. loadAddressFromNetworkMap — Navigate to data[section][key].address
-// ---------------------------------------------------------------------------
-export function loadAddressFromNetworkMap(section: string, key: string): string {
-  const filePath = join(process.cwd(), 'data/network-map.json');
-  const data = JSON.parse(readFileSync(filePath, 'utf8')) as Record<string, Record<string, unknown>>;
-  const entry = data[section]?.[key];
-  if (entry === undefined || entry === null) {
-    throw new Error(`network-map: section "${section}" key "${key}" not found`);
-  }
-  if (typeof entry === 'string') return entry;
-  if (typeof entry === 'object' && 'address' in (entry as Record<string, unknown>)) {
-    return (entry as Record<string, unknown>).address as string;
-  }
-  throw new Error(`network-map: section "${section}" key "${key}" has no address field`);
 }

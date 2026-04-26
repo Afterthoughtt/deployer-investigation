@@ -1,5 +1,5 @@
-import { Bot, GrammyError, HttpError } from "grammy";
-import type { Context, InlineKeyboard } from "grammy";
+import { Bot, GrammyError, HttpError, InlineKeyboard } from "grammy";
+import type { Context } from "grammy";
 import { autoRetry } from "@grammyjs/auto-retry";
 import { apiThrottler } from "@grammyjs/transformer-throttler";
 import type {
@@ -38,6 +38,10 @@ export interface CreateTelegramBotArgs {
   onUnreject: CandidateAction;
   /** Reader for /candidates. */
   listActiveCandidates: ListActiveCandidates;
+  /** Reader for /whitelisted. Same row shape, but the timestamp is whitelisted_at. */
+  listWhitelistedCandidates: ListActiveCandidates;
+  /** Reader for /rejected. Same row shape, but the timestamp is rejected_at. */
+  listRejectedCandidates: ListActiveCandidates;
   /** Count used by /status (cheaper than materializing the whole row set). */
   activeCandidateCount: ActiveCandidateCount;
   /** Snapshot of daemon uptime/ws/last-event state for /status. */
@@ -64,6 +68,8 @@ const COMMANDS = [
   { command: "status", description: "daemon + WS + candidate summary" },
   { command: "health", description: "end-to-end probe (DB + RPC + WS + detection + alert)" },
   { command: "candidates", description: "list active candidates" },
+  { command: "whitelisted", description: "list whitelisted candidates" },
+  { command: "rejected", description: "list rejected candidates" },
   { command: "whitelist", description: "mark candidate whitelisted: /whitelist <id>" },
   { command: "reject", description: "reject candidate + add to ignore list: /reject <id>" },
   { command: "unwhitelist", description: "undo a whitelist: /unwhitelist <id>" },
@@ -96,6 +102,8 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     onUnwhitelist,
     onUnreject,
     listActiveCandidates,
+    listWhitelistedCandidates,
+    listRejectedCandidates,
     activeCandidateCount,
     getStatus,
     runHealthChecks,
@@ -133,12 +141,13 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
   const reply = async (
     ctx: Context,
     text: string,
-    opts: { html?: boolean } = {},
+    opts: { html?: boolean; replyMarkup?: InlineKeyboard } = {},
   ): Promise<void> => {
     await ctx.reply(text, {
       disable_notification: isMuted(),
       link_preview_options: { is_disabled: true },
       ...(opts.html ? { parse_mode: "HTML" as const } : {}),
+      ...(opts.replyMarkup ? { reply_markup: opts.replyMarkup } : {}),
     });
   };
 
@@ -252,7 +261,41 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
 
   bot.command("candidates", async (ctx) => {
     const rows = listActiveCandidates();
-    await reply(ctx, formatCandidatesBody(rows, Date.now()), { html: true });
+    const { text, visibleIds } = formatCandidatesBody(rows, Date.now(), "active");
+    let replyMarkup: InlineKeyboard | undefined;
+    if (visibleIds.length > 0) {
+      replyMarkup = new InlineKeyboard();
+      for (const id of visibleIds) {
+        replyMarkup.text(`✅ C${id}`, `wl:${id}`).text(`❌ C${id}`, `rj:${id}`).row();
+      }
+    }
+    await reply(ctx, text, { html: true, replyMarkup });
+  });
+
+  bot.command("whitelisted", async (ctx) => {
+    const rows = listWhitelistedCandidates();
+    const { text, visibleIds } = formatCandidatesBody(rows, Date.now(), "whitelisted");
+    let replyMarkup: InlineKeyboard | undefined;
+    if (visibleIds.length > 0) {
+      replyMarkup = new InlineKeyboard();
+      for (const id of visibleIds) {
+        replyMarkup.text(`↩️ Unwhitelist C${id}`, `uw:${id}`).row();
+      }
+    }
+    await reply(ctx, text, { html: true, replyMarkup });
+  });
+
+  bot.command("rejected", async (ctx) => {
+    const rows = listRejectedCandidates();
+    const { text, visibleIds } = formatCandidatesBody(rows, Date.now(), "rejected");
+    let replyMarkup: InlineKeyboard | undefined;
+    if (visibleIds.length > 0) {
+      replyMarkup = new InlineKeyboard();
+      for (const id of visibleIds) {
+        replyMarkup.text(`↩️ Unreject C${id}`, `ur:${id}`).row();
+      }
+    }
+    await reply(ctx, text, { html: true, replyMarkup });
   });
 
   bot.command("whitelist", async (ctx) => {
@@ -304,17 +347,21 @@ export function createTelegramBot(args: CreateTelegramBotArgs): TelegramBotHandl
     await reply(ctx, wasMuted ? "\uD83D\uDD14 unmuted" : "not muted");
   });
 
-  bot.callbackQuery(/^(wl|rj):(\d+)$/, async (ctx) => {
+  bot.callbackQuery(/^(wl|rj|uw|ur):(\d+)$/, async (ctx) => {
     await ctx.answerCallbackQuery();
     if (typeof ctx.match === "string") return;
     const prefix = ctx.match[1];
     const idStr = ctx.match[2];
     if (!prefix || !idStr) return;
-    await dispatchCandidateAction(
-      ctx,
-      Number(idStr),
-      prefix === "wl" ? whitelistCfg : rejectCfg,
-    );
+    const cfg =
+      prefix === "wl"
+        ? whitelistCfg
+        : prefix === "rj"
+          ? rejectCfg
+          : prefix === "uw"
+            ? unwhitelistCfg
+            : unrejectCfg;
+    await dispatchCandidateAction(ctx, Number(idStr), cfg);
   });
 
   bot.catch((err) => {

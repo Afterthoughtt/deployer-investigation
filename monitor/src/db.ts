@@ -170,6 +170,37 @@ export function makeListActiveCandidates(db: Db): ListActiveCandidates {
 }
 
 /**
+ * Reader for `/whitelisted` and `/rejected`. Aliases `whitelisted_at` /
+ * `rejected_at` into the same `detectedAt` field the formatter consumes, so
+ * the row shape is interchangeable with the active reader. Status is the
+ * only allowed input — `tsCol` and the literal in the WHERE clause are
+ * derived from a closed enum, never user input.
+ */
+export function makeListCandidatesByStatus(
+  db: Db,
+  status: CandidateStatus,
+): ListActiveCandidates {
+  const tsCol =
+    status === "detected"
+      ? "detected_at"
+      : status === "whitelisted"
+        ? "whitelisted_at"
+        : "rejected_at";
+  const stmt = db.prepare(
+    `SELECT id,
+            address,
+            funded_amount_sol    AS fundedAmountSol,
+            funding_source_label AS fundingSourceLabel,
+            confidence,
+            ${tsCol}             AS detectedAt
+       FROM candidates
+      WHERE status = '${status}'
+      ORDER BY ${tsCol} DESC`,
+  );
+  return () => stmt.all() as ActiveCandidateRow[];
+}
+
+/**
  * Build a persist function bound to prepared statements for this db handle.
  * Both inserts are `INSERT OR IGNORE` — the candidates.address UNIQUE constraint
  * and events.signature PK give sig- and recipient-level dedup that survives

@@ -41,13 +41,17 @@ The next deployer wallet may be freshly funded through MoonPay or another on-ram
 
 Investigate any candidate wallet in three passes, escalating only when the prior pass produces a reason.
 
+**Step 0 — verify the registry prior, don't inherit it.** Read the wallet's `data/network-map.json` entry at the start of every review. Treat the existing verdict, role, label, and notes as **a hypothesis to confirm against fresh on-chain data**, not a starting truth. The registry has been wrong before (past incidents: wrong-suffix addresses for CB1, hub_first_funder, FKjuwJzH, 2q8nSJgC's funder) — a stale prior carried forward silently becomes a false conclusion. If Pass A/B/C evidence disagrees with the prior, the grade follows the fresh evidence and the delta surfaces as a proposed registry change (`proposed_registry_change: true`).
+
 **Pass A — cheap Helius screens (~1–10 credits each):**
 - `getBalance` (current balance)
-- `getTokenBalances` (SPL holdings)
+- `getTokenBalances` / `getTokenAccountsByOwner` (SPL holdings, returns all mints the wallet holds)
 - `getTransactionHistory` in `signatures` or `raw` mode (recent activity)
-- Stop here if the wallet is empty, dormant, or obviously off-cluster.
+- **Prior-launch participation check** — filter the wallet's token-account mint list against the 10 prior-launch CAs in `data/launch-history.json`. Any match → pull the earliest signature touching that token-account via `getSignaturesForAddress` and compute the delta against the launch's `created_utc`. Closed-ATA wallets miss here; if other evidence suggests participation, escalate to the Wallet API in Pass C.
+- Stop here if the wallet is empty, dormant, off-cluster, AND never participated in a prior launch.
 
 **Pass B — attribution and context (variable; bounded by guardrails):**
+- For every counterparty surfaced during any transaction parse, cross-check against `data/network-map.json` before doing anything else. Matches trigger a separate review on that counterparty with its own classification block (per §4.4 lead-mining rules).
 - Arkham `flow/address`, `history/address`, `portfolio/address`, `volume/address`, `transfers/histogram` — single-subject, time-bounded, no pagination
 - Arkham `/transfers` rows only with Solana subject filter, explicit `limit ≤ 25`, time bound, no pagination
 - Arkham single-address `intelligence/address` or `intelligence/address_enriched` only when attribution is the question (label-bucket scarce)
@@ -57,6 +61,7 @@ Investigate any candidate wallet in three passes, escalating only when the prior
 **Pass C — expensive escalation (~100 credits each):**
 - Helius Wallet API: `getWalletFundedBy`, `getWalletTransfers`, `getWalletHistory`, parsed `parseTransactions`
 - Only for historically important wallets or wallets flagged by Pass A/B as worth the spend
+- Also used to recover prior-launch participation when the cheap-path ATA check returns empty but other evidence suggests the wallet held and dumped the token (closed-ATA recovery)
 
 **Default entrypoint:** `npm run audit:wallet-review -- ...` is dry-run by default. It prints the wallet list, investigation question, selected checks, and rough provider budget before any live call. Live calls require `--execute --question`. Older one-off scripts in `archive/scripts/audit-legacy/` are methodology reference only — don't reuse without inspecting their query shape and budget impact.
 
@@ -96,7 +101,19 @@ Every completed wallet investigation produces a classification block. The two ax
 - `external_infra` — fee wallets, token accounts, DEX pools, CEX deposits, bot routers, program accounts. Not control evidence by themselves.
 - `do_not_use` — address poisoning, spoof vanity senders, known unrelated traders, stale false positives, resolved non-network wallets
 
-**`evidence_basis` examples:** `direct_transfer_to_known_deployer`, `bidirectional_sol_flow`, `launch_window_recurrence`, `known_treasury_funding`, `bot_route_match`, `nansen_counterparty_match`, `arkham_bounded_transfer_match`, `prelaunch_rearm_signal`.
+**`evidence_basis` examples:** `direct_transfer_to_known_deployer`, `bidirectional_sol_flow`, `launch_window_recurrence`, `known_treasury_funding`, `bot_route_match`, `nansen_counterparty_match`, `arkham_bounded_transfer_match`, `prelaunch_rearm_signal`, `bundle_recipient_spl_transfer`, `prior_launch_open_market_buy_tight_timing`, `prior_launch_open_market_buy_loose_timing`, `prior_launch_multi_appearance_recurrence`, `counterparty_match_network_map`.
+
+**Prior-launch participation grading ladder** (applied to the first wallet-involving transaction for each matched CA):
+
+1. Wallet is signer on `create_and_buy` for the launch CA → `confirmed`. This is a deploy wallet; it should already be in network-map.
+2. Wallet received the token as an **SPL transfer direct from the deploy wallet** (or from the deploy wallet's bundle source within ~1–2 blocks of deploy) → `confirmed` or `high`. Bundle recipients are explicitly selected by the deployer; this ranks higher than any open-market buy timing because the allocation is not publicly contestable. Single-launch hit is sufficient. Flag both `post_deploy_attribution` (for the original launch) and `pre_deploy_signal` (monitor for repeat L11 staging).
+3. Open-market buy (swap via pump.fun / Jupiter / Raydium) at **0–10s** on L7–L10 → `high`.
+4. Open-market buy at 0–10s on a single older launch (L4–L6) → `high` but weaker; needs other evidence to hit `confirmed`.
+5. Open-market buy at **11–30s** on recent launches → `medium`.
+6. Open-market buy at **30s+** or single appearance on L1–L3 → `low` or context-only.
+7. Multi-launch appearance with mixed timings → aggregate toward `high` when two or more recent launches (L7–L10) are hit.
+
+The first-tx parse is what distinguishes (2) from (3)–(6). Parse instruction type before grading: a `spl-token transfer` inbound is allocation, a swap is a buy.
 
 The classification schema is guidance + an output shape. It is not yet a code-enforced field on registry entries. When proposing a registry patch, include the block as a structured note.
 
@@ -109,9 +126,11 @@ When reviewing a known wallet, leads are surfaced by fixed rules — never by ad
 - shared funder with a known wallet
 - known wallet reactivates after dormancy
 - repeated counterparty overlap across multiple known wallets
+- **any counterparty surfaced during a transaction parse that matches an entry in `data/network-map.json`** (not just repeated overlap — single-tx match is a lead)
 - new collection-path sender into a known collection wallet
 - new on-ramp route into a known wallet
 - repeated appearance in launch-window time bands
+- **appearance in any prior-launch `early_buyers` set or token-account history for a prior-launch CA** — membership alone is a lead; timing and instruction type drive grading per §4.3
 
 Never auto-promote a lead into the cluster. Every lead becomes a separate review with its own classification block.
 

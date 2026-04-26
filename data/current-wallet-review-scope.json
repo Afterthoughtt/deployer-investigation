@@ -266,6 +266,662 @@
   ],
   "monitor_candidate_batches": [
     {
+      "id": "monitor_candidate_review_2026_04_25",
+      "status": "non_canonical_monitor_candidate_batch",
+      "reviewed_utc": "2026-04-25T05:30:00Z",
+      "review_question": "Triage remaining untriaged monitor candidates pre-L11 (Nukex, 2026-04-25 14:00-18:00 EST): 73 MoonPay MP2 candidates, 3 RXRP-chain singletons (FTX US / ChangeNOW / Robinhood buyer chains), 2 deferred CoinSpot wallets (id 43, 64), and an MP1 spot-check parse to validate the bulk-classified memecoin assumption.",
+      "scope_policy": "Use as a monitor-candidate shortlist only. Do not promote to data/network-map.json without a separate reviewed registry patch.",
+      "source_refs": [
+        {
+          "path": "monitor/data/l11.db",
+          "note": "Local backup at ~/Desktop/db-backup/l11-manual-20260424-1435.db (VPS SSH key auth failed in this session — operator must re-pull live DB before cross-checking against fresh state). Filtered status='detected' AND funding_source_label IN ('MoonPay Hot Wallet 2','RXRP Buyer 7cthuERB (ChangeNOW)','RXRP Buyer AZ57WTNM (Robinhood)','RXRP Buyer 54Pz1e35 (FTX US chain, user-labelled insider)','CoinSpot Exchange Hot Wallet') restricted to ids 43,64."
+        }
+      ],
+      "trigger_policy": [
+        "any outbound SOL transfer from keep-list wallets",
+        "balance change above 0.5 SOL on keep-list wallets",
+        "create_and_buy instruction execution by any keep-list wallet"
+      ],
+      "methodology": "Pass A: Helius getBalance on 79 wallets (73 MP2 + 3 RXRP + 2 deferred CoinSpot + 1 priority-1-keep recheck) = 79 cr. Pass B: getTransactionHistory mode=signatures limit 8-25 on 17 standouts (intact, partial, drained singletons, MP1 spot-check) = ~170 cr. Pass D: parseTransactions batched (4 sigs for HefCL8a29 + FgsvEDugq drains, 8 sigs for RXRP drains + MP1 spot-check) = 200 cr. Cross-check counterparties against data/network-map.json. Total ~450 cr.",
+      "credits_burned": "~450 Helius credits this session.",
+      "keep_list": [
+        {
+          "address": "6iuvAFTxpWSWRuMheGVVfZ7gEHcv1ssCzFSDsZALhiiY",
+          "monitor_id": 142,
+          "priority": 1,
+          "balance_sol": 12.548,
+          "funded_amount_sol": 12.548,
+          "funding_utc": "2026-04-24T16:58:35Z",
+          "signature_count_lifetime": 1,
+          "control_confidence": "medium",
+          "operational_usefulness": "pre_deploy_l11_candidate",
+          "verdict": "intact_dormant_inside_window",
+          "reason": "MoonPay MP2 funded 12.548 SOL; 1 signature lifetime (the funding tx); zero post-funding activity; balance matches funded amount exactly; MoonPay memo present (b947697e47a240b42ce6846ee6896bb4). Funded ~5h before review = INSIDE the 12-26h pre-deploy window for L11 (Nukex, 2026-04-25 14:00-18:00 EST). Highest priority candidate of this batch."
+        },
+        {
+          "address": "2zYi14tpQPjj2FsDFfnN4Y9B9qcTpHktEnQ8phnGNpCj",
+          "monitor_id": 105,
+          "priority": 2,
+          "balance_sol": 9.941,
+          "funded_amount_sol": 9.941,
+          "funding_utc": "2026-04-23T07:38:12Z",
+          "signature_count_lifetime": 1,
+          "control_confidence": "low",
+          "operational_usefulness": "pre_deploy_l11_candidate",
+          "verdict": "intact_dormant_past_max_observed_window",
+          "reason": "MoonPay MP2 funded 9.941 SOL; 1 signature lifetime (the funding tx); zero post-funding activity; balance matches funded amount exactly; MoonPay memo present (25a0fee2ff6f88f695ffb5eec377dc4a). 38h dormancy at review exceeds 26h max-observed L4-L10 deployer fresh-wallet hold but matches all other shape criteria. Per cross-session feedback rule (don't discount candidates for age alone), keep on watch through 2026-04-25T11:00Z funding-window close."
+        },
+        {
+          "address": "HefCL8a29RDNWmGC85N3UVvDCRAkaG3Df9jKKTorVTSE",
+          "monitor_id": 43,
+          "priority": 3,
+          "balance_sol": 37.51142942,
+          "funded_amount_sol": 13.0,
+          "funding_utc": "2026-04-21T01:29:05Z",
+          "signature_count_lifetime": 2,
+          "control_confidence": "low",
+          "operational_usefulness": "pre_deploy_l11_candidate",
+          "verdict": "coinspot_accumulator_dormant",
+          "reason": "INFLATED above funded amount: 37.51 SOL current balance vs. 13.0 SOL monitor-detected funding. Pass D parse reveals 2 lifetime txs, BOTH inbound from CSEncqtq (CoinSpot Exchange Hot Wallet, network-map): 24.51142942 SOL on 2026-04-09 20:45 UTC + 13.0 SOL on 2026-04-21 01:29 UTC (this latter is the monitor-detected event). Zero outflows, dormant. 2-deposit CoinSpot accumulator pattern is consistent with the existing 9a22FhBe collection-wallet warming behavior in network-map (multiple CSEncqtq pre-arms before launch event). 91h dormancy post-most-recent-funding exceeds 26h historical max but per cross-session feedback rule, keep on watch. Operationally usable: 37.5 SOL is well above any historical deploy buy and could fund multiple bundles."
+        }
+      ],
+      "rule_out_list": [
+        {
+          "address": "Do2j8tgHov4Hw5YhL8rA4ibhhfbeEeP2a5asreAejJwi",
+          "monitor_id": 2,
+          "funded_utc": "2026-04-17T09:08:12Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 8.119 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "HTW7YzyQFNGsVjgcg96GrAspTgPnF9rjoAP8iRhd96qm",
+          "monitor_id": 3,
+          "funded_utc": "2026-04-17T21:54:58Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.342 SOL; balance 0.005503 SOL (0.05%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "4gxVsW4ffGZpkdukHKqHq9xT5jwHYWKCqBMN9Rz87sDA",
+          "monitor_id": 7,
+          "funded_utc": "2026-04-19T10:05:32Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 13.879 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "Hg53QM8vKce7S44SmBQsGm3c9T3cHGSLSRcgK9cxVoAV",
+          "monitor_id": 9,
+          "funded_utc": "2026-04-19T12:48:24Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.509 SOL; balance 0.008960 SOL (0.08%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "BjuEMXGPgdWGhvY6iWvLqfeHFsuN56EWPmnDBgocoFX3",
+          "monitor_id": 10,
+          "funded_utc": "2026-04-19T13:04:20Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 10.838 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "BoCHgefSRpQFNbFc7ENsW33qjE24Tg3ERG1GvgktJmh8",
+          "monitor_id": 13,
+          "funded_utc": "2026-04-19T16:31:45Z",
+          "verdict": "drained_partial",
+          "reason": "MoonPay MP2 funded 8.878 SOL; balance 0.406898 SOL (4.6%) = partial drain leaving small residual; not fresh-wallet shape. Memecoin trader / partial-cashout pattern."
+        },
+        {
+          "address": "ELpAz18R9q3vP1uSySEHB2JZ2i2MnaZSCjsQmoFQ4duJ",
+          "monitor_id": 15,
+          "funded_utc": "2026-04-19T19:01:10Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 14.502 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "7WJg6RpNxdhzoarqG9dhP6VdMsDH4Qj7qvyEmd76juQg",
+          "monitor_id": 16,
+          "funded_utc": "2026-04-19T19:08:42Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 13.652 SOL; balance 0.000944 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "H75pZbqNKBXjpU53PiSL1ZLRVgBx3qCMc7r79xMM9WMm",
+          "monitor_id": 18,
+          "funded_utc": "2026-04-19T21:03:28Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.618 SOL; balance 0.004951 SOL (0.04%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "G2pqrARwcHZzAtmjMUf748zRkT7Awd5YsGxErPdQ1Hsm",
+          "monitor_id": 19,
+          "funded_utc": "2026-04-19T21:23:22Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 11.609 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "GfiobE7yaB9bn1Vy7XbcjvWhCXkQiSG28Lyr6G4oDyC2",
+          "monitor_id": 22,
+          "funded_utc": "2026-04-20T00:47:14Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 19.260 SOL; balance 0.000892 SOL (0.00%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "CZbrLAwzBZT63kCR3VTUryhuKFDiwZDrj6Bprn1b9r13",
+          "monitor_id": 23,
+          "funded_utc": "2026-04-20T01:13:23Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 8.512 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "A4yL5sCLmXYZe7YN4gnX5EhFdBqQWFRMgahbS3u1ZUAZ",
+          "monitor_id": 25,
+          "funded_utc": "2026-04-20T08:49:14Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.659 SOL; balance 0.004898 SOL (0.04%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "4XrTVHfFBETPYPiPv9FQNbXPXj7jdc64q4PK1yU2wV9x",
+          "monitor_id": 27,
+          "funded_utc": "2026-04-20T10:05:07Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 8.020 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "A7EGXa1WBzCJdb8QzQRADVayyvmRA5nyuhuomiRj1MEv",
+          "monitor_id": 28,
+          "funded_utc": "2026-04-20T11:09:54Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.344 SOL; balance 0.007978 SOL (0.07%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "3ZYANnbhEmnzfgs2TJ8ZADoSQ4JPL8WDtRbbt6mhuvwB",
+          "monitor_id": 29,
+          "funded_utc": "2026-04-20T11:40:02Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.617 SOL; balance 0.017999 SOL (0.15%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "58R9PYx98R3z3mA6PBi8aaZf8jakv5wkUFdo6voPXDkK",
+          "monitor_id": 33,
+          "funded_utc": "2026-04-20T14:17:56Z",
+          "verdict": "active_trader_partial",
+          "reason": "MoonPay MP2 funded 9.822 SOL; balance 2.348961 SOL (23.9%) but 12-15+ lifetime signatures of active trading post-funding (Pass B getTransactionHistory). Active wallet, not fresh deployer shape — rule out despite remaining balance."
+        },
+        {
+          "address": "6Y4A4433KvGrj1WYYSUyBmNJ1ZmYfXM4u1Vefc1RdU9A",
+          "monitor_id": 35,
+          "funded_utc": "2026-04-20T16:26:57Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 9.539 SOL; balance 0.000891 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "74Dbj2fpu5Ks6vF7bkz22Wo1ZfWYvRDBCeKYBLSLc4ZZ",
+          "monitor_id": 36,
+          "funded_utc": "2026-04-20T17:20:45Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 12.652 SOL; balance 0.000922 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "GuRCDPKSzY5SHLF2jq3yg4XChWB71VVV9wfcP9eMLpSC",
+          "monitor_id": 38,
+          "funded_utc": "2026-04-20T18:51:14Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 12.684 SOL; balance 0.009394 SOL (0.07%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "C9iidN1tZ89bJQBsqnB8FjQyavbvvFJiE37MyrAWR4F1",
+          "monitor_id": 47,
+          "funded_utc": "2026-04-21T06:49:11Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 11.383 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "4xxpW2vop49VMef6X24jcGqqvtArcW1b8v2hUif8TTsK",
+          "monitor_id": 48,
+          "funded_utc": "2026-04-21T08:15:42Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.512 SOL; balance 0.004895 SOL (0.04%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "3CUQAkX2ZmZk8KuFRgk2aYnndG6QgJ9bbEsXprrHik5M",
+          "monitor_id": 49,
+          "funded_utc": "2026-04-21T09:59:42Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 17.000 SOL; balance 0.018522 SOL (0.11%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "4UzXXJiwcDFsc3dyqYsS1WoXrByHdTb9aJgSU7Cf1g2Y",
+          "monitor_id": 50,
+          "funded_utc": "2026-04-21T11:36:37Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 9.755 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "47S4rCTGUYwhp7gS4Nqs3cy8nTFsPiwVCHwRtT4eU5bF",
+          "monitor_id": 53,
+          "funded_utc": "2026-04-21T15:32:17Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 10.877 SOL; balance 0.028452 SOL (0.26%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "3NjLxkBUX4T25CJmLtAoENttXViSzTzsrnrZWH3eFrim",
+          "monitor_id": 56,
+          "funded_utc": "2026-04-21T16:34:27Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 19.151 SOL; balance 0.000900 SOL (0.00%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "3LAkFagef5PfKnW7vxkJ2CrcSCcKRnm2beYsfqqR1Ge5",
+          "monitor_id": 57,
+          "funded_utc": "2026-04-21T16:45:36Z",
+          "verdict": "drained_partial",
+          "reason": "MoonPay MP2 funded 12.653 SOL; balance 0.208496 SOL (1.6%) = partial drain leaving small residual; not fresh-wallet shape. Memecoin trader / partial-cashout pattern."
+        },
+        {
+          "address": "E786vD1yMPqdugo5Qs9PURmtWNG9EED6McgrokMjmFAK",
+          "monitor_id": 59,
+          "funded_utc": "2026-04-21T17:50:24Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.560 SOL; balance 0.010764 SOL (0.09%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "ErwSYYgoCiMBTq5skbbszv74oc3CXWwPZxuJqFiKyBUr",
+          "monitor_id": 60,
+          "funded_utc": "2026-04-21T18:14:57Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 12.591 SOL; balance 0.000938 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "3kwpNdD8cVpXNfBoMwFdRqHe8eHLVSyeYvouJ8iDVYka",
+          "monitor_id": 61,
+          "funded_utc": "2026-04-21T18:32:43Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 12.415 SOL; balance 0.017612 SOL (0.14%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "3kwZ33G6WEqr3NLnsqSpWWyZgDJ1WRDEtmembYrkdQLS",
+          "monitor_id": 62,
+          "funded_utc": "2026-04-21T18:54:05Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 11.622 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "2uNJF3ydyk1sgsXafnSUvKTswyED7NQkcBPhqWsuvHkA",
+          "monitor_id": 63,
+          "funded_utc": "2026-04-21T19:20:25Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.555 SOL; balance 0.004869 SOL (0.04%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "8mqk2afFt1HUPFKskE2thoCxDsmC8oRt7Xosyvwwgtm8",
+          "monitor_id": 66,
+          "funded_utc": "2026-04-21T21:39:29Z",
+          "verdict": "active_trader_partial",
+          "reason": "MoonPay MP2 funded 11.575 SOL; balance 6.916047 SOL (59.7%) but 12-15+ lifetime signatures of active trading post-funding (Pass B getTransactionHistory). Active wallet, not fresh deployer shape — rule out despite remaining balance."
+        },
+        {
+          "address": "6nXWNENtJa4QhhmPkmA44jm3FEZvzg5Nj25ymEaazVnu",
+          "monitor_id": 67,
+          "funded_utc": "2026-04-21T22:16:36Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 12.039 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "FZepgnA1sxezeoHYnmipogZbrM4sC8EkRjCpVpPuHxts",
+          "monitor_id": 68,
+          "funded_utc": "2026-04-21T22:44:44Z",
+          "verdict": "drained_partial",
+          "reason": "MoonPay MP2 funded 8.312 SOL; balance 0.097475 SOL (1.2%) = partial drain leaving small residual; not fresh-wallet shape. Memecoin trader / partial-cashout pattern."
+        },
+        {
+          "address": "94brajwGxrqqxYAzBNoU2XnQkAhDfgQk86CFr5K6Xsbk",
+          "monitor_id": 71,
+          "funded_utc": "2026-04-21T23:55:47Z",
+          "verdict": "active_trader_partial",
+          "reason": "MoonPay MP2 funded 10.340 SOL; balance 8.387231 SOL (81.1%) but 12-15+ lifetime signatures of active trading post-funding (Pass B getTransactionHistory). Active wallet, not fresh deployer shape — rule out despite remaining balance."
+        },
+        {
+          "address": "7hTSpeLKt5pbyMuxs5obXAVtc3CK11KarCktkipCXW92",
+          "monitor_id": 72,
+          "funded_utc": "2026-04-22T01:48:14Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 23.433 SOL; balance 0.000891 SOL (0.00%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "7DCoKX5uT9yCCjsdbkNE3P5A7GtMU8MnY1TcdgndeA2m",
+          "monitor_id": 74,
+          "funded_utc": "2026-04-22T05:01:48Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 10.611 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "44gMwhGpGBk9RHkzTBxHfwTcTF4q4YHgrUfZzgjqpvie",
+          "monitor_id": 76,
+          "funded_utc": "2026-04-22T08:40:31Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 11.100 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "DhfTXbMRxiBnCFvCfJpCWHu7QocZGWfoPHhgjfTJNL4p",
+          "monitor_id": 78,
+          "funded_utc": "2026-04-22T09:20:05Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 12.413 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "9qez43AsbHRz9nfqbVthuFCnL5HhJSc6LMadEB7HVmfL",
+          "monitor_id": 80,
+          "funded_utc": "2026-04-22T10:22:01Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 15.028 SOL; balance 0.020885 SOL (0.14%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "CNVw9rT6sLj3M9K5dtNoLtXqbC5Jq9bEwiH1VUH3LKmt",
+          "monitor_id": 81,
+          "funded_utc": "2026-04-22T10:51:09Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 16.524 SOL; balance 0.004956 SOL (0.03%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "6HrM9DhSwrfcDdKacmXM9QZu4rLZLhSBQYfGVC8dJCkF",
+          "monitor_id": 83,
+          "funded_utc": "2026-04-22T11:24:59Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 13.219 SOL; balance 0.000993 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "EUrzD5XNu4MwfBhkQLNnHwmJ7YbcN5sbfRKVSKSrJCMo",
+          "monitor_id": 84,
+          "funded_utc": "2026-04-22T11:53:16Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 14.043 SOL; balance 0.010000 SOL (0.07%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "BdT9REAQpJK51twpDtNCTMwFdaEQ4qKX2svYDUGbxWrC",
+          "monitor_id": 85,
+          "funded_utc": "2026-04-22T12:39:05Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 24.841 SOL; balance 0.000911 SOL (0.00%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "Caxo3RSwcFCK9jr79Zx3NZ43epDcAM6NNbU6uZ93udrf",
+          "monitor_id": 87,
+          "funded_utc": "2026-04-22T14:07:18Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 17.237 SOL; balance 0.001017 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "aECN2MkoiRv5GjoF2Vm8vUJDEqitoGuWjSMHrdSCXUL",
+          "monitor_id": 89,
+          "funded_utc": "2026-04-22T15:01:52Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 12.823 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "eTPdHZNdUUX5GWsWxxq4Yu1URh1CrtU7dSzs7aB4Le6",
+          "monitor_id": 90,
+          "funded_utc": "2026-04-22T17:13:06Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 12.773 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "GaeH8gjpB8uqLnrCiuEBc8vAx3anZZdFSCcVrQZopTqr",
+          "monitor_id": 94,
+          "funded_utc": "2026-04-22T19:54:28Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 16.980 SOL; balance 0.000995 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "EQqHKK7ApzAMhgqEJvxNFJvUrsaNkcuVix26hGhbYPLq",
+          "monitor_id": 95,
+          "funded_utc": "2026-04-22T19:57:56Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 11.216 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "3t6U6n7jY6Q5p2d9FssjpG2HcM5FJqCQTWrz7W3HPHsu",
+          "monitor_id": 104,
+          "funded_utc": "2026-04-23T07:37:38Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 9.412 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "2wXDgDU9ozpVwoq2zbpWmLC6hFwj5JdStf59FUFZPbd8",
+          "monitor_id": 106,
+          "funded_utc": "2026-04-23T07:48:17Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.477 SOL; balance 0.002291 SOL (0.02%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "89HgbaovMEzCVzsVKrexeWyHvSE4dTJZXCHbdyYhpj26",
+          "monitor_id": 107,
+          "funded_utc": "2026-04-23T08:17:47Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 17.920 SOL; balance 0.014600 SOL (0.08%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "4g5dWpY6WgyGW6XbAHP5H1QV3sVGcS8vwRt4G9g4rnxS",
+          "monitor_id": 108,
+          "funded_utc": "2026-04-23T08:48:01Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 9.219 SOL; balance 0.000950 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "bg7dbXA23HRadPSQ8simQ1YVXro4aT55EaHXYMYZNe3",
+          "monitor_id": 109,
+          "funded_utc": "2026-04-23T08:49:57Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 8.637 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "3NhjAFiG9dYqD5MhgCxQxVgH8JyojpApvgdmGMyRJ8LU",
+          "monitor_id": 111,
+          "funded_utc": "2026-04-23T11:38:25Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.497 SOL; balance 0.004959 SOL (0.04%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "ALyJ5KbcBqfRCtcYLeGRNW2Loba9YzvNax2K2nrL117",
+          "monitor_id": 113,
+          "funded_utc": "2026-04-23T11:52:17Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 8.622 SOL; balance 0.002494 SOL (0.03%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "6UYeJ9ZTncUTePicxeEj5ZD8prc7wo34dhHZ7hr9izLq",
+          "monitor_id": 115,
+          "funded_utc": "2026-04-23T15:14:27Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 16.056 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "217teC3oxxoyUhwrmbv8VeCqFxr2XhzQi5Xg4HtegrbR",
+          "monitor_id": 119,
+          "funded_utc": "2026-04-23T17:34:07Z",
+          "verdict": "drained_partial",
+          "reason": "MoonPay MP2 funded 18.314 SOL; balance 0.113790 SOL (0.6%) = partial drain leaving small residual; not fresh-wallet shape. Memecoin trader / partial-cashout pattern."
+        },
+        {
+          "address": "8Sm39GPVgzcfmdeKapX2HKagp5YWBb7EqRR5p1egP622",
+          "monitor_id": 121,
+          "funded_utc": "2026-04-23T19:03:36Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 12.649 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "EkY5SickJ3B9Qn1Wve6ZDhRXqEqE4nk3fGLXN99KuQiW",
+          "monitor_id": 122,
+          "funded_utc": "2026-04-23T19:56:27Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 9.219 SOL; balance 0.004954 SOL (0.05%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "32Db8JVKjjSeNburEKhBGbzAkqrDbN9Ff23f2RxpjZuP",
+          "monitor_id": 125,
+          "funded_utc": "2026-04-23T21:03:36Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 9.285 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "7kj7d4aHxb9daiz5gW9226f2yaaA6LhNYgTtkyRxZYfb",
+          "monitor_id": 132,
+          "funded_utc": "2026-04-24T08:03:18Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 14.452 SOL; balance 0.018963 SOL (0.13%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "3ThRDr8FHz4GuAcLG8LmHBaDUTBguevXQwVbtgTumVRf",
+          "monitor_id": 135,
+          "funded_utc": "2026-04-24T11:56:45Z",
+          "verdict": "drained_partial",
+          "reason": "MoonPay MP2 funded 11.564 SOL; balance 0.134925 SOL (1.2%) = partial drain leaving small residual; not fresh-wallet shape. Memecoin trader / partial-cashout pattern."
+        },
+        {
+          "address": "Ec7m1nohYUYWWvtMsVjwqt3ZqBmZyLj6bu7UKk1xjgq4",
+          "monitor_id": 137,
+          "funded_utc": "2026-04-24T12:57:31Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 11.423 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "GPCNZuLoAKusk481ptuZRef3e32wVAQKPTPKiynKCFAN",
+          "monitor_id": 138,
+          "funded_utc": "2026-04-24T14:51:01Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 10.720 SOL; balance 0.000904 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "E4N1GULTuC5MmFvorgyNUwdpuXm6pTg6JjF2znCfWh5y",
+          "monitor_id": 139,
+          "funded_utc": "2026-04-24T15:06:57Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 10.732 SOL; balance 0.013142 SOL (0.12%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "CbAf9LRau6sC16421ipNvHVShK117K7RKLRtzwC98wob",
+          "monitor_id": 140,
+          "funded_utc": "2026-04-24T15:10:42Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 15.251 SOL; balance 0.000891 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "EhjJK4NY1ytTLM3D4x3a387vK1Xwbi1xp2TyL28KEVHc",
+          "monitor_id": 141,
+          "funded_utc": "2026-04-24T16:19:50Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.429 SOL; balance 0.016496 SOL (0.14%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "DD2YEZfRcykWsHChgTw5sGySvtJbVC3WF9mHw8aFZYup",
+          "monitor_id": 143,
+          "funded_utc": "2026-04-24T17:12:35Z",
+          "verdict": "drained_dust",
+          "reason": "MoonPay MP2 funded 11.019 SOL; balance 0.000929 SOL (0.01%) = post-trade rent residual only; bulk Pass A classification. Memecoin trader pattern."
+        },
+        {
+          "address": "7rFzZ3xNSVFGcas15GoREqEHthzME4nPYpHGNk39FUcy",
+          "monitor_id": 146,
+          "funded_utc": "2026-04-24T19:08:17Z",
+          "verdict": "drained",
+          "reason": "MoonPay MP2 funded 9.837 SOL; balance 0 SOL post-drain; bulk Pass A classification (no individual parse). Memecoin/CEX-cashout pattern dominant per MP1 batch parse evidence (4/5 spot-checked drained MP1 wallets = SWAP via pump.fun/Jupiter/OKX or single-hop SOL forward); MP2 funder shape identical."
+        },
+        {
+          "address": "5zwqNxdkns6KA5hJm33j7778e4YpiMQZnJGMaLt1yW27",
+          "monitor_id": 24,
+          "funded_utc": "2026-04-20T08:42:00Z",
+          "verdict": "memecoin_trader",
+          "reason": "Funded by 7cthuERB (RXRP Buyer #12, ChangeNOW chain, network-map). Drained 22h post-funding via Jupiter swap to WOJAK token (sig 5ateCd8QdrHynUWF5chfiqkMFBfW84WaMELmEXo9FPbsGasQDjMVsUdPzYrh85UhqoQbVPW8Hutu5x3d5vodDBBw); 6 lifetime sigs across burst on 2026-04-21 22:12-22:13Z. Memecoin trader using ChangeNOW deposit, not deployer."
+        },
+        {
+          "address": "3bkXrWGfvepizziE7xjVdjxLEwWCCAwR53Fs7gM2tUdv",
+          "monitor_id": 40,
+          "funded_utc": "2026-04-20T20:15:09Z",
+          "verdict": "memecoin_trader",
+          "reason": "Funded by RXRP Buyer AZ57WTNM (Robinhood chain, label per monitor). Drained 21h post-funding via OKX_DEX_ROUTER swap of 21+ SOL → GMAR token (sig 5Tjm6N3VSaG21x9ygawJqdCCS3TNJeGZ2HbDesMeeH7eJboMad5pdKgBMvcDWumCWRoY6eEvr9hJ88LZnaoS4frF); 10+ lifetime sigs in active trading burst 2026-04-21T17:49-17:53Z. Memecoin trader, not deployer."
+        },
+        {
+          "address": "Dksy2zsCiYKAZoBq2qGfR8KBuwuzogYiCpFciUSdQKg2",
+          "monitor_id": 86,
+          "funded_utc": "2026-04-22T13:07:11Z",
+          "verdict": "single_hop_relay",
+          "reason": "Funded by RXRP Buyer 54Pz1e35 (FTX US chain, user-labelled insider). Forwarded ALL 16.767 SOL to single destination 7q6rJvHaTt3m2ALP61SRcQgbPzr1w2yLFAmUiaRvkLJj 2 minutes after funding (sig 59xv94Xvpnciwkc6T4QV8QKFp5ccn6cX34d2uQbyt8HKJxYJ7LxdJc8ov4PdZ1CqRfgZ4ZZRyyNbJBHoSwF2UGym); 2 lifetime sigs only. Pure SOL relay, not memecoin swap. Destination 7q6rJvHaTt3m2ALP61SRcQgbPzr1w2yLFAmUiaRvkLJj is not in network-map — flag for follow-up: could be deployer ancestor, CEX deposit, or onward relay."
+        },
+        {
+          "address": "FgsvEDugq8Qv78yVPDY3BSPGkjAnjhKZPS64bQkZX6Ut",
+          "monitor_id": 64,
+          "funded_utc": "2026-04-21T21:17:34Z",
+          "verdict": "memecoin_trader_pump_fun",
+          "reason": "Funded by CSEncqtq (CoinSpot). Drained 1 minute post-funding via Jupiter swap (sig 2n77yh5qCbXYztXqJU1LMx3zHG2sSJAdZbFfB1WTNG8xShCos4AFjRqoSnHYuBsfV9Tp6VJKaBaWDFJYyZhAQgsB) to Buttcoin pump.fun token (mint Cm6fNnMk7NfzStP9CZpsQA2v3jjzbcYGAxdJySmHpump); 8.0 SOL routed to 93YxTWpbzmeEVN5Y68CUHGwqC1c9sTxpruaUfJeDvtfZ as part of the swap flow. 4 lifetime sigs in 75-second burst. Pump.fun memecoin trader / sniper, not deployer."
+        }
+      ],
+      "mp1_spot_check_findings": {
+        "purpose": "Validate the bulk-classified memecoin assumption on the 41 still-detected MP1 drained wallets from prior session (data/current-wallet-review-scope.json batch moonpay_mp1_candidate_review_2026_04_24).",
+        "sample_size": 5,
+        "wallets_parsed": [
+          {
+            "monitor_id": 1,
+            "address": "cqUHqi8ntcxG6QHJ2mgne3UramTmikjeLAeAp7sS9Ls",
+            "result": "active_trader",
+            "evidence": "8+ lifetime sigs spanning April 17 funding through April 22 activity; cNFT mint context confirms wallet is a token-holding active address, not a fresh deployer."
+          },
+          {
+            "monitor_id": 8,
+            "address": "5QK43Wa8A2G9LApmXKKr3nXcYrn7EsA9rXiugCJUJvh2",
+            "result": "memecoin_trader_pump_amm",
+            "evidence": "PUMP_AMM SWAP 2L5KhVvfJftfTKWvctjTLi77nNi9utPGro1QPzUkqb9nxa1gHrU5F29BqUshPxvfHy8B2R6qAgP3Lh4opF5E3EaQ at 2026-04-19T13:46:56Z (28min post-funding) sold 26.95M ASTERDOGE for 0.531 SOL."
+          },
+          {
+            "monitor_id": 31,
+            "address": "BC2NDFVmkMkNepyXAzbqPmur2qat84DHCC5CxC98kJXi",
+            "result": "memecoin_trader_jupiter",
+            "evidence": "Jupiter SWAP dsoeimJCgp7AhFHqHRbRtgSk8qhsThfsgayydahgSpofVnii8qBeU9pMbss17noZJkqJQ7ZKvgx82K3QzZJTjKg at 2026-04-21T18:18:50Z trading PVE token; 8+ lifetime sigs."
+          },
+          {
+            "monitor_id": 77,
+            "address": "EbQemWuzAgKqbvryM3gdpZGqVZx1A757aTSfZJnump3M",
+            "result": "single_hop_relay",
+            "evidence": "TRANSFER YuUBazVcN7dYAj7uUNjNW1GSRgdxgSCcKepBA9PYC1FH3PKePnPJeuc5C5Ej2hdUeVggH9g1BHnihFuSyjsGcDq at 2026-04-22T09:03:14Z (7 min post-funding) forwarded 19.9 SOL to BUen8C3J8AsJQiWXfGfvDGCPzceaNRMEH4ctcKKu9Hm3 (single hop, not in network-map — flag for follow-up; could be CEX deposit or onward relay)."
+          },
+          {
+            "monitor_id": 124,
+            "address": "DkqLqX1AhsGWYLwk6uNWVCkp7c3YeaEYzA4owRyWsqrN",
+            "result": "active_trader",
+            "evidence": "7 lifetime sigs in dense 4-min burst 2026-04-23T20:41-20:45Z immediately post-funding; pattern consistent with sniper bot or rapid-trade automation."
+          }
+        ],
+        "conclusion": "Memecoin/relay assumption holds. 4/5 parsed wallets confirmed memecoin swap (ids 8, 31) or pure SOL relay (id 77) or active trading (id 124). 1/5 (id 1) ambiguous parse but high lifetime sig count rules out fresh-deployer shape. The MP1 batch's 41 still-pending bulk-classified rule_outs from prior session can be confidently rejected."
+      },
+      "follow_up_destinations": [
+        {
+          "address": "7q6rJvHaTt3m2ALP61SRcQgbPzr1w2yLFAmUiaRvkLJj",
+          "from_wallet": "Dksy2zsCiYKAZoBq2qGfR8KBuwuzogYiCpFciUSdQKg2",
+          "from_label": "RXRP Buyer 54Pz1e35 chain (FTX US, user-labelled insider)",
+          "amount_sol": 16.767002866,
+          "sig": "59xv94Xvpnciwkc6T4QV8QKFp5ccn6cX34d2uQbyt8HKJxYJ7LxdJc8ov4PdZ1CqRfgZ4ZZRyyNbJBHoSwF2UGym",
+          "note": "Single-hop destination of FTX US chain insider's full 16.767 SOL drain. Not in network-map. 1x getWalletTransfers (100 cr) would map outflows and reveal whether this is a CEX deposit, deployer ancestor, or onward relay."
+        },
+        {
+          "address": "BUen8C3J8AsJQiWXfGfvDGCPzceaNRMEH4ctcKKu9Hm3",
+          "from_wallet": "EbQemWuzAgKqbvryM3gdpZGqVZx1A757aTSfZJnump3M",
+          "from_label": "MoonPay MP1 candidate id 77",
+          "amount_sol": 19.9,
+          "sig": "YuUBazVcN7dYAj7uUNjNW1GSRgdxgSCcKepBA9PYC1FH3PKePnPJeuc5C5Ej2hdUeVggH9g1BHnihFuSyjsGcDq",
+          "note": "Single-hop destination of an MP1 candidate's full drain. Not in network-map. Pattern matches FTX-US-chain forward shape — could be the same operator, a CEX deposit, or a deployer ancestor."
+        }
+      ],
+      "priority_1_keep_recheck": {
+        "address": "3f15vuFsQ3f2NA2WFLJ53Ei2JKZV4H8G42rJwugpCCGZ",
+        "balance_sol": 24.431299251,
+        "funded_amount_sol": 24.43129925,
+        "signature_count_lifetime": 2,
+        "funding_utc": "2026-04-24T03:41:00Z",
+        "verdict": "intact_dormant_inside_window_confirmed",
+        "note": "Re-verified at 2026-04-25T~05Z: 24.43 SOL intact, 2 lifetime sigs only (both at funding time), zero post-funding activity. ~17h dormant at recheck — STILL INSIDE the 12-26h pre-deploy window for L11 launch later today. Highest-priority watch wallet through funding-window close."
+      },
+      "session_environment_notes": [
+        "VPS SSH key auth failed for l11@143.198.12.56 in this session; used local DB backup ~/Desktop/db-backup/l11-manual-20260424-1435.db. Operator should re-pull live DB to confirm /reject targets are still in 'detected' status (some may have been operator-rejected since the backup snapshot).",
+        "Helius MCP getBalance/getTransactionHistory/parseTransactions all returned cleanly — no rate-limit or auth errors."
+      ]
+    },
+    {
       "id": "rxrp_repump_high_balance_follow_up",
       "status": "non_canonical_monitor_candidate_batch",
       "source_summary": "data/results/rxrp-full-investigation-summary-2026-04-24.json",
@@ -284,7 +940,9 @@
           "priority": 1,
           "control_confidence": "medium",
           "operational_usefulness": "pre_deploy_signal",
-          "secondary_operational_usefulness": ["copy_trade_candidate"],
+          "secondary_operational_usefulness": [
+            "copy_trade_candidate"
+          ],
           "reason": "canonical network-map RXRP buyer, high current balance, Coinbase-funded, and prior project minor mention"
         },
         {
@@ -292,7 +950,9 @@
           "priority": 2,
           "control_confidence": "medium",
           "operational_usefulness": "pre_deploy_signal",
-          "secondary_operational_usefulness": ["copy_trade_candidate"],
+          "secondary_operational_usefulness": [
+            "copy_trade_candidate"
+          ],
           "reason": "canonical network-map RXRP buyer, high current balance, Coinbase-funded, and prior project minor mention"
         },
         {
@@ -300,7 +960,9 @@
           "priority": 3,
           "control_confidence": "high",
           "operational_usefulness": "pre_deploy_signal",
-          "secondary_operational_usefulness": ["copy_trade_candidate"],
+          "secondary_operational_usefulness": [
+            "copy_trade_candidate"
+          ],
           "reason": "canonical network-map insider, high current balance, FTX US chain, and RXRP buyer"
         },
         {
@@ -308,7 +970,9 @@
           "priority": 4,
           "control_confidence": "medium",
           "operational_usefulness": "pre_deploy_signal",
-          "secondary_operational_usefulness": ["copy_trade_candidate"],
+          "secondary_operational_usefulness": [
+            "copy_trade_candidate"
+          ],
           "reason": "canonical network-map RXRP buyer, early buy order, ChangeNOW-funded, and high current balance"
         },
         {
@@ -316,7 +980,10 @@
           "priority": 5,
           "control_confidence": "high",
           "operational_usefulness": "pre_deploy_signal",
-          "secondary_operational_usefulness": ["copy_trade_candidate", "post_deploy_attribution"],
+          "secondary_operational_usefulness": [
+            "copy_trade_candidate",
+            "post_deploy_attribution"
+          ],
           "reason": "canonical network-map RXRP buyer, repeated RXRP buys, Robinhood-funded, and prior OG deployer overlap"
         },
         {
@@ -324,8 +991,768 @@
           "priority": 6,
           "control_confidence": "high",
           "operational_usefulness": "pre_deploy_signal",
-          "secondary_operational_usefulness": ["copy_trade_candidate", "post_deploy_attribution"],
+          "secondary_operational_usefulness": [
+            "copy_trade_candidate",
+            "post_deploy_attribution"
+          ],
           "reason": "canonical network-map RXRP buyer, Binance 8 chain, and L10 early-buyer overlap"
+        }
+      ]
+    },
+    {
+      "id": "coinspot_candidate_review_2026_04_24",
+      "status": "non_canonical_monitor_candidate_batch",
+      "reviewed_utc": "2026-04-24T20:00:00Z",
+      "scope_policy": "Use as a monitor-candidate shortlist only. Do not promote to data/network-map.json without a separate reviewed registry patch.",
+      "source_refs": [
+        {
+          "path": "monitor/data/l11.db",
+          "note": "VPS candidates table at 143.198.12.56:/opt/l11-monitor/monitor/data/l11.db, filtered funding_source=CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs"
+        }
+      ],
+      "review_question": "Which of the 25 CoinSpot-funded candidates in the monitor DB are still sitting fresh with dormant onramp SOL vs. drained / hub-behaving?",
+      "methodology": "Helius getBalance on all 25; getTransactionHistory signatures on intact+inflated; getWalletTransfers on 3 inflated wallets + L10 deployer 2mZz for vanity-pattern cross-check",
+      "credits_burned": 455,
+      "trigger_policy": [
+        "any outbound SOL transfer from keep-list wallets",
+        "balance change above 0.5 SOL on keep-list wallets",
+        "create_and_buy instruction execution by any keep-list wallet"
+      ],
+      "keep_list": [
+        {
+          "address": "3f15vuFsQ3f2NA2WFLJ53Ei2JKZV4H8G42rJwugpCCGZ",
+          "priority": 1,
+          "balance_sol": 24.431299251,
+          "funded_amount_sol": 24.43129925,
+          "funding_utc": "2026-04-24T03:41:00Z",
+          "signature_count_lifetime": 2,
+          "control_confidence": "medium",
+          "operational_usefulness": "pre_deploy_l11_candidate",
+          "verdict": "intact_dormant_inside_window",
+          "reason": "funded 2026-04-24 03:41 UTC by CoinSpot; 2 signatures both at funding time; zero post-funding activity; balance matches funded amount exactly; inside 12-26h dormancy window for predicted L11 deploy 2026-04-25 14:00-18:00 EST"
+        },
+        {
+          "address": "GzPBXxW2RG947ZUKKqrDmKu3XtZCjQGaqrNmtPHnTHTM",
+          "priority": 2,
+          "balance_sol": 37.44308267,
+          "funded_amount_sol": 14.80610066,
+          "funding_utc": "2026-04-22T10:00:53Z",
+          "signature_count_lifetime": 4,
+          "control_confidence": "medium",
+          "operational_usefulness": "pre_deploy_signal",
+          "verdict": "vanity_bracketed_inflow_suggestive",
+          "reason": "inflows: 1 SOL from CoinSpot (2026-04-22T05:47:32Z) + 14.806 SOL from CoinSpot at 10:00:53Z + 21.637 SOL from D234cojEJ5SXEvCmR65YVdB4woxTxgGgs7ypjdzyEcYk at 10:25:14Z + 0.00001 SOL dust from D2345NtgdDgs5nyLzjAtGrRZVLMnd6gZnZGKe2FDEcYk at 10:26:03Z (49s after); D234 pair shares prefix + EcYk suffix, matching operator-signal tradecraft shape documented for the signal_wallets_2zi_cluster entry in data/network-map.json line 349 but D234 family not yet verified against known operator infrastructure; no outflows",
+          "follow_up": [
+            "getWalletTransfers on D234cojEJ5SXEvCmR65YVdB4woxTxgGgs7ypjdzyEcYk to map funding source and other targets",
+            "getWalletTransfers on D2345NtgdDgs5nyLzjAtGrRZVLMnd6gZnZGKe2FDEcYk to map funding source and other targets",
+            "cross-check whether either D234 wallet has pinged any address in data/network-map.json",
+            "if D234 funding traces to v49/OG/L7/Bra1HUNK/Figg/CoinSpot-insider infrastructure, upgrade control_confidence to high"
+          ]
+        },
+        {
+          "address": "3XKSFfV62MgUdy81YRZwuTS9JB6cF8R2jo9T1YEePauh",
+          "priority": 3,
+          "balance_sol": 11.968143513,
+          "funded_amount_sol": 9.99914007,
+          "funding_utc": "2026-04-22T21:14:50Z",
+          "signature_count_lifetime": 5,
+          "control_confidence": "low",
+          "operational_usefulness": "weak_signal",
+          "verdict": "odin_family_ping_suggestive",
+          "reason": "direct SOL transfers observed: 9.999 SOL from CoinSpot at funding + 0 SOL ping from odin1cuJWUrEK49CFEEtSG789J6g8LanHqKPLVE6guG at 2026-04-23T10:03:07Z (13h post-funding); remaining +1.969 SOL balance delta came through 3 non-SOL-transfer signatures not yet parsed; odin family matches active Odin-flow investigation (git commit 09829e6, data/results/rxrp-priority-odin-*-2026-04-24.json) naming odin8eaAmRDqTwtYBxvPnQ8hHpi8Rxaybg6xVjWbRTb, odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s, odinFqDRznBzUHSGdZzkY78AgaCxFRoHe7GTvrvo4Dn; separately odinrnLqM2dT4MJjC8vqTByeXyjFU2GQkwWEeSFpKgK pinged L10 deployer 2mZz on 2026-03-28; single-ping no bracketing so evidence weaker than D234 case",
+          "follow_up": [
+            "parse the 3 non-transfer signatures on 3XKSFfV62MgUdy81YRZwuTS9JB6cF8R2jo9T1YEePauh to explain +1.969 SOL balance delta",
+            "getWalletTransfers on odin1cuJWUrEK49CFEEtSG789J6g8LanHqKPLVE6guG to map funding and counterparties",
+            "check whether odin1cuJ intersects the odin8/odinZ/odinF trio from the RXRP Odin-flow investigation"
+          ]
+        },
+        {
+          "address": "HYRGi5jqhCNbHH2dHzyiKnqPHqEvoeqWSGWzt8mMEVys",
+          "priority": 4,
+          "balance_sol": 8.12932112,
+          "funded_amount_sol": 8.12932112,
+          "funding_utc": "2026-04-23T11:21:58Z",
+          "control_confidence": "low",
+          "operational_usefulness": "edge_of_window",
+          "verdict": "intact_dormant_just_past_window",
+          "reason": "intact balance matches funded amount but age ~32h at review exceeds 26h max-observed deployer dormancy; keep for second pass in case operator extends window"
+        },
+        {
+          "address": "8JkcHNCX65ss5QRUm7BC9K11A53YdfCftkTLNyvpJNxe",
+          "priority": 5,
+          "balance_sol": 19.001241401,
+          "funded_amount_sol": 19.0012414,
+          "funding_utc": "2026-04-23T03:28:36Z",
+          "control_confidence": "low",
+          "operational_usefulness": "past_window",
+          "verdict": "intact_dormant_past_window",
+          "reason": "intact balance, ~40h age, well past 26h max observed dormancy"
+        },
+        {
+          "address": "FdyTNua8UxgdbmZQ1pQdfaaHvnp4ayf1DZgA6BGScGvo",
+          "priority": 6,
+          "balance_sol": 20.6570657,
+          "funded_amount_sol": 20.6570657,
+          "funding_utc": "2026-04-21T17:50:08Z",
+          "control_confidence": "low",
+          "operational_usefulness": "past_window",
+          "verdict": "intact_dormant_past_window",
+          "reason": "intact balance, ~74h age"
+        },
+        {
+          "address": "39VqGYiwc4vvH2vBVESuXYfYoLCGeb6e6LyheDSP4FPv",
+          "priority": 7,
+          "balance_sol": 20.48448394,
+          "funded_amount_sol": 20.48448394,
+          "funding_utc": "2026-04-21T05:31:52Z",
+          "control_confidence": "low",
+          "operational_usefulness": "past_window",
+          "verdict": "intact_dormant_past_window",
+          "reason": "intact balance, ~87h age"
+        },
+        {
+          "address": "7Ey5AFpT7EiioeqY8zMvw9gaz78kC5PNSsRc6g7rF1iq",
+          "priority": 8,
+          "balance_sol": 8.708217221,
+          "funded_amount_sol": 8.70821722,
+          "funding_utc": "2026-04-20T11:57:35Z",
+          "control_confidence": "low",
+          "operational_usefulness": "past_window",
+          "verdict": "intact_dormant_past_window",
+          "reason": "intact balance, ~103h age"
+        }
+      ],
+      "rule_out_list": [
+        {
+          "verdict": "drained_onramp_sol_spent",
+          "reason_category": "fails_dormant_fresh_rule",
+          "addresses": [
+            "2bRSMnmwRb1Z1yxDrb2ia5Jw4vesCTzhd6a28mSHTBAf",
+            "5xcthqeSTK6x25duh4PwP1E4MZAKNsJgZK5AaugY4sT4",
+            "3egPyQtujf8C2hsjuiEtDBmSkGEdo2NL2cP3VPvB2uSG",
+            "BcTpLaSpP3zymyTbj4RPDMm7hwkbfPq7x19YKbyRdA5R",
+            "2LcSS38xyt5r1kd3BvQC3ZxBypx7ZTFKkTE8dnVKqDJJ",
+            "BHom7zsjzNme2XmiKr9TMuYJ1uKgVc6UrShAsaS8HVsy",
+            "5sioP3JX28YuaMGt9fqqmWN7GRMhsc7Fno1yGX5tyjsH",
+            "9bQQRGnYsBELZEWqdreVuTmgMQR1T9TAGYWxbKsxAur",
+            "CvENbdNJruzRsx97EyAxhZMr6uiw7zeXADDzxLPdVM27",
+            "FgsvEDugq8Qv78yVPDY3BSPGkjAnjhKZPS64bQkZX6Ut",
+            "HjzzkEP5C5UCWRA8oN3kMqC1fWNDNzm9k1ApduzQr9qU",
+            "JAzvk1LHvC1VAUGjMNLgpxYC1MAbBiC59yoyjWWbqfcM",
+            "3v9dZxe7cB1a5WC1n3uqSsws1fmybehf7x1MDvSwHJgn",
+            "4JT8MueiUpYWQZSwNTFSunxzmVrUNtRgSSvDjNvZs5K7",
+            "fZPvY6pvLhHMxzumC46jirKJSq6q3XVbT9fWbv5YSoT",
+            "6L1cWAkFQyf4YR81m3BbmA8hBmdf6kStohEL3WAkjRmV"
+          ]
+        },
+        {
+          "verdict": "inflated_not_fresh_no_signal",
+          "reason_category": "had_prior_balance_before_monitor_funding_detection",
+          "entries": [
+            {
+              "address": "HefCL8a29RDNWmGC85N3UVvDCRAkaG3Df9jKKTorVTSE",
+              "balance_sol": 37.51142942,
+              "funded_amount_sol": 13,
+              "funding_utc": "2026-04-21T01:29:04Z",
+              "reason": "wallet had 24.511 SOL sitting from prior 2026-04-09T20:45:14Z CoinSpot inflow before the 13 SOL funding detection; passed fresh filter on priorSigCount=1 but was not balance-fresh; 3+ days dormant since second inflow; no vanity pattern, no sends"
+            }
+          ]
+        }
+      ],
+      "analytical_findings": [
+        {
+          "id": "hym_vanity_cluster_on_l10_deployer_confirmed",
+          "summary": "L10 deployer 2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB exhibits the same operator-signal dust-ping tradecraft registry-documented for signal_wallets_2zi_cluster on DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn (data/network-map.json line 349). HYM3vkUkXB8aR73d3JbLbuxmfAzM9isgGRxB8owciFdG and HYM1nkDaSdmNT5xgQ3fhrmHHM2VnanH4QSLFKsxGTVdG dust-ping 2mZz 15-21s after each cashout tx to HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG (L7 deployer, data/network-map.json line 29), which itself shares the HYM prefix with the pingers.",
+          "evidence": "getWalletTransfers on 2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB returned 134 transfers; 2026-03-24 cashout batch had 4 bracketed pairs (USDC 5 / 500 / 10,195.9 sent then SOL 5.4 sent, each followed 15-16s later by 0.00001 SOL dust from HYM3vkUkXB8aR73d3JbLbuxmfAzM9isgGRxB8owciFdG); 2026-04-11 cashout had 10.2 SOL sent at 10:29:52Z followed by dust from HYM3vkUkXB8aR73d3JbLbuxmfAzM9isgGRxB8owciFdG at 10:30:08Z (16s) and HYM1nkDaSdmNT5xgQ3fhrmHHM2VnanH4QSLFKsxGTVdG at 10:30:13Z (21s). Additionally odinrnLqM2dT4MJjC8vqTByeXyjFU2GQkwWEeSFpKgK sent 0 SOL to 2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB on 2026-03-28T20:46:00Z — different vanity family, single post-deploy ping.",
+          "caveat": "Separately, JATcFT2j762i7CAayBhQCGuKVstxgL3gWwQXKWtSPbj4 sent 2mZz ~20 zero-SOL pings in a 30-minute burst on 2026-03-23; no vanity-prefix tie to any known operator wallet, no event correlation — probable spam/airdrop noise, not operator signal.",
+          "registry_impact": "proposed_registry_change",
+          "proposed_patch_outline": "Add a signal_wallets_hym_cluster block to data/network-map.json (placement TBD — parallel to insiders.coinspot_insider.signal_wallets_2zi_cluster or a new top-level operator_signal_clusters section). Include HYM3vkUkXB8aR73d3JbLbuxmfAzM9isgGRxB8owciFdG and HYM1nkDaSdmNT5xgQ3fhrmHHM2VnanH4QSLFKsxGTVdG with evidence signatures from the 2026-03-24 and 2026-04-11 bracketing events. Note that L7 deployer HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG is itself a member of the HYM prefix family. Update 2mZz deployer notes to reference the dust-ping cashout tradecraft."
+        },
+        {
+          "id": "d234_vanity_pair_on_coinspot_candidate_suggestive",
+          "summary": "GzPBXxW2RG947ZUKKqrDmKu3XtZCjQGaqrNmtPHnTHTM received 21.637 SOL from D234cojEJ5SXEvCmR65YVdB4woxTxgGgs7ypjdzyEcYk at 2026-04-22T10:25:14Z followed 49s later by 0.00001 SOL dust from D2345NtgdDgs5nyLzjAtGrRZVLMnd6gZnZGKe2FDEcYk at 10:26:03Z. Prefix+suffix matching (D234 prefix, EcYk suffix on both) matches operator-signal tradecraft shape but D234 family not yet verified against known operator infrastructure.",
+          "registry_impact": "none_yet",
+          "follow_up_required": [
+            "getWalletTransfers on both D234 wallets — map funding source and other targets",
+            "cross-check whether D234 wallets have pinged any address in data/network-map.json"
+          ]
+        },
+        {
+          "id": "odin_vanity_family_on_coinspot_candidate_weak",
+          "summary": "3XKSFfV62MgUdy81YRZwuTS9JB6cF8R2jo9T1YEePauh received a 0-SOL ping from odin1cuJWUrEK49CFEEtSG789J6g8LanHqKPLVE6guG on 2026-04-23T10:03:07Z, ~13h after CoinSpot funding. Single ping, no bracketing. odin family matches active Odin-flow investigation (commit 09829e6).",
+          "registry_impact": "none_yet",
+          "follow_up_required": [
+            "map odin1cuJ funding and counterparties",
+            "parse the 3 non-SOL-transfer signatures on 3XKSFfV62MgUdy81YRZwuTS9JB6cF8R2jo9T1YEePauh to explain +1.969 SOL balance delta"
+          ]
+        }
+      ],
+      "relay_destinations_follow_up": [
+        {
+          "address": "G9X7F4JzLzbSGMCndiBdWNi5YzZZakmtkdwq7xS3Q3FE",
+          "relay_source": "2bRSMnmwRb1Z1yxDrb2ia5Jw4vesCTzhd6a28mSHTBAf",
+          "relay_source_candidate_id": 134,
+          "observed_cycles": 7,
+          "observed_window_utc": "2026-04-24T09:46:46Z to 2026-04-24T16:58:54Z",
+          "total_sol_aggregated_approx": 89,
+          "reason": "receives full CoinSpot outflow amount from 2bRSMnmw within seconds of each inbound; 7 cycles in 1 day; novel destination not in data/network-map.json",
+          "follow_up": [
+            "getWalletTransfers on G9X7F4JzLzbSGMCndiBdWNi5YzZZakmtkdwq7xS3Q3FE to map outflows and identify other relay sources",
+            "check if other CoinSpot-funded fresh wallets also forward to this address"
+          ]
+        },
+        {
+          "address": "3YxRuo3eHJaW6cHxP1rcsj5RsB1VuVByXstDjt7hwMov",
+          "relay_source": "4JT8MueiUpYWQZSwNTFSunxzmVrUNtRgSSvDjNvZs5K7",
+          "relay_source_candidate_id": 26,
+          "observed_cycles": 3,
+          "observed_window_utc": "2026-04-20T08:55:11Z to 2026-04-20T09:17:53Z",
+          "total_sol_aggregated_approx": 66.5,
+          "reason": "3 CoinSpot → 4JT8Muei → 3YxRuo3e cycles within 22 minutes; novel destination not in registry"
+        },
+        {
+          "address": "5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9",
+          "relay_source": "HjzzkEP5C5UCWRA8oN3kMqC1fWNDNzm9k1ApduzQr9qU",
+          "relay_source_candidate_id": 45,
+          "observed_cycles": 2,
+          "observed_window_utc": "2026-04-21T04:02:50Z and 2026-04-24T04:12:47Z",
+          "total_sol_aggregated_approx": 27.7,
+          "reason": "2 CoinSpot → HjzzkEP5 → 5tzFkiK cycles; novel destination not in registry"
+        },
+        {
+          "address": "5iEFdmkmdEbzfNmBdRioRUQJiPVNwsJaX4Nmh4HBZH9d",
+          "relay_source": "5sioP3JX28YuaMGt9fqqmWN7GRMhsc7Fno1yGX5tyjsH",
+          "relay_source_candidate_id": 103,
+          "observed_cycles": 3,
+          "observed_window_utc": "2026-04-23T06:15:00Z to 2026-04-24T18:15:01Z",
+          "total_sol_aggregated_approx": 36,
+          "reason": "3 CoinSpot → 5sioP3JX → 5iEFdmkm cycles; novel destination not in registry"
+        },
+        {
+          "address": "848uo7nqHFKsgpvmPLbeYbKADuBXjoWPybJWkx8Wd1fk",
+          "relay_source": "BcTpLaSpP3zymyTbj4RPDMm7hwkbfPq7x19YKbyRdA5R",
+          "relay_source_candidate_id": 127,
+          "observed_cycles": 3,
+          "observed_window_utc": "2026-04-24T01:06:16Z to 2026-04-24T09:38:39Z",
+          "total_sol_aggregated_approx": 16.6,
+          "reason": "3 CoinSpot → BcTpLaSp → 848uo7nq cycles; relay source also received dust pings from 848-prefix 1fk-suffix vanity siblings (848uF6kii7rehH4GL3bCsaprDvb8NnFtgU8MAn8Ud1fk, 84113ZmXoGKLAWJh9T9Ub2NwTNPCyyJUaS9L1Nvpn1fk) and from TriQKRfbS1v63hvHpLWNnb51VL9GvVeotTYYXSfUDHb; novel destination not in registry"
+        }
+      ],
+      "vanity_pingers_follow_up": [
+        {
+          "address": "CSEnvcsis81nh7guJHgAJCaNowjAKJ9jiFxfMSNZ2RCs",
+          "vanity_shape": "CSEn prefix sibling of CoinSpot hot wallet CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs (data/network-map.json line 712)",
+          "observed_pings_on_drained_candidates": [
+            "2bRSMnmwRb1Z1yxDrb2ia5Jw4vesCTzhd6a28mSHTBAf",
+            "5xcthqeSTK6x25duh4PwP1E4MZAKNsJgZK5AaugY4sT4",
+            "BcTpLaSpP3zymyTbj4RPDMm7hwkbfPq7x19YKbyRdA5R",
+            "5sioP3JX28YuaMGt9fqqmWN7GRMhsc7Fno1yGX5tyjsH"
+          ],
+          "reason": "4 separate CoinSpot-funded fresh wallets dust-pinged by this CSEn-prefix vanity sibling; pattern mirrors 2Zi-prefix signal cluster on DmA9Jab (data/network-map.json line 349) and HYM-prefix cluster on 2mZz finding",
+          "follow_up": [
+            "getWalletTransfers on CSEnvcsis81nh7guJHgAJCaNowjAKJ9jiFxfMSNZ2RCs to map funding source and other targets",
+            "verify whether this is operator-controlled or a CoinSpot infrastructure sibling"
+          ]
+        },
+        {
+          "address": "TriQKRfbS1v63hvHpLWNnb51VL9GvVeotTYYXSfUDHb",
+          "vanity_shape": "Tri prefix",
+          "observed_pings_on_drained_candidates": [
+            "BcTpLaSpP3zymyTbj4RPDMm7hwkbfPq7x19YKbyRdA5R",
+            "2LcSS38xyt5r1kd3BvQC3ZxBypx7ZTFKkTE8dnVKqDJJ",
+            "HjzzkEP5C5UCWRA8oN3kMqC1fWNDNzm9k1ApduzQr9qU"
+          ],
+          "reason": "3 separate CoinSpot-funded wallets dust-pinged; not tied to any known operator main wallet by prefix"
+        },
+        {
+          "address": "pcLMffoEiUcgPsPH2sbi2QmS8bcqUZAx72Fv816bb7S",
+          "vanity_shape": "pcLM prefix",
+          "observed_pings_on_drained_candidates": [
+            "2bRSMnmwRb1Z1yxDrb2ia5Jw4vesCTzhd6a28mSHTBAf"
+          ],
+          "reason": "dust ping; single observation, no prefix tie to known infrastructure"
+        },
+        {
+          "address": "848uF6kii7rehH4GL3bCsaprDvb8NnFtgU8MAn8Ud1fk",
+          "vanity_shape": "848 prefix + 1fk suffix — double vanity sibling of relay destination 848uo7nqHFKsgpvmPLbeYbKADuBXjoWPybJWkx8Wd1fk",
+          "observed_pings_on_drained_candidates": [
+            "BcTpLaSpP3zymyTbj4RPDMm7hwkbfPq7x19YKbyRdA5R"
+          ],
+          "reason": "prefix+suffix match with relay destination indicates same operator family; tradecraft matches 2Zi-JVsz and HYM-prefix clusters"
+        },
+        {
+          "address": "84113ZmXoGKLAWJh9T9Ub2NwTNPCyyJUaS9L1Nvpn1fk",
+          "vanity_shape": "84 prefix + 1fk suffix — sibling of 848uo7nq relay destination and 848uF6ki pinger",
+          "observed_pings_on_drained_candidates": [
+            "BcTpLaSpP3zymyTbj4RPDMm7hwkbfPq7x19YKbyRdA5R"
+          ],
+          "reason": "shared 1fk suffix with the 848u family; suggests larger 1fk-suffix vanity family than single pair"
+        },
+        {
+          "address": "odinv4uRcB4cFfNXpeEwJX5sDModAomNt371Nk4wF25",
+          "vanity_shape": "odin prefix",
+          "observed_pings_on_drained_candidates": [
+            "3v9dZxe7cB1a5WC1n3uqSsws1fmybehf7x1MDvSwHJgn"
+          ],
+          "reason": "additional odin-family sibling; adds to odin1cuJ, odin8eaAm, odinZCYLk, odinFqDRz, odinrnLq tally; active Odin-flow investigation scope expanding"
+        }
+      ],
+      "revised_rule_out_reasons": {
+        "relay_wallets_confirmed_novel_destination": [
+          {
+            "candidate_id": 26,
+            "address": "4JT8MueiUpYWQZSwNTFSunxzmVrUNtRgSSvDjNvZs5K7"
+          },
+          {
+            "candidate_id": 45,
+            "address": "HjzzkEP5C5UCWRA8oN3kMqC1fWNDNzm9k1ApduzQr9qU"
+          },
+          {
+            "candidate_id": 103,
+            "address": "5sioP3JX28YuaMGt9fqqmWN7GRMhsc7Fno1yGX5tyjsH"
+          },
+          {
+            "candidate_id": 127,
+            "address": "BcTpLaSpP3zymyTbj4RPDMm7hwkbfPq7x19YKbyRdA5R"
+          }
+        ],
+        "confirmed_kraken_cashout": [
+          {
+            "candidate_id": 21,
+            "address": "fZPvY6pvLhHMxzumC46jirKJSq6q3XVbT9fWbv5YSoT"
+          },
+          {
+            "candidate_id": 75,
+            "address": "CvENbdNJruzRsx97EyAxhZMr6uiw7zeXADDzxLPdVM27"
+          }
+        ],
+        "odin_family_ping_on_drained_candidate_flagged": [
+          {
+            "candidate_id": 34,
+            "address": "3v9dZxe7cB1a5WC1n3uqSsws1fmybehf7x1MDvSwHJgn",
+            "pinger": "odinv4uRcB4cFfNXpeEwJX5sDModAomNt371Nk4wF25"
+          }
+        ]
+      }
+    },
+    {
+      "id": "moonpay_mp1_candidate_review_2026_04_24",
+      "status": "non_canonical_monitor_candidate_batch",
+      "reviewed_utc": "2026-04-25T01:30:00Z",
+      "scope_policy": "Use as a monitor-candidate shortlist only. Do not promote to data/network-map.json without a separate reviewed registry patch.",
+      "source_refs": [
+        {
+          "path": "monitor/data/l11.db",
+          "note": "VPS candidates table at 143.198.12.56:/opt/l11-monitor/monitor/data/l11.db, filtered funding_source=Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6"
+        }
+      ],
+      "review_question": "Which of the 48 MoonPay MP1-funded candidates in the monitor DB are intact + dormant L11 deployer-shape vs. drained / memecoin-traded / cashed-out?",
+      "methodology": "Pass A: Helius getBalance on all 48 (48 cr); bucket intact/partial/drained. Pass B: getSignaturesForAddress (limit 15) on 13-wallet age-focused subset (130 cr). Pass C: getWalletTransfers on 7 priority wallets (700 cr). Pass D: parseTransactions batch (100 cr) on drain signatures; getWalletTransfers on 3 new odin siblings (300 cr); getBalance on 5 new addresses (5 cr); getWalletIdentity on Bitstamp pre-activator (100 cr). Cross-check counterparties against data/network-map.json + scope analytical_findings (257 addresses).",
+      "credits_burned": 1383,
+      "trigger_policy": [
+        "any outbound SOL transfer from keep-list wallets",
+        "balance change above 0.5 SOL on keep-list wallets",
+        "create_and_buy instruction execution by any keep-list wallet"
+      ],
+      "keep_list": [
+        {
+          "address": "6rHWN6qQksCMGxkZCCkSG64fEi8vBknTxt1keGH9izLv",
+          "priority": 1,
+          "balance_sol": 10.666,
+          "funded_amount_sol": 10.666,
+          "funding_utc": "2026-04-21T23:12:34Z",
+          "signature_count_lifetime": 1,
+          "control_confidence": "low",
+          "operational_usefulness": "pre_deploy_l11_candidate",
+          "verdict": "intact_dormant_past_max_observed_window",
+          "reason": "MoonPay MP1 funded 10.666 SOL; 1 signature lifetime (the funding tx); zero post-funding activity; no vanity pinger contact; balance equals funded amount exactly. 74h dormancy at review exceeds the 26h max-observed L4-L10 deployer fresh-wallet hold but matches all other shape criteria. Treat as low-confidence keep — escalate if it stays dormant through 2026-04-25T11:00Z funding-window close."
+        },
+        {
+          "address": "4aMinwtC8QFrTwQFPhPq7txie7WXGaQfpLVm52rzwkgb",
+          "priority": 2,
+          "balance_sol": 11.58,
+          "funded_amount_sol": 11.58,
+          "funding_utc": "2026-04-21T21:36:03Z",
+          "signature_count_lifetime": 1,
+          "control_confidence": "low",
+          "operational_usefulness": "pre_deploy_l11_candidate",
+          "verdict": "intact_dormant_past_max_observed_window",
+          "reason": "Same shape as priority 1 wallet, ~1.6h older (75.7h dormant at review). MoonPay-funded, 1 signature lifetime, no vanity pinger contact, balance equals funded."
+        },
+        {
+          "address": "6uYzo6ZRYehusYyaaM8XbZE11da98hyaryBtDKVyB8Bb",
+          "priority": 3,
+          "balance_sol": 8.13919,
+          "funded_amount_sol": 8.004,
+          "funding_utc": "2026-04-24T23:56:26Z",
+          "signature_count_lifetime": 2,
+          "control_confidence": "low",
+          "operational_usefulness": "pre_deploy_l11_candidate",
+          "verdict": "intact_fresh_pre_window_with_bitstamp_pre_activation",
+          "reason": "Bitstamp Hot Wallet 9D8xSHWqF9NJWqCtn3rNxYEox63aCbWxYzTMfMur7Cc9 (Helius getWalletIdentity = exchange) sent 0.135 SOL pre-activation 11 minutes before MoonPay funded 8.004 SOL. Standard multi-onramp user shape. 1.3h since funding at review; will enter 12-26h dormancy window 2026-04-25T11-13Z if no outflow. No vanity pinger contact yet."
+        }
+      ],
+      "rule_out_list": [
+        {
+          "address": "EvJYbZq1ZNZ9YEmcHNDcRJqhqQ72QgyUJMRVcn6HojtZ",
+          "monitor_id": 149,
+          "funded_utc": "2026-04-25T00:43:41Z",
+          "verdict": "memecoin_trader",
+          "reason": "parseTransactions on signature 5XCJmGeMriDV8JEbRZWfc9NiVc7nVi2Wk7BhsBQtQx546e59R6maN7neK7ppV9MWeyi9bxjpU7ekQQY22LpGeLTX shows DFlow SWAP 11.21 SOL to Awkwardism token at 2026-04-25T00:44:12Z (31s after MoonPay funding); 0 SOL ping from odin2Nz2vGnusxtqJ4XGmbDjK8bGaDztA61eaVBbqE1 1s later. Memecoin trader, not deployer."
+        },
+        {
+          "address": "9g1qVGwhAyTRrZaoWKMpLNin6t5DLXtcwbRz1S8HxNLq",
+          "monitor_id": 144,
+          "funded_utc": "2026-04-24T17:57:18Z",
+          "verdict": "memecoin_trader",
+          "reason": "parseTransactions shows Jupiter SWAP routing 11.888 SOL through USDC to 331.46 TRUMP at 2026-04-24T17:58:28Z (1m10s after funding). Memecoin trader."
+        },
+        {
+          "address": "FnPMq2Zit7PaC2QRo8WvHZK6WGusVwEcydyf3LYgk3Pb",
+          "monitor_id": 136,
+          "funded_utc": "2026-04-24T12:15:24Z",
+          "verdict": "memecoin_trader",
+          "reason": "parseTransactions on two signatures shows Jupiter SWAP activity (selling Gas City token, buying DOGE-symbol pump.fun token); 15 lifetime sigs, multi-token trading; 0 SOL pings from odinhdmLXrHtu9fz9sQfSC2mHbDQ9PbSQ4W3qiL6H9m and odinNbczS1tKZsFFkg3ZwvDLbdZCCNuY89ddfDEq5Hi. Memecoin trader despite being inside the 12-26h window."
+        },
+        {
+          "address": "7QJqkqz96gDJVDmNWToiG5QQt9gznhPimoicUrpRoQJK",
+          "monitor_id": 128,
+          "funded_utc": "2026-04-23T23:18:05Z",
+          "verdict": "cex_cashout_suspected",
+          "reason": "getWalletTransfers shows single 11.68 SOL outflow 7m post-funding (2026-04-23T23:25:18Z) to EsShd4odrLj44pMnQkVKyGVmJrqT3dWRKb1wxseuSsoq with 4-char ASCII memo amit. Short ASCII memo on a fast outflow is consistent with CEX deposit-tag cashout shape; destination identity not yet verified."
+        },
+        {
+          "address": "8j32oEBp1yqwNaSrCExcnP5NJqNXztsH5ukcbJriSqZL",
+          "monitor_id": 147,
+          "funded_utc": "2026-04-24T19:26:46Z",
+          "verdict": "partial_drain_past_window",
+          "reason": "Pass A getBalance shows balance 8.756553652 SOL vs funded 11.419 SOL (delta -2.662 SOL); age 5.8h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "7k7tZCVutmE1gektugj1a3ji6etiT7PNQfn56ce5M4PF",
+          "monitor_id": 145,
+          "funded_utc": "2026-04-24T18:46:58Z",
+          "verdict": "partial_drain_past_window",
+          "reason": "Pass A getBalance shows balance 8.402825639 SOL vs funded 11.405 SOL (delta -3.002 SOL); age 6.5h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "4nVLRymDUYfCfmnfWhJ4S7uPAnryURX5YJdC2Wxj8KKZ",
+          "monitor_id": 129,
+          "funded_utc": "2026-04-23T23:39:34Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.006431396 SOL vs funded 16.604 SOL (delta -16.598 SOL); age 25.6h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "5iWF4avdAqEkDLu4vxvSzEgp3oHYZA1MVtHwLJ9kRhWX",
+          "monitor_id": 126,
+          "funded_utc": "2026-04-23T22:32:18Z",
+          "verdict": "partial_drain_past_window",
+          "reason": "Pass A getBalance shows balance 0.195021088 SOL vs funded 10.561 SOL (delta -10.366 SOL); age 26.7h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "DkqLqX1AhsGWYLwk6uNWVCkp7c3YeaEYzA4owRyWsqrN",
+          "monitor_id": 124,
+          "funded_utc": "2026-04-23T20:41:01Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.011765317 SOL vs funded 10.95 SOL (delta -10.938 SOL); age 28.6h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "BpnWT4Vp9ycqQP1rWZJhq9fTFCnRodEjs9UAdRnKVAg2",
+          "monitor_id": 123,
+          "funded_utc": "2026-04-23T20:09:59Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 11.508 SOL (delta -11.508 SOL); age 29.1h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "EDie8Az2ttBTRJjcKkJPufYz6tqHYmju7KT5qPJgNUah",
+          "monitor_id": 118,
+          "funded_utc": "2026-04-23T16:29:56Z",
+          "verdict": "partial_drain_past_window",
+          "reason": "Pass A getBalance shows balance 0.216202816 SOL vs funded 10.571 SOL (delta -10.355 SOL); age 32.8h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "GufhRM8KvFk9RDHEhYw3nfcVmS3xnfKHoYk8aDc6tzTB",
+          "monitor_id": 117,
+          "funded_utc": "2026-04-23T16:01:56Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.004515388 SOL vs funded 11.415 SOL (delta -11.41 SOL); age 33.2h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "AnYSWxdSMR9jdUs7PT2SwZRvX93DZDwfghJMRWrSYTmP",
+          "monitor_id": 116,
+          "funded_utc": "2026-04-23T15:40:50Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.000919662 SOL vs funded 10.68 SOL (delta -10.679 SOL); age 33.6h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "5XUTkzYqwsAQgw1FgPWh3nkusX4Hmbg9Hfg7MBE5uN1R",
+          "monitor_id": 114,
+          "funded_utc": "2026-04-23T14:44:57Z",
+          "verdict": "partial_drain_past_window",
+          "reason": "Pass A getBalance shows balance 2.068940004 SOL vs funded 8.019 SOL (delta -5.95 SOL); age 34.5h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "CnccnHJHUAqzbvBLoyiqMy4dMsa8ztFkiTBh6jw4Vx2R",
+          "monitor_id": 101,
+          "funded_utc": "2026-04-23T01:46:33Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 9.295 SOL (delta -9.295 SOL); age 47.5h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "BDsSBEGPGyX16msrt9vy2dtH1LbjUrw9cKcqwEwGqugJ",
+          "monitor_id": 100,
+          "funded_utc": "2026-04-23T00:53:06Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.000968982 SOL vs funded 10.61 SOL (delta -10.609 SOL); age 48.4h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "Df3BgbCgmUL8Hnr5X1vynfr9saPaKPtqeKriZakKM6mV",
+          "monitor_id": 99,
+          "funded_utc": "2026-04-23T00:21:30Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 9.153 SOL (delta -9.153 SOL); age 48.9h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "Ex9P8CRDo9dgoqEpp9MwPCbvwjd45ZRWTSHoaa1raQ9L",
+          "monitor_id": 98,
+          "funded_utc": "2026-04-22T21:22:23Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.004784372 SOL vs funded 9.085 SOL (delta -9.08 SOL); age 51.9h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "4xwoubpqAUENRD4dMtZpSk2ptcjJ5gxhrdLayd3N8Lcm",
+          "monitor_id": 96,
+          "funded_utc": "2026-04-22T20:10:04Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 11.515 SOL (delta -11.515 SOL); age 53.1h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "B2GKLGUs6BcfCCfnJWsFrzTfeUCpmvVugsX9H3dF3Uk1",
+          "monitor_id": 93,
+          "funded_utc": "2026-04-22T19:40:18Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.002835726 SOL vs funded 9.125 SOL (delta -9.122 SOL); age 53.6h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "83WiV3DPeqw4FEi6NTBCgb2f24wgbs8d7Uduzax9TiJk",
+          "monitor_id": 92,
+          "funded_utc": "2026-04-22T19:24:47Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.012867593 SOL vs funded 11.039 SOL (delta -11.026 SOL); age 53.8h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "AD3EdsxF5hZ1uYMqnTUY8PdCuJHSDB1LLngiusTNfhf9",
+          "monitor_id": 91,
+          "funded_utc": "2026-04-22T18:57:06Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 9.46 SOL (delta -9.46 SOL); age 54.3h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "BRDiMGd4sBMgRdKL9wk7YJoxc6acDsySH6jk4ZjE1DRV",
+          "monitor_id": 88,
+          "funded_utc": "2026-04-22T14:17:32Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 20.472 SOL (delta -20.472 SOL); age 59h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "EbQemWuzAgKqbvryM3gdpZGqVZx1A757aTSfZJnump3M",
+          "monitor_id": 77,
+          "funded_utc": "2026-04-22T08:56:13Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.002992 SOL vs funded 19.903 SOL (delta -19.9 SOL); age 64.3h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "DcSPMQVbabL76vBs3fkiqjTKZWZ7gFTw8HeRzvsk15cj",
+          "monitor_id": 73,
+          "funded_utc": "2026-04-22T02:18:42Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.000891091 SOL vs funded 12.705 SOL (delta -12.704 SOL); age 70.9h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "ANrRQYZbF4FLQYEhVf8LMtttMwo1gQQFnMkGWPETXS4",
+          "monitor_id": 69,
+          "funded_utc": "2026-04-21T22:57:44Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.013940025 SOL vs funded 22.464 SOL (delta -22.45 SOL); age 74.3h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "4CQd3Lmy17izpBQCdHTzdrR6xwnffxRysLsbBgdMDGJ7",
+          "monitor_id": 55,
+          "funded_utc": "2026-04-21T16:10:49Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 12 SOL (delta -12 SOL); age 81.1h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "BZUTEQXKLUwyX2HL6TN6oDXfnM3ZHmPoPVYS1dzeQqfT",
+          "monitor_id": 54,
+          "funded_utc": "2026-04-21T15:54:59Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 16.544 SOL (delta -16.544 SOL); age 81.3h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "DBW86XhHEi17kS5EFvSBS1GWTUQ6mUuCA4BQqoc8iPKp",
+          "monitor_id": 52,
+          "funded_utc": "2026-04-21T14:53:05Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.035940045 SOL vs funded 10.256 SOL (delta -10.22 SOL); age 82.4h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "8H683XwoZFayus7hRaSs74bzNXKU969nea5vMvRnFmzw",
+          "monitor_id": 51,
+          "funded_utc": "2026-04-21T13:27:23Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.004872209 SOL vs funded 11.524 SOL (delta -11.519 SOL); age 83.8h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "21mAw2M8mobUt98587KNbJJXjLjqYqBBbXAL6ZoWUJDq",
+          "monitor_id": 44,
+          "funded_utc": "2026-04-21T02:43:59Z",
+          "verdict": "partial_drain_past_window",
+          "reason": "Pass A getBalance shows balance 0.362847902 SOL vs funded 11.018 SOL (delta -10.655 SOL); age 94.5h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "47VBmqdNakrVa9iMwHWARtNw82AwgqE74RnqkcA2kpQu",
+          "monitor_id": 42,
+          "funded_utc": "2026-04-20T22:50:44Z",
+          "verdict": "partial_drain_past_window",
+          "reason": "Pass A getBalance shows balance 0.098067698 SOL vs funded 11.102 SOL (delta -11.004 SOL); age 98.4h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "FvhKskaEJDLXp81vuw9HTVAxjhG3QaRxV7WvgbAi8c56",
+          "monitor_id": 39,
+          "funded_utc": "2026-04-20T18:51:34Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 11.613 SOL (delta -11.613 SOL); age 102.4h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "2XtH29ipJubBbN9Gd7aozaEQBHmkUECcS7EqACtuRBAT",
+          "monitor_id": 37,
+          "funded_utc": "2026-04-20T18:29:33Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.000890914 SOL vs funded 11.641 SOL (delta -11.64 SOL); age 102.8h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "6BMednxsJVqYhkojdgt2qhKxWH6uMG8mcMPWtjzSaSZg",
+          "monitor_id": 32,
+          "funded_utc": "2026-04-20T13:24:14Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.00203928 SOL vs funded 11.897 SOL (delta -11.895 SOL); age 107.9h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "BC2NDFVmkMkNepyXAzbqPmur2qat84DHCC5CxC98kJXi",
+          "monitor_id": 31,
+          "funded_utc": "2026-04-20T12:53:27Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 12.26 SOL (delta -12.26 SOL); age 108.4h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "3reCHpZCAGxf7NZ6cwK6AFHdbpECFLZdboAyHu3UDBYs",
+          "monitor_id": 20,
+          "funded_utc": "2026-04-19T22:00:43Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.00708428 SOL vs funded 12.174 SOL (delta -12.167 SOL); age 123.2h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "9Jik8eJDyewtLnbDAG2KEgMEuKbpDRcpaH6LiudxtpTo",
+          "monitor_id": 17,
+          "funded_utc": "2026-04-19T19:36:23Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.000985406 SOL vs funded 17.326 SOL (delta -17.325 SOL); age 125.6h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "9sETMZ8PL3PiD2amh8cAL8Q6N75uJzRxgeycLGEMEqUM",
+          "monitor_id": 14,
+          "funded_utc": "2026-04-19T17:44:51Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.00089088 SOL vs funded 10.677 SOL (delta -10.676 SOL); age 127.5h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "EAkCAZmNweExcE88RNoxAf4SX1sDWKkwJJN9FspQk76i",
+          "monitor_id": 12,
+          "funded_utc": "2026-04-19T13:28:22Z",
+          "verdict": "partial_drain_past_window",
+          "reason": "Pass A getBalance shows balance 0.375441203 SOL vs funded 21.761 SOL (delta -21.386 SOL); age 131.8h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "CEahD7AqxcfaAYL427ZVZatGqXCW915GX1J4M12JhQfb",
+          "monitor_id": 11,
+          "funded_utc": "2026-04-19T13:10:11Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0 SOL vs funded 10.369 SOL (delta -10.369 SOL); age 132.1h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "5QK43Wa8A2G9LApmXKKr3nXcYrn7EsA9rXiugCJUJvh2",
+          "monitor_id": 8,
+          "funded_utc": "2026-04-19T11:18:16Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.004840859 SOL vs funded 11.381 SOL (delta -11.376 SOL); age 134h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "4XKhD59jgopcU6fGypAW8emMCnHw15a6uExDZzHgw2Zm",
+          "monitor_id": 5,
+          "funded_utc": "2026-04-18T00:32:34Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.015478124 SOL vs funded 11.094 SOL (delta -11.079 SOL); age 168.7h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "DHtNuB32cm8hAhrTBEmMFpK3XR5juRLBF23pAwFeStg4",
+          "monitor_id": 4,
+          "funded_utc": "2026-04-17T21:59:14Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.000900396 SOL vs funded 13.115 SOL (delta -13.114 SOL); age 171.3h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        },
+        {
+          "address": "cqUHqi8ntcxG6QHJ2mgne3UramTmikjeLAeAp7sS9Ls",
+          "monitor_id": 1,
+          "funded_utc": "2026-04-17T07:47:29Z",
+          "verdict": "drained_unparsed",
+          "reason": "Pass A getBalance shows balance 0.01140432 SOL vs funded 15.995 SOL (delta -15.984 SOL); age 185.5h. Outflow not parsed individually for credit budget; same drain band as MP1 wallets parsed in keep/rule_out (memecoin SWAP / CEX cashout shapes dominate). Not promoted to keep_list."
+        }
+      ],
+      "analytical_findings": [
+        {
+          "id": "odin_pinger_family_broader_than_deployer_signal",
+          "summary": "Odin-prefix vanity pinger family pings memecoin traders, not just deployer-controlled fresh wallets. Materially weakens prior CoinSpot-batch interpretation that odin pings are operator/deployer signal.",
+          "evidence": "Two MP1 candidates parsed as memecoin traders received 0 SOL pings from new odin siblings: EvJYbZq1ZNZ9YEmcHNDcRJqhqQ72QgyUJMRVcn6HojtZ pinged by odin2Nz2vGnusxtqJ4XGmbDjK8bGaDztA61eaVBbqE1 32s after funding; FnPMq2Zit7PaC2QRo8WvHZK6WGusVwEcydyf3LYgk3Pb pinged by odinhdmLXrHtu9fz9sQfSC2mHbDQ9PbSQ4W3qiL6H9m and odinNbczS1tKZsFFkg3ZwvDLbdZCCNuY89ddfDEq5Hi. All 3 new odin siblings transact internally with the previously known sibling odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s, confirming the family is internally coherent but its targets are not deployer-only.",
+          "implication": "Do NOT use odin-family ping as an elevation criterion for L11 candidate scoring. The HYM-prefix tradecraft on L10 deployer 2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB remains a separate, confirmed deployer signal; odin family appears to be a generic fresh-wallet monitoring service.",
+          "caveat": "odin getWalletTransfers responses each exceeded 88-220k chars due to high ping volume; only address-set was extracted, not full transfer schedule."
+        },
+        {
+          "id": "mp1_dominant_user_shape_is_memecoin_trader",
+          "summary": "Of 48 MP1 candidates, 0 inflated, 3 intact, 8 partial-drained, 37 drained. Of the 4 drained candidates parsed individually, all 4 were SOL-to-token swaps via DFlow or Jupiter (Awkwardism, TRUMP, DOGE/Gas City) or fast CEX cashout. MP1 hot wallet Cc3bpPzUvgAzdW9Nv7dUQ8cpap8Xa7ujJgLdpqGrTCu6 appears to feed retail memecoin buyers more than would be expected if a deployer were using it.",
+          "implication": "Lower base-rate of deployer presence in MP1 vs CoinSpot. Continue MP2 triage but expect the same drain-to-DEX dominance."
+        },
+        {
+          "id": "bitstamp_pre_activation_observed",
+          "summary": "6uYzo6ZRYehusYyaaM8XbZE11da98hyaryBtDKVyB8Bb (MP1 monitor id 148) was pre-activated by 0.13519 SOL from 9D8xSHWqF9NJWqCtn3rNxYEox63aCbWxYzTMfMur7Cc9 (Helius getWalletIdentity = Bitstamp Hot Wallet, exchange/CEX, 44,987 SOL balance) 11 minutes before MoonPay funding. Pattern indicates a multi-onramp user, not deployer signal in itself, but the Bitstamp hot wallet is now identified.",
+          "implication": "Add Bitstamp hot wallet as a labeled CEX hot wallet in any future registry patch. Watch for similar pre-activation -> MoonPay sequences across MP2 / RXRP-singleton triage; if recurrent on a single fresh wallet that subsequently goes dormant in the 12-26h band, escalate.",
+          "proposed_patch_outline": "Add 9D8xSHWqF9NJWqCtn3rNxYEox63aCbWxYzTMfMur7Cc9 to data/network-map.json with role=cex_hot_wallet, label=Bitstamp Hot Wallet, source=helius_getWalletIdentity, source_date=2026-04-25."
+        },
+        {
+          "id": "moonpay_fingerprint_validated_in_mp1_pass_b",
+          "summary": "All 13 MP1 funding signatures inspected in Pass B carry the 32-char hex memo expected by the MoonPay-routed Solana fingerprint documented in STRATEGY.md Vector A. No false positives observed in the bounded sample.",
+          "implication": "MP1 fingerprint matches the rotation pool, MP2 should match. Use the fingerprint check as a confirmation gate when triaging single-wallet leads outside the monitor sieve.",
+          "caveat": "Bounded sample of 13 of 48; not a proof across the full batch."
+        }
+      ],
+      "relay_destinations_follow_up": [
+        {
+          "address": "EsShd4odrLj44pMnQkVKyGVmJrqT3dWRKb1wxseuSsoq",
+          "note": "Drain destination for monitor id 128; 11.68 SOL inbound 7 minutes post-funding with 4-char ASCII memo amit. Likely CEX deposit; identity not yet verified via getWalletIdentity. Suggest 1 getWalletIdentity (100 cr) to confirm."
+        }
+      ],
+      "vanity_pingers_follow_up": [
+        {
+          "address": "odin2Nz2vGnusxtqJ4XGmbDjK8bGaDztA61eaVBbqE1",
+          "note": "Pinged 149 EvJYbZq1ZNZ9YEmcHNDcRJqhqQ72QgyUJMRVcn6HojtZ (memecoin trader) 32s after MoonPay funding. 0 SOL balance. Sibling of odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s. Per analytical_findings.odin_pinger_family_broader_than_deployer_signal, ping is non-specific."
+        },
+        {
+          "address": "odinhdmLXrHtu9fz9sQfSC2mHbDQ9PbSQ4W3qiL6H9m",
+          "note": "Pinged 136 FnPMq2Zit7PaC2QRo8WvHZK6WGusVwEcydyf3LYgk3Pb (memecoin trader) 2h after MoonPay funding. 0 SOL balance. Sibling of odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s."
+        },
+        {
+          "address": "odinNbczS1tKZsFFkg3ZwvDLbdZCCNuY89ddfDEq5Hi",
+          "note": "Pinged 136 FnPMq2Zit7PaC2QRo8WvHZK6WGusVwEcydyf3LYgk3Pb (memecoin trader) 3h27m after MoonPay funding. 0 SOL balance. Sibling of odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s."
         }
       ]
     }

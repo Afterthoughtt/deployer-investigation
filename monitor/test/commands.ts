@@ -16,6 +16,7 @@ import {
   makeWhitelistCandidate,
   makeRejectCandidate,
   makeListActiveCandidates,
+  makeListCandidatesByStatus,
 } from "../src/db.js";
 import type { Candidate } from "../src/detection/candidate.js";
 import type { ActiveCandidateRow } from "../src/db.js";
@@ -226,13 +227,42 @@ check(
   listActive().length === 1,
 );
 
+// ---------- makeListCandidatesByStatus ----------
+const listWhitelisted = makeListCandidatesByStatus(db, "whitelisted");
+const listRejected = makeListCandidatesByStatus(db, "rejected");
+const wl = listWhitelisted();
+const rj = listRejected();
+check(
+  "listByStatus(whitelisted): only id1 returned",
+  wl.length === 1 && wl[0]?.id === id1,
+  wl.map((r) => r.id).join(","),
+);
+check(
+  "listByStatus(rejected): only id2 returned",
+  rj.length === 1 && rj[0]?.id === id2,
+  rj.map((r) => r.id).join(","),
+);
+check(
+  "listByStatus(whitelisted): detectedAt aliases whitelisted_at (>0)",
+  typeof wl[0]?.detectedAt === "number" && (wl[0]?.detectedAt ?? 0) > 0,
+);
+check(
+  "listByStatus(rejected): detectedAt aliases rejected_at (>0)",
+  typeof rj[0]?.detectedAt === "number" && (rj[0]?.detectedAt ?? 0) > 0,
+);
+
 db.close();
 rmSync(tmpDir, { recursive: true, force: true });
 
 // ---------- formatCandidatesBody (PH2: 4096-char truncation guard) ----------
+const empty = formatCandidatesBody([], NOW);
 check(
   "formatCandidatesBody: empty rows → 'No active candidates.'",
-  formatCandidatesBody([], NOW) === "No active candidates.",
+  empty.text === "No active candidates.",
+);
+check(
+  "formatCandidatesBody: empty rows → no visible ids",
+  empty.visibleIds.length === 0,
 );
 
 const makeFakeRow = (i: number): ActiveCandidateRow => ({
@@ -252,20 +282,28 @@ const makeFakeRow = (i: number): ActiveCandidateRow => ({
 const smallBody = formatCandidatesBody([1, 2, 3].map(makeFakeRow), NOW);
 check(
   "formatCandidatesBody small: under cap",
-  smallBody.length <= MAX_CANDIDATES_BODY_CHARS,
-  `${smallBody.length} chars`,
+  smallBody.text.length <= MAX_CANDIDATES_BODY_CHARS,
+  `${smallBody.text.length} chars`,
 );
 check(
   "formatCandidatesBody small: no truncation footer",
-  !smallBody.includes("more (use /whitelist"),
+  !smallBody.text.includes("more (use /whitelist"),
 );
 check(
   "formatCandidatesBody small: header shows total",
-  smallBody.startsWith("Active candidates (3):"),
+  smallBody.text.startsWith("Active candidates (3):"),
 );
 check(
   "formatCandidatesBody small: three Solscan rows",
-  (smallBody.match(/Solscan<\/a>/g) ?? []).length === 3,
+  (smallBody.text.match(/Solscan<\/a>/g) ?? []).length === 3,
+);
+check(
+  "formatCandidatesBody small: visibleIds matches all rows in order",
+  smallBody.visibleIds.length === 3 &&
+    smallBody.visibleIds[0] === 1 &&
+    smallBody.visibleIds[1] === 2 &&
+    smallBody.visibleIds[2] === 3,
+  smallBody.visibleIds.join(","),
 );
 
 // 60 rows @ ~215 chars each = ~12KB → guaranteed overflow.
@@ -273,25 +311,25 @@ const bigRows = Array.from({ length: 60 }, (_, i) => makeFakeRow(i + 1));
 const bigBody = formatCandidatesBody(bigRows, NOW);
 check(
   "formatCandidatesBody big: under 4096 char Telegram cap",
-  bigBody.length <= 4096,
-  `${bigBody.length} chars`,
+  bigBody.text.length <= 4096,
+  `${bigBody.text.length} chars`,
 );
 check(
   "formatCandidatesBody big: under MAX_CANDIDATES_BODY_CHARS",
-  bigBody.length <= MAX_CANDIDATES_BODY_CHARS,
-  `${bigBody.length} chars`,
+  bigBody.text.length <= MAX_CANDIDATES_BODY_CHARS,
+  `${bigBody.text.length} chars`,
 );
 check(
   "formatCandidatesBody big: header still shows total=60",
-  bigBody.startsWith("Active candidates (60):"),
+  bigBody.text.startsWith("Active candidates (60):"),
 );
-const footerMatch = bigBody.match(/\u2026 and (\d+) more \(use \/whitelist <id> or \/reject <id> directly\)/);
+const footerMatch = bigBody.text.match(/\u2026 and (\d+) more \(use \/whitelist &lt;id&gt; or \/reject &lt;id&gt; directly\)/);
 check(
   "formatCandidatesBody big: truncation footer present",
   footerMatch !== null,
 );
 const droppedN = Number(footerMatch?.[1] ?? -1);
-const solscanCount = (bigBody.match(/Solscan<\/a>/g) ?? []).length;
+const solscanCount = (bigBody.text.match(/Solscan<\/a>/g) ?? []).length;
 check(
   "formatCandidatesBody big: dropped + included = total",
   solscanCount + droppedN === 60,
@@ -302,15 +340,58 @@ check(
 // occurrence of `<code>` is followed by its closing `</code>` before the next.
 check(
   "formatCandidatesBody big: no dangling <code> tags",
-  (bigBody.match(/<code>/g) ?? []).length ===
-    (bigBody.match(/<\/code>/g) ?? []).length &&
-    (bigBody.match(/<code>/g) ?? []).length === solscanCount,
+  (bigBody.text.match(/<code>/g) ?? []).length ===
+    (bigBody.text.match(/<\/code>/g) ?? []).length &&
+    (bigBody.text.match(/<code>/g) ?? []).length === solscanCount,
 );
 // The last included row's Solscan link must be followed by blank separator
 // + footer, never by a half-rendered next row.
 check(
   "formatCandidatesBody big: footer follows the last complete Solscan link",
-  /Solscan<\/a>\n\n\u2026 and \d+ more/.test(bigBody),
+  /Solscan<\/a>\n\n\u2026 and \d+ more/.test(bigBody.text),
+);
+check(
+  "formatCandidatesBody big: visibleIds count matches included Solscan rows",
+  bigBody.visibleIds.length === solscanCount,
+  `visibleIds=${bigBody.visibleIds.length} solscan=${solscanCount}`,
+);
+check(
+  "formatCandidatesBody big: visibleIds preserve input order (1..n)",
+  bigBody.visibleIds.every((id, i) => id === i + 1),
+);
+
+// ---------- formatCandidatesBody view modes (whitelisted/rejected) ----------
+const emptyWl = formatCandidatesBody([], NOW, "whitelisted");
+check(
+  "formatCandidatesBody empty whitelisted: 'No whitelisted candidates.'",
+  emptyWl.text === "No whitelisted candidates.",
+);
+const emptyRj = formatCandidatesBody([], NOW, "rejected");
+check(
+  "formatCandidatesBody empty rejected: 'No rejected candidates.'",
+  emptyRj.text === "No rejected candidates.",
+);
+
+const wlBody = formatCandidatesBody([1, 2, 3].map(makeFakeRow), NOW, "whitelisted");
+check(
+  "formatCandidatesBody whitelisted: header shows total",
+  wlBody.text.startsWith("Whitelisted candidates (3):"),
+);
+const rjBody = formatCandidatesBody([1, 2, 3].map(makeFakeRow), NOW, "rejected");
+check(
+  "formatCandidatesBody rejected: header shows total",
+  rjBody.text.startsWith("Rejected candidates (3):"),
+);
+
+const wlBig = formatCandidatesBody(bigRows, NOW, "whitelisted");
+check(
+  "formatCandidatesBody whitelisted big: footer hint mentions /unwhitelist",
+  /… and \d+ more \(use \/unwhitelist &lt;id&gt; directly\)/.test(wlBig.text),
+);
+const rjBig = formatCandidatesBody(bigRows, NOW, "rejected");
+check(
+  "formatCandidatesBody rejected big: footer hint mentions /unreject",
+  /… and \d+ more \(use \/unreject &lt;id&gt; directly\)/.test(rjBig.text),
 );
 
 if (!pass) {

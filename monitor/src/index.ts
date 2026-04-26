@@ -7,6 +7,7 @@ import {
   makeUnwhitelistCandidate,
   makeUnrejectCandidate,
   makeListActiveCandidates,
+  makeListCandidatesByStatus,
   makeActiveCandidateCount,
   makeMarkAlertSent,
   makeListUnalertedCandidates,
@@ -76,6 +77,8 @@ try {
   const unwhitelistCandidate = makeUnwhitelistCandidate(db);
   const unrejectCandidate = makeUnrejectCandidate(db);
   const listActiveCandidates = makeListActiveCandidates(db);
+  const listWhitelistedCandidates = makeListCandidatesByStatus(db, "whitelisted");
+  const listRejectedCandidates = makeListCandidatesByStatus(db, "rejected");
   const activeCandidateCount = makeActiveCandidateCount(db);
   const markAlertSent = makeMarkAlertSent(db);
   const listUnalertedCandidates = makeListUnalertedCandidates(db);
@@ -158,6 +161,8 @@ try {
       return result;
     },
     listActiveCandidates,
+    listWhitelistedCandidates,
+    listRejectedCandidates,
     activeCandidateCount,
     getStatus: () => status,
     runHealthChecks: () =>

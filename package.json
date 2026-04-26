@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "tsx src/index.ts",
     "audit:check": "tsc -p tsconfig.json --noEmit && tsx src/audit/arkham-guardrails-selftest.ts && tsx src/audit/claim-integrity-selftest.ts",
     "audit:guardrails": "tsx src/audit/arkham-guardrails-selftest.ts",
     "audit:primitive-integrity": "tsx src/audit/primitive-integrity-scan.ts",
