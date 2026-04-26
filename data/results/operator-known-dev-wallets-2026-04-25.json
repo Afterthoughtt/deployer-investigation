@@ -1,0 +1,546 @@
+{
+  "metadata": {
+    "description": "Operator-supplied known-dev wallets — wallets observed receiving SPL tokens directly from the L1/L4-L10 deployer wallets. Cross-referenced against data/network-map.json (178 unique addresses) and the Figg-cluster + sniper set from SESSION_HANDOFF_2026-04-25_FIGG_DEEPDIVE.md §6.",
+    "source": "Operator session input 2026-04-25",
+    "received_utc": "2026-04-25T15:41:00.200Z",
+    "note_l10_chain": "Operator notes: on L10, deployer sent ALL SPL to OG Deployer 37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2 first; OG Deployer then forwarded to the listed downstream set.",
+    "note_l4_dex_authority": "Operator flagged HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K (L4) as labeled dex authority — needs investigation to determine wallet vs program account.",
+    "note_l9_uncertain": "Operator flagged pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU (L9) as uncertain — registry entry for this address is Cross-cluster bridge — Figg → L9 Deployer."
+  },
+  "totals": {
+    "unique_addresses_in_operator_list": 33,
+    "matched_in_registry": 21,
+    "not_in_registry": 12
+  },
+  "per_launch_raw": {
+    "L1": [
+      "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8",
+      "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm",
+      "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y"
+    ],
+    "L4": [
+      "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+      "HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K"
+    ],
+    "L5": [
+      "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb"
+    ],
+    "L6": [
+      "6UrYwo9F97zDpd7cCvnKJp5HrcGnhSYKmHaphiZd71UE",
+      "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
+      "8fCxXEEqdv8a8CZ5QvLm6xzE45qYGZ3iCcRqmLLhDPms",
+      "9v2WwzusEng5Sjff7yxAHi1NWTkmnkVMd4S81EvHYbay",
+      "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed",
+      "Fvfn4cFh6DnpBKqZDqaXZidWnuR4vDi7orYxUTtd7Wjz",
+      "6UqoiKuUCfyocGTPgpQ9fHkMeSKBsX6fz9cCMo9obkNF",
+      "3EkbqEwyBPqQRmNKKkn3DsnS1tfaCNxHkAEGxWpx4EhT",
+      "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "J5GLMu33utKgRK87MJxuDLrCGbgawmJUj7AbvVC12VeC",
+      "DZc1evNLyaufVzUATwy7eZjURbjeESRKkN5nvdcFESZC",
+      "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "Gzy6Goc7hqe8D2wCQvfkMYo5k2BSKbL9L8sFRZpZdm9m",
+      "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+      "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "DQ398vfKfjivZCPj5Vkxhy3dsb5BoeXXqvwKrLv2B88g",
+      "6r2i7tdbxQsHUwygmRZ5bZmSYjNovc2MdN5kCbzUJE7P",
+      "HuezqdSqApzevCfh9V7NfRsr41ybZtCJnZbF54RoemCh",
+      "DBmxMiP8xeiZ4T45AviCjZCmmmTFETFU8VtsC8vdJZWy"
+    ],
+    "L7": [
+      "764DRkmQKG6TEFvP4iEGUXxKZCQ571nntic51n5fPLj2",
+      "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed",
+      "8fCxXEEqdv8a8CZ5QvLm6xzE45qYGZ3iCcRqmLLhDPms",
+      "CzE9nLiaapgJgNtxi5gWddBfQRHipnqx5S9vuLBaWwap",
+      "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y",
+      "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "DBmxMiP8xeiZ4T45AviCjZCmmmTFETFU8VtsC8vdJZWy",
+      "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7"
+    ],
+    "L8": [
+      "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+      "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm",
+      "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y",
+      "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG"
+    ],
+    "L9": [
+      "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+      "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+      "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+      "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm",
+      "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed",
+      "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU"
+    ],
+    "L10": [
+      "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+      "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8",
+      "8fCxXEEqdv8a8CZ5QvLm6xzE45qYGZ3iCcRqmLLhDPms",
+      "784bxhz6xUA88Rk6jb1aTU7FjjkoxAmASsrSDEry2Zvw",
+      "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B"
+    ]
+  },
+  "matched_in_registry": [
+    {
+      "address": "B8aWJoDqZPSZkHQL7BuURR95ujox4oubgFR8g1q3kpzW",
+      "launches": [
+        "L1",
+        "L10",
+        "L4",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "Bundle 1",
+      "registry_role": "bundle",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "9dda2gRVxkuQDvDQwpiSKUCgEk7TxAKDFKVZrfRqerta",
+      "launches": [
+        "L1",
+        "L10",
+        "L4",
+        "L5",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "Bundle 4",
+      "registry_role": "bundle",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB",
+      "launches": [
+        "L1",
+        "L10",
+        "L4",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "Bundle 3",
+      "registry_role": "bundle",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "DuCzGNzSorXNgWKbx6koWTjd4P1AQaZHrNAdQu6NWmR8",
+      "launches": [
+        "L1",
+        "L10"
+      ],
+      "registry_label": "Eggsheeran",
+      "registry_role": "side_project",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2",
+      "launches": [
+        "L1",
+        "L10",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "OG Deployer",
+      "registry_role": "infrastructure",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc",
+      "launches": [
+        "L1",
+        "L10",
+        "L4",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "Bundle 5",
+      "registry_role": "bundle",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "LCoYfBS9DMhGavDNk3NdwcfhEcPqWC6BuarFqci3CMm",
+      "launches": [
+        "L1",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "Bundle 6",
+      "registry_role": "bundle",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb",
+      "launches": [
+        "L1",
+        "L10",
+        "L5",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "L4 Deployer",
+      "registry_role": "deployer",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "Bz2yexdH6YyDbru3nmUmeex2ZZyfpKLgmAN7w4C2Bt4Y",
+      "launches": [
+        "L1",
+        "L7",
+        "L8"
+      ],
+      "registry_label": "L6 Deployer",
+      "registry_role": "deployer",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5",
+      "launches": [
+        "L10",
+        "L4",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "Hub Wallet",
+      "registry_role": "infrastructure",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7",
+      "launches": [
+        "L10",
+        "L4",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "registry_label": "Bundle 2",
+      "registry_role": "bundle",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "6UrYwo9F97zDpd7cCvnKJp5HrcGnhSYKmHaphiZd71UE",
+      "launches": [
+        "L6"
+      ],
+      "registry_label": "6UrYwo9F",
+      "registry_role": "network_connected",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B",
+      "launches": [
+        "L10",
+        "L6"
+      ],
+      "registry_label": "L9 Funder",
+      "registry_role": "infrastructure",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "8fCxXEEqdv8a8CZ5QvLm6xzE45qYGZ3iCcRqmLLhDPms",
+      "launches": [
+        "L10",
+        "L6",
+        "L7"
+      ],
+      "registry_label": "RXRP Holder — Binance 8 (Bubblemaps cluster)",
+      "registry_role": "network_connected",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "J5GLMu33utKgRK87MJxuDLrCGbgawmJUj7AbvVC12VeC",
+      "launches": [
+        "L6"
+      ],
+      "registry_label": "RXRP Holder — OG Deployer chain (Bubblemaps cluster)",
+      "registry_role": "network_connected",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "DZc1evNLyaufVzUATwy7eZjURbjeESRKkN5nvdcFESZC",
+      "launches": [
+        "L6"
+      ],
+      "registry_label": "DZc1evNL",
+      "registry_role": "network_connected",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "DBmxMiP8xeiZ4T45AviCjZCmmmTFETFU8VtsC8vdJZWy",
+      "launches": [
+        "L6",
+        "L7"
+      ],
+      "registry_label": "L5 Deployer",
+      "registry_role": "deployer",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "764DRkmQKG6TEFvP4iEGUXxKZCQ571nntic51n5fPLj2",
+      "launches": [
+        "L7"
+      ],
+      "registry_label": "764DRkmQ",
+      "registry_role": "network_connected",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "HYMtCcfQTkBGw7uufDZtYHzg48pUmmBWPf5S44akPfdG",
+      "launches": [
+        "L8",
+        "L9"
+      ],
+      "registry_label": "L7 Deployer;L7 Deployer — bridges Figg cluster to deployer network",
+      "registry_role": "deployer;bridge",
+      "registry_verdict": "network;network"
+    },
+    {
+      "address": "75YFxMtMiR22LsBxa75yN5jxCGYorpZoCMhnjwwuugzE",
+      "launches": [
+        "L9"
+      ],
+      "registry_label": "L8 Deployer",
+      "registry_role": "deployer",
+      "registry_verdict": "network"
+    },
+    {
+      "address": "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+      "launches": [
+        "L9"
+      ],
+      "registry_label": "Cross-cluster bridge — Figg → L9 Deployer",
+      "registry_role": "bridge",
+      "registry_verdict": "network"
+    }
+  ],
+  "not_in_registry": [
+    {
+      "address": "HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K",
+      "launches": [
+        "L4"
+      ]
+    },
+    {
+      "address": "9v2WwzusEng5Sjff7yxAHi1NWTkmnkVMd4S81EvHYbay",
+      "launches": [
+        "L6"
+      ]
+    },
+    {
+      "address": "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed",
+      "launches": [
+        "L6",
+        "L7",
+        "L9"
+      ]
+    },
+    {
+      "address": "Fvfn4cFh6DnpBKqZDqaXZidWnuR4vDi7orYxUTtd7Wjz",
+      "launches": [
+        "L6"
+      ]
+    },
+    {
+      "address": "6UqoiKuUCfyocGTPgpQ9fHkMeSKBsX6fz9cCMo9obkNF",
+      "launches": [
+        "L6"
+      ]
+    },
+    {
+      "address": "3EkbqEwyBPqQRmNKKkn3DsnS1tfaCNxHkAEGxWpx4EhT",
+      "launches": [
+        "L6"
+      ]
+    },
+    {
+      "address": "Gzy6Goc7hqe8D2wCQvfkMYo5k2BSKbL9L8sFRZpZdm9m",
+      "launches": [
+        "L6"
+      ]
+    },
+    {
+      "address": "DQ398vfKfjivZCPj5Vkxhy3dsb5BoeXXqvwKrLv2B88g",
+      "launches": [
+        "L6"
+      ]
+    },
+    {
+      "address": "6r2i7tdbxQsHUwygmRZ5bZmSYjNovc2MdN5kCbzUJE7P",
+      "launches": [
+        "L6"
+      ]
+    },
+    {
+      "address": "HuezqdSqApzevCfh9V7NfRsr41ybZtCJnZbF54RoemCh",
+      "launches": [
+        "L6"
+      ]
+    },
+    {
+      "address": "CzE9nLiaapgJgNtxi5gWddBfQRHipnqx5S9vuLBaWwap",
+      "launches": [
+        "L7"
+      ]
+    },
+    {
+      "address": "784bxhz6xUA88Rk6jb1aTU7FjjkoxAmASsrSDEry2Zvw",
+      "launches": [
+        "L10"
+      ]
+    }
+  ],
+  "figg_cluster_overlap": {
+    "description": "Members of the Figg-cluster + sniper set that also appear in the operator dev list. Empty = deployer does not directly distribute post-deploy SPL to any known Figg-cluster wallet.",
+    "overlap": []
+  },
+  "registry_terminus_accumulator_overlap": {
+    "description": "Registry-tagged Figg-cluster terminus accumulators / cross-cluster bridges / prior deployers. Tested against operator dev list.",
+    "overlap": []
+  },
+  "novel_priorities": {
+    "description": "Recurrence ranking of operator wallets that are NOT in network-map.json. Recurrence across launches is a strong signal of repeated dev-side use.",
+    "by_recurrence": [
+      {
+        "address": "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed",
+        "launch_count": 3,
+        "launches": [
+          "L6",
+          "L7",
+          "L9"
+        ]
+      },
+      {
+        "address": "HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K",
+        "launch_count": 1,
+        "launches": [
+          "L4"
+        ]
+      },
+      {
+        "address": "9v2WwzusEng5Sjff7yxAHi1NWTkmnkVMd4S81EvHYbay",
+        "launch_count": 1,
+        "launches": [
+          "L6"
+        ]
+      },
+      {
+        "address": "Fvfn4cFh6DnpBKqZDqaXZidWnuR4vDi7orYxUTtd7Wjz",
+        "launch_count": 1,
+        "launches": [
+          "L6"
+        ]
+      },
+      {
+        "address": "6UqoiKuUCfyocGTPgpQ9fHkMeSKBsX6fz9cCMo9obkNF",
+        "launch_count": 1,
+        "launches": [
+          "L6"
+        ]
+      },
+      {
+        "address": "3EkbqEwyBPqQRmNKKkn3DsnS1tfaCNxHkAEGxWpx4EhT",
+        "launch_count": 1,
+        "launches": [
+          "L6"
+        ]
+      },
+      {
+        "address": "Gzy6Goc7hqe8D2wCQvfkMYo5k2BSKbL9L8sFRZpZdm9m",
+        "launch_count": 1,
+        "launches": [
+          "L6"
+        ]
+      },
+      {
+        "address": "DQ398vfKfjivZCPj5Vkxhy3dsb5BoeXXqvwKrLv2B88g",
+        "launch_count": 1,
+        "launches": [
+          "L6"
+        ]
+      },
+      {
+        "address": "6r2i7tdbxQsHUwygmRZ5bZmSYjNovc2MdN5kCbzUJE7P",
+        "launch_count": 1,
+        "launches": [
+          "L6"
+        ]
+      },
+      {
+        "address": "HuezqdSqApzevCfh9V7NfRsr41ybZtCJnZbF54RoemCh",
+        "launch_count": 1,
+        "launches": [
+          "L6"
+        ]
+      },
+      {
+        "address": "CzE9nLiaapgJgNtxi5gWddBfQRHipnqx5S9vuLBaWwap",
+        "launch_count": 1,
+        "launches": [
+          "L7"
+        ]
+      },
+      {
+        "address": "784bxhz6xUA88Rk6jb1aTU7FjjkoxAmASsrSDEry2Zvw",
+        "launch_count": 1,
+        "launches": [
+          "L10"
+        ]
+      }
+    ]
+  }
+}

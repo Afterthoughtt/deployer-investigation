@@ -1,0 +1,1472 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-25T16:07:41.986Z",
+    "phase": "D-followup — new Sniper Network members",
+    "question": "Phase D follow-up: probe the 19 Sniper Network userEntity members (operator-tagged) not currently in network-map for Arkham labels, Helius identity, balance, signature count",
+    "arkham_datapoints_remaining": 1886
+  },
+  "enriched": [
+    {
+      "address": "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: GQjqcjQjDK1tUdC3Gejn3EqEv4zGJ9d9ktQFtGe8jYKx"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 0,
+      "sig_count_capped_1000": 44
+    },
+    {
+      "address": "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 2.069948034,
+      "sig_count_capped_1000": 8
+    },
+    {
+      "address": "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: 4SsCN1i5pxY2eH5P5C84rGPDJeMZ4azQzqTdHcLcQA4k"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 0,
+      "sig_count_capped_1000": 7
+    },
+    {
+      "address": "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 0.001885881,
+      "sig_count_capped_1000": 9
+    },
+    {
+      "address": "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: 2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 0.099077288,
+      "sig_count_capped_1000": 26
+    },
+    {
+      "address": "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: HpAUSncRg8qkqxWMhuqyULjUqLELQy8EMGqq9arWpW3s"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 1.730099415,
+      "sig_count_capped_1000": 13
+    },
+    {
+      "address": "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: rQ9xSuNb9accgmeeaV1EabGey9KtNU75XHnpYFWxib3"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 0,
+      "sig_count_capped_1000": 142
+    },
+    {
+      "address": "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: 7ph615bZfCBPveuXAigcmwLgPhXECLxmhgSyB3HWX7Wq"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 0,
+      "sig_count_capped_1000": 87
+    },
+    {
+      "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: FB3Sxsrf8hWUGPG9tKksFRGRNiRY5SSF9ZBPSmkYkzT9"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 0,
+      "sig_count_capped_1000": 149
+    },
+    {
+      "address": "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": []
+      },
+      "helius_identity": null,
+      "balance_sol": 1.600020013,
+      "sig_count_capped_1000": 4
+    },
+    {
+      "address": "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": []
+      },
+      "helius_identity": null,
+      "balance_sol": 0,
+      "sig_count_capped_1000": 0
+    },
+    {
+      "address": "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: 2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 0.051086632,
+      "sig_count_capped_1000": 144
+    },
+    {
+      "address": "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": []
+      },
+      "helius_identity": null,
+      "balance_sol": 1.080010042,
+      "sig_count_capped_1000": 3
+    },
+    {
+      "address": "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": []
+      },
+      "helius_identity": null,
+      "balance_sol": 1.500020043,
+      "sig_count_capped_1000": 4
+    },
+    {
+      "address": "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": []
+      },
+      "helius_identity": null,
+      "balance_sol": 1.900020025,
+      "sig_count_capped_1000": 4
+    },
+    {
+      "address": "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": []
+      },
+      "helius_identity": null,
+      "balance_sol": 1.770020018,
+      "sig_count_capped_1000": 4
+    },
+    {
+      "address": "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": []
+      },
+      "helius_identity": null,
+      "balance_sol": 0,
+      "sig_count_capped_1000": 2
+    },
+    {
+      "address": "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": [
+          "Solana First Funder: CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs"
+        ]
+      },
+      "helius_identity": null,
+      "balance_sol": 1.800099437,
+      "sig_count_capped_1000": 11
+    },
+    {
+      "address": "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw",
+      "arkham": {
+        "user_entity": {
+          "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+          "name": "Sniper Network"
+        },
+        "arkham_label": null,
+        "arkham_entity": null,
+        "is_user_address": false,
+        "tags": []
+      },
+      "helius_identity": null,
+      "balance_sol": 0.930010011,
+      "sig_count_capped_1000": 3
+    }
+  ],
+  "raw_arkham": {
+    "addresses": {
+      "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8": {
+        "solana": {
+          "address": "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs"
+            }
+          ]
+        }
+      },
+      "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY": {
+        "solana": {
+          "address": "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false
+        }
+      },
+      "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP": {
+        "solana": {
+          "address": "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false
+        }
+      },
+      "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj": {
+        "solana": {
+          "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: FB3Sxsrf8hWUGPG9tKksFRGRNiRY5SSF9ZBPSmkYkzT9",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "FB3Sxsrf8hWUGPG9tKksFRGRNiRY5SSF9ZBPSmkYkzT9"
+            }
+          ]
+        }
+      },
+      "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm": {
+        "solana": {
+          "address": "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: rQ9xSuNb9accgmeeaV1EabGey9KtNU75XHnpYFWxib3",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "rQ9xSuNb9accgmeeaV1EabGey9KtNU75XHnpYFWxib3"
+            }
+          ]
+        }
+      },
+      "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7": {
+        "solana": {
+          "address": "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: 2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz"
+            }
+          ]
+        }
+      },
+      "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq": {
+        "solana": {
+          "address": "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: 2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz"
+            }
+          ]
+        }
+      },
+      "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf": {
+        "solana": {
+          "address": "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: 4SsCN1i5pxY2eH5P5C84rGPDJeMZ4azQzqTdHcLcQA4k",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "4SsCN1i5pxY2eH5P5C84rGPDJeMZ4azQzqTdHcLcQA4k"
+            }
+          ]
+        }
+      },
+      "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA": {
+        "solana": {
+          "address": "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false
+        }
+      },
+      "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb": {
+        "solana": {
+          "address": "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false
+        }
+      },
+      "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP": {
+        "solana": {
+          "address": "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: GQjqcjQjDK1tUdC3Gejn3EqEv4zGJ9d9ktQFtGe8jYKx",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "GQjqcjQjDK1tUdC3Gejn3EqEv4zGJ9d9ktQFtGe8jYKx"
+            }
+          ]
+        }
+      },
+      "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g": {
+        "solana": {
+          "address": "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: 7ph615bZfCBPveuXAigcmwLgPhXECLxmhgSyB3HWX7Wq",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "7ph615bZfCBPveuXAigcmwLgPhXECLxmhgSyB3HWX7Wq"
+            }
+          ]
+        }
+      },
+      "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2": {
+        "solana": {
+          "address": "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs"
+            }
+          ]
+        }
+      },
+      "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR": {
+        "solana": {
+          "address": "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false
+        }
+      },
+      "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ": {
+        "solana": {
+          "address": "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false
+        }
+      },
+      "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp": {
+        "solana": {
+          "address": "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false
+        }
+      },
+      "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr": {
+        "solana": {
+          "address": "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: HpAUSncRg8qkqxWMhuqyULjUqLELQy8EMGqq9arWpW3s",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "HpAUSncRg8qkqxWMhuqyULjUqLELQy8EMGqq9arWpW3s"
+            }
+          ]
+        }
+      },
+      "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU": {
+        "solana": {
+          "address": "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false,
+          "populatedTags": [
+            {
+              "id": "solana-first-funder",
+              "label": "Solana First Funder: CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs",
+              "rank": 140,
+              "excludeEntities": true,
+              "chain": "solana",
+              "disablePage": true,
+              "tagParams": "CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs"
+            }
+          ]
+        }
+      },
+      "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw": {
+        "solana": {
+          "address": "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw",
+          "chain": "solana",
+          "userEntity": {
+            "name": "Sniper Network",
+            "note": "",
+            "id": "baf37731-8a94-4ba3-85db-0aa9bdc35532",
+            "type": null,
+            "service": null,
+            "addresses": {
+              "solana": [
+                "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+                "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+                "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+                "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+                "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+                "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+                "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+                "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+                "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+                "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+                "9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH",
+                "pNdKKMjGcx5m5AKuB79kYT5SpDSio4GFRj7xE1bosmU",
+                "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+                "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+                "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+                "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+                "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+                "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+                "7ciGXut2rzyZeuRQjMZZ33gmyyT6JWaVKvEcTHNS5ny7",
+                "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+                "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+                "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+                "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+                "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+                "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+                "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw"
+              ]
+            }
+          },
+          "isUserAddress": false
+        }
+      }
+    }
+  },
+  "raw_helius_identity": [
+    {
+      "address": "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+      "type": "unknown"
+    },
+    {
+      "address": "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+      "type": "unknown"
+    },
+    {
+      "address": "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+      "type": "unknown"
+    },
+    {
+      "address": "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+      "type": "unknown"
+    },
+    {
+      "address": "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+      "type": "unknown"
+    },
+    {
+      "address": "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+      "type": "unknown"
+    },
+    {
+      "address": "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+      "type": "unknown"
+    },
+    {
+      "address": "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+      "type": "unknown"
+    },
+    {
+      "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+      "type": "unknown"
+    },
+    {
+      "address": "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+      "type": "unknown"
+    },
+    {
+      "address": "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+      "type": "unknown"
+    },
+    {
+      "address": "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+      "type": "unknown"
+    },
+    {
+      "address": "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+      "type": "unknown"
+    },
+    {
+      "address": "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+      "type": "unknown"
+    },
+    {
+      "address": "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+      "type": "unknown"
+    },
+    {
+      "address": "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+      "type": "unknown"
+    },
+    {
+      "address": "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+      "type": "unknown"
+    },
+    {
+      "address": "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+      "type": "unknown"
+    },
+    {
+      "address": "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw",
+      "type": "unknown"
+    }
+  ],
+  "raw_helius_balance_sigs": [
+    {
+      "address": "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+      "balance_sol": 0,
+      "sig_count_capped_1000": 44
+    },
+    {
+      "address": "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+      "balance_sol": 2.069948034,
+      "sig_count_capped_1000": 8
+    },
+    {
+      "address": "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+      "balance_sol": 0,
+      "sig_count_capped_1000": 7
+    },
+    {
+      "address": "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+      "balance_sol": 0.001885881,
+      "sig_count_capped_1000": 9
+    },
+    {
+      "address": "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+      "balance_sol": 0.099077288,
+      "sig_count_capped_1000": 26
+    },
+    {
+      "address": "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+      "balance_sol": 1.730099415,
+      "sig_count_capped_1000": 13
+    },
+    {
+      "address": "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+      "balance_sol": 0,
+      "sig_count_capped_1000": 142
+    },
+    {
+      "address": "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+      "balance_sol": 0,
+      "sig_count_capped_1000": 87
+    },
+    {
+      "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+      "balance_sol": 0,
+      "sig_count_capped_1000": 149
+    },
+    {
+      "address": "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+      "balance_sol": 1.600020013,
+      "sig_count_capped_1000": 4
+    },
+    {
+      "address": "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+      "balance_sol": 0,
+      "sig_count_capped_1000": 0
+    },
+    {
+      "address": "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+      "balance_sol": 0.051086632,
+      "sig_count_capped_1000": 144
+    },
+    {
+      "address": "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+      "balance_sol": 1.080010042,
+      "sig_count_capped_1000": 3
+    },
+    {
+      "address": "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+      "balance_sol": 1.500020043,
+      "sig_count_capped_1000": 4
+    },
+    {
+      "address": "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+      "balance_sol": 1.900020025,
+      "sig_count_capped_1000": 4
+    },
+    {
+      "address": "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+      "balance_sol": 1.770020018,
+      "sig_count_capped_1000": 4
+    },
+    {
+      "address": "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+      "balance_sol": 0,
+      "sig_count_capped_1000": 2
+    },
+    {
+      "address": "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+      "balance_sol": 1.800099437,
+      "sig_count_capped_1000": 11
+    },
+    {
+      "address": "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw",
+      "balance_sol": 0.930010011,
+      "sig_count_capped_1000": 3
+    }
+  ]
+}

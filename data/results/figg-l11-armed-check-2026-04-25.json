@@ -1,0 +1,259 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-25T13:30:00Z",
+    "phase": "L11 armed-check — Helius getWalletTransfers (limit=20) on 22 candidates: 19 operator-flagged Sniper Network userEntity members + 22YY15 + 6zZ + DmA9",
+    "question": "Which of these wallets are funded inside the L11 funding window (2026-04-22 onwards) and by whom?",
+    "tooling": "Helius MCP getWalletTransfers via parallel calls",
+    "credit_cost_estimate": "22 calls × 100 cr = 2200 cr"
+  },
+
+  "headline_finding": {
+    "summary": "SUSYE deployer (2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz) mass-armed 9 sniper wallets in a 12-minute window on 2026-04-22 12:59:11–13:11:17 UTC. All 9 transfers bracketed by 2Zi* vanity-cluster dust pings (signal-channel pattern). Same fingerprint as DmA9's known L11 pre-arm — at scale (9 wallets not 1).",
+    "implication": "Decisive H1 evidence for the SUSYE/DmA9-side of the operation. A single funder pushing 9 wallets in 12 minutes with dust-ping signaling is operator-controlled infrastructure.",
+    "figg_side_coordination": "Figg-side reload happened in the same broader L11 window: Figg → 22YY15 (1 SOL warm-up 2026-04-24 16:47:34, then 11 SOL main load 2026-04-25 12:57:49); Figg → 6zZ (0.1 SOL trickle at 2026-04-25 13:00:54, then 3.5 SOL main reload at 13:01:36). Figg's 6zZ reload happened 4 minutes after the 22YY15 main load — multi-rail loading."
+  },
+
+  "tier_1_armed_l11_whitelist": [
+    {
+      "address": "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+      "balance_sol": 12.0,
+      "primary_funder": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+      "last_inbound_main_utc": "2026-04-25T12:57:49Z",
+      "last_inbound_main_amount_sol": 11,
+      "warm_up_utc": "2026-04-24T16:47:34Z",
+      "warm_up_amount_sol": 1,
+      "signal_channel": "pcLMffoEiUcgPsPH2sbi2QmS8bcqUZAx72Fv816bb7S ping in same tx as 11 SOL load",
+      "side": "figg",
+      "sigs_lifetime": 11,
+      "registry_status": "not in network-map; flagged Tier-1 in handoff",
+      "verdict_for_l11": "fire-ready; brand-new wallet, sniper-band loading"
+    },
+    {
+      "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
+      "balance_sol": 3.6,
+      "primary_funder": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+      "last_inbound_main_utc": "2026-04-25T13:01:36Z",
+      "last_inbound_main_amount_sol": 3.5,
+      "warm_up_utc": "2026-04-25T13:00:54Z",
+      "warm_up_amount_sol": 0.1,
+      "side": "figg",
+      "registry_status": "Sniper #1 in network-map; verified L10 XAIC block-0 sniper",
+      "verdict_for_l11": "fire-ready; reload arrived 4 min after 22YY15 main load"
+    },
+    {
+      "address": "DmA9JabHEHFDzUQge7UFQ41jR7a8MThNn3GW87CvGWBn",
+      "balance_sol": 1.999,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T12:59:11Z",
+      "last_inbound_main_amount_sol": 1.972,
+      "side": "susye",
+      "signal_channel": "2Zi* vanity dust pings at 13:00:02 + 13:00:15 (within 1 min of funding)",
+      "registry_status": "trading_wallet/known_insider; verified L9 + L10 block-0 sniper",
+      "verdict_for_l11": "fire-ready"
+    },
+    {
+      "address": "F8apn98Fsy6ZX9ns3KLZHS4nNPxXf3nrxGkKrFXLfyx2",
+      "balance_sol": 2.07,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T13:00:46Z",
+      "last_inbound_main_amount_sol": 0.062,
+      "prior_funding": "2026-03-15T12:13:39Z 2.1 SOL from CSEncqtqbmNRjve42sNnbs5cCSmrjUNsAEwc17XY2RCs (CoinSpot)",
+      "side": "susye",
+      "signal_channel": "2Zi1apkSi dust ping at 13:01:50",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; SUSYE-armed (top-up only — wallet already had 2.1 SOL from CoinSpot on L10 day, sat dormant)"
+    },
+    {
+      "address": "DYJUQgcGLJNH3E4qhNFX2ZLnDFuz5kRgHamncsrNLzJb",
+      "balance_sol": 1.9,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T13:05:49Z",
+      "last_inbound_main_amount_sol": 1.9,
+      "side": "susye",
+      "signal_channel": "2Zi1apkSi + 2Ziz3B9rt dust pings at 13:06:53 + 13:06:38",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; pristine SUSYE-armed wallet, only 4 lifetime sigs"
+    },
+    {
+      "address": "HNtUfwrF2UnNBJBQ6VCCbTTRYHi8SuHDBzxf9i1CwEUU",
+      "balance_sol": 1.8,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T13:04:01Z",
+      "last_inbound_main_amount_sol": 1.787,
+      "prior_funding": "2026-03-15T12:16:46Z 5.16 SOL from CoinSpot CSEncqtq",
+      "post_l10_profit_drain": "2026-04-21T11:08:47Z sent 5.054 SOL to 9a22FhBeMJq4nuuvBRCsW67vAwPdLUN8eGJwykaUf7TH (DmA9 profit collector)",
+      "side": "susye",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; FULL CYCLE: CoinSpot pre-fund L10 day → snipe L10 → drain to 9a22Fh on 2026-04-21 → SUSYE re-arm on 2026-04-22"
+    },
+    {
+      "address": "GWoyRCBngoWXd7SDb9qs9m5BeFyjM3W4g3nLgwpppeiR",
+      "balance_sol": 1.77,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T13:06:19Z",
+      "last_inbound_main_amount_sol": 1.77,
+      "side": "susye",
+      "signal_channel": "2Zi1apkSi + 2Ziz3B9rt dust pings at 13:07:23 + 13:07:09",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; pristine SUSYE-armed wallet"
+    },
+    {
+      "address": "HGBDXXp4J92r3w8Dc4kcwz5ZSebmwXg7uVwtc1y2B8yr",
+      "balance_sol": 1.73,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T12:59:53Z",
+      "last_inbound_main_amount_sol": 1.717,
+      "prior_funding": "2026-01-30T22:10:05Z 2.857 SOL from CSEncqtq, 2026-01-30T22:15:46Z 1.142 SOL from CSEncqtq",
+      "post_l10_profit_drain": "(Confirm in Phase C — registry note re 5.16/4.536 SOL pattern was for HNtUfwr; HGBDX has different cleanup pattern with 7ph615bZ + AxYxwXn outflows)",
+      "side": "susye",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; older funding history with CSEncqtq + 7ph615bZ recycling"
+    },
+    {
+      "address": "6ryCG9unTP3wgSeh5yDJk34oHXPpeF5m7Cr8Y6Y7nrWY",
+      "balance_sol": 1.6,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T13:02:38Z",
+      "last_inbound_main_amount_sol": 1.6,
+      "side": "susye",
+      "signal_channel": "2Zi1apkSi + 2Ziz3B9rt dust pings",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; pristine SUSYE-armed wallet"
+    },
+    {
+      "address": "Ge2kdwU74jbHAUSEbTSosfrCJiNiAxH4LdH8jDxcc2KJ",
+      "balance_sol": 1.5,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T13:05:05Z",
+      "last_inbound_main_amount_sol": 1.5,
+      "side": "susye",
+      "signal_channel": "2Zi1apkSi + 2Ziz3B9rt dust pings at 13:06:07 + 13:05:53",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; pristine SUSYE-armed wallet"
+    },
+    {
+      "address": "GoS4PT6q1kxKAbxymAh3pEix8MD8zVV55amdgECJatTp",
+      "balance_sol": 1.08,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T13:11:17Z",
+      "last_inbound_main_amount_sol": 1.08,
+      "side": "susye",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; smaller load — could fire as smaller-position sniper"
+    },
+    {
+      "address": "HyeRfQsb7iuCNdX2H2G9q6LyBmCaB3gF98tgHeEgycfw",
+      "balance_sol": 0.93,
+      "primary_funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+      "last_inbound_main_utc": "2026-04-22T13:06:55Z",
+      "last_inbound_main_amount_sol": 0.93,
+      "side": "susye",
+      "signal_channel": "2Zi1apkSi dust ping + 0-SOL TriQKRfb signaler in same tx batch",
+      "registry_status": "NEW — operator-flagged Sniper Network userEntity, not in network-map",
+      "verdict_for_l11": "fire-ready; smallest load (sub-band) but matched funding pattern"
+    }
+  ],
+
+  "tier_2_dormant_with_prior_cluster_history": [
+    {
+      "address": "AJkPbLugpNPQLcY2p3toAPoeJt1MoPkKzn231So2sAtq",
+      "balance_sol": 0.099,
+      "history": "Funded by CSEncqtq (CoinSpot) 0.385 SOL on 2026-03-22; sent 0.3 SOL to 9a22Fh on 2026-03-22; received 0.114 SOL from SUSYE 2Zizao3x on 2026-03-20 (pre-L10 micro-test)",
+      "verdict_for_l11": "dormant; not re-armed for L11; watch for refund"
+    },
+    {
+      "address": "6gnyg2XSfYcY77shX2gB3jY7A6UMcyQfRB6KwNZC31E8",
+      "balance_sol": 0.002,
+      "history": "Received 2.92 SOL from CSEncqtq on 2026-02-15; sent 4.77 SOL to 9a22Fh on 2026-02-17 (post-L9 profit drain)",
+      "verdict_for_l11": "dormant"
+    },
+    {
+      "address": "APfiMHCjpXX6nZADMU4r5FkTkSAqwrPZREtdKQpjmUXf",
+      "balance_sol": 0.0,
+      "history": "Received 7.395 SOL from 4SsCN1i5 on 2026-03-31; sent 3.794 SOL to 9a22Fh + 3.6 SOL to 2d4U4MX on 2026-03-31 (post-L10 cleanup)",
+      "verdict_for_l11": "dormant; closed/drained"
+    },
+    {
+      "address": "7QJM8rXXUz4vTgKyQJNJyCtNLe9YuSpQoSsQUMZSRWHj",
+      "balance_sol": 0.0,
+      "history": "Sent 4.800 SOL to 9a22Fh on 2026-02-03 (post-L8/L9 profit drain). Receives signal-pinger 0-SOL spam from 8bvwheLJ + 2ZtENBXk.",
+      "verdict_for_l11": "dormant; was active sniper in earlier launch cycle"
+    },
+    {
+      "address": "EKVVGr4ViDbLaLSTVvNgeNkhoXUDaK6vTeNd77YJCCaP",
+      "balance_sol": 0.0,
+      "history": "Active 2026-03-15 (L10 day): distributed 1 SOL chunks to multiple addresses (D35mY9aV, 99JFWJ6T, JCyh2fBy, 7njCgqZS, 3kmUd91L) — appears to be a distributor wallet not a sniper",
+      "verdict_for_l11": "dormant; role was distributor not sniper"
+    },
+    {
+      "address": "EP42Hi81m5ArXpXt8ei9GX6aT37TMJrAZNmc1cMCX34g",
+      "balance_sol": 0.0,
+      "history": "Bidirectional 12-26 SOL flows with FB3Sxsrf8h + 7wVots6Z (treasury back-and-forth). Received from CSEncqtq + AxiomRXZ. Sent 19.646 SOL on L10 day post-launch cleanup.",
+      "verdict_for_l11": "dormant; older pattern"
+    },
+    {
+      "address": "87Y63pqmCEu21TNrJGAj4mgrZFrRdJ2s5uT9SbrP9sLm",
+      "balance_sol": 0.0,
+      "history": "Receives from CSEncqtq + 7ph615bZ + 98KvdqZJ. Sent 10.495 SOL to 7ph615bZ on 2026-03-15 22:30:33 (post-L10).",
+      "verdict_for_l11": "dormant"
+    },
+    {
+      "address": "98KvdqZJcwXSx2mxV1itXxWnWM5Ziuu5bsw4KKqvZhX7",
+      "balance_sol": 0.051,
+      "history": "REGISTRY-KNOWN as SUSYE coinspot trading wallet. Sent 51 + 7.9 SOL → 47n73Q457YMnxsrs3MTKFae4woLC4bDsFempNnwU2WXT on 2026-02-14/19 (LARGE consolidation); receives multi-SOL from CoinSpot + rQ9xSuNb; sends 1+5 SOL to 87Y63pqm (relay).",
+      "verdict_for_l11": "dormant"
+    },
+    {
+      "address": "7KdYZx73XYEKu7QSDq4Vh9zVjjKvDeGkBrFz1Z8cykWP",
+      "balance_sol": 0.0,
+      "history": "Single tiny cycle: 0.189 SOL CSEncqtq → 0.189 SOL 9a22Fh on 2026-03-30",
+      "verdict_for_l11": "dormant; test wallet"
+    }
+  ],
+
+  "tier_3_no_history": [
+    {
+      "address": "Ay2RqYZe7sSemKNuvTr6LcSSMUV6LebYgJLBrpZhvHA",
+      "balance_sol": 0.0,
+      "verdict_for_l11": "no transfers found via Helius — closed account or never active. Per CLAUDE.md, zero sigs does not mean wallet never existed."
+    }
+  ],
+
+  "behavioral_fingerprint_susye_l11_arming": {
+    "funder": "2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz",
+    "window_utc": "2026-04-22T12:59:11 to 13:11:17 (12 min 6 sec)",
+    "wallets_armed_in_window": 9,
+    "average_load_sol": 1.46,
+    "load_band_sol": "0.062–1.972 (one is a top-up)",
+    "common_signal": "2Zi* vanity-cluster dust pings (2Zi1apkSiDqArmrAwJdHwkVUn2BiqyiVV1ffG1tT3wSz, 2Ziz3B9rt8dbS1QanWQLqmTa5Erw4r7q79MR3UCgJVSz) within ~30s of each main funding event",
+    "interpretation": "Operator-controlled mass-arming via single-source funder + signal-channel ping. Equivalent to DmA9's known L11 pre-arm pattern but at scale (9 wallets not 1)."
+  },
+
+  "behavioral_fingerprint_figg_l11_arming": {
+    "funder": "FiggKseFrgdsk4u3TLpbPFLJDKbahqkJQKEchKcwYsNZ",
+    "wallets_armed": 2,
+    "events": [
+      {
+        "address": "22YY15fRseLSWfwaMDZaBn7XdByJqTYzjn7mYjM1j2wS",
+        "warm_up": "2026-04-24T16:47:34 — 1 SOL",
+        "main_load": "2026-04-25T12:57:49 — 11 SOL",
+        "signal": "pcLM signal pinger ping at 12:57:51 (2s after main load)"
+      },
+      {
+        "address": "6zZAKeF5zftUZHCkoWpno6MbaX2LrLwYBCFaEwLLaFDk",
+        "trickle": "2026-04-25T13:00:54 — 0.1 SOL",
+        "main_reload": "2026-04-25T13:01:36 — 3.5 SOL",
+        "comment": "reload arrived 4 minutes after 22YY15 main load"
+      }
+    ]
+  },
+
+  "h1_h2_implication": {
+    "h1_evidence_strengthened": [
+      "SUSYE deployer is mass-arming 9+ wallets via a single funder in a tight 12-minute window with dust-ping signaling — operator-controlled infrastructure, not 9 independent paid insiders.",
+      "Two of the 9 SUSYE-armed wallets (HGBDX, HNtUfwr) show CoinSpot pre-fund + 9a22Fh profit drain + SUSYE re-arm patterns — the full deployer cycle.",
+      "Figg-side reload on 6zZ happened 4 minutes after Figg's 22YY15 main load, suggesting coordinated multi-rail loading rather than independent operator decisions."
+    ],
+    "h2_residual_uncertainty": "Figg-side and SUSYE-side could still be two separate operators paid by the deployer (insider-paid model). To distinguish H1-direct from H1-via-payment, terminus traces (Phase B/C) on the 9a22Fh accumulator and Figg-cluster cashout addresses are still needed. But the SUSYE side is unambiguously a single-operator multi-wallet rig regardless of the Figg link."
+  }
+}
