@@ -7,4 +7,6 @@ monitor/data/l11.db-wal
 monitor/data/l11.db-shm
 backups/
 .claude/settings.local.json
+.claude/worktrees/
+data/snapshots/
 docs/telegram_bot_api_raw.md
