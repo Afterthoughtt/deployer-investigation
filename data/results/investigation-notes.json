@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "description": "Synthesized findings NOT captured in network-map.json, launch-history.json, or STRATEGY.md. Two top-level sections: profit_extraction_map (long-standing) and extracted_findings_2026_04_26 (cleanup pass).",
-    "last_updated": "2026-04-26"
+    "description": "Synthesized findings NOT captured in network-map.json, launch-history.json, or STRATEGY.md. Top-level sections: profit_extraction_map (long-standing), extracted_findings_2026_04_26 (archive/raw-results sweep), extracted_findings_data_results_2026_04_27 (data/results/ sweep).",
+    "last_updated": "2026-04-27"
   },
 
   "profit_extraction_map": {
@@ -217,6 +217,235 @@
         ],
         "framing": "Extends profit_extraction_map. Routes A/D/E/F documented Coinbase/Rollbit/Binance/Fireblocks. Stake.com / Shuffle.com / Bitvavo / Bitgo / KuCoin are net-new endpoint attribution at the profit_pass_1 → Ed4UGBWK cashout layer."
       }
+    }
+  },
+
+  "extracted_findings_data_results_2026_04_27": {
+    "description": "Findings extracted during 2026-04-27 cleanup pass before deleting 18 demoted files in data/results/. Six KEEP files retained (figg-l11-armed-check, figg-phase-d-attribution, figg-phase-d-attribution-extracted, figg-phase-d-new-members, operator-known-dev-wallets, investigation-notes itself). All addresses cross-checked verbatim against network-map.json + extracted_findings_2026_04_26 — only entries absent from both are preserved here.",
+
+    "novel_infrastructure_5my_cluster_pending_registry_review": {
+      "description": "USDC→SOL pre-staging system that bypasses the existing MoonPay/CoinSpot monitor sieves. Source: data/results/l11-deploy-watchlist-2026-04-25.json. Self-labeled in source as 'NEW — propose registry add'. Highest-confidence novel infrastructure in the cleanup. Funded chain: registry's L9 Side Funder (52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B) → 5MytJocz aggregator → fresh staged wallets via daily ~700 USDC → ~8 SOL OKX swap pattern (observed Apr 18-23).",
+      "addresses": [
+        {
+          "address": "5MytJoczvqkiYPjTrvviqCjudw46ZwTLaLkQsVUB4irj",
+          "proposed_role": "network_aggregator",
+          "proposed_label": "5My USDC→SOL aggregator",
+          "evidence": "Daily ~700 USDC OKX swap → ~8 SOL → fresh wallet pattern observed Apr 18-23. Funded J1Abcje L11 Tier-S candidate on Apr 21."
+        },
+        {
+          "address": "3pZGWBsDWs8Pe7mrUBgeuGZbUzoweB5RjtcQvDkhtPi2",
+          "proposed_role": "network_treasury",
+          "proposed_label": "5My treasury reserve",
+          "evidence": "50.12 SOL reserve. Pings 5MyJWED splitter and recipients in matched-pair coordination patterns. Not the deploy wallet itself."
+        },
+        {
+          "address": "5MyJWEDSfGgY3yV9XDCQd5uv9u6aoxcWxxKo47oqSirj",
+          "proposed_role": "network_splitter",
+          "proposed_label": "5My multi-recipient splitter",
+          "evidence": "Multi-recipient splitter for treasury distribution. Tag-coordination wallet."
+        }
+      ],
+      "monitor_implication": "USDC-funded staging chain entirely bypasses both MoonPay AND CoinSpot sieves. Recommend post-L11 monitor work: add USDC outflows from L9 Side Funder + 5MytJocz as monitor source events. Add 7qN aggregator + 32Db relay outflow detection. (One referenced source 'FncazAs6' is truncated in the source file and is not preserved here.)"
+    },
+
+    "l11_pre_launch_candidate_set_post_mortem": {
+      "description": "L11 Nukex launched 2026-04-25; this is the pre-launch candidate snapshot taken at 2026-04-25T21:11:00Z (~49 min before launch window close). Preserved as post-mortem evidence — which candidates fired vs. went stale informs L12 sieve calibration. Source: data/results/l11-deploy-watchlist-2026-04-25.json. Source file also names 5 'drained sibling pre-staged wallets' (8CvuX95R, 37KoU8ys, AfAtbk3A, 7DPDLZDy, 2pJkaJQL) using 8-char prefixes only — full addresses are not in source so are not preserved here.",
+      "tier_s_primed_deploy_ready": [
+        {
+          "address": "J1AbcjeSmAvPQb8XnCFszhpj6DpYyqXJiQgsiBxeXvp7",
+          "balance_at_snapshot_sol": 8.457,
+          "funder_chain": "L9 Side Funder 52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B → 5MytJoczvqkiYPjTrvviqCjudw46ZwTLaLkQsVUB4irj → J1Abcje (2-hop USDC bypass)",
+          "funded_utc": "2026-04-21T20:04:43Z",
+          "monitor_status_at_snapshot": "NOT_MONITORED at snapshot time; operator confirmed adding to whitelist",
+          "verdict_at_snapshot": "Highest-confidence L11 candidate at the time. Pre-staged 4 days ahead. Sole survivor of 6 sibling pre-staged wallets."
+        },
+        {
+          "address": "FtnvximrdUXhJpFxGM7Ji6Fh2bYm2cfr8s6R5W24E8fN",
+          "balance_at_snapshot_sol": 10.577,
+          "funder": "MoonPay MP1",
+          "funded_utc": "2026-04-25T04:30:56Z",
+          "monitor_status_at_snapshot": "whitelisted",
+          "verdict_at_snapshot": "Best-fit MoonPay candidate at snapshot — 13.5h pre-window, textbook timing, untouched."
+        },
+        {
+          "address": "6iuvAFTxpWSWRuMheGVVfZ7gEHcv1ssCzFSDsZALhiiY",
+          "balance_at_snapshot_sol": 12.548,
+          "funder": "MoonPay MP2",
+          "funded_utc": "2026-04-24T16:58:35Z",
+          "monitor_status_at_snapshot": "whitelisted",
+          "verdict_at_snapshot": "Strong MP2 candidate at snapshot — 25h pre-window edge of historical max."
+        },
+        {
+          "address": "v8NL9uCf2EwBNxte63oq7NJGKdWRJ9VKDYPAM7LWVR7",
+          "balance_at_snapshot_sol": 10.253,
+          "funder_chain": "MP2 → DD2YEZfRcykWsHChgTw5sGySvtJbVC3WF9mHw8aFZYup → 7qNGQ1bY (truncated in source) → v8NL (2-hop)",
+          "monitor_status_at_snapshot": "NOT_MONITORED (2-hop bypass)",
+          "verdict_at_snapshot": "Hidden L11 candidate, MP2 routed through aggregator. Untouched, primed."
+        }
+      ],
+      "tier_s_already_in_notes": "6uYzo6ZRYehusYyaaM8XbZE11da98hyaryBtDKVyB8Bb (Tier-S MP1 candidate id 148) is preserved in extracted_findings_2026_04_26 under the Bitstamp Hot Wallet evidence; not duplicated here.",
+      "tier_a_lower_fit": [
+        {
+          "address": "3f15vuFsQ3f2NA2WFLJ53Ei2JKZV4H8G42rJwugpCCGZ",
+          "balance_at_snapshot_sol": 24.431,
+          "funder": "CoinSpot",
+          "verdict_at_snapshot": "CoinSpot route, deprioritized pre-L11 per onramp-scope memory. Top of widened range."
+        },
+        {
+          "address": "7Q46SeJ7TkTs1gqgTrHnUwsRhUrbGGnNR4MiD5PNC5xL",
+          "balance_at_snapshot_sol": 9.592,
+          "funder": "MP2",
+          "verdict_at_snapshot": "Already touched: bonk-suffix mint + 2 Jupiter test swaps. Wallet-warming, not pre-deploy quiet."
+        }
+      ],
+      "ruled_out_at_snapshot": [
+        {
+          "address": "CrCugmcJ5akRoAkCfDvj13qoveBx9yT94mQZt634Jbvc",
+          "verdict": "drained to OTC desk via 2-hop chain; downstream addresses 2mMQX8nP, 78mrf8gW, 6UyudLaMT are 8-char prefixes only in source and are not preserved verbatim"
+        },
+        {
+          "address": "3jec25VfnKNJ4MAb6wuNhJVos1xrg66ZEFXEHVVooHUk",
+          "verdict": "Orca EURC LP — DEX/LP retail"
+        },
+        {
+          "address": "2UzMoao3HVPecdqjRBNqWTHAWs4AdodGF1qmigh34ijj",
+          "verdict": "drained to active pump.fun MEV bot (downstream 'R4rNJHa' is prefix-only in source)"
+        },
+        {
+          "address": "DD2YEZfRcykWsHChgTw5sGySvtJbVC3WF9mHw8aFZYup",
+          "verdict": "intermediate hop in MP2→v8NL chain (forwarded; not a candidate itself)"
+        },
+        {
+          "address": "32Db8JVKjjSeNburEKhBGbzAkqrDbN9Ff23f2RxpjZuP",
+          "verdict": "relay forwarding to Axiom bot (downstream '9kL5fn' is prefix-only in source) buying LASTMAN (uxento launch)"
+        },
+        {
+          "address": "9yJhsPSKy3A8ar2C4t6K7gR9jqJnocCZzHDNBrTe7tp5",
+          "verdict": "pre-existing Jupiter trader, immediately swapped MP1 funding"
+        },
+        {
+          "address": "H6UctN6KwR42p4w8T9ui4W1RwNcwBLiJKhVucbFfJ7fV",
+          "verdict": "ran 2 OKX_DEX_ROUTER swaps for Neural token — retail arb"
+        }
+      ],
+      "monitor_coverage_gaps_for_l12": [
+        "MoonPay sieve only catches direct MP→fresh wallets. 2-hop chains bypass: 4 confirmed at L11 snapshot (CrCugmcJ→OTC, 2UzMoao3→arb bot, DD2YEZf→v8NL, 32Db8JVK→Axiom bot).",
+        "USDC-funded staging chain entirely bypasses both MoonPay AND CoinSpot sieves. L9 Side Funder + 5MytJocz operate via OKX USDC→SOL swaps. Not surfaced by current monitor.",
+        "Recommend post-L11: add USDC outflows from L9 Side Funder + 5MytJocz as monitor source events; add 7qN aggregator + 32Db relay outflow detection."
+      ]
+    },
+
+    "xaic_asset_trace_extracted": {
+      "description": "Complete asset-disposition trace of 326,752,146 XAIC tokens (L4-era token allocated to registry's known_infra wallet 37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2). Source: data/results/xaic-asset-trace.json. Hop-1 recipients are all in registry already; hop-2/hop-3/SOL-beneficiaries are novel here. 99.9985% sold via pumpswap pool (EDrEnp4twH2Bjzp28hdrrWPdN9sMyRCCMWCkXfnPc8yH); 0% reached labeled exchange. One paired beneficiary is recorded with only an 8-character prefix in source — not preserved verbatim here.",
+
+      "xaic_token_infrastructure": {
+        "mint": "KfByHk48ecitUq8gXji2vr9smmRJKtqJwGAh2E9pump",
+        "custom_launcher_program": "DeJBGdMFa1uynnnKiwrVioatTuHmNLpyFKnmB5kaFdzQ",
+        "pumpswap_pool": "EDrEnp4twH2Bjzp28hdrrWPdN9sMyRCCMWCkXfnPc8yH",
+        "launcher_finding": "XAIC was deployed via a non-standard custom launcher program (DeJBGdMFa1uynnnKiwrVioatTuHmNLpyFKnmB5kaFdzQ), NOT pump.fun's main deploy program (6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P). The same custom launcher was also used for ATA-creation-plus-transfer to hop-1 recipient 8fCxXEEqdv8a8CZ5QvLm6xzE45qYGZ3iCcRqmLLhDPms and hop-3 recipient 311mKBYRBYSqjEiMWaAvvyEZ99X4vhZrD2GSmTj4uqDY."
+      },
+
+      "hop2_recipients": [
+        { "address": "G4Qye6NsWYaCYCs1eozfcrTfzw2PkXKuyYzL3kQtdtJs", "parent_in_registry": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB", "received_xaic": 15000000, "disposition": "all sold via pumpswap (9 txs)" },
+        { "address": "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed", "parent_in_registry": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "received_xaic": 20000000, "disposition": "all sold (2 txs)" },
+        { "address": "EDDCQrFrEDuRiD8eRyqFLAqZchQwikepgqJFWx1THAdj", "parent_in_registry": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb", "received_xaic": 10000000, "disposition": "all sold (4 txs)" },
+        { "address": "CzE9nLiaapgJgNtxi5gWddBfQRHipnqx5S9vuLBaWwap", "parent_in_registry": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "received_xaic": 20000000, "disposition": "all sold (2 txs); SOL proceeds went to beneficiary YAh1vvZPnuCjZ354LF8ria76cJaSEPvPyPYuRoxVkuH under the delegate pattern" },
+        { "address": "6JJr4RnpmpRVwwM12MSR9mZJTu3n6qPKPtQU9514TvhR", "parent_in_registry": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "received_xaic": 4000000, "disposition": "active wallet (835 lifetime sigs); gross-sold 6.8M after round-trips; ATA closed" },
+        { "address": "7VokUK4WfBTTsoDDmrSQ1x8vLERUWiPfg7vTehTA1f8B", "parent_in_registry": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "received_xaic": 4000000, "disposition": "active wallet (251 lifetime sigs); all 4M sold; ATA closed" },
+        { "address": "3E7o196grf3ZqaVPTV1escwMHTHTAWZqXgpt18QQk7sh", "parent_in_registry": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7", "received_xaic": 10000000, "disposition": "all sold (3 txs)" },
+        { "address": "6kWEJTi7Pn8hYEXocufRZj3AV5FXQoDbHXWdfKDUbU7X", "parent_in_registry": "52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B", "received_xaic": 2000000, "disposition": "sold 1.24M; forwarded 755,393 to hop-3 311mKBYR" }
+      ],
+
+      "hop3_recipients": [
+        { "address": "311mKBYRBYSqjEiMWaAvvyEZ99X4vhZrD2GSmTj4uqDY", "parent": "6kWEJTi7Pn8hYEXocufRZj3AV5FXQoDbHXWdfKDUbU7X", "received_xaic": 755393, "disposition": "all sold via Jupiter-v6 → pumpswap 2m12s after receipt" }
+      ],
+
+      "sol_beneficiary_wallets_delegate_pattern": {
+        "description": "Wallets that received SOL from third-party-signed XAIC sells under delegate/authority — distinct from the XAIC-holder owner accounts. Owner-account SOL deltas understate realized proceeds because proceeds went to these beneficiaries instead. Several appear in paired-symmetric pumpswap-signature patterns (each member of a pair receives half of the realized SOL).",
+        "addresses": [
+          { "address": "YAh1vvZPnuCjZ354LF8ria76cJaSEPvPyPYuRoxVkuH", "received_sol_approx": 38.35, "from": "CzE9 sells" },
+          { "address": "8ncU5YW1CQwvr4gs7buH57bW58e86TDau4STrCJBuz8z", "received_sol_approx": 36.6, "from": "FFvb (+21.01) + 3E7o (+15.59)" },
+          { "address": "GMCJvYGf5Ex2ARiMquaBDqU6iKM8uiEQkB8jCnoNfHpC", "received_sol_approx": 36.6, "from": "FFvb + 3E7o (paired with 8ncU5YW1)" },
+          { "address": "86DHdQfRpghMCmXYKDg93bXtmi3doBL5NeY9DYwAj6rz", "received_sol_approx": 11.16, "from": "CzE9 sells (paired with a counter-account that is recorded with only an 8-character prefix in source)" },
+          { "address": "CdeigPnaYwWLqqmZ9u4Spxk8nPaDFyFQwjNuGzuJjJP6", "received_sol_approx": 12.18, "from": "EDDC sells" },
+          { "address": "4rJggoVMajEUtipev1XhSMjESYk8Zibz6CDHPtUe1mem", "received_sol_approx": 4.8, "from": "EDDC (+3.75) + J5GL (+1.05)" },
+          { "address": "5gTazA5CPKrPZ1vSxXpbmLdmVZrvPYJ9CMnXUfNYoMJZ", "received_sol_approx": 4.8, "from": "EDDC + J5GL (paired with 4rJgg)" },
+          { "address": "51FQwjrvo8J8zXUaKyAznJ5NYpoiTCuqAqCu3HAMB9NZ", "received_sol_approx": 11.69, "from": "J5GL (+10.85) + 6kWEJTi (+0.84)" },
+          { "address": "FxGiN5NkigicwrnFshZEAUH9C13yrBALmgYxA9x8sfnQ", "received_sol_approx": 11.69, "from": "J5GL + 6kWEJTi (paired with 51FQw)" },
+          { "address": "CDxKWsQbe2HWLzvUZ7hAPvhk7381WjFGYMXYVG8Ahdim", "received_sol_approx": 1.42, "from": "6kWEJTi sells" },
+          { "address": "6oFWm7KPLfxnwMb3z5xwBoXNSPP3JJyirAPqPSiVcnsp", "received_sol_approx": 1.42, "from": "6kWEJTi sells (paired with CDxKW)" }
+        ]
+      },
+
+      "interpretive_findings": {
+        "no_cex_exit": "Helius batch identity for all 37 traced addresses (hop1 + hop2 + hop3 + SOL-beneficiaries + source + launcher) returned type=unknown. No traced wallet is a Helius-labeled CEX deposit, bridge, or labeled protocol destination. Everything terminal is the pumpswap AMM pool. Strong negative finding: XAIC sale proceeds did NOT exit to a labeled exchange in the traced window.",
+        "delegate_authority_pattern": "Many hop-1 and hop-2 wallets had XAIC sold by third-party signers under delegate/authority, with SOL landing in beneficiary wallets distinct from the XAIC holder. Owner-account native-SOL deltas therefore understate realized proceeds. Lower-bound total realized SOL across owner accounts ~462 SOL; true total is higher once delegate beneficiaries are counted.",
+        "non_pump_fun_launcher": "XAIC was deployed via non-pump.fun custom launcher DeJBGdMFa1uynnnKiwrVioatTuHmNLpyFKnmB5kaFdzQ — not the pump.fun main deploy program (6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P). Worth flagging in any future deploy-program inventory."
+      }
+    },
+
+    "rxrp_priority_counterparties_extracted": {
+      "description": "Specific instance addresses for the priority counterparties review of RXRP-investigation buyers. Source: data/results/rxrp-priority-counterparties-review-summary-2026-04-24.json. Investigation-notes already records the family-level downgrade verdict in negative_findings_preserved.odin_pinger_family_is_generic_monitoring; these addresses are the specific named instances behind that verdict, plus generic dust/tip/ATA infrastructure surfaced in the same review.",
+
+      "odin_prefix_named_instances": [
+        {
+          "address": "odin8eaAmRDqTwtYBxvPnQ8hHpi8Rxaybg6xVjWbRTb",
+          "context": "odin-prefix sibling, signer in 5/5 most-recent parsed txs at review time. Direct counterparty to canonical RXRP wallet. Sent 8.709 SOL to odinZ in a bounded Arkham window. 0 SOL balance at review.",
+          "interpretation": "Concrete instance of the generic-monitoring odin family — preserve so future reviews can recognize on sight."
+        },
+        {
+          "address": "odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s",
+          "context": "Nansen label 'valhalla.sol'. Received 8.709 SOL from odin8 in bounded Arkham rows. Funded by odinFq in recent txs. 3.232 SOL at review.",
+          "interpretation": "Aggregator/sink for odin family. Same generic-monitoring verdict applies."
+        },
+        {
+          "address": "odinFqDRznBzUHSGdZzkY78AgaCxFRoHe7GTvrvo4Dn",
+          "context": "Active odin-family source/fee-payer. Repeated ~0.4 SOL chunk-funding to odinZ. 10.869 SOL at review.",
+          "interpretation": "Treasury/funder for odin family."
+        }
+      ],
+
+      "generic_dust_and_tip_infrastructure": [
+        {
+          "address": "HJdb87XzJNsiyzvFHoBk2knf7a769DRPPDzskR5LZpyA",
+          "role": "dust_fanout_sender",
+          "context": "Signer + fee payer in 5/5 recent parsed txs. 100 one-lamport outbound system transfers in 5 txs. 0.246 SOL at review. Functionally similar to TriQKRfb (already in notes) but distinct address.",
+          "verdict": "do_not_monitor — broadcaster, not deployer signal."
+        },
+        {
+          "address": "nozrwQtWhEdrA6W8dkbt9gnUaMs52PdAv5byipnadq3",
+          "role": "temporal_tip_account",
+          "context": "Helius identity = 'Temporal Tip Account 16'. Inbound-only. 0.095 SOL at review.",
+          "verdict": "MEV/bundle infrastructure, not deployer-network."
+        },
+        {
+          "address": "noz3jAjPiHuBPqiSPkkugaJDkJscPuRhYnSpbi8UvC4",
+          "role": "temporal_tip_account",
+          "context": "Helius identity = 'Temporal Tip Account 2'. Inbound-only. 0.066 SOL at review.",
+          "verdict": "MEV/bundle infrastructure, not deployer-network."
+        }
+      ],
+
+      "subject_owned_wsol_swap_atas": [
+        {
+          "ata_address": "CciU8bjLd64ZXkDxHxoqf5ntymbKEoRCmxohc7NJA11G",
+          "owner_wallet_in_registry": "AZ57WTNMivT9gjifWcjMRB5K4Eti9P64zhqKEcoUae1x",
+          "context": "Confirmed via Arkham ownerAddress. WSOL plumbing for Jupiter/Phantom. 0 SOL.",
+          "interpretation": "Token account, not a wallet. Recorded so future Nansen counterparty profiles for AZ57WTN don't re-investigate this address as a wallet."
+        },
+        {
+          "ata_address": "CrpgWUb2FmEVxDPXL5cNYva4aNCqGQM76x4shj9gotuV",
+          "owner_wallet_in_registry": "BvYi1ZV99g2Sr8qbZL7hf4zm2hdUnUC47dgcT5WZDZ9J",
+          "context": "Confirmed via Arkham ownerAddress. WSOL plumbing for pump.fun. 0 SOL.",
+          "interpretation": "Token account, not a wallet."
+        }
+      ]
+    },
+
+    "negative_findings_preserved_2026_04_27": {
+      "rxrp_buyers_no_fresh_load_in_5tx_windows": "5-tx parsed windows for the 6 highest-balance RXRP buyer wallets (7iVCXQn4, 7JCe3GHw, 54Pz1e35, 7cthuERB, AZ57WTN, BvYi1ZV9 — all in registry) show active trading or setup churn, not fresh-load / consolidation / deployer-prep transfer patterns. Provider coverage was limited (Nansen 422 on 3 highest-balance wallets; Arkham transfer rows capped at 10 with sample_assessment=partial_only). Verdict scope: surface-level monitoring, not copy-trade-ready. Source: rxrp-full-investigation-summary-2026-04-24.json + wallet-review-rxrp-repump-* trio.",
+      "rxrp_repump_funder_anchors_are_known_cex": "rxrp-repump-screen-results.json identified 2 shared funders for repump-bot pairs: G2YxRa6wt1qePMwfJzdXZG62ej4qaTC7YURzuh2Lwd3t (ChangeNOW Hot Wallet 2) and ASTyfSima4LLAdDgoFGkgqoKowG1LZFDr9fAQrg7iaJZ (MEXC Exchange). Both are known-CEX hot wallets per provider labels — not deployer-network signal. Pairs: B4sW2zUw + 4nNAJVQj share ChangeNOW; 4SsCN1i5 + F8XieEYF share MEXC.",
+      "cross_reference_l1_l10_recurrence": "data/results/cross-reference-report.json (2026-03-31) ran L1-L10 early-buyer recurrence analysis across 292 unique wallets, surfaced 56 recurring. Findings already absorbed into network-map.json registry roles (known_insider, known_infra, network_connected, monitoring). All 56 recurring wallets present in registry — no novel addresses. Methodology pointer: this was the canonical artifact for 'wallet X appears as early buyer in N launches'."
     }
   }
 }
