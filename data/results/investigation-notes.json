@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "description": "Profit extraction routes — the only synthesized findings NOT captured in network-map.json, launch-history.json, or STRATEGY.md",
-    "last_updated": "2026-03-31",
-    "note": "Sections removed in cleanup: confirmed_network_labels (duplicated in network-map.json notes), bqp79wmk_evidence_chain (duplicated in network-map.json monitoring section), funding_path_evolution (now in STRATEGY.md), uninvestigated_counterparties (all 7 resolved, findings in network-map.json), unverified_claims (Ed4UGBWK Rollbit resolved). Raw API responses in archive/raw-results/."
+    "description": "Synthesized findings NOT captured in network-map.json, launch-history.json, or STRATEGY.md. Two top-level sections: profit_extraction_map (long-standing) and extracted_findings_2026_04_26 (cleanup pass).",
+    "last_updated": "2026-04-26"
   },
 
   "profit_extraction_map": {
     "description": "Seven routes for extracting profits from the network.",
+    "last_reviewed": "2026-03-31",
     "route_a": {
       "name": "Collection Wallet Route",
       "flow": "Deployers (L4-L10) + Ed4UGBWK + Bundles + Hub + Eggsheeran + JETNUT → Collection Wallet (Bra1HUNK) → Token Millionaire (49mvMufi, Fireblocks)",
@@ -47,9 +47,176 @@
       "volume": "$6.6K to 7RLD6F9S Fireblocks + $2.2K USDC to yNanvu8H + $1K to Binance"
     },
     "endpoint": {
-      "token_millionaire": "49mvMufixEbUMzZEUVAnbQ8hLLuEWy789XfKUNTz7wCv — Fireblocks Custody. Sends $45.3M to Large Funding Source. NOT deployer-controlled.",
+      "token_millionaire": "49mvMufixEbUMzZEUVAnbQ8hLLuEWy789XfKUNTz7wCv — Fireblocks Custody (Arkham). Sends $45.3M to Large Funding Source. Registry verdict (2026-03-31, not revalidated): does not appear in any traced deployer-network outbound chain in the reviewed window.",
       "total_extracted": "$400K+ confirmed. Routes E and F overlap significantly — Rollbit winnings flow to Coinbase, Coinbase funds flow back to Rollbit."
     },
     "fireblocks_caveat": "Arkham labels many wallets 'Fireblocks Custody' on Solana — broad label covering any wallet interacting with Fireblocks infrastructure. Does NOT mean same entity."
+  },
+
+  "extracted_findings_2026_04_26": {
+    "description": "Findings extracted during 2026-04-26 cleanup pass before deleting source files in archive/raw-results/ (39 files) and archive/handoffs/ (5 SESSION_HANDOFF_*.md). Registry-shape entries kept here so cleanup didn't drop signal. Pending registry promotion via reviewed patch.",
+
+    "novel_wallets_pending_registry_review": [
+      {
+        "address": "9D8xSHWqF9NJWqCtn3rNxYEox63aCbWxYzTMfMur7Cc9",
+        "proposed_role": "cex_hot_wallet",
+        "proposed_label": "Bitstamp Hot Wallet",
+        "source": "Helius getWalletIdentity (2026-04-25); also queued in current-wallet-review-scope.json as proposed_patch_outline",
+        "evidence": "Helius identity = Bitstamp Hot Wallet. ~44,987 SOL balance. Pre-activated MP1 candidate id 148 (6uYzo6ZRYehusYyaaM8XbZE11da98hyaryBtDKVyB8Bb) with 0.135 SOL 11 minutes before MoonPay funding."
+      },
+      {
+        "address": "9Ws5GF8ViemNfrzbybsWHfVCy8kPNbJcjiFWbvGn64La",
+        "proposed_role": "cex_deposit",
+        "proposed_label": "HitBTC Deposit (Arkham)",
+        "source": "archive/raw-results/new-discoveries-profiles.json",
+        "evidence": "Receives $7.5K from registry's ChcEbZW2 across 9 transactions; largest outflow target. Funded by 2ZrTHH1SyvwLPsypKazVUWQ2DjdxZi9xg4XjqkcBe253."
+      },
+      {
+        "address": "8QCVZ7KL65pBhUxbvfwbyyg4ronxNAEXbDrGLYLrRNn5",
+        "proposed_role": "external_trader",
+        "proposed_label": "KuCoin-funded GoonPump trader (~9,878 SOL)",
+        "source": "archive/raw-results/low-priority-profiles.json",
+        "evidence": "Funded by BmFdpraQhkiDQE6SnfG5omcA1VwzqfXrwtNYBwWTymy6 (KuCoin Hot Wallet 2). Sends $701 to GoonPump (231fshU82vSSeyytyCZJUEUG8Ti3UAgnDSoNFGTETCuK)."
+      },
+      {
+        "address": "5c9EM9y2mrr9oJcSAB6WF391CYVAzh8bAYBuPNj2ghDV",
+        "proposed_role": "external_trader",
+        "proposed_label": "Gate.io-funded Distributor → GoonPump",
+        "source": "archive/raw-results/low-priority-profiles.json",
+        "evidence": "Nansen 'Distributor' label. Funded by u6PJ8DtQuPFnfmwHbGFULQ4u4EgjDiyYKjVEsynXq2w (Nansen 'Gate: Wallet'). Sends $1,249 to GoonPump."
+      },
+      {
+        "address": "RB5KKB7hbkuo3gnHk3FBxkBnKqmbyXgLCwBq8Rp7WBe",
+        "proposed_role": "external_infrastructure",
+        "proposed_label": "Rollbit-prefix vanity (anomaly cluster)",
+        "source": "archive/raw-results/low-priority-profiles.json + new-discoveries-profiles.json",
+        "evidence": "Rollbit-prefix vanity. Arkham returns 10 batch-tx hashes shared with sibling RB2Yz3VS. Registry mentions Rollbit batch-tx anomaly in rollbit_deposit notes but doesn't carry this address."
+      },
+      {
+        "address": "RB2Yz3VSt2F4PGZBT4iNfHBi8wmMwG3CKt2GkrBqLoE",
+        "proposed_role": "external_infrastructure",
+        "proposed_label": "Rollbit-prefix vanity sibling of RB5KKB7h",
+        "source": "archive/raw-results/low-priority-profiles.json + new-discoveries-profiles.json",
+        "evidence": "Same anomaly cluster as RB5KKB7h — identical 10 batch-tx hashes."
+      },
+      {
+        "address": "AFXigaYuRKYmvd9HZQCobtZ98FNAwnwpsnjvJRztUGb6",
+        "proposed_role": "external_infrastructure",
+        "proposed_label": "flip-gg.sol gambling-domain dust spammer",
+        "source": "archive/raw-results/high-priority-profiles.json + profit-routing-profiles.json",
+        "evidence": "Solana .sol domain 'lucky🍀flip🎰gg.sol' / 'casino🎲flip🎰gg.sol' (Nansen). Bulk dust-spammer (1 lamport pings) to deployer-network and non-network wallets."
+      },
+      {
+        "address": "BMq4XUa3UCneuw84GBr4DZ5Awam42tefLwxj9q1pGxqG",
+        "proposed_role": "external_infrastructure",
+        "proposed_label": "flip-gg.sol gambling-domain dust spammer (companion of AFXigaYu)",
+        "source": "archive/raw-results/high-priority-profiles.json + profit-routing-profiles.json",
+        "evidence": "Solana .sol domain 'flip🎲gg.sol' / 'flip🍀gg.sol'. Same dust-spam infrastructure."
+      },
+      {
+        "address": "FLipgewPwNeqvwPFW3CvMTLpHTvuX7BQoXC6xhrWiCR3",
+        "proposed_role": "external_infrastructure",
+        "proposed_label": "flip-gg.sol gambling dust spammer (operational pair)",
+        "source": "archive/raw-results/* — 73+ occurrences across 10 raw-result files",
+        "evidence": "Every occurrence is direction=in, amount=1 lamport SOL. Provider enrichment in correct-cashout-profile.json labels source as 'Spam'. Operational pair with FLipG5QHjZe1H12f6rr5LCnrmqjhwuBTBp78GwzxnwkR. See negative_findings_preserved for evidence-scope ruling out deployer-signal interpretation."
+      },
+      {
+        "address": "FLipG5QHjZe1H12f6rr5LCnrmqjhwuBTBp78GwzxnwkR",
+        "proposed_role": "external_infrastructure",
+        "proposed_label": "flip-gg.sol gambling dust spammer (companion of FLipgewP)",
+        "source": "archive/raw-results/* — 70+ occurrences across same 10 raw-result files",
+        "evidence": "Same pattern as FLipgewP. Same provider 'Spam' label."
+      }
+    ],
+
+    "negative_findings_preserved": {
+      "description": "Interpretive findings worth preserving so future passes don't re-investigate.",
+      "flip_prefix_pair_is_not_deployer_signal": "FLipgewPwNeqvwPFW3CvMTLpHTvuX7BQoXC6xhrWiCR3 + FLipG5QHjZe1H12f6rr5LCnrmqjhwuBTBp78GwzxnwkR were initially considered as parallel to the 2Zi-prefix vanity cluster. Evidence rules that out: (a) bulk-fanout to many unrelated wallets including out-of-network targets (e.g. 9exPdTUV Fireblocks passthrough); (b) provider-enrichment labels source as 'Spam'; (c) infrastructure for the flip-gg.sol gambling/casino dusting service — companion vanity wallets AFXigaYu and BMq4XUa3 carry Nansen .sol domain labels for casino🎲flip🎰gg.sol etc. Verdict: gambling-domain dust-spammer, not deployer signal.",
+      "odin_pinger_family_is_generic_monitoring": "Per SESSION_HANDOFF_2026-04-25.md analytical finding 1: odin-prefix family (8+ siblings observed) appears to be a generic fresh-wallet monitoring service (likely MEV/sniper). Earlier CoinSpot-batch interpretation that odin pings were a deployer signal is materially weakened by direct evidence: odin pingers were observed pinging confirmed memecoin traders within hours of MoonPay funding. HYM-prefix tradecraft on L10 deployer (preserved in current-wallet-review-scope.json) remains the only confirmed deployer-network vanity signal beyond 2Zi.",
+      "tri_prefix_is_broadcast_pinger": "TriQKRfbS1v63hvHpLWNnb51VL9GvVeotTYYXSfUDHb attempted 1-lamport pings to 20+ wallets in a single failed multi-target tx — broadcaster behavior, not targeted-operator behavior. Low signal."
+    },
+
+    "suggestive_leads_low_confidence": [
+      {
+        "address": "J5XGHmzrRmnYWbmw45DbYkdZAU2bwERFZ11qCDXPvFB5",
+        "context": "Arkham 'J5XGHm on Pump.fun' (Pump.fun deployer alias), 317.9 SOL balance. Direct counterparty in RXRP repump trace.",
+        "source_file": "archive/raw-results/rxrp-priority-counterparties-live-2026-04-24.json",
+        "next_step": "Layer-1/Layer-2 profiling before promotion."
+      },
+      {
+        "address": "FKjuwJzHJYAhYWNiNxPD99eC1a4yPrKVmhZtDXfUe7Md",
+        "context": "Distinct address from registry's FKjuwJzHn4hqSfarMMsKjzsNUzEuWzzDM4ZcqJzuATqu. Profile claims funding-chain inbound but Helius shows 0 sigs / 0 transfers / 0 balance.",
+        "source_file": "archive/raw-results/bqp79wmk-deep-dive.json",
+        "next_step": "Verify on-chain — likely transcription error (CLAUDE.md primitive-integrity past-incidents flagged FKjuw prefix specifically)."
+      },
+      {
+        "address": "4zYN1egnV8zzxNT6UcrwC6NgkjAYzL8YuRyXzsPGogfR",
+        "context": "Arkham 'daddyisback on Pump.fun'. Single-tx sender to registry's 21wG4F3Z (binance_deposit_generic, not_network).",
+        "source_file": "archive/raw-results/profit-routing-profiles.json",
+        "next_step": "Likely external retail. Drop unless other links surface."
+      }
+    ],
+
+    "evidence_pointers_kept_in_data_results": {
+      "description": "Handoff narratives were synthesis. The underlying evidence files remain in data/results/ and are the source-of-truth for these findings.",
+      "susye_mass_arming_l11_evidence": "data/results/figg-l11-armed-check-2026-04-25.json — SUSYE deployer 2Zizao3xpJGsoUFdvTJjYL8LijtFxR9v36cNBeDJJVSz funded 9 wallets in a 12-min window 2026-04-22 12:59-13:11 UTC, each bracketed by 2Zi-prefix dust pings (decisive H1 evidence for SUSYE/DmA9 half). Tier-1 L11 candidate list lives in this file.",
+      "operator_known_dev_wallets_cross_ref": "data/results/operator-known-dev-wallets-2026-04-25.json — 33 operator-supplied dev wallets, 21 already in registry, 12 net-new, 1 dropped (HV1KXxWFaSeriyFvXyx48FqG9BoFbfinB8njCJonqP7K = OKX DEX Router Authority, not a wallet). Zero overlap with Figg-cluster member set.",
+      "figg_phase_d_arkham_attribution": "data/results/figg-phase-d-attribution-extracted-2026-04-25.json — 77-address Arkham label sweep. Confirmed labels: 2eVVdqWN4t7umzXGxJ21uTpB5WrUyyQMYnkq6UHtg3ba + 83Nf4kNbeaRSGwjYyStK4F3ctmH3v5Yar2GmWv9fJqf6 = Rainbet Deposit; 5HQZd9ovzAF1TLnHRAq1zcSnXC9HAp3EwhoxMHvo8rxB = Rainbet Hot Wallet; 2wGZCehkDBMDPLMNXJjFf7kjAm46MJV3t3htmGVa4S16 = Kraken Deposit; 43PcTMd37rBVECXqPjqSHBaM2JMPbiFvpF2Eei8u3LyU = Coinbase Deposit; 784bxhz6xUA88Rk6jb1aTU7FjjkoxAmASsrSDEry2Zvw = userEntity 'Panther'. Pending registry-note updates.",
+      "h1_vs_h2_session_verdict": "2026-04-25 session verdict: ~70-75% H1 (sniper network is deployer-owned silo). SUSYE/DmA9 half is unambiguously dev (mass-arming + dust signaling cannot be explained under H2). Figg half H1-leaning (shared Bloom config + same on-ramp MP2 + same-slot synchronized launches at L10) but cashout-terminus convergence not yet exhaustively traced. To close to >90% H1: any Figg-cluster terminus reaching Bra1HUNK / 49mvMufi / J6YUyB4P (Coinbase deposit) or shared Fireblocks deposit.",
+      "7dkvxgj_open_question": "data/results/figg-phase-d-attribution-2026-04-25.json — 7DkvxGJbv9qiNGqqE7VZ5jdg6SLDgBtem7NgaiPmnrzA Arkham label '7dkvxg on Pump.fun' with 3 Created Tokens: HEZdEXw8rirh9NhY9aqyDC3ExGzMs2hQRTRpASD8pump, zjZfVkorGxFT6TyHSv2a34SK9TuEEoh4az34jfUpump, CcDdm6YQX5Z6mrq68siqepNUSTjRWQ3McKR89aGFXray. Decisive H1/H2 test deferred: if any block-0 buyer of these 3 tokens is in Figg-cluster or known deployer-network, that's H1-decisive."
+    },
+
+    "follow_up_destinations_unprofiled": [
+      {
+        "address": "7q6rJvHaTt3m2ALP61SRcQgbPzr1w2yLFAmUiaRvkLJj",
+        "context": "Received 16.767 SOL from RXRP-chain candidate id 86 (FTX-US-insider chain).",
+        "preserved_in": "data/current-wallet-review-scope.json"
+      },
+      {
+        "address": "BUen8C3J8AsJQiWXfGfvDGCPzceaNRMEH4ctcKKu9Hm3",
+        "context": "Received 19.9 SOL from MP1 candidate id 77.",
+        "preserved_in": "data/current-wallet-review-scope.json"
+      }
+    ],
+
+    "infrastructure_attribution_preserved_pre_deletion": {
+      "description": "Attribution-grade endpoint addresses that were only documented in deleted source files. Lower-priority than novel_wallets, but worth preserving so future passes don't re-derive.",
+
+      "fireblocks_9cdd_top_outflow_terminuses": {
+        "context": "Top USD outflow targets from registry's Fireblocks Custody address 9cDDJ5g2wPqVZUZwpPuwqzxN7ouvc6QFauFwrX2TTTAX. Source: data/results/figg-hop3-trace.json (deleted in commit da64bafc), referenced from SESSION_HANDOFF_2026-04-25_PART3_7DK_FIREBLOCKS.md §4.2 B5 + §6.3 (also being deleted in this pass).",
+        "addresses": [
+          { "address": "3PEUyMXWeZHddYBwtd21S3WYK9AeoCEp9KkUTVX8smer", "volume": "$31M USDC out from 9cDDJ5g2" },
+          { "address": "FHEprhHtHPES6XVcmW7eBRbZAvASQRJcvEB7DFiuW7co", "volume": "$26M SOL out from 9cDDJ5g2" },
+          { "address": "FH9tJjXfkhi6zAgPTnkmccnhGdCYtyLX9psyYuRMXSij", "volume": "$20M (handoff was internally inconsistent on USDT vs USDC; preserve dollar volume only)" },
+          { "address": "C74G2Bn4WPuc9h5gWEingUkAusvnWVc2s2YRHWwAV9yB", "volume": "$18M SOL" },
+          { "address": "DmNv9S8iGbHkS8oGzx6BdsrQTLUsUQhESLSFs77zQ2n7", "volume": "$13M SOL" }
+        ],
+        "next_step": "Probe each for Arkham labels — may resolve as Fireblocks-internal trading routes vs specific exchange deposits. Decisive for the H1/H2 cashout-terminus convergence test."
+      },
+
+      "ed4ugbwk_profit_pass_1_cashout_endpoints": {
+        "context": "Cashout terminus addresses for the profit_pass_1 → Ed4UGBWK → exchange-deposit chain. Source: archive/raw-results/suspect-address-verification.json + infra-verify.json (both deleted in this pass). Registry's profit_pass_1 entry describes '$247K out, 711 txs' but does not enumerate destinations — these 13 endpoints are the destinations. Labels are Nansen-attributed.",
+        "shuffle_com_deposit": [
+          "mA9EcVaT8WPzPnWoLimuNBZTjnSj64eEXBxCXsx6zCg",
+          "EsaVUVXfF4jwCvUniLTCjALmmC8LnQ4aNxPuuEGe4noX",
+          "EsDC9jE8Wsejs2USCeRyL1npvaBWrMHFQ8r9w2MQKgLN"
+        ],
+        "stake_com_deposit": [
+          "8esnHeVdnkviGvzodAxZ45cnVgGeUpabAggXx315HQnV",
+          "9zznEa9tByWRbQoKVDpFzvr6pKbgQ2EvYxp5QqohzJB2",
+          "EhrGTTErLYGAV848ijpDVLSjdb7RzKMqo8WfBNEDpCUv",
+          "x6cbZ4eVYi9KwR6wYCwn519RUtBDwbeGdcAZB8fz9T9",
+          "258s69etWZVbqCQqFLzEw9bpLH8Feuj6iTAjp6qYpsYA",
+          "2gVDcepKoQQyQ4koGTHcc3V5iP5rCE8XdpGisrYTeGcw"
+        ],
+        "bitvavo_deposit": "8Eowk5EQDZyPTBiA2pMrUCxUR1HH9LD1A3Tx5Mi5wPeZ",
+        "bitgo_custody": "8k5Ha9VWSbCo3Z73BsKD78pBfFzHknSpGHsRMHEfTSw4",
+        "kucoin_deposit": [
+          "HEvbq8H3taZHSGZbpYNv5uTFAo2J3CeswgKjNCik4yQP",
+          "GKap3ktPNZKN1VnUw7vEgv43J7WqA5CwQBDXFTztx9Zp"
+        ],
+        "framing": "Extends profit_extraction_map. Routes A/D/E/F documented Coinbase/Rollbit/Binance/Fireblocks. Stake.com / Shuffle.com / Bitvavo / Bitgo / KuCoin are net-new endpoint attribution at the profit_pass_1 → Ed4UGBWK cashout layer."
+      }
+    }
   }
 }
