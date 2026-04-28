@@ -336,7 +336,7 @@
     },
 
     "xaic_asset_trace_extracted": {
-      "description": "Complete asset-disposition trace of 326,752,146 XAIC tokens (L4-era token allocated to registry's known_infra wallet 37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2). Source: data/results/xaic-asset-trace.json. Hop-1 recipients are all in registry already; hop-2/hop-3/SOL-beneficiaries are novel here. 99.9985% sold via pumpswap pool (EDrEnp4twH2Bjzp28hdrrWPdN9sMyRCCMWCkXfnPc8yH); 0% reached labeled exchange. One paired beneficiary is recorded with only an 8-character prefix in source — not preserved verbatim here.",
+      "description": "Complete asset-disposition trace of 326,752,146 XAIC tokens. XAIC is the L10 launch token (mint KfByHk48ecitUq8gXji2vr9smmRJKtqJwGAh2E9pump): L10 Deployer 2mZzsVKNz1zJKRnLz2X74qGPMcSNGCkRM1U5BShsVMVB transferred 100% to OG Deployer 37XxihfsTW1EFSJJherWFRFWcAFhj4KQ66cXHiegSKg2 at +44 seconds post-deploy, and OG Deployer is the source-wallet of this disposition trace. Source: data/results/xaic-asset-trace.json. Hop-1 recipients are all already in registry; hop-2/hop-3/SOL-beneficiaries are novel here. 99.9985% sold via pumpswap pool (EDrEnp4twH2Bjzp28hdrrWPdN9sMyRCCMWCkXfnPc8yH); 0% reached labeled exchange. One paired beneficiary is recorded with only an 8-character prefix in source — not preserved verbatim here.",
 
       "xaic_token_infrastructure": {
         "mint": "KfByHk48ecitUq8gXji2vr9smmRJKtqJwGAh2E9pump",
@@ -347,9 +347,9 @@
 
       "hop2_recipients": [
         { "address": "G4Qye6NsWYaCYCs1eozfcrTfzw2PkXKuyYzL3kQtdtJs", "parent_in_registry": "6M2Pp3vkmNaoq9idYsU8fcNZKUJnVqHuhtx8D5e6maB", "received_xaic": 15000000, "disposition": "all sold via pumpswap (9 txs)" },
-        { "address": "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed", "parent_in_registry": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "received_xaic": 20000000, "disposition": "all sold (2 txs)" },
+        { "address": "FFvb2ZQrjzMAgDpvHs8jVA5nJjTs1NnXD6wqTC3FKVed", "parent_in_registry": "v49jgwyQy9zu4oeemnq3ytjRkyiJth5HKiXSstk8aV5", "received_xaic": 20000000, "disposition": "all sold (2 txs); ALSO operator-tagged dev wallet at L6/L7/L9 per kept file operator-known-dev-wallets-2026-04-25.json (not_in_registry list)" },
         { "address": "EDDCQrFrEDuRiD8eRyqFLAqZchQwikepgqJFWx1THAdj", "parent_in_registry": "D7MsVpaXFP9sBCr8em4g4iGKYLBg2C2iwCAhBVUNHLXb", "received_xaic": 10000000, "disposition": "all sold (4 txs)" },
-        { "address": "CzE9nLiaapgJgNtxi5gWddBfQRHipnqx5S9vuLBaWwap", "parent_in_registry": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "received_xaic": 20000000, "disposition": "all sold (2 txs); SOL proceeds went to beneficiary YAh1vvZPnuCjZ354LF8ria76cJaSEPvPyPYuRoxVkuH under the delegate pattern" },
+        { "address": "CzE9nLiaapgJgNtxi5gWddBfQRHipnqx5S9vuLBaWwap", "parent_in_registry": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "received_xaic": 20000000, "disposition": "all sold (2 txs); SOL proceeds went to beneficiary YAh1vvZPnuCjZ354LF8ria76cJaSEPvPyPYuRoxVkuH under the delegate pattern; ALSO operator-tagged dev wallet at L7 per kept file operator-known-dev-wallets-2026-04-25.json (not_in_registry list)" },
         { "address": "6JJr4RnpmpRVwwM12MSR9mZJTu3n6qPKPtQU9514TvhR", "parent_in_registry": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "received_xaic": 4000000, "disposition": "active wallet (835 lifetime sigs); gross-sold 6.8M after round-trips; ATA closed" },
         { "address": "7VokUK4WfBTTsoDDmrSQ1x8vLERUWiPfg7vTehTA1f8B", "parent_in_registry": "EvcWdhdjB2SG2x8hrsxSFuxbf5azu5rpPSmepismXMYc", "received_xaic": 4000000, "disposition": "active wallet (251 lifetime sigs); all 4M sold; ATA closed" },
         { "address": "3E7o196grf3ZqaVPTV1escwMHTHTAWZqXgpt18QQk7sh", "parent_in_registry": "91CuNTxyGkUvMU8hgzBHSW8FPEHArt767dApEoVsLRn7", "received_xaic": 10000000, "disposition": "all sold (3 txs)" },
@@ -390,8 +390,9 @@
       "odin_prefix_named_instances": [
         {
           "address": "odin8eaAmRDqTwtYBxvPnQ8hHpi8Rxaybg6xVjWbRTb",
-          "context": "odin-prefix sibling, signer in 5/5 most-recent parsed txs at review time. Direct counterparty to canonical RXRP wallet. Sent 8.709 SOL to odinZ in a bounded Arkham window. 0 SOL balance at review.",
-          "interpretation": "Concrete instance of the generic-monitoring odin family — preserve so future reviews can recognize on sight."
+          "context": "odin-prefix sibling, signer in 5/5 + fee payer in 4/5 most-recent parsed txs at review time. Direct counterparty to canonical RXRP wallet. Sent 8.709 SOL to odinZ in a bounded Arkham window. 0 SOL balance at review (drained).",
+          "review_classification": "active_signer_fee_payer_with_material_settlement, control_confidence=medium, recommended_action=watch_for_rearm_if_refunded",
+          "interpretation": "Concrete instance of the generic-monitoring odin family. The medium control_confidence + drained-but-active pattern is worth watching for re-arm; this is the actionable subset of the odin family."
         },
         {
           "address": "odinZCYLkjzeAxhZ8uF6Eea1GF6iPczsPbKSEnh7A7s",
@@ -442,8 +443,20 @@
       ]
     },
 
+    "resolved_prior_lead_j5xghm": {
+      "address": "J5XGHmzrRmnYWbmw45DbYkdZAU2bwERFZ11qCDXPvFB5",
+      "prior_status_in_2026_04_26_section": "suggestive_leads_low_confidence with next_step 'Layer-1/Layer-2 profiling before promotion' under the assumption it was an Arkham-labeled 'J5XGHm on Pump.fun' deployer alias.",
+      "resolution_from_data_results_review": "rxrp-priority-counterparties-review-summary-2026-04-24.json classifies as terminal_fees_account with provider label 'Helius: Terminal (formerly Padre) Fees'. 317.9 SOL balance is consistent with a fees-collection account, not a deployer wallet. Helius identity beats Arkham label here.",
+      "resolved_verdict": "External infrastructure (Terminal/Padre Fees), do_not_monitor_as_network_wallet despite large balance. Removes the 'next_step: profile' lead from the prior section."
+    },
+
+    "5my_to_jetnut_to_wfxrp_observation": {
+      "description": "On L11 day 2026-04-25, registry's Jetnut Network wallet FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE (20.25 SOL at 21:04 UTC snapshot) bought 1.93M + 415K WFXRP (an OG-Deployer-created sister token) and bundled to 3 recipients via the 5MytJoczvqkiYPjTrvviqCjudw46ZwTLaLkQsVUB4irj feed. Source: data/results/l11-deploy-watchlist-2026-04-25.json.",
+      "implication": "Connects the new 5My infrastructure cluster (in this section's novel_infrastructure_5my_cluster_pending_registry_review) to the existing Jetnut Network registry entry via a coordinated WFXRP buy + bundle. Strengthens the 5My-cluster registry-promotion case: 5My is not just a USDC-aggregation hub but is also feeding deployer-network bundle activity on launch days."
+    },
+
     "negative_findings_preserved_2026_04_27": {
-      "rxrp_buyers_no_fresh_load_in_5tx_windows": "5-tx parsed windows for the 6 highest-balance RXRP buyer wallets (7iVCXQn4, 7JCe3GHw, 54Pz1e35, 7cthuERB, AZ57WTN, BvYi1ZV9 — all in registry) show active trading or setup churn, not fresh-load / consolidation / deployer-prep transfer patterns. Provider coverage was limited (Nansen 422 on 3 highest-balance wallets; Arkham transfer rows capped at 10 with sample_assessment=partial_only). Verdict scope: surface-level monitoring, not copy-trade-ready. Source: rxrp-full-investigation-summary-2026-04-24.json + wallet-review-rxrp-repump-* trio.",
+      "rxrp_buyers_no_fresh_load_in_5tx_windows": "5-tx parsed windows for the 6 highest-balance RXRP buyer wallets (7iVCXQn4, 7JCe3GHw, 54Pz1e35, 7cthuERB, AZ57WTN, BvYi1ZV9 — all in registry) show active trading or setup churn, not fresh-load / consolidation / deployer-prep transfer patterns. Provider coverage was limited (Nansen 422 on 3 highest-balance wallets; Arkham transfer rows capped at 10 with sample_assessment=partial_only). Source operational guidance: treat as pre-deploy monitor surfaces first, copy-trade value second; do not downshift the canonical registry verdicts from this narrow-window observation. Source: rxrp-full-investigation-summary-2026-04-24.json + wallet-review-rxrp-repump-* trio.",
       "rxrp_repump_funder_anchors_are_known_cex": "rxrp-repump-screen-results.json identified 2 shared funders for repump-bot pairs: G2YxRa6wt1qePMwfJzdXZG62ej4qaTC7YURzuh2Lwd3t (ChangeNOW Hot Wallet 2) and ASTyfSima4LLAdDgoFGkgqoKowG1LZFDr9fAQrg7iaJZ (MEXC Exchange). Both are known-CEX hot wallets per provider labels — not deployer-network signal. Pairs: B4sW2zUw + 4nNAJVQj share ChangeNOW; 4SsCN1i5 + F8XieEYF share MEXC.",
       "cross_reference_l1_l10_recurrence": "data/results/cross-reference-report.json (2026-03-31) ran L1-L10 early-buyer recurrence analysis across 292 unique wallets, surfaced 56 recurring. Findings already absorbed into network-map.json registry roles (known_insider, known_infra, network_connected, monitoring). All 56 recurring wallets present in registry — no novel addresses. Methodology pointer: this was the canonical artifact for 'wallet X appears as early buyer in N launches'."
     }
