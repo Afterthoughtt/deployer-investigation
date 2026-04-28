@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Known wallet addresses in the deployer network",
-    "updated": "2026-04-21"
+    "updated": "2026-04-27"
   },
   "deployers": {
     "L4": {
@@ -690,6 +690,27 @@
       "role": "network_connected",
       "verdict": "network",
       "notes": "DISCOVERED 2026-04-02. Funded by BloFin Insider Hub (BDVgXauN). $94K volume with BloFin Hub. Part of BloFin sniper infrastructure (same network as 9J9VHoLW and CJVEFdRS). L4-L6 early buyer."
+    },
+    "5MytJocz": {
+      "address": "5MytJoczvqkiYPjTrvviqCjudw46ZwTLaLkQsVUB4irj",
+      "label": "5My Aggregator",
+      "role": "network_connected",
+      "verdict": "network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown (not exchange/protocol). 0.23 SOL at profile (drained-after-forward shape). Daily fresh-wallet pre-staging pump April 18-23 2026: sent ~8-9 SOL to a different fresh wallet each day, including L11 Tier-S survivor J1AbcjeSmAvPQb8XnCFszhpj6DpYyqXJiQgsiBxeXvp7 (8.457 SOL on 2026-04-21). Five sibling fresh wallets that drained pre-launch: 8CvuX95RTCCBfUY8cUET8FQZusoY49yUkQxTEL2skYyq (Apr 18), 37KoU8ysiyhKkrwEnFzqHFuJscQy3uAZAAXpeakXnnSf (Apr 19), AfAtbk3AfN9NdQ8DDLf4CZpeR9hkbzhyj4Pf4gqK5v1g (Apr 20), 7DPDLZDyWgenjdknmJQ98KT2fqh3pLvJMwLBzJz5jph7 (Apr 22), 2pJkaJQLVcaRhH1ZZ5a8UtfDN5w5k9YdAZH3VX1wvCTi (Apr 23). Receives SOL chunks from L9 Funder 52eC8Uy5eFkwpGbDbXp1FoarxkR8MonwUvpm2WT9ni5B; runs USDC-out paired with WSOL-in via AMM/router program accounts (8FnX3xo2yYw3EUE6w3nQA4GfXGS9wpK6oj3veJpbFzLo, 9qwW5rE7a98JgGZcRqW63debUhsiaQky8RxhnYnCUrbb). On L11 day 2026-04-25 sent ~12.4 SOL to Jetnut Network FSbvLdrK1FuWJSNVfyguDQgvt93Zk92KnGxxSHoFjAyE across 3 transactions. Co-tx coupled with 3pZGWBsDWs8Pe7mrUBgeuGZbUzoweB5RjtcQvDkhtPi2 + 5MyJWEDSfGgY3yV9XDCQd5uv9u6aoxcWxxKo47oqSirj in the pre-staging txs. Bypasses both MoonPay and CoinSpot monitor sieves — recommend monitor source-event addition for L9 Funder + 5MytJocz USDC outflows."
+    },
+    "3pZGWBsD": {
+      "address": "3pZGWBsDWs8Pe7mrUBgeuGZbUzoweB5RjtcQvDkhtPi2",
+      "label": "5My Coordinator",
+      "role": "network_connected",
+      "verdict": "network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown. 8.103 SOL at profile (drawn down from 50.12 SOL snapshot 2026-04-25). Recirculation/coordination wallet paired with 5MytJoczvqkiYPjTrvviqCjudw46ZwTLaLkQsVUB4irj aggregator and 5MyJWEDSfGgY3yV9XDCQd5uv9u6aoxcWxxKo47oqSirj splitter — appears in same transactions as the daily ~8 SOL fresh-wallet pre-staging chunks April 18-23 2026. Active multi-recipient ping-pong outflows observed 2026-04-28 — distributor shape, not passive reserve as initially characterized."
+    },
+    "5MyJWED": {
+      "address": "5MyJWEDSfGgY3yV9XDCQd5uv9u6aoxcWxxKo47oqSirj",
+      "label": "5My Splitter",
+      "role": "network_connected",
+      "verdict": "network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown. 0 SOL at profile (drained — splitter operational pattern). Six lifetime transfers visible, all co-tx with the 5MytJoczvqkiYPjTrvviqCjudw46ZwTLaLkQsVUB4irj fresh-wallet pre-staging events on 2026-04-20 and 2026-04-21. Couples 3pZGWBsDWs8Pe7mrUBgeuGZbUzoweB5RjtcQvDkhtPi2 treasury with 5MytJocz aggregator inside the same multi-instruction funding transactions. Multi-recipient splitter component of the 5My pre-staging cluster."
     }
   },
   "rxrp_repump_network": {
@@ -1364,6 +1385,76 @@
       "role": "terminal_institutional",
       "verdict": "unknown",
       "notes": "DISCOVERED 2026-04-22. 31,166 SOL balance. Receives 647 SOL from 9exPdTUV (L7 deployer's consolidation wallet). Outflows $billions in USDC/USDT/SOL to 3PEUyMXWe, FHEprhHtH, FH9tJjXf, C74G2Bn4, DmNv9S8i, AfrBFp4u, etc. Likely an OTC/market-maker desk or unattributed CEX. Effective terminus."
+    },
+    "9D8xSHWq_bitstamp_hw": {
+      "address": "9D8xSHWqF9NJWqCtn3rNxYEox63aCbWxYzTMfMur7Cc9",
+      "label": "Bitstamp Hot Wallet",
+      "role": "liquidity_provider",
+      "verdict": "pending_verification",
+      "notes": "PROFILED 2026-04-27. Helius identity = Bitstamp Hot Wallet (exchange | Centralized Exchange). 47,391 SOL balance. Distinct address from registry's Bitstamp Exchange 2 (HBxZShcE86UMmF93KUM8eWJKqeEXi5cqWCLYLMMhqMYm) which feeds MoonPay MP4. Behavioral observation per archive/raw-results: pre-activated MP1 Tier-S candidate 6uYzo6ZRYehusYyaaM8XbZE11da98hyaryBtDKVyB8Bb with 0.135 SOL, 11 minutes before MoonPay funding. Sub-1-SOL pre-activation by an exchange hot wallet is unusual for routine customer withdrawal; verdict held at pending_verification until the dust-activation behavior is investigated for sieve-bypass relevance."
+    },
+    "9Ws5GF8V_hitbtc_deposit": {
+      "address": "9Ws5GF8ViemNfrzbybsWHfVCy8kPNbJcjiFWbvGn64La",
+      "label": "HitBTC Deposit (Arkham-attributed)",
+      "role": "cex_deposit",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown. Arkham labels as HitBTC Deposit per archive/raw-results. 119.79 SOL balance, active aggregator: many small inbound senders, bulk USDT/SOL outflow forwarded to single recipient BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G (presumed HitBTC main hot wallet). Per source, registry's ChcEbZW2 sent ~$7.5K to this address across 9 transactions — represents an outflow terminus reachable from a network_connected wallet. External CEX deposit aggregator, outside deployer infrastructure scope."
+    },
+    "8QCVZ7KL_uphold_hw5": {
+      "address": "8QCVZ7KL65pBhUxbvfwbyyg4ronxNAEXbDrGLYLrRNn5",
+      "label": "Uphold Hot Wallet 5",
+      "role": "terminal_cex",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = Uphold Hot Wallet 5 (exchange | Centralized Exchange). 9,618 SOL balance — exchange-class. CORRECTION: archive/raw-results characterized this as a 'KuCoin-funded GoonPump trader (~9,878 SOL)' but Helius identifies it as Uphold's hot wallet itself, not a customer-trader. Per source, sent $701 to GoonPump 231fshU82vSSeyytyCZJUEUG8Ti3UAgnDSoNFGTETCuK (network_connected). External Uphold infrastructure with negligible inbound to a network_connected wallet."
+    },
+    "5c9EM9y2_distributor": {
+      "address": "5c9EM9y2mrr9oJcSAB6WF391CYVAzh8bAYBuPNj2ghDV",
+      "label": "Generic USDT Distributor (Nansen 'Distributor')",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown. Nansen labels 'Distributor' per archive/raw-results. 10.55 SOL, active multi-recipient USDT fanout (29 outbound chunks of 13.96-23.94 USDT in ~1.5 hours observed 2026-04-28). Per source, funded by u6PJ8DtQuPFnfmwHbGFULQ4u4EgjDiyYKjVEsynXq2w (Nansen 'Gate: Wallet') and sent $1,249 to GoonPump 231fshU82vSSeyytyCZJUEUG8Ti3UAgnDSoNFGTETCuK (network_connected). Generic distributor service with single small inbound to a network_connected wallet — no deployer infrastructure role."
+    },
+    "RB5KKB7h_rollbit_vanity": {
+      "address": "RB5KKB7hbkuo3gnHk3FBxkBnKqmbyXgLCwBq8Rp7WBe",
+      "label": "Rollbit-prefix vanity (anomaly cluster)",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown. 0 SOL. Rollbit-prefix vanity. Per archive/raw-results, Arkham returns 10 batch-tx hashes shared with sibling RB2Yz3VSt2F4PGZBT4iNfHBi8wmMwG3CKt2GkrBqLoE — same anomaly pattern referenced in registry's rollbit_deposit (RB3dQF6T) entry. Rollbit infrastructure noise, outside deployer scope."
+    },
+    "RB2Yz3VS_rollbit_vanity": {
+      "address": "RB2Yz3VSt2F4PGZBT4iNfHBi8wmMwG3CKt2GkrBqLoE",
+      "label": "Rollbit-prefix vanity sibling of RB5KKB7h",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown. 0 SOL. Sibling vanity to RB5KKB7hbkuo3gnHk3FBxkBnKqmbyXgLCwBq8Rp7WBe in the same 10-batch-tx anomaly per archive/raw-results. Rollbit infrastructure noise, outside deployer scope."
+    },
+    "AFXigaYu_flip_gg_dust": {
+      "address": "AFXigaYuRKYmvd9HZQCobtZ98FNAwnwpsnjvJRztUGb6",
+      "label": "flip-gg.sol gambling dust spammer",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown. 0 SOL. Solana .sol domain 'lucky🍀flip🎰gg.sol' / 'casino🎲flip🎰gg.sol' (Nansen) per archive/raw-results. Bulk 1-lamport dust-spammer to deployer-network and external wallets. Companion of BMq4XUa3UCneuw84GBr4DZ5Awam42tefLwxj9q1pGxqG, FLipgewPwNeqvwPFW3CvMTLpHTvuX7BQoXC6xhrWiCR3, FLipG5QHjZe1H12f6rr5LCnrmqjhwuBTBp78GwzxnwkR. Gambling-domain dust service, resolved as monitoring noise."
+    },
+    "BMq4XUa3_flip_gg_dust": {
+      "address": "BMq4XUa3UCneuw84GBr4DZ5Awam42tefLwxj9q1pGxqG",
+      "label": "flip-gg.sol gambling dust spammer (companion of AFXigaYu)",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = unknown. 0 SOL. Solana .sol domain 'flip🎲gg.sol' / 'flip🍀gg.sol' (Nansen) per archive/raw-results. Same dust-spam infrastructure as AFXigaYuRKYmvd9HZQCobtZ98FNAwnwpsnjvJRztUGb6, FLipgewPwNeqvwPFW3CvMTLpHTvuX7BQoXC6xhrWiCR3, FLipG5QHjZe1H12f6rr5LCnrmqjhwuBTBp78GwzxnwkR. Gambling-domain dust service, resolved as monitoring noise."
+    },
+    "FLipgewP_flip_gg_dust": {
+      "address": "FLipgewPwNeqvwPFW3CvMTLpHTvuX7BQoXC6xhrWiCR3",
+      "label": "flip-gg.sol gambling dust spammer (Helius: Spam)",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = Spam Dusting Account (FLipge) (wallet | Spam) — provider-confirmed spam classification. 0.015 SOL. Operational pair with FLipG5QHjZe1H12f6rr5LCnrmqjhwuBTBp78GwzxnwkR. 73+ occurrences across 10 archive/raw-results files, every direction=in amount=1 lamport SOL. Gambling-domain dust spammer companion to AFXigaYuRKYmvd9HZQCobtZ98FNAwnwpsnjvJRztUGb6 and BMq4XUa3UCneuw84GBr4DZ5Awam42tefLwxj9q1pGxqG. Resolved as monitoring noise."
+    },
+    "FLipG5QH_flip_gg_dust": {
+      "address": "FLipG5QHjZe1H12f6rr5LCnrmqjhwuBTBp78GwzxnwkR",
+      "label": "flip-gg.sol gambling dust spammer (Helius: Spam)",
+      "role": "resolved",
+      "verdict": "not_network",
+      "notes": "PROFILED 2026-04-27. Helius identity = Spam Dusting Account (FLipG5) (wallet | Spam) — provider-confirmed. 0.515 SOL. Operational pair with FLipgewPwNeqvwPFW3CvMTLpHTvuX7BQoXC6xhrWiCR3. 70+ occurrences across same 10 archive/raw-results files. Gambling-domain dust spammer companion to AFXigaYuRKYmvd9HZQCobtZ98FNAwnwpsnjvJRztUGb6 and BMq4XUa3UCneuw84GBr4DZ5Awam42tefLwxj9q1pGxqG. Resolved as monitoring noise."
     }
   },
   "known_programs": {
